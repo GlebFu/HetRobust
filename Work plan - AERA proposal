@@ -1,0 +1,34 @@
+AERA proposal submission due 7/22/2015
+
+6/2
+- GF: replicate example from Lipsitz et al.
+- GF: revise code for Lipsitz simulation per Pusto's feedback
+- JEP: prepare notes on Satterthwaite, Edgeworth, and saddlepoint approximations
+
+6/9
+- GF: Program DGM and simulation conditions for Long & Ervin simulation
+
+6/16
+- GF: Replicate Long & Ervin simulation with HCO, HC1, HC2, HC3, HC4, HC4m, HC5
+- JEP: Review DGM and simulation conditions for Long & Ervin simulation
+
+6/23
+- GF: Program Edgeworth approximations
+- GF: Program Saddlepoint approximation
+- JEP: Outline AERA proposal
+
+6/30
+- GF: Replicate small simulation in Kauermann & Carroll (2001)
+- GF: Conduct test runs of full simulation, estimate computation time
+- JEP: Draft methods section
+
+7/7
+- GF: Run full simulation
+- GF: Initial analysis of full simulation results
+
+7/14
+- GF: Draft initial results
+
+7/21
+- GF: Final draft of AERA proposal
+- JEP: FInal draft of AERA proposal
