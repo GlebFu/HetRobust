@@ -1,0 +1,127 @@
+\documentclass{article}
+\usepackage[twoside=false,top=1in, bottom=1in, left=1in, right=1.15in]{geometry}
+
+\usepackage[natbibapa]{apacite}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lemma}
+
+\usepackage{graphicx}
+
+\usepackage{fixltx2e}
+\usepackage{subcaption}
+\usepackage{float}
+
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{rotating}
+\setlength{\rotFPtop}{0pt plus 1fil}
+\usepackage[draft]{changes}
+
+\usepackage[textwidth=1in, textsize=tiny]{todonotes}
+
+\newcommand{\Prob}{\text{Pr}}
+\newcommand{\E}{\text{E}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\corr}{\text{corr}}
+\newcommand{\Var}{\text{Var}}
+\newcommand{\tr}{\text{tr}}
+\newcommand{\iid}{\stackrel{\text{iid}}{\sim}}
+\newcommand{\diag}{\text{diag}}
+\newcommand{\bm}{\mathbf}
+\newcommand{\bs}{\boldsymbol}
+
+
+\begin{document}
+
+We will consider the regression model
+\begin{equation}
+y_i = \bm{x}_i\bs\beta + \epsilon_i,
+\end{equation}
+for $i = 1,...,n$, where $y_i$ is the outcome, $\bm{x}_i$ is a $1 \times p$ row-vector of covariates (including an intercept) for observation $i$, $\bs\beta = (\beta_1,...,\beta_p)'$ is a $p \times 1$ vector of regression coefficients, and $\epsilon_i$ is a mean-zero error term with variance $\sigma_i^2$. We shall assume that the errors are mutually independent. The model can be written in matrix notation as
+\begin{equation}
+\bm{y} = \bm{X}\bs\beta + \bs\epsilon
+\end{equation}
+where $\bm{y} = \left(y_1,...,y_n\right)'$ is an $n \times 1$ vector of outcomes, $\bm{X} = \left(\bm{x}_1',...,\bm{x}_n'\right)'$ is an $n \times p$ design matrix, and $\bs\epsilon$ is an $n \times 1$ vector of errors with $\E\left(\bs\epsilon\right) = \bm{0}$ and $\Var\left(\bs\epsilon\right) = \bs\Sigma = \diag\left(\sigma_1^2,...,\sigma_n^2\right)$. The goal is to test the hypothesis that the $q^{th}$ regression coefficient is equal to a constant $c$, i.e., $H_0: \beta_q = c$ against the two-sided alternative $H_A: \beta_q \neq c$, with Type-I error rate $\alpha$. 
+
+If the errors are homoskedastic, so that $\Var(\epsilon_i) = \sigma^2$ for $i = 1,...,n$, then the hypothesis can be tested using a standard t-test. The regression coefficients are estimated using ordinary least squares, with \[
+\bs{\hat\beta} = \left(\bm{X}'\bm{X}\right)^{-1} \bm{X}'\bm{y}. \]
+The residual variance of the regression is estimated as \[
+\hat\sigma^2 = \frac{1}{n - p} \sum_{i=1}^n e_i^2, \]
+where $e_i = y_i - \bm{x}_i\bs{\hat\beta}$ for $i = 1,...,n$. The variance of $\bs\beta$ is then estimated by $\bm{V}^{hom} = \hat\sigma^2 \left(\bm{X}'\bm{X}\right)^{-1}$. Under $H_0$ and assuming that the errors are normally distributed and homoskedastic, the t-statistic $t^{hom}_q = \left(\hat\beta_q - c\right) / \sqrt{V_{qq}^{hom}}$ follows a $t$ distribution with $n - p$ degrees of freedom. Thus, $H_0$ is rejected if $|t^{hom}_q| > F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right)$, where $F_t^{-1}(x; \nu)$ is the quantile function for a $t$ distribution with $\nu$ degrees of freedom. However, if the errors are instead heteroskedastic, the variance estimate $V^{hom}_{qq}$ will be inconsistent and this t-test will generally have incorrect size (i.e., incorrect Type-I error). 
+
+\section{Heteroskedasticity-consistent variance estimators}
+
+Heteroskedasticity-consistent (HC) variance estimators (a.k.a. "robust" variance estimators) provide a means to test hypotheses regarding the regression coefficients even if the errors are not homoskedastic or normally distributed. They are an attractive tool because violations of the homoskedasticity assumption are commonly observed and can be difficult to address through other methods of remediation. However, the guarantees that they provide are only asymptotic, they will provide correct estimates of the variance of $\bs{\hat\beta}$ and hypothesis tests of the correct size if the sample size is sufficiently large. In practice, it is not always clear whether a given sample is "sufficently large." Furthermore, some of the HC methods tend to be too liberal (producing variance estimates that are biased towards zero and hypothesis tests with size greater than nominal) when the sample size is small. 
+
+To see how the HC estimators work, we start by noting that under the general model (allowing for heteroskedasticity), the true variance of $\bs\beta$ is
+\begin{equation}
+\label{eq:var_beta}
+\Var\left(\bs\beta\right) = \frac{1}{n}\left(\frac{1}{n}\sum_{i=1}^n \bm{x}_i\bm{x}'\right)^{-1}\left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}'\right)\left(\frac{1}{n}\sum_{i=1}^n \bm{x}_i\bm{x}'\right)^{-1} = \left(\bm{X}'\bm{X}\right)^{-1} \bm{X}'\bs\Sigma \bm{X}\left(\bm{X}'\bm{X}\right)^{-1}.
+\end{equation}
+The HC estimators all involve estimating $\Var\left(\bs\beta\right)$ by replacing the $\sigma_i^2$ with crude estimates involving the squared residuals. Although taken one at a time, the squared residual $e_i^2$ is a very poor estimate of $\sigma_i^2$, they provide an adequate means of estimating the \textit{average} of the $\sigma_i^2$ terms that appears in the middle of Equation (\ref{eq:var_beta}). The HC estimators have the general form 
+\begin{equation}
+\label{eq:sandwich}
+\begin{aligned}
+\bm{V}^{HCx} &= \frac{1}{n}\left(\frac{1}{n}\sum_{i=1}^n \bm{x}_i\bm{x}'\right)^{-1}\left(\frac{1}{n}\sum_{i=1}^n \omega_{xi} e_i^2 \bm{x}_i\bm{x}'\right)\left(\frac{1}{n}\sum_{i=1}^n \bm{x}_i\bm{x}'\right)^{-1} \\
+&= \left(\bm{X}'\bm{X}\right)^{-1} \bm{X}'\diag\left(\omega_{x1} e_1^2,...,\omega_{xn} e_n^2\right) \bm{X}\left(\bm{X}'\bm{X}\right)^{-1},
+\end{aligned}
+\end{equation}
+where $\omega_{x1},...,\omega_{xn}$ are correction terms that differ for the various HC estimators. Under weak assumptions, the weak law of large numbers ensures that the middle term in Equation (\ref{eq:sandwich}) converges to the corresponding term in (\ref{eq:var_beta}) as the sample size increases. Furthermore, the Wald statistic calculated as $t^{HCx}_q = \left(\hat\beta_q - c\right) / \sqrt{V^{HCx}_{qq}}$ follows a standard normal distribution if the sample size is sufficiently large (i.e., $t^{HCx}_q$ converges in distribution to $N(0,1)$ as $n$ increases to infinity). Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $t^{HCx}_q$ is greater than the $1 - \alpha / 2$ critical value from a standard normal critical value. Because this test often has inflated size in small samples, it is common to instead compare $t^{HCx}_q$ to the critical value from a $t$ distribution with $n - p$ degrees of freedom.
+
+The various HC estimators use different correction terms that refine the behavior of the estimator in different ways. The original HC0 estimator did not use any correction, i.e., $\omega_{0i} = 1$ for $i = 1,...,n$, producing an estimator with a downward bias. HC1 involves an ad hoc correction to the bias, with $\omega_{1i} = \frac{n}{n - p}$ for $i = 1,...,n$. HC2 uses the correction term \[
+\omega_{2i} = \frac{1}{1 - h_{ii}}, \]
+where $h_ii = \bm{x}_i \left(\bm{X}'\bm{X}\right)^{-1} \bm{x}_i'$ is the $i^{th}$ diagonal entry in the hat matrix. This correction has the property that the resulting variance estimator is exactly unbiased (at any sample size) when the errors are actually homoskedastic: $\E\left(\bm{V}^{HC2}\right) = \Var\left(\bs\beta\right) = \sigma^2\left(\bm{X}'\bm{X}\right)^{-1}$. Intuitively, we would expect that HC2 would still be approximately unbiased if the degree of heteroskedasticity is small. However, using an unbiased variance estimator still does not guarantee that hypothesis tests constructed from it will have the correct size. 
+
+Several further HC variations have been proposed that aim to improve the accuracy of hypothesis tests. HC3 uses the correction term \[
+\omega_{3i} = \frac{1}{(1 - h_{ii})^2}, \]
+which produces an estimator that closely approximates the omit-1 jackknife variance estimator. Note that these correction factors will always be larger than those for HC2 because $\frac{1}{n} \leq h_ii \leq 1$. HC4, proposed by Cribari-Neto (2004), uses a correction factor that is further inflated for observations with high leverage: \[
+\omega_{4i} = \frac{1}{(1 - h_{ii})^{\delta^a_i}}, \]
+where $\delta^a_i = \min\left\{n h_{ii} / p, 4 \right\}$. Cribari-Neto and da Silva (2011) later suggested an modified estimator, HC4m, that uses a correction factor of the same form as $\omega_{4i}$, but where the exponent in the correction term is instead given by $\delta^b_i = \min\left\{n h_{ii} / p, 1 \right\} + \min\left\{n h_{ii} / p, 1.5 \right\}$. HC5, proposed by Cribari-Neto, Souza, and Vasconcellos (2007), also uses a correction factor that is tailored to account for the leverage of the observation: \[
+\omega_{5i} = \frac{1}{(1 - h_{ii})^{\delta^c_i}}, \]
+where $\delta^c_i = \min\left\{n h_{ii} / p, \max \left\{4, k n h_{max} / p\right\}\right\}$, $h_{max} = \max\left\{h_{11},...,h_{nn}\right\}$, and $0 < k < 1$ is a user-selected constant; based on simulation evidence, Cribari-Neto and colleagues suggest taking $k = 0.7$.
+
+\section{Distribution of HC estimators}
+
+The Wald statistic formed using an HC variance estimator is the ratio of a normally distributed estimator $\hat\beta_q - c$ to the corresponding variance estimator $V^{HCx}_qq$. The variance estimator can be written as a quadratic form in the residuals. Let the $n \times 1$ vector $\bm{g}_q = (g_{q1},...,g_{qn})'$ denote the $q^{th}$ column of $q$ of $\bm{X}\left(\bm{X}'\bm{X}\right)^{-1}$; let $\bm{e} = \bm{y} - \bm{X}\bs\beta$ be the vector of residuals. It follows that 
+\begin{equation}
+V^{HCx}_{qq} = \sum_{i=1}^n \omega_{xi} \left(g_{qi} e_i\right)^2 = \bm{e}' \bm{A}_{xq} \bm{e},
+\end{equation}
+where $\bm{A}_{xq} = \diag\left(\omega_{x1} g_{q1}^2, ..., \omega_{xn} g_{qn}^2\right)$. Because the residuals are themselves a linear function of the outcome vector, $V^{HCx}_{qq}$ can also be expressed as a quadratic form in $\bm{y}$: 
+\[
+V^{HCx}_{qq} = \bm{y}'\left(\bm{I} - \bm{H}\right) \bm{A}_{xq} \left(\bm{I} - \bm{H}\right) \bm{y}, \]
+where $\bm{H} = \bm{X}\left(\bm{X}'\bm{X}\right)^{-1} \bm{X}'$ is the full hat matrix. The numerator and denominator of the Wald statistic are not necessarily independent unless the errors are homoskedastic. 
+
+The distribution of $V^{HCx}_{qq}$ can be obtained from the properties of quadratic forms. In general, \[
+\E\left(V^{HCx}_{qq}\right) = \tr\left[\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right) \right] = \sum_{i=1}^n \omega_{xi} g_{qi}^2 (1 - h_{ii}) \sigma_i^2. \]
+If the errors are normally distributed, then \[
+\Var\left(V^{HCx}_{qq}\right) = 2\tr\left[\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right) \bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\right]. \]
+Furthermore (still assuming normality of the residuals), the HC variance estimator is distributed as a weighted sum of independent $\chi^2_1$ random variates. Let $\lambda_1,...,\lambda_n$ denote the eigenvalues of the matrix $\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$. Then 
+\begin{equation}
+\label{eq:quadratic_dist}
+V^{HCx}_{qq} \sim \sum_{i=1}^n \lambda_i \chi^2_1.
+\end{equation}
+These distributional properties provide a means to develop small-sample corrections for hypothesis tests based on the HC variance estimators. Several such corrections have been proposed, and are reviewed in the following sub-sections. 
+
+\subsection{Satterthwaite approximation}
+
+Lipsitz, Ibrahim, and Parzen (1999) proposed a small-sample corrected hypothesis testing procedure that is based on a Satterthwaite approximation for the distribution of $V^{HC2}_{qq}$. The Satterthwaite approximation involves approximating the distribution of $V^{HC2}_{qq}$ by a multiple of a $\chi^2$ distribution with degrees of freedom $2 \left[\E\left(V^{HC2}_{qq}\right)\right]^2 / \Var\left(V^{HC2}_{qq}\right)$. In practice, the mean and variance must be estimated because they involve the unknown quantity $\bs\Sigma$. Lipsitz and colleagues note that the variance of $V^{HCx}_{qq}$ can be written as \[
+\Var\left(V^{HCx}_{qq}\right) = 2\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\right)\circ \bm{S}\right]\right], \]
+where $\circ$ denotes the element-wise (Hadamard) product and $\bm{S}$ has entries $S_{ij} = \sigma_i^2 \sigma_j^2$. They propose to estimate $\bm{S}$ using the matrix with entries \[
+\hat{S}_{ii} = \frac{e_i^4}{3(1 - h_{ii})^2} \quad \text{for} i = 1,...,n \quad \text{and} \quad \hat{S}_{ij} = \frac{e_i^2 e_j^2}{2 h_{ij}^2 + (1 - h_{ii})(1 - h_{jj})} \quad \text{for} i \neq j. \]
+They then construct estimated degrees of freedom $\nu_q$ by substituting $V^{HC2}_{qq}$ in place of its expectation and taking 
+\begin{equation}
+\label{eq:Satterthwaite}
+\nu_q = \frac{\left(V^{HC2}_{qq}\right)^2}{\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}_{2q} \left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}_{2q} \left(\bm{I} - \bm{H}\right)\right)\circ \bm{\hat{S}}\right]\right]}.
+\end{equation}
+The null hypothesis is tested by comparing $t^{HC2}_q$ to a $t$-distribution with $\nu_q$ degrees of freedom, i.e., $H_0$ is rejected if $|t^{HC2}_q| > F_t^{-1}(1 - \alpha / 2; \nu_q)$. Equivalently, the $p$-value corresponding to $H_0$ is $2 \left[1 - F_t\left(|t_q^{HC2}|; \nu_q\right)\right]$, where $F_t(x; \nu)$ is the cumulative distribution function of a $t_\nu$ distribution.
+
+\subsection{Edgeworth approximation}
+
+Kauermann and Carroll (2001) propose a method of constructing confidence intervals based on HC variance estimators that have close-to-nominal coverage rates. Let $z_{\alpha}$ denote the $1 - \alpha / 2$ quantile from a standard normal distribution. The hypothesis testing procedure corresponding to their proposed confidence intervals rejects $H_0$ if $\left|t^{HC}_q\right| > z_{\tilde\alpha}$, where $\tilde\alpha$ is implicitly defined as the solution to \[
+\alpha = \tilde\alpha + \frac{\phi\left(z_{\tilde\alpha}\right)}{2 \nu_q}\left(z_{\tilde\alpha}^3 + z_{\tilde\alpha}\right), \]
+where $\phi(\cdot)$ is the density of the standard normal distribution and $\nu_q$ is given in (\ref{eq:Satterthwaite}).
+
+\end{document}
