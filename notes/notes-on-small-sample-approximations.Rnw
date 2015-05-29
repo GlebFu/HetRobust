@@ -73,7 +73,7 @@ where $\omega_{x1},...,\omega_{xn}$ are correction terms that differ for the var
 
 The various HC estimators use different correction terms that refine the behavior of the estimator in different ways. The original HC0 estimator did not use any correction, i.e., $\omega_{0i} = 1$ for $i = 1,...,n$, producing an estimator with a downward bias. HC1 involves an ad hoc correction to the bias, with $\omega_{1i} = \frac{n}{n - p}$ for $i = 1,...,n$. HC2 uses the correction term \[
 \omega_{2i} = \frac{1}{1 - h_{ii}}, \]
-where $h_ii = \bm{x}_i \left(\bm{X}'\bm{X}\right)^{-1} \bm{x}_i'$ is the $i^{th}$ diagonal entry in the hat matrix. This correction has the property that the resulting variance estimator is exactly unbiased (at any sample size) when the errors are actually homoskedastic: $\E\left(\bm{V}^{HC2}\right) = \Var\left(\bs\beta\right) = \sigma^2\left(\bm{X}'\bm{X}\right)^{-1}$. Intuitively, we would expect that HC2 would still be approximately unbiased if the degree of heteroskedasticity is small. However, using an unbiased variance estimator still does not guarantee that hypothesis tests constructed from it will have the correct size. 
+where $h_{ii} = \bm{x}_i \left(\bm{X}'\bm{X}\right)^{-1} \bm{x}_i'$ is the $i^{th}$ diagonal entry in the hat matrix. This correction has the property that the resulting variance estimator is exactly unbiased (at any sample size) when the errors are actually homoskedastic: $\E\left(\bm{V}^{HC2}\right) = \Var\left(\bs\beta\right) = \sigma^2\left(\bm{X}'\bm{X}\right)^{-1}$. Intuitively, we would expect that HC2 would still be approximately unbiased if the degree of heteroskedasticity is small. However, using an unbiased variance estimator still does not guarantee that hypothesis tests constructed from it will have the correct size. 
 
 Several further HC variations have been proposed that aim to improve the accuracy of hypothesis tests. HC3 uses the correction term \[
 \omega_{3i} = \frac{1}{(1 - h_{ii})^2}, \]
@@ -122,6 +122,16 @@ The null hypothesis is tested by comparing $t^{HC2}_q$ to a $t$-distribution wit
 
 Kauermann and Carroll (2001) propose a method of constructing confidence intervals based on HC variance estimators that have close-to-nominal coverage rates. Let $z_{\alpha}$ denote the $1 - \alpha / 2$ quantile from a standard normal distribution. The hypothesis testing procedure corresponding to their proposed confidence intervals rejects $H_0$ if $\left|t^{HC}_q\right| > z_{\tilde\alpha}$, where $\tilde\alpha$ is implicitly defined as the solution to \[
 \alpha = \tilde\alpha + \frac{\phi\left(z_{\tilde\alpha}\right)}{2 \nu_q}\left(z_{\tilde\alpha}^3 + z_{\tilde\alpha}\right), \]
-where $\phi(\cdot)$ is the density of the standard normal distribution and $\nu_q$ is given in (\ref{eq:Satterthwaite}).
+where $\phi(\cdot)$ is the density of the standard normal distribution and \[
+\nu_q  = \frac{2 \left[\Var(\hat\beta_q)\right]^2}{\Var\left(V^{HC}_{qq}\right)}\] 
+is a degrees of freedom measure. Equivalently, the $p$-value for the test is given by \[
+p = \tilde{p} + \frac{\phi\left(z_{\tilde{p}}\right)}{2 \nu_q}\left(z_{\tilde{p}}^3 + z_{\tilde{p}}\right), \]
+where $\tilde{p} = 2 \left[1 - \Phi\left(|t^{HC}_q|\right)\right]$ and $\Phi(\cdot)$ is the standard normal cumulative distribution function. In contrast to the degrees of freedom estimator used by Lipsitz and colleagues (as given in Equation \ref{eq:Satterthwaite}), Kauermann and Carroll calculate the degrees of freedom under the working assumption that the errors are actually homoskedastic. Under this working assumption, the HC2 variance estimator is unbiased, with degrees of freedom are given by \[
+\nu_q = \left(\sum_{i=1}^n g_{qi}^2\right)^2\left(\sum_{i=1}^n g_{qi}^4 + \sum_{i=1}^n \sum_{j \neq i} \frac{g_{qi}^2 g_{qj}^2 h_{ij}^2}{(1 - h_{ii})(1 - h_{jj})}\right)^{-1} \].
 
+Rothenberg (1988). 
+
+\subsection{Saddlepoint approximation}
+
+McCaffrey and Bell (2006)
 \end{document}
