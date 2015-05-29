@@ -98,10 +98,10 @@ The distribution of $V^{HCx}_{qq}$ can be obtained from the properties of quadra
 \E\left(V^{HCx}_{qq}\right) = \tr\left[\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right) \right] = \sum_{i=1}^n \omega_{xi} g_{qi}^2 (1 - h_{ii}) \sigma_i^2. \]
 If the errors are normally distributed, then \[
 \Var\left(V^{HCx}_{qq}\right) = 2\tr\left[\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right) \bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\right]. \]
-Furthermore (still assuming normality of the residuals), the HC variance estimator is distributed as a weighted sum of independent $\chi^2_1$ random variates. Let $\lambda_1,...,\lambda_n$ denote the eigenvalues of the matrix $\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$. Then 
+Furthermore (still assuming normality of the residuals), the HC variance estimator is distributed as a weighted sum of independent $\chi^2_1$ random variates. Let $\lambda_1,...,\lambda_n$ denote the eigenvalues of the matrix $\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$ and let $z_1,...,z_n$ be independent $\chi^2_1$ random variables. Then 
 \begin{equation}
 \label{eq:quadratic_dist}
-V^{HCx}_{qq} \sim \sum_{i=1}^n \lambda_i \chi^2_1.
+V^{HCx}_{qq} \sim \sum_{i=1}^n \lambda_i z_i.
 \end{equation}
 These distributional properties provide a means to develop small-sample corrections for hypothesis tests based on the HC variance estimators. Several such corrections have been proposed, and are reviewed in the following sub-sections. 
 
@@ -120,18 +120,30 @@ The null hypothesis is tested by comparing $t^{HC2}_q$ to a $t$-distribution wit
 
 \subsection{Edgeworth approximation}
 
-Kauermann and Carroll (2001) propose a method of constructing confidence intervals based on HC variance estimators that have close-to-nominal coverage rates. Let $z_{\alpha}$ denote the $1 - \alpha / 2$ quantile from a standard normal distribution. The hypothesis testing procedure corresponding to their proposed confidence intervals rejects $H_0$ if $\left|t^{HC}_q\right| > z_{\tilde\alpha}$, where $\tilde\alpha$ is implicitly defined as the solution to \[
-\alpha = \tilde\alpha + \frac{\phi\left(z_{\tilde\alpha}\right)}{2 \nu_q}\left(z_{\tilde\alpha}^3 + z_{\tilde\alpha}\right), \]
+Kauermann and Carroll (2001) propose a method of constructing confidence intervals based on HC variance estimators that have close-to-nominal coverage rates. Let $z_{\alpha}$ denote the $1 - \alpha / 2$ quantile from a standard normal distribution. The hypothesis testing procedure corresponding to their proposed confidence intervals rejects $H_0$ if $\left|t^{HC}_q\right| > z_{\tilde\alpha}$, where $\tilde\alpha$ is implicitly defined as the solution to \begin{equation}
+\label{eq:Kauermann_crit}
+\alpha = \tilde\alpha + \frac{\phi\left(z_{\tilde\alpha}\right)}{2 \nu_q}\left(z_{\tilde\alpha}^3 + z_{\tilde\alpha}\right), 
+\end{equation}
 where $\phi(\cdot)$ is the density of the standard normal distribution and \[
 \nu_q  = \frac{2 \left[\Var(\hat\beta_q)\right]^2}{\Var\left(V^{HC}_{qq}\right)}\] 
 is a degrees of freedom measure. Equivalently, the $p$-value for the test is given by \[
 p = \tilde{p} + \frac{\phi\left(z_{\tilde{p}}\right)}{2 \nu_q}\left(z_{\tilde{p}}^3 + z_{\tilde{p}}\right), \]
-where $\tilde{p} = 2 \left[1 - \Phi\left(|t^{HC}_q|\right)\right]$ and $\Phi(\cdot)$ is the standard normal cumulative distribution function. In contrast to the degrees of freedom estimator used by Lipsitz and colleagues (as given in Equation \ref{eq:Satterthwaite}), Kauermann and Carroll calculate the degrees of freedom under the working assumption that the errors are actually homoskedastic. Under this working assumption, the HC2 variance estimator is unbiased, with degrees of freedom are given by \[
+where $\tilde{p} = 2 \left[1 - \Phi\left(|t^{HC}_q|\right)\right]$ and $\Phi(\cdot)$ is the standard normal cumulative distribution function. These authors also offer a further approximation for the critical value $z_{\tilde\alpha}$, which saves the trouble of solving Equation (\ref{eq:Kauermann_crit}):
+\[
+z_{\tilde\alpha} = F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right) + \frac{\left(z_\alpha^3 + z_\alpha\right)}{4}\left(\frac{1}{\nu_q} - \frac{\left(\sum_{i=1}^n g_{qi}^2\right)^2}{n}\right). \]
+
+In contrast to the degrees of freedom estimator used by Lipsitz and colleagues (as given in Equation \ref{eq:Satterthwaite}), Kauermann and Carroll calculate the degrees of freedom under the working assumption that the errors are actually homoskedastic. Under this working assumption, the HC2 variance estimator is unbiased, with degrees of freedom are given by \[
 \nu_q = \left(\sum_{i=1}^n g_{qi}^2\right)^2\left(\sum_{i=1}^n g_{qi}^4 + \sum_{i=1}^n \sum_{j \neq i} \frac{g_{qi}^2 g_{qj}^2 h_{ij}^2}{(1 - h_{ii})(1 - h_{jj})}\right)^{-1} \].
 
-Rothenberg (1988). 
+Differences between Kauermann and Carroll (2001) and Rothenberg (1988)?
 
 \subsection{Saddlepoint approximation}
 
-McCaffrey and Bell (2006)
+McCaffrey and Bell (2006) developed small-sample adjustments to test statistics based on cluster-robust variance estimators, of which HC variance estimators are a special case. They consider both a Satterthwaite approximation (similar to Lipsitz et al.) and a saddlepoint approximation for the distribution of the test statistic, finding that the latter produced tests with more accurate size. The saddlepoint approximation is obtained as follows. Let Observe that the cumulative distribution of $t^{HC}_q$ can be expressed as \[
+\Pr\left(t^{HC}_q \leq t\right) = \Pr\left(\frac{\left(\hat\beta_q - c\right)^2}{\Var(\hat\beta_q)} - t^2 \frac{V^{HC}_{qq}}{\Var(\hat\beta_q)} \leq 0\right). \]
+Note that $\left(\hat\beta_q - c\right)^2 / \Var(\hat\beta_q) ~ \chi^2_1$ and that $V^{HC}_{qq}$ is distributed as a weighted sum of $\chi^2_1$ random variables, with weights given by the eigen-values $\lambda_1,...,\lambda_n$ of the matrix $\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$. Assuming that $V^{HC}_{qq}$ is unbiased, so that \[
+\E\left(V^{HC}_{qq}\right) = \tr\left[\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\right] = \sum_{j=1}^n \lambda_j, \]
+and that $\hat\beta_q$ is independent of $V^{HC}_{qq}$, it follows that the $\Pr\left(t^{HC}_q \leq t\right)$ can be expressed as $\Pr(Z \leq 0)$, where $Z = \sum_{i=0}^n \gamma_i z_i$,
+$\gamma_0 = 1$, $\gamma_i = t^2 \lambda_i / \sum_{j=1}^n \lambda_j$, and $z_0,...,z_n \iid \chi^2_1$.
+
 \end{document}
