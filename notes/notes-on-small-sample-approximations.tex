@@ -168,15 +168,28 @@ The null hypothesis is tested by comparing $t^{HC2}_q$ to a $t$-distribution wit
 
 \subsection{Edgeworth approximation}
 
-Kauermann and Carroll (2001) propose a method of constructing confidence intervals based on HC variance estimators that have close-to-nominal coverage rates. Let $z_{\alpha}$ denote the $1 - \alpha / 2$ quantile from a standard normal distribution. The hypothesis testing procedure corresponding to their proposed confidence intervals rejects $H_0$ if $\left|t^{HC}_q\right| > z_{\tilde\alpha}$, where $\tilde\alpha$ is implicitly defined as the solution to \begin{equation}
+Rothenberg (1988) developed an Edgeworth approximation for the distribution of Wald-type $t$-statistics based on the HC0 variance estimator. It is straight-forward to generalize the approach to any of the HC estimators. Let \[
+\bm{Q} = \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right), \qquad \bm{z}_q = \left(\bm{I} - \bm{H}\right)\bs\Sigma \bm{g}, \qquad a = \frac{\sum_{i=1}^n g_{qi}^2 \omega_i z_{qi}^2}{\left(\sum_{i=1}^n g_{qi}^2 \sigma_i^2\right)^2}, \qquad b = \frac{\sum_{i=1}^n g_{qi}^2 \omega_i q_{ii}^2}{\sum_{i=1}^n g_{qi}^2 \sigma_i^2} - 1. \]
+Let $z_{\alpha}$ denote the $1 - \alpha / 2$ quantile from a standard normal distribution. For an observed value of the test statistic $t^{HC}_q$, the corresponding p-value is calculated as \[
+p = 2 \left[1 - \Phi\left[\frac{\left|t^{HC}_q\right|}{2}\left(2 - \frac{1 + \left(t^{HC}_q\right)^2}{2 \nu_q} - a\left(\left(t^{HC}_q\right)^2 - 1\right) - b\right)\right]\right], \]
+where $\Phi(\cdot)$ is the standard normal cumulative distribution function. A further approximation provides a means for calculating a critical value for a specified $\alpha$-level. Here, the hypothesis test is rejected if $t^{HC}_q$ is greater than the critical value $t_{crit}$ defined by \[
+t_{crit} = \frac{z_{\alpha}}{2}\left[2 + \frac{z_{\alpha}^2 + 1}{2 \nu_q} - a\left(z_{\alpha}^2 - 1\right) - b\right]. \]
+In practice, these testing procedures will need to be based on estimates of the quantities involved. Rothenberg proposes a simple estimate of the degrees of freedom: \[
+\nu_q = \frac{\left(\sum_{i=1}^n g_{qi}^2 \omega_i e_i^2\right)^2}{\frac{1}{3}\sum_{i=1}^n g_{qi}^4 \omega_i^2 e_i^4}.
+\]
+Alternately, one could use Equation (\ref{eq:Satterthwaite}). Rothenberg also proposes to calculate $a$, $b$, $\bm{z}_q$, and $\bm{Q}$ by simply replacing the values of $\sigma_i^2$ with $\omega_i e_i^2$.
+
+\subsection{Another edgeworth approximation}
+
+Kauermann and Carroll (2001) propose a method of constructing confidence intervals based on HC variance estimators that have close-to-nominal coverage rates. The hypothesis testing procedure corresponding to their proposed confidence intervals rejects $H_0$ if $\left|t^{HC}_q\right| > z_{\tilde\alpha}$, where $\tilde\alpha$ is implicitly defined as the solution to \begin{equation}
 \label{eq:Kauermann_crit}
 \alpha = \tilde\alpha + \frac{\phi\left(z_{\tilde\alpha}\right)}{2 \nu_q}\left(z_{\tilde\alpha}^3 + z_{\tilde\alpha}\right), 
 \end{equation}
 where $\phi(\cdot)$ is the density of the standard normal distribution and \[
 \nu_q  = \frac{2 \left[\Var(\hat\beta_q)\right]^2}{\Var\left(V^{HC}_{qq}\right)}\] 
 is a degrees of freedom measure. Equivalently, the $p$-value for the test is given by \[
-p = \tilde{p} + \frac{\phi\left(z_{\tilde{p}}\right)}{2 \nu_q}\left(z_{\tilde{p}}^3 + z_{\tilde{p}}\right), \]
-where $\tilde{p} = 2 \left[1 - \Phi\left(|t^{HC}_q|\right)\right]$ and $\Phi(\cdot)$ is the standard normal cumulative distribution function. These authors also offer a further approximation for the critical value $z_{\tilde\alpha}$, which saves the trouble of solving Equation (\ref{eq:Kauermann_crit}):
+p = 2 \left[1 - \Phi\left(|t^{HC}_q|\right)\right] + \frac{\phi\left(t^{HC}_q\right)}{2 \nu_q}\left(\left|t^{HC}_q\right|^3 + \left|t^{HC}_q\right|\right), \]
+These authors also offer a further approximation for the critical value $z_{\tilde\alpha}$, which saves the trouble of solving Equation (\ref{eq:Kauermann_crit}):
 \[
 z_{\tilde\alpha} = F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right) + \frac{\left(z_\alpha^3 + z_\alpha\right)}{4}\left(\frac{1}{\nu_q} - \frac{\left(\sum_{i=1}^n g_{qi}^2\right)^2}{n}\right). \]
 
@@ -204,5 +217,25 @@ for a constant $z$. The saddlepoint approximation is then
 \Pr(Z \leq z) \approx \Phi(r) + \phi(r)\left[\frac{1}{r} - \frac{1}{q}\right].
 \end{equation}
 Given an observed value for the $t$-statistic $t^{HC}_q$, a $p$-value for $H_0$ can be calculated by taking $\gamma_i = \left(t^{HC}_q\right)^2 \lambda_i / \sum_{j=1}^n \lambda_j$ for $i = 1,...,n$, finding $s$, $r$, and $q$, and evaluating $1 - \Pr(Z \leq 0)$ using Equation (\ref{eq:saddlepoint_approx}).
+
+\section{Summary}
+
+The various small-sample corrections described above differ in three distinct dimensions:
+\begin{enumerate}
+\item the form of the correction term used in constructing the variance estimator (i.e., HC0, HC1, HC2, HC3, HC4, HC4m, HC5);
+\item how the variability of the variance estimator is approximated, with some authors proposing to calculate the degrees of freedom under a working model and others proposing to do so using adjustments to the residuals; and
+\item how the $p$-values or critical values of the hypothesis test are calculated:
+\begin{itemize}
+\item using a standard normal reference distribution
+\item ad hoc approximation using a $t$ distribution with $n - p$ degrees of freedom
+\item Satterthwaite approximation
+\item Rothenberg's Edgeworth approximation to the $p$-value
+\item Rothenberg's Edgeworth approximation to the critical value
+\item Kauermann \& Carroll's approximation to the $p$-value
+\item Kauermann \& Carroll's approximation to the critical value
+\item saddlepoint approximation
+\end{itemize}
+\end{enumerate}
+Approaches in each of these dimensions are interchangeable, and so we could in principle consider up to $7 \times 2 \times 8 = 112$ distinct test procedures. 
 
 \end{document}

@@ -1,3 +1,7 @@
+#--------------------------------
+# Kauermann & Carroll 
+#--------------------------------
+
 # degrees of freedom
 nu_q <- function(q, Xmat) {
   XX_tX <- chol2inv(chol(t(X) %*% X)) %*% t(X)
@@ -41,3 +45,28 @@ alpha <- 0.05
 v <- sapply(1:p, nu_q, Xmat = X)
 (crit1 <- sapply(v, crit_adj, alpha = alpha))
 (crit2 <- crit_approx(alpha, X = X))
+
+#--------------------------------
+# Rothenberg 1988
+#--------------------------------
+
+n <- 25
+p <- 6
+X <- cbind(1, matrix(rnorm(n * (p - 1)), n, p - 1))
+
+q <- 1
+alpha <- 0.05
+t_alpha <- qnorm(1 - alpha)
+sigma_i <- sqrt(rchisq(n, df = 1))
+Sigma <- diag(sigma_i^2)
+XX_tX <- chol2inv(chol(t(X) %*% X)) %*% t(X)
+M <- diag(n) - X %*% XX_tX
+Q <- M %*% Sigma %*% M - Sigma
+x_i <- XX_tX[q,]
+xSigmax <- as.numeric(t(x_i) %*% Sigma %*% x_i)
+z_i <- M %*% Sigma %*% x_i / sqrt(xSigmax)
+V_W <- 2 * n * sum(x_i^4 * sigma_i^4) / xSigmax^2
+a <- n * sum(x_i^2 * z_i^2) / xSigmax
+b <- n * sum(x_i^2 * diag(Q)) / xSigmax
+
+t_2 <- t_alpha * (1 + ((1 + t_alpha^2) * V_W / 4 - a * (t_alpha^2 - 1) - b) / (2 * n))
