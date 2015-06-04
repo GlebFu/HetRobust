@@ -1,0 +1,13 @@
+base
+devtools
+sandwich
+psych
+stringr
+plyr
+Pusto
+stargazer
+dplyr
+knitr
+reshape2
+htmlTable
+microbenchmark
