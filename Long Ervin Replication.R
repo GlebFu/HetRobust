@@ -16,7 +16,7 @@ x0 <- 1
 x1 <- 1 + b1
 x2 <- 3 * b1 + .6 * b2
 x3 <- 2 * b1 + .6 * b3
-x4 <- .1 * b1 + .9 * b3 - .8 * b4 + 4 * b5 #not accurate
+x4 <- .1 * x1 + .9 * x3 - .8 * b4 + 4 * b5
 
 #One dummy variable created by splitting x2
 xD <- ifelse(x2 > 1.6, 1, 0)
@@ -170,6 +170,7 @@ model(Y = runif(15, 0, 1),
 ###B = Vector of coeficients
 ###Estructs = Character string of error structures to be used in data generation separated by " "
 ###whichX = Boolean vector indicating which coeficients to use in model estimation
+
 gdm <- function (n, B, Estructs, whichX){
   Estructs <- unlist(strsplit(Estructs, " ")) 
   
@@ -185,7 +186,7 @@ gdm <- function (n, B, Estructs, whichX){
   x1 <- 1 + b1
   x2 <- 3 * b1 + .6 * b2
   x3 <- 2 * b1 + .6 * b3
-  x4 <- .1 * b1 + .9 * b3 - .8 * b4 + 4 * b5
+  x4 <- .1 * x1 + .9 * x3 - .8 * b4 + 4 * b5
   
   #One dummy variable created by splitting x2
   xD <- ifelse(x2 > 1.6, 1, 0)
