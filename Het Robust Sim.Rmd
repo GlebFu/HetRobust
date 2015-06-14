@@ -1,7 +1,7 @@
 ---
 title: 'Replication: A df Approximation for a t-statistic with heterogeneous variance'
 author: "Gleb Furman"
-date: "May 14, 2015"
+date: "June 9, 2015"
 output: html_document
 ---
 
@@ -36,6 +36,7 @@ library(knitr)
 library(reshape2)
 library(htmlTable)
 library(microbenchmark)
+library(PerformanceAnalytics)
 #install_github("jepusto/Pusto")
 
 rm(list = ls())
@@ -114,8 +115,15 @@ The estimation procedures consist of two functions: `f_p`, and `estimate`. `f_p`
 
 
 ```{r, cache = T}
-f_p <- function(i) {
-
+f_p <- function(i, model) {
+  W <- model$W
+  invX <- model$invX
+  h <- model$h
+  I <- model$I
+  p <- model$p
+  e <- model$e
+  H <- model$H
+  
   c <- invX[i,]
   A <- diag((W * c)^2)
     
@@ -134,9 +142,8 @@ f_p <- function(i) {
 }
 
 #Demo
-attach(test_mod)
-sapply(1:p, f_p)
-detach(test_mod)
+sapply(1:3, f_p, test_mod)
+
 
 ```
 
@@ -144,11 +151,18 @@ The second function, `estimate`, is the main estimation driver function. It take
 
 ```{r, cache = T}
 estimate <- function(design, model) {
-  attach(model)
+  M <- model$M
+  X <- model$X
+  e <- model$e
+  w <- model$w
+  n <- model$n
+  p <- model$p
+  coefs <- model$coefs
+  
   
   sdf <- switch(design,
                 "HC2fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2/w)) %*% X %*% M)),
-                               df = sapply(1:p, f_p)), 
+                               df = sapply(1:p, f_p, model)), 
                 "HC2df" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2/w)) %*% X %*% M)),
                                df = rep(n-p,3)), 
                 "OLSdf" = list(sd_e = sqrt(diag(sum(e^2/(n-p)) * M)),
@@ -161,8 +175,7 @@ estimate <- function(design, model) {
   dimnames(ci)[[2]] <- paste(rep("B", p),0:(p-1), sep = "")
   
   cidf = list(ci = ci, df = sdf$df)
-  
-  detach(model)
+
   
   return(cidf)
 }
