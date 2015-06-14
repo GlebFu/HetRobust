@@ -205,18 +205,18 @@ McCaffrey and Bell (2006) developed small-sample adjustments to test statistics 
 Note that $\left(\hat\beta_q - c\right)^2 / \Var(\hat\beta_q) ~ \chi^2_1$ and that $V^{HC}_{qq}$ is distributed as a weighted sum of $\chi^2_1$ random variables, with weights given by the eigen-values $\lambda_1,...,\lambda_n$ of the matrix $\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$. Assuming that $V^{HC}_{qq}$ is unbiased, so that \[
 \E\left(V^{HC}_{qq}\right) = \tr\left[\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\right] = \sum_{j=1}^n \lambda_j, \]
 and that $\hat\beta_q$ is independent of $V^{HC}_{qq}$, it follows that the $\Pr\left(t^{HC}_q \leq t\right)$ can be expressed as $\Pr(Z \leq 0)$, where $Z = \sum_{i=0}^n \gamma_i z_i$,
-$\gamma_0 = 1$, $\gamma_i = t^2 \lambda_i / \sum_{j=1}^n \lambda_j$, and $z_0,...,z_n \iid \chi^2_1$.
+$\gamma_0 = 1$, $\gamma_i = -t^2 \lambda_i / \sum_{j=1}^n \lambda_j$, and $z_0,...,z_n \iid \chi^2_1$.
 
 The saddlepoint technique is a means to approximate the distribution of $Z$. Let $s$ be the saddlepoint, defined implicitly as the solution to \[
 \sum_{i=0}^n \frac{\gamma_i}{1 - 2 \gamma_i s} = 0. \]
-Define the quantities $r$ and $q$ as \[
-r = \text{sign}(s)\sqrt{2sz - \frac{1}{2}\sum_{i=0}^n \log\left(1 - 2\gamma_i s\right)}, \qquad q = s \sum_{i=0}^n \frac{2 \gamma_i^2}{\left(1 - 2 \gamma_i s\right)^2} \]
+Note that the solution to the saddlepoint equation will be in the range $\left(\left(2 \min\left\{\gamma_0,...,\gamma_n\right\}\right)^{-1}, 0 \right)$ if $\sum_{i=0}^n \gamma_i > 0$ and in the range $\left(0, \left(2 \max\left\{\gamma_0,...,\gamma_n\right\}\right)^{-1}\right)$ if $\sum_{i=0}^n \gamma_i \leq 0$. Define the quantities $r$ and $q$ as \[
+r = \text{sign}(s)\sqrt{2sz + \sum_{i=0}^n \log\left(1 - 2\gamma_i s\right)}, \qquad q = s \sqrt{2 \sum_{i=0}^n \frac{\gamma_i^2}{\left(1 - 2 \gamma_i s\right)^2}} \]
 for a constant $z$. The saddlepoint approximation is then 
 \begin{equation}
 \label{eq:saddlepoint_approx}
 \Pr(Z \leq z) \approx \Phi(r) + \phi(r)\left[\frac{1}{r} - \frac{1}{q}\right].
 \end{equation}
-Given an observed value for the $t$-statistic $t^{HC}_q$, a $p$-value for $H_0$ can be calculated by taking $\gamma_i = \left(t^{HC}_q\right)^2 \lambda_i / \sum_{j=1}^n \lambda_j$ for $i = 1,...,n$, finding $s$, $r$, and $q$, and evaluating $1 - \Pr(Z \leq 0)$ using Equation (\ref{eq:saddlepoint_approx}).
+Given an observed value for the $t$-statistic $t^{HC}_q$, a $p$-value for $H_0$ can be calculated by taking $\gamma_i = -\left(t^{HC}_q\right)^2 \lambda_i / \sum_{j=1}^n \lambda_j$ for $i = 1,...,n$, finding $s$, $r$, and $q$, and evaluating $1 - \Pr(Z \leq 0)$ using Equation (\ref{eq:saddlepoint_approx}).
 
 \section{Summary}
 

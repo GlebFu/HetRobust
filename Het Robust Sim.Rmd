@@ -48,22 +48,23 @@ rm(list = ls())
 ```
 
 ####Data-Generating Model
+
 The data-generating function (`gen_mod`) returns a list of values given three specifications: sample size (`n`, integer), heteroscedasticity (`ht`, boolean), and a vector of 3 $\beta$ coefficients (`B`, integer). The responses are fixed (1,1.5,2,2.5,3,3.5,4,5,6,7,8,10), therefore `n` must be a multiple of 12. If `ht` is false, the variance of the error (`e_var`) is set to 1. If true, `e_var` is set to the response string, such that $\epsilon_i$ ~ _N_(0,$x_i$). Error values (`E`) are randomly selected from a normal distribution with standard deviation equal to sqrt(`e_var`). Responses (`Y`) are then generated with the following formula: $Y = \beta_0 + \beta_1x + \beta_2x^2 + e$. The returned list contains the following values:
 
 * `X` - A matrix of covariate values
-* 'Y' - A vector of responses
-* 'B' - A vector of known parameters
-* 'invX' - The pseudoinverse of X
+* `Y` - A vector of responses
+* `B` - A vector of known parameters
+* `invX` - The pseudoinverse of X
 * `H` - A hat matrix
 * `h` - The diagonal of the hat matrix
 * `I` - An $n*n$ identity matrix 
 * `W` - A vector of $1/sqrt(1-h)$
-* 'w' - A vector of $1-h$
+* `w` - A vector of $1-h$
 * `e` - A vector of model residuals
-* 'coefs' - A fector of estimated parameters
+* `coefs` - A vector of estimated parameters
 * `n` - Number of observations
 * `p` - Number of parameters
-* 'M' - The inverse of the transposed X matrix multiplied by the X matrix
+* `M` - The inverse of the transposed X matrix multiplied by the X matrix
 
 X = X, Y = Y, B = B, invX = invX, H = H, h = h, I = I, W = W, w = w, 
               e = e, coefs = coefs, n = n, p = p, M = M
