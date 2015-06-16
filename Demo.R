@@ -5,11 +5,11 @@ library(plyr)
 rm(list = ls())
 
 # Distributions used in generating data
-b1 <- runif(100000, 0, 1)
-b2 <- rnorm(100000, 0, 1)
-b3 <- rchisq(100000, 1)
-b4 <- rnorm(100000, 0, 1)
-b5 <- runif(100000, 0, 1)
+b1 <- runif(1000000, 0, 1)
+b2 <- rnorm(1000000, 0, 1)
+b3 <- rchisq(1000000, 1)
+b4 <- rnorm(1000000, 0, 1)
+b5 <- runif(1000000, 0, 1)
 
 # Intercept and four independant variables based on distributions
 x0 <- 1
@@ -92,12 +92,11 @@ model(Y = runif(15, 0, 1),
       whichX = c(T, T, T, F, F, F))
 
 # Demo
-test_mod <- gdm(n = 10, 
-                B = c(1, 1, 0, 0, 0, 0), 
-                Estructs = c("E0", "E1", "E2"),
-                whichX = c(T, T, T, T, F, F),
-                Edist = "En")
-test_mod$E0
+test_mod <- gdm(n = 1000, 
+                B = c(1, 1, 1, 1, 0, 0), 
+                Estructs = c("E3"),
+                whichX = c(T, T, T, T, T, F),
+                Edist = "Ech")
 
 # replication demo
 testrep <- replicate(2, {
@@ -117,13 +116,13 @@ testimate <- ldply(test_mod, estimate)
 melt(testimate, id.vars = c(".id", "Adjustment", "Beta"))
 melt(testimate)
 
-runSim(iterations = 2, 
-       n = 5, 
-       B = "1 1 1 0 0 0", 
-       Estructs = "E0 E1 E2", 
-       whichX = "T T T T F F", 
-       Edist = "En", 
-       seed = NULL)
+runSim(iterations = 1000, 
+       n = 1000, 
+       B = "1 1 1 1 0 0", 
+       Estructs = "E3", 
+       whichX = "T T T T T F", 
+       Edist = "Ech", 
+       seed = 391741793)
 
 test <- F
 replicate(2, {
@@ -133,3 +132,5 @@ replicate(2, {
   print(ls())
   return(x)
 })
+
+
