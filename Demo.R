@@ -116,8 +116,8 @@ testimate <- ldply(test_mod, estimate)
 melt(testimate, id.vars = c(".id", "Adjustment", "Beta"))
 melt(testimate)
 
-runSim(iterations = 1000, 
-       n = 1000, 
+runSim(iterations = 10, 
+       n = 10, 
        B = "1 1 1 1 0 0", 
        Estructs = "E3", 
        whichX = "T T T T T F", 

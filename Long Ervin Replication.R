@@ -138,6 +138,13 @@ estimate <- function(model, adjust) {
   coefs <- model$coefs
   B <- model$B
   
+  OLSCM <- data.frame(Adjustment = rep("OLSCM", p),
+                      Beta = paste(rep("B", p),0:(p-1), sep = ""),
+                      Coef = coefs,
+                      sd_e = sqrt(diag(sum(e^2/(df)) * M)), 
+                      df = rep(n-p,p),
+                      B = B)
+  
   HC0 <- data.frame(Adjustment = rep("HC0", p),
                     Beta = paste(rep("B", p),0:(p-1), sep = ""),
                     Coef = coefs,
@@ -188,7 +195,7 @@ estimate <- function(model, adjust) {
                    B = B)
   
   
-  sdf <- rbind(HC0, HC1, HC2, HC3, HC4, HC4m, HC5)
+  sdf <- rbind(OLSCM, HC0, HC1, HC2, HC3, HC4, HC4m, HC5)
   
   cidf <- cidf(sdf)
   return(cbind(sdf, cidf))
@@ -222,12 +229,13 @@ runSim <- function(step, iterations, n, B, Estructs, whichX, Edist, seed = NULL)
                                  Edist = Edist)
                     
                     estimates <- ldply(model, estimate)
-                    estimates <- melt(estimates, id.vars = c(".id", "Adjustment", "Beta"))
+                    names(estimates)[1] <- "Structure"
+                    estimates <- melt(estimates, id.vars = c("Structure", "Adjustment", "Beta"))
                     
                     if(!first) return (estimates$value)
                     
                     env <- parent.env(environment())
-                    env$factors <- estimates[,c(".id", "Adjustment", "Beta", "variable")]
+                    env$factors <- estimates[,c("Structure", "Adjustment", "Beta", "variable")]
                     env$first <- F
     
                     return(estimates$value)
@@ -265,53 +273,71 @@ stopCluster(cluster)
 
 write.csv(results, file = "Results/20150616.csv")
 
-#results <- read.csv("Results/20150615.csv")
-#resultsW <- reshape(results, timevar = "variable", direction = "wide", v.name = c("M", "Var"), idvar = "IDVAR")
-#write.csv(resultsW, file = "Results/20150615W.csv")
+#results <- read.csv("Results/20150616.csv")
+
 
 # Figure 1 Size
-B3results <- filter(results, Beta == "B3", Edist == "Ech", variable == "captured") %>%
-  select(n, Adjustment, M, .id)
-B3results$M <- 1 - B3results$M
-B3results$n <- factor(B3results$n)
-ggplot(B3results, aes(x = n,
+Fig1 <- filter(results, 
+                    Beta == "B3",
+                    Edist == "Ech", 
+                    variable == "captured", 
+                    Structure == "E0") %>%
+  select(n, Adjustment, M, Structure)
+Fig1$M <- 1 - Fig1$M
+Fig1$n <- factor(Fig1$n)
+ggplot(Fig1, aes(x = n,
                       y = M,
                       group = Adjustment,
                       color = Adjustment)) +
   geom_line() +
-  facet_wrap(~.id)
+  geom_line(aes(y = .05,
+                color = "nominal"))
 
 # Figure 1 Power
-B3results <- filter(results, Beta == "B3", Edist == "Ech", variable == "DNRNull", .id == "E0") %>%
-                select(n, Adjustment, M, .id)
-B3results$M <- 1 - B3results$M
-B3results$n <- factor(B3results$n)
-ggplot(B3results, aes(x = n,
+Fig1p <- filter(results, 
+                    Beta == "B3", 
+                    Edist == "Ech", 
+                    variable == "DNRNull", 
+                    Structure == "E0") %>%
+                select(n, Adjustment, M, Structure)
+Fig1p$M <- 1 - Fig1p$M
+Fig1p$n <- factor(Fig1p$n)
+ggplot(Fig1p, aes(x = n,
                       y = M,
                       group = Adjustment,
                       color = Adjustment)) +
   geom_line()
 
 # Figure 2
-B3results <- filter(results, Edist == "Et", variable == "captured", .id == "E2", Beta != "B0") %>%
-  select(n, Adjustment, M, .id, Beta)
-B3results$M <- 1 - B3results$M
-B3results$n <- factor(B3results$n)
-ggplot(B3results, aes(x = n,
+Fig2 <- filter(results, 
+                    Edist == "Ech", 
+                    variable == "captured", 
+                    Structure == "E2", 
+                    Beta != "B0" & Beta != "B3") %>%
+  select(n, Adjustment, M, Structure, Beta)
+Fig2$M <- 1 - Fig2$M
+Fig2$n <- factor(Fig2$n)
+ggplot(Fig2, aes(x = n,
+                      y = M,
+                      group = Adjustment,
+                      color = Adjustment)) +
+  geom_line() +
+  facet_wrap(~Beta) +
+  geom_line(aes(y = .05,
+                color = "nominal"))
+
+# Figure 3
+Fig3 <- filter(results, Edist == "Ech", 
+                    variable == "DNRNull", 
+                    Structure == "E3", 
+                    Beta == "B1" | Beta == "B3") %>%
+  select(n, Adjustment, M, Structure, Beta)
+Fig3$M <- 1 - Fig3$M
+Fig3$n <- factor(Fig3$n)
+ggplot(Fig3, aes(x = n,
                       y = M,
                       group = Adjustment,
                       color = Adjustment)) +
   geom_line() +
   facet_wrap(~Beta)
 
-# Figure 3
-B3results <- filter(results, Edist == "Et", variable == "rejectNull", .id == "E3", Beta == "B1" | Beta == "B3") %>%
-  select(n, Adjustment, M, .id, Beta)
-B3results$M <- 1 - B3results$M
-B3results$n <- factor(B3results$n)
-ggplot(B3results, aes(x = n,
-                      y = M,
-                      group = Adjustment,
-                      color = Adjustment)) +
-  geom_line() +
-  facet_wrap(~Beta)
