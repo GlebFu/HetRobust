@@ -141,7 +141,7 @@ estimate <- function(model, adjust) {
   OLSCM <- data.frame(Adjustment = rep("OLSCM", p),
                       Beta = paste(rep("B", p),0:(p-1), sep = ""),
                       Coef = coefs,
-                      sd_e = sqrt(diag(sum(e^2/(df)) * M)), 
+                      sd_e = sqrt(diag(sum(e^2/(n-p)) * M)), 
                       df = rep(n-p,p),
                       B = B)
   
@@ -313,7 +313,7 @@ Fig2 <- filter(results,
                     Edist == "Ech", 
                     variable == "captured", 
                     Structure == "E2", 
-                    Beta != "B0" & Beta != "B3") %>%
+                    Beta != "B0") %>%
   select(n, Adjustment, M, Structure, Beta)
 Fig2$M <- 1 - Fig2$M
 Fig2$n <- factor(Fig2$n)
