@@ -1,0 +1,11 @@
+
+. ts
+** 31 Mar 1998 - 09:08:02
+
+. 
+.     hcplt 123c 05 10 .15 P
+
+. 
+. * to get both 05 and 10: hcplt 123c 10 10 .15
+. 
+. log close

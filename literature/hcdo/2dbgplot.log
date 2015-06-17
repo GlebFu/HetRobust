@@ -1,0 +1,12 @@
+
+. ts
+** 31 Mar 1998 - 23:45:18
+
+. hcplt 2dbg 05 10 .10 P
+(Note: file tb1.gph not found)
+(Note: file tb2.gph not found)
+(Note: file tb3.gph not found)
+(Note: file tb4.gph not found)
+(Note: file null.gph not found)
+
+. log close

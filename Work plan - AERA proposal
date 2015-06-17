@@ -14,22 +14,22 @@ X JEP: prepare notes on Satterthwaite, Edgeworth, and saddlepoint approximations
 - JEP: Review DGM and simulation conditions for Long & Ervin simulation
 
 6/23
-- GF: Program Edgeworth approximations
-- GF: Program Saddlepoint approximation
-- JEP: Outline AERA proposal
+- GF: Extend Long & Ervin simulation by adding Satterthwaite degrees of freedom (Lipsitz & Ibrahim's method)
 
 6/30
+- GF: Program Saddlepoint approximation
 - GF: Replicate small simulation in Kauermann & Carroll (2001)
-- GF: Conduct test runs of full simulation, estimate computation time
-- JEP: Draft methods section
+- JEP: Outline AERA proposal
 
 7/7
-- GF: Run full simulation
-- GF: Initial analysis of full simulation results
+- GF: Program Edgeworth approximations
+- GF: Conduct test runs of full simulation, estimate computation time
 
 7/14
-- GF: Draft initial results
+- JEP: Draft methods section
+- GF: Run full simulation
+- GF: Analysis of full simulation results
 
 7/21
 - GF: Final draft of AERA proposal
-- JEP: FInal draft of AERA proposal
+- JEP: Final draft of AERA proposal

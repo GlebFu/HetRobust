@@ -1,0 +1,65 @@
+
+. * generate base structure of data with equal variances
+. ts
+* 20 Mar 1998 - 08:36:08
+
+. version 5.0
+
+.     clear
+
+.     set more off
+
+.     hcbaseq jslhc3
+ 
+file jslhc3.dta saved
+
+Contains data from jslhc3.dta
+  obs:       100,000                            
+ vars:            22                            20 Mar 1998 08:36
+ size:     9,200,000 (26.8% of memory free)   * _dta has notes
+-------------------------------------------------------------------------------
+   1. y           float  %9.0g                  Observed y.
+   2. xb          float  %9.0g                  1 + x1 + x2 + x3.
+   3. x1          float  %9.0g                  Standardized values of ( x1)
+   4. x2          float  %9.0g                  Standardized values of ( x2)
+   5. x3          float  %9.0g                  Standardized values of ( x3)
+   6. x4          float  %9.0g                  Standardized values of ( x4)
+   7. e           float  %9.0g                  Error in equaiton.
+   8. sortvar     float  %9.0g                  Sort index.
+   9. x11         float  %9.0g                  
+  10. x12         float  %9.0g                  
+  11. x13         float  %9.0g                  
+  12. x14         float  %9.0g                  
+  13. x22         float  %9.0g                  
+  14. x23         float  %9.0g                  
+  15. x24         float  %9.0g                  
+  16. x33         float  %9.0g                  
+  17. x34         float  %9.0g                  
+  18. x44         float  %9.0g                  
+  19. ebase       float  %9.0g                  Base for e.
+  20. res         float  %9.0g                  
+  21. ct          float  %9.0g                  
+  22. ct2         float  %9.0g                  
+-------------------------------------------------------------------------------
+Sorted by:  
+
+Variable |     Obs        Mean   Std. Dev.       Min        Max
+---------+-----------------------------------------------------
+      xb |  100000           1   2.586325  -5.426013   13.33884  
+      x1 |  100000   -2.65e-11          1  -1.728935   1.735845  
+      x2 |  100000   -3.34e-11          1  -3.550326   3.419692  
+      x3 |  100000    6.75e-11          1   -1.55081   10.21006  
+      x4 |  100000   -4.78e-11          1  -3.473243   6.905541  
+   ebase |  100000    .4990463   .2887114   8.27e-06   .9999986  
+(obs=100000)
+
+        |       xb       x1       x2       x3       x4
+--------+---------------------------------------------
+      xb|   1.0000
+      x1|   0.9214   1.0000
+      x2|   0.8826   0.8213   1.0000
+      x3|   0.7823   0.5618   0.4614   1.0000
+      x4|   0.4430   0.3237   0.2664   0.5558   1.0000
+
+
+. log close

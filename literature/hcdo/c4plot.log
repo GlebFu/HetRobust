@@ -1,0 +1,113 @@
+
+. ts
+** 26 May 1998 - 14:19:16
+
+. * c4 normal errors; size for b3
+.     local ylbl "0,.05,.10,.15"
+
+.     local ymax ".15"
+
+.     use c4res, clear
+
+.     global seedis = seedis[1]
+
+.     global dsnum = dsnumber[1]
+
+.     global dslbl = dslabel[1]
+
+.     global R2 = int(1000*R2[1])/1000
+
+.     label var sOLS05b3 "OLS test of b3'"
+
+.     label var s1HC05b3 " "
+
+.     label var s2HC05b3 " "
+
+.     label var s3HC05b3 " "
+
+.     label var s0HC05b1 "# = type of HC correction"
+
+.     label def sizel 1 "25" 2 "50" 3 "100" 4 "250" 5 "500" 6 "1000"
+
+.     label val n123 sizel
+
+.     label var sampleN "Sample Size"
+
+.     label var sampleN " "
+
+.     label var n123 "Sample Size"
+
+. 
+.     drop m0 m1 m2 m3
+
+.     label var s0HC05b3 "HCCM#"
+
+.     label var sOLS05b3 "Size: OLSCM
+
+.     gen str1 m0="0"
+
+.     gen str1 m1="1"
+
+.     gen str1 m2="2"
+
+.     gen str1 m3="3"
+
+. set textsize 110
+
+.     #delimit ;
+delimiter now ;
+.     graph  sOLS05b3 s0HC05b3 s1HC05b3 s2HC05b3 s3HC05b3
+>         n123,
+>         s(S[m0][m1][m2][m3])
+>         c(lllll) psize(145) yline(.05) yscale(0,`ymax')
+>         ylab(`ylbl') xlab(1,2,3,4,5,6)
+>         l1("Percent Rejected for B3") gap(3)
+>                 saving(tb1,replace)    ;
+
+.     #delimit cr
+delimiter now cr
+. 
+. 
+. * c4 normal errors; power for b3
+.     label var p0HC05b3 "HCCM#"
+
+. label var p1HC05b3 " "
+
+. label var p2HC05b3 " "
+
+. label var p3HC05b3 " "
+
+.     label var pOLS05b3 "Power: OLSCM
+
+.     set textsize 110
+
+.     #delimit ;
+delimiter now ;
+.     graph pOLS05b3 p0HC05b3 p1HC05b3 p2HC05b3 p3HC05b3
+>         n123,
+>         s(S[m0][m1][m2][m3])
+>         c(lllll) psize(180) yline(.05,1) yscale(0,.15)
+>         ylab(0,.20,.40,.60,.80,1.0) xlab(1,2,3,4,5,6)
+>         l1("") gap(3)
+>         saving(tb2,replace)    ;
+
+.     #delimit cr
+delimiter now cr
+. 
+. set textsize 100
+
+.     graph using null null tb1 tb2, /*
+>     */ b2("Homoscedasticity with Chi-square(5) Errors.")
+
+. 
+end of do-file
+
+. help graph
+
+. help graph
+--Break--
+r(1);
+
+. do graph1
+
+. capture log close

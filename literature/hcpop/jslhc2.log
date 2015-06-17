@@ -1,0 +1,78 @@
+
+. ts
+*  6 Jul 1999 - 12:28:02
+
+. version 5.0
+
+. 
+. clear
+
+. set memory 12m
+(12288k)
+
+. set more off
+
+. * hc1 seed: 163564
+. set seed 163564
+
+. clear
+
+. * generate the base data
+.   hcbasebi 100000 jslhc2
+** Seed = 29038 for population of 100000.
+ 
+file jslhc2.dta saved
+
+Contains data from jslhc2.dta
+  obs:       100,000                          
+ vars:            25                          6 Jul 1999 12:28
+ size:    10,400,000 (17.3% of memory free)   (_dta has notes)
+-------------------------------------------------------------------------------
+   1. y         float  %9.0g                  Observed y.
+   2. xb        float  %9.0g                  1 + x1 + x2 + x3.
+   3. x1        float  %9.0g                  Uniform + 1.
+   4. x2        float  %9.0g                  Normal + normal.
+   5. x3        float  %9.0g                  Uniform + chisq1.
+   6. x4        float  %9.0g                  No effect on y.
+   7. e         float  %9.0g                  Error in equaiton.
+   8. sortvar   float  %9.0g                  Sort index.
+   9. x11       float  %9.0g                  
+  10. x12       float  %9.0g                  
+  11. x13       float  %9.0g                  
+  12. x14       float  %9.0g                  
+  13. x22       float  %9.0g                  
+  14. x23       float  %9.0g                  
+  15. x24       float  %9.0g                  
+  16. x33       float  %9.0g                  
+  17. x34       float  %9.0g                  
+  18. x44       float  %9.0g                  
+  19. d1        float  %9.0g                  
+  20. d2        float  %9.0g                  
+  21. ebase     float  %9.0g                  Base for e.
+  22. d4        float  %9.0g                  
+  23. res       float  %9.0g                  
+  24. ct        float  %9.0g                  
+  25. ct2       float  %9.0g                  
+-------------------------------------------------------------------------------
+Sorted by:  
+
+Variable |     Obs        Mean   Std. Dev.       Min        Max
+---------+-----------------------------------------------------
+      xb |  100000    7.642473    3.26299  -2.183765   32.35014  
+      x1 |  100000    1.499012   .2886124    1.00002   1.999999  
+      x2 |  100000    3.544538   2.514522  -4.264369    16.6969  
+      x3 |  100000    1.598922   1.030086   .0007152   13.53885  
+      x4 |  100000    3.581957    1.68758  -2.238941   16.91745  
+   ebase |  100000    .5006432   .2884537   .0000233   .9999648  
+(obs=100000)
+
+         |       xb       x1       x2       x3       x4
+---------+---------------------------------------------
+      xb |   1.0000
+      x1 |   0.5192   1.0000
+      x2 |   0.9440   0.3288   1.0000
+      x3 |   0.7177   0.5619   0.4572   1.0000
+      x4 |   0.4357   0.3239   0.2998   0.5575   1.0000
+
+
+. log close

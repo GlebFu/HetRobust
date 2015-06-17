@@ -1,0 +1,12 @@
+
+. ts
+** 19 Apr 1998 - 21:15:22
+
+. hcplt 34n 05 10 .10 P
+(Note: file tb1.gph not found)
+(Note: file tb2.gph not found)
+(Note: file tb3.gph not found)
+(Note: file tb4.gph not found)
+(Note: file null.gph not found)
+
+. log close

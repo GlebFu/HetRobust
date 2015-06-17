@@ -1,0 +1,200 @@
+
+. *  2dbg.do
+. *  data structure: big het function of dummy x2.
+. *  normal errors, R2=.4
+. *  Base Data: jslHC4
+. 
+. ts
+** 31 Mar 1998 - 14:30:28
+
+. version 5.0
+
+. clear
+
+. set more off
+
+.     global simnum_ = 1000
+
+.     global plevel = .05
+
+.     global factor = .665
+
+.     global seedmc = 11020760
+
+.     use jslhc4,clear
+
+.     set seed $seedmc
+
+.     ts
+** 31 Mar 1998 - 14:30:30
+
+.     hcmonte 4 112 2dbg 25 50 100 250 500 1000
+** Constructing data to analyze...
+*  Simulation date: 13969
+*  Population:      hc4
+*  Data Label:      hc112
+*  Factor:          .665
+*  Structure:       hc2dbg
+*  Sample N's:      25 50 100 250 500 1000
+*  Selection seed:  11020760
+*  Iterations:      1000
+
+*  Population regression:
+
+  Source |       SS       df       MS                  Number of obs =  100000
+---------+------------------------------               F(  4, 99995) =16611.64
+   Model |  236803.247     4  59200.8118               Prob > F      =  0.0000
+Residual |  356363.678 99995  3.56381497               R-squared     =  0.3992
+---------+------------------------------               Adj R-squared =  0.3992
+   Total |  593166.925 99999  5.93172857               Root MSE      =  1.8878
+
+------------------------------------------------------------------------------
+       y |      Coef.   Std. Err.       t     P>|t|       [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+      x1 |   1.063894   .0333001     31.949   0.000       .9986266    1.129162
+      x2 |    .966001   .0174638     55.314   0.000       .9317721     1.00023
+      x3 |    1.00383   .0079663    126.009   0.000       .9882162    1.019444
+      x4 |  -.0037958   .0042441     -0.894   0.371      -.0121141    .0045226
+   _cons |   .9226819    .042224     21.852   0.000       .8399233     1.00544
+------------------------------------------------------------------------------
+** Simulations follow:
+ 
+Sample size:  25
+Results file: 2dbg0025
+14:30:35. Working...
+14:30:50. 1 completed. Next notice is 10.
+14:31:28. 10 completed. Next notice is 25.
+14:32:35. 25 completed. Next notice is 50.
+14:34:13. 50 completed. Next notice is 100.
+14:37:45. 100 completed. Next notice is 200.
+14:44:52. 200 completed. Next notice is 300.
+14:51:49. 300 completed. Next notice is 400.
+14:59:15. 400 completed. Next notice is 500.
+15:06:24. 500 completed. Next notice is 600.
+15:13:41. 600 completed. Next notice is 700.
+15:21:08. 700 completed. Next notice is 800.
+15:28:12. 800 completed. Next notice is 900.
+15:35:18. 900 completed. Next notice is 950.
+15:38:53. 950 completed. Next notice is 975.
+15:40:40. 975 completed. Next notice is 990.
+15:41:42. 990 completed. Next notice is completion.
+15:42:27. Iterations complete.
+ 
+Sample size:  50
+Results file: 2dbg0050
+(Note: file 2dbg0050.dta not found)
+15:42:27. Working...
+15:42:36. 1 completed. Next notice is 10.
+15:43:14. 10 completed. Next notice is 25.
+15:44:19. 25 completed. Next notice is 50.
+15:46:05. 50 completed. Next notice is 100.
+15:50:16. 100 completed. Next notice is 200.
+15:58:47. 200 completed. Next notice is 300.
+16:06:31. 300 completed. Next notice is 400.
+16:13:32. 400 completed. Next notice is 500.
+16:20:38. 500 completed. Next notice is 600.
+16:27:57. 600 completed. Next notice is 700.
+16:35:04. 700 completed. Next notice is 800.
+16:42:04. 800 completed. Next notice is 900.
+16:49:02. 900 completed. Next notice is 950.
+16:53:09. 950 completed. Next notice is 975.
+16:55:07. 975 completed. Next notice is 990.
+16:56:12. 990 completed. Next notice is completion.
+16:56:56. Iterations complete.
+ 
+Sample size:  100
+Results file: 2dbg0100
+(Note: file 2dbg0100.dta not found)
+16:56:56. Working...
+16:57:07. 1 completed. Next notice is 10.
+16:57:42. 10 completed. Next notice is 25.
+16:58:49. 25 completed. Next notice is 50.
+17:00:55. 50 completed. Next notice is 100.
+17:04:56. 100 completed. Next notice is 200.
+17:13:09. 200 completed. Next notice is 300.
+17:21:51. 300 completed. Next notice is 400.
+17:29:36. 400 completed. Next notice is 500.
+17:37:06. 500 completed. Next notice is 600.
+17:44:11. 600 completed. Next notice is 700.
+17:51:09. 700 completed. Next notice is 800.
+17:58:14. 800 completed. Next notice is 900.
+18:05:20. 900 completed. Next notice is 950.
+18:08:55. 950 completed. Next notice is 975.
+18:10:46. 975 completed. Next notice is 990.
+18:11:48. 990 completed. Next notice is completion.
+18:12:30. Iterations complete.
+ 
+Sample size:  250
+Results file: 2dbg0250
+(Note: file 2dbg0250.dta not found)
+18:12:30. Working...
+18:12:40. 1 completed. Next notice is 10.
+18:13:11. 10 completed. Next notice is 25.
+18:14:24. 25 completed. Next notice is 50.
+18:16:10. 50 completed. Next notice is 100.
+18:19:47. 100 completed. Next notice is 200.
+18:27:09. 200 completed. Next notice is 300.
+18:34:26. 300 completed. Next notice is 400.
+18:42:04. 400 completed. Next notice is 500.
+18:49:56. 500 completed. Next notice is 600.
+18:58:22. 600 completed. Next notice is 700.
+19:06:02. 700 completed. Next notice is 800.
+19:13:39. 800 completed. Next notice is 900.
+19:21:04. 900 completed. Next notice is 950.
+19:24:57. 950 completed. Next notice is 975.
+19:26:57. 975 completed. Next notice is 990.
+19:28:02. 990 completed. Next notice is completion.
+19:28:49. Iterations complete.
+ 
+Sample size:  500
+Results file: 2dbg0500
+(Note: file 2dbg0500.dta not found)
+19:28:49. Working...
+19:28:57. 1 completed. Next notice is 10.
+19:29:33. 10 completed. Next notice is 25.
+19:30:38. 25 completed. Next notice is 50.
+19:32:28. 50 completed. Next notice is 100.
+19:36:15. 100 completed. Next notice is 200.
+19:43:29. 200 completed. Next notice is 300.
+19:51:07. 300 completed. Next notice is 400.
+19:59:06. 400 completed. Next notice is 500.
+20:06:32. 500 completed. Next notice is 600.
+20:14:35. 600 completed. Next notice is 700.
+20:22:28. 700 completed. Next notice is 800.
+20:30:06. 800 completed. Next notice is 900.
+20:37:50. 900 completed. Next notice is 950.
+20:41:47. 950 completed. Next notice is 975.
+20:43:49. 975 completed. Next notice is 990.
+20:45:04. 990 completed. Next notice is completion.
+20:45:48. Iterations complete.
+ 
+Sample size:  1000
+Results file: 2dbg1000
+(Note: file 2dbg1000.dta not found)
+20:45:49. Working...
+20:45:56. 1 completed. Next notice is 10.
+20:46:35. 10 completed. Next notice is 25.
+20:47:42. 25 completed. Next notice is 50.
+20:49:27. 50 completed. Next notice is 100.
+20:53:07. 100 completed. Next notice is 200.
+21:01:05. 200 completed. Next notice is 300.
+21:10:23. 300 completed. Next notice is 400.
+21:18:48. 400 completed. Next notice is 500.
+21:25:55. 500 completed. Next notice is 600.
+21:33:08. 600 completed. Next notice is 700.
+21:40:03. 700 completed. Next notice is 800.
+21:47:22. 800 completed. Next notice is 900.
+21:54:28. 900 completed. Next notice is 950.
+21:58:14. 950 completed. Next notice is 975.
+22:00:02. 975 completed. Next notice is 990.
+22:01:07. 990 completed. Next notice is completion.
+22:01:49. Iterations complete.
+
+.     di "Iterations complete.
+Iterations complete.
+
+.     ts
+** 31 Mar 1998 - 22:01:50
+
+. 
+. log close

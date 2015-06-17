@@ -1,0 +1,207 @@
+
+. 
+. *  3nn.do
+. *  data structure: het on x3,
+. *  errors normal, R2=.40.
+. *  base data: jslHC1
+. 
+. ts
+** 17 Apr 1998 - 15:27:27
+
+. version 5.0
+
+. clear
+
+. set more off
+
+. 
+.     global simnum_ = 1000
+
+.     global factor = .97
+
+.     global plevel = .05
+
+.     global seedmc = 11020760
+
+.     use jslhc1
+
+.     set seed $seedmc
+
+.     di "Iterations beginning."
+Iterations beginning.
+
+.     ts
+** 17 Apr 1998 - 15:27:29
+
+.     hcmonte 1 109 3nn 25 50 100 250 500 1000
+** Constructing data to analyze...
+*  Simulation date: 13986
+*  Population:      hc1
+*  Data Label:      hc109
+*  Factor:          .53
+*  Structure:       hc3nn
+*  Sample N's:      25 50 100 250 500 1000
+*  Selection seed:  11020760
+*  Iterations:      1000
+
+*  Population regression:
+
+  Source |       SS       df       MS                  Number of obs =  100000
+---------+------------------------------               F(  4, 99995) =17074.95
+   Model |  410422.011     4  102605.503               Prob > F      =  0.0000
+Residual |  600882.274 99995   6.0091232               R-squared     =  0.4058
+---------+------------------------------               Adj R-squared =  0.4058
+   Total |  1011304.29 99999   10.113144               Root MSE      =  2.4514
+
+------------------------------------------------------------------------------
+       y |      Coef.   Std. Err.       t     P>|t|       [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+      x1 |   1.104439   .0504953     21.872   0.000       1.005469     1.20341
+      x2 |   .9767756   .0128987     75.727   0.000       .9514944    1.002057
+      x3 |   1.002366   .0103444     96.899   0.000       .9820909    1.022641
+      x4 |  -.0046159    .005511     -0.838   0.402      -.0154175    .0061856
+   _cons |   .8915692   .0588361     15.153   0.000       .7762512    1.006887
+------------------------------------------------------------------------------
+** Simulations follow:
+ 
+Sample size:  25
+Results file: 3nn0025
+(Note: file 3nn0025.dta not found)
+15:27:33. Working...
+15:27:43. 1 completed. Next notice is 10.
+15:28:13. 10 completed. Next notice is 25.
+15:29:14. 25 completed. Next notice is 50.
+15:31:08. 50 completed. Next notice is 100.
+15:35:21. 100 completed. Next notice is 200.
+15:43:11. 200 completed. Next notice is 300.
+15:51:32. 300 completed. Next notice is 400.
+15:59:09. 400 completed. Next notice is 500.
+16:06:16. 500 completed. Next notice is 600.
+16:13:42. 600 completed. Next notice is 700.
+16:21:19. 700 completed. Next notice is 800.
+16:28:44. 800 completed. Next notice is 900.
+16:36:37. 900 completed. Next notice is 950.
+16:40:39. 950 completed. Next notice is 975.
+16:42:30. 975 completed. Next notice is 990.
+16:43:44. 990 completed. Next notice is completion.
+16:44:29. Iterations complete.
+ 
+Sample size:  50
+Results file: 3nn0050
+(Note: file 3nn0050.dta not found)
+16:44:30. Working...
+16:44:37. 1 completed. Next notice is 10.
+16:45:13. 10 completed. Next notice is 25.
+16:46:20. 25 completed. Next notice is 50.
+16:48:11. 50 completed. Next notice is 100.
+16:51:59. 100 completed. Next notice is 200.
+16:59:23. 200 completed. Next notice is 300.
+17:06:34. 300 completed. Next notice is 400.
+17:13:44. 400 completed. Next notice is 500.
+17:21:07. 500 completed. Next notice is 600.
+17:28:40. 600 completed. Next notice is 700.
+17:35:58. 700 completed. Next notice is 800.
+17:43:24. 800 completed. Next notice is 900.
+17:50:58. 900 completed. Next notice is 950.
+17:55:01. 950 completed. Next notice is 975.
+17:57:09. 975 completed. Next notice is 990.
+17:58:09. 990 completed. Next notice is completion.
+17:58:54. Iterations complete.
+ 
+Sample size:  100
+Results file: 3nn0100
+(Note: file 3nn0100.dta not found)
+17:58:54. Working...
+17:59:02. 1 completed. Next notice is 10.
+17:59:39. 10 completed. Next notice is 25.
+18:00:52. 25 completed. Next notice is 50.
+18:02:39. 50 completed. Next notice is 100.
+18:06:15. 100 completed. Next notice is 200.
+18:13:51. 200 completed. Next notice is 300.
+18:21:20. 300 completed. Next notice is 400.
+18:29:09. 400 completed. Next notice is 500.
+18:36:09. 500 completed. Next notice is 600.
+18:43:04. 600 completed. Next notice is 700.
+18:50:49. 700 completed. Next notice is 800.
+19:00:45. 800 completed. Next notice is 900.
+19:09:25. 900 completed. Next notice is 950.
+19:13:34. 950 completed. Next notice is 975.
+19:15:30. 975 completed. Next notice is 990.
+19:16:43. 990 completed. Next notice is completion.
+19:17:35. Iterations complete.
+ 
+Sample size:  250
+Results file: 3nn0250
+(Note: file 3nn0250.dta not found)
+19:17:36. Working...
+19:17:47. 1 completed. Next notice is 10.
+19:18:18. 10 completed. Next notice is 25.
+19:19:23. 25 completed. Next notice is 50.
+19:21:16. 50 completed. Next notice is 100.
+19:25:11. 100 completed. Next notice is 200.
+19:33:19. 200 completed. Next notice is 300.
+19:40:57. 300 completed. Next notice is 400.
+19:48:52. 400 completed. Next notice is 500.
+19:56:53. 500 completed. Next notice is 600.
+20:05:24. 600 completed. Next notice is 700.
+20:13:18. 700 completed. Next notice is 800.
+20:20:48. 800 completed. Next notice is 900.
+20:28:05. 900 completed. Next notice is 950.
+20:31:49. 950 completed. Next notice is 975.
+20:33:39. 975 completed. Next notice is 990.
+20:34:45. 990 completed. Next notice is completion.
+20:35:28. Iterations complete.
+ 
+Sample size:  500
+Results file: 3nn0500
+(Note: file 3nn0500.dta not found)
+20:35:29. Working...
+20:35:41. 1 completed. Next notice is 10.
+20:36:16. 10 completed. Next notice is 25.
+20:37:31. 25 completed. Next notice is 50.
+20:39:26. 50 completed. Next notice is 100.
+20:43:01. 100 completed. Next notice is 200.
+20:50:12. 200 completed. Next notice is 300.
+20:57:21. 300 completed. Next notice is 400.
+21:04:34. 400 completed. Next notice is 500.
+21:12:21. 500 completed. Next notice is 600.
+21:19:35. 600 completed. Next notice is 700.
+21:27:04. 700 completed. Next notice is 800.
+21:34:27. 800 completed. Next notice is 900.
+21:41:46. 900 completed. Next notice is 950.
+21:45:17. 950 completed. Next notice is 975.
+21:47:08. 975 completed. Next notice is 990.
+21:48:08. 990 completed. Next notice is completion.
+21:48:58. Iterations complete.
+ 
+Sample size:  1000
+Results file: 3nn1000
+(Note: file 3nn1000.dta not found)
+21:48:58. Working...
+21:49:08. 1 completed. Next notice is 10.
+21:49:44. 10 completed. Next notice is 25.
+21:50:56. 25 completed. Next notice is 50.
+21:52:49. 50 completed. Next notice is 100.
+21:56:27. 100 completed. Next notice is 200.
+22:03:42. 200 completed. Next notice is 300.
+22:11:06. 300 completed. Next notice is 400.
+22:18:32. 400 completed. Next notice is 500.
+22:26:22. 500 completed. Next notice is 600.
+22:34:04. 600 completed. Next notice is 700.
+22:41:26. 700 completed. Next notice is 800.
+22:48:36. 800 completed. Next notice is 900.
+22:56:03. 900 completed. Next notice is 950.
+22:59:46. 950 completed. Next notice is 975.
+23:01:51. 975 completed. Next notice is 990.
+23:03:00. 990 completed. Next notice is completion.
+23:03:48. Iterations complete.
+
+.     di "Iterations complete.
+Iterations complete.
+
+.     ts
+** 17 Apr 1998 - 23:03:49
+
+. *    hcresult 1 3nn 25 50 100 250 500 1000
+. 
+. log close

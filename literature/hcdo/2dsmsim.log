@@ -1,0 +1,206 @@
+
+. 
+. * 2dsm.do
+. * data structure: small het function of dummy x2.
+. * normal errors, R2=.4
+. * Base data: jslHC4
+. 
+. ts
+** 31 Mar 1998 - 23:46:30
+
+. version 5.0
+
+. clear
+
+. set more off
+
+. 
+.     global simnum_ = 1000
+
+.     global plevel = .05
+
+.     global seedmc = 11020760
+
+.     use jslhc4
+
+.     set seed $seedmc
+
+.     di "Iterations beginning."
+Iterations beginning.
+
+.     ts
+** 31 Mar 1998 - 23:46:33
+
+.     hcmonte 4 113 2dsm 25 50 100 250 500 1000
+** Constructing data to analyze...
+*  Simulation date: 13969
+*  Population:      hc4
+*  Data Label:      hc113
+*  Factor:          .75
+*  Structure:       hc2dsm
+*  Sample N's:      25 50 100 250 500 1000
+*  Selection seed:  11020760
+*  Iterations:      1000
+
+*  Population regression:
+
+  Source |       SS       df       MS                  Number of obs =  100000
+---------+------------------------------               F(  4, 99995) =16553.91
+   Model |  236828.842     4  59207.2106               Prob > F      =  0.0000
+Residual |  357645.107 99995   3.5766299               R-squared     =  0.3984
+---------+------------------------------               Adj R-squared =  0.3984
+   Total |   594473.95 99999  5.94479894               Root MSE      =  1.8912
+
+------------------------------------------------------------------------------
+       y |      Coef.   Std. Err.       t     P>|t|       [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+      x1 |   1.057659     .03336     31.704   0.000       .9922734    1.123044
+      x2 |   .9729893   .0174952     55.615   0.000       .9386989     1.00728
+      x3 |   1.002993   .0079806    125.678   0.000       .9873511    1.018635
+      x4 |  -.0040742   .0042517     -0.958   0.338      -.0124075    .0042591
+   _cons |   .9305997   .0422999     22.000   0.000       .8476925    1.013507
+------------------------------------------------------------------------------
+** Simulations follow:
+ 
+Sample size:  25
+Results file: 2dsm0025
+(Note: file 2dsm0025.dta not found)
+23:46:36. Working...
+23:46:44. 1 completed. Next notice is 10.
+23:47:32. 10 completed. Next notice is 25.
+23:48:57. 25 completed. Next notice is 50.
+23:50:45. 50 completed. Next notice is 100.
+23:54:27. 100 completed. Next notice is 200.
+00:02:32. 200 completed. Next notice is 300.
+00:10:22. 300 completed. Next notice is 400.
+00:18:13. 400 completed. Next notice is 500.
+00:25:45. 500 completed. Next notice is 600.
+00:33:51. 600 completed. Next notice is 700.
+00:40:51. 700 completed. Next notice is 800.
+00:47:48. 800 completed. Next notice is 900.
+00:54:35. 900 completed. Next notice is 950.
+00:58:00. 950 completed. Next notice is 975.
+00:59:51. 975 completed. Next notice is 990.
+01:00:52. 990 completed. Next notice is completion.
+01:01:36. Iterations complete.
+ 
+Sample size:  50
+Results file: 2dsm0050
+(Note: file 2dsm0050.dta not found)
+01:01:36. Working...
+01:01:44. 1 completed. Next notice is 10.
+01:02:19. 10 completed. Next notice is 25.
+01:03:25. 25 completed. Next notice is 50.
+01:05:07. 50 completed. Next notice is 100.
+01:08:36. 100 completed. Next notice is 200.
+01:15:35. 200 completed. Next notice is 300.
+01:22:22. 300 completed. Next notice is 400.
+01:29:17. 400 completed. Next notice is 500.
+01:36:12. 500 completed. Next notice is 600.
+01:43:11. 600 completed. Next notice is 700.
+01:49:57. 700 completed. Next notice is 800.
+01:56:40. 800 completed. Next notice is 900.
+02:03:11. 900 completed. Next notice is 950.
+02:06:36. 950 completed. Next notice is 975.
+02:08:16. 975 completed. Next notice is 990.
+02:09:16. 990 completed. Next notice is completion.
+02:09:55. Iterations complete.
+ 
+Sample size:  100
+Results file: 2dsm0100
+(Note: file 2dsm0100.dta not found)
+02:09:55. Working...
+02:10:03. 1 completed. Next notice is 10.
+02:10:33. 10 completed. Next notice is 25.
+02:11:34. 25 completed. Next notice is 50.
+02:13:10. 50 completed. Next notice is 100.
+02:16:39. 100 completed. Next notice is 200.
+02:23:23. 200 completed. Next notice is 300.
+02:29:55. 300 completed. Next notice is 400.
+02:36:35. 400 completed. Next notice is 500.
+02:43:11. 500 completed. Next notice is 600.
+02:49:48. 600 completed. Next notice is 700.
+02:56:40. 700 completed. Next notice is 800.
+03:03:34. 800 completed. Next notice is 900.
+03:10:10. 900 completed. Next notice is 950.
+03:13:36. 950 completed. Next notice is 975.
+03:15:19. 975 completed. Next notice is 990.
+03:16:28. 990 completed. Next notice is completion.
+03:17:08. Iterations complete.
+ 
+Sample size:  250
+Results file: 2dsm0250
+(Note: file 2dsm0250.dta not found)
+03:17:08. Working...
+03:17:16. 1 completed. Next notice is 10.
+03:17:47. 10 completed. Next notice is 25.
+03:18:49. 25 completed. Next notice is 50.
+03:20:34. 50 completed. Next notice is 100.
+03:24:02. 100 completed. Next notice is 200.
+03:31:20. 200 completed. Next notice is 300.
+03:38:15. 300 completed. Next notice is 400.
+03:45:28. 400 completed. Next notice is 500.
+03:52:20. 500 completed. Next notice is 600.
+03:59:29. 600 completed. Next notice is 700.
+04:06:26. 700 completed. Next notice is 800.
+04:13:29. 800 completed. Next notice is 900.
+04:20:28. 900 completed. Next notice is 950.
+04:24:03. 950 completed. Next notice is 975.
+04:25:44. 975 completed. Next notice is 990.
+04:26:46. 990 completed. Next notice is completion.
+04:27:30. Iterations complete.
+ 
+Sample size:  500
+Results file: 2dsm0500
+(Note: file 2dsm0500.dta not found)
+04:27:30. Working...
+04:27:38. 1 completed. Next notice is 10.
+04:28:10. 10 completed. Next notice is 25.
+04:29:15. 25 completed. Next notice is 50.
+04:31:01. 50 completed. Next notice is 100.
+04:34:40. 100 completed. Next notice is 200.
+04:41:45. 200 completed. Next notice is 300.
+04:48:51. 300 completed. Next notice is 400.
+04:55:51. 400 completed. Next notice is 500.
+05:02:45. 500 completed. Next notice is 600.
+05:09:42. 600 completed. Next notice is 700.
+05:16:56. 700 completed. Next notice is 800.
+05:23:57. 800 completed. Next notice is 900.
+05:30:55. 900 completed. Next notice is 950.
+05:34:25. 950 completed. Next notice is 975.
+05:36:10. 975 completed. Next notice is 990.
+05:37:09. 990 completed. Next notice is completion.
+05:37:50. Iterations complete.
+ 
+Sample size:  1000
+Results file: 2dsm1000
+(Note: file 2dsm1000.dta not found)
+05:37:51. Working...
+05:37:59. 1 completed. Next notice is 10.
+05:38:36. 10 completed. Next notice is 25.
+05:39:39. 25 completed. Next notice is 50.
+05:41:20. 50 completed. Next notice is 100.
+05:44:55. 100 completed. Next notice is 200.
+05:52:01. 200 completed. Next notice is 300.
+05:58:54. 300 completed. Next notice is 400.
+06:06:09. 400 completed. Next notice is 500.
+06:13:24. 500 completed. Next notice is 600.
+06:20:23. 600 completed. Next notice is 700.
+06:27:28. 700 completed. Next notice is 800.
+06:34:34. 800 completed. Next notice is 900.
+06:41:51. 900 completed. Next notice is 950.
+06:45:37. 950 completed. Next notice is 975.
+06:47:32. 975 completed. Next notice is 990.
+06:48:39. 990 completed. Next notice is completion.
+06:49:18. Iterations complete.
+
+.     di "Iterations complete.
+Iterations complete.
+
+.     ts
+**  1 Apr 1998 - 06:49:19
+
+.     set more off
+
+. 
+. log close

@@ -1,0 +1,74 @@
+
+. * generate base structure of data with x2 dummy
+. * Dsname: jslhc4
+. ts
+** 31 Mar 1998 - 13:08:15
+
+. version 5.0
+
+. clear
+
+. set more off
+
+. hcbased2 jslhc4
+(53449 missing values generated)
+(53449 real changes made)
+(100000 real changes made)
+(100000 real changes made)
+(100000 real changes made)
+(100000 real changes made)
+(100000 real changes made)
+ 
+(Note: file jslhc4.dta not found)
+file jslhc4.dta saved
+
+Contains data from jslhc4.dta
+  obs:       100,000                            
+ vars:            22                            31 Mar 1998 13:08
+ size:     9,200,000 (26.9% of memory free)   * _dta has notes
+-------------------------------------------------------------------------------
+   1. y           float  %9.0g                  Observed y.
+   2. xb          float  %9.0g                  1 + x1 + x2 + x3.
+   3. x1          float  %9.0g                  Uniform + 1.
+   4. x2          float  %9.0g                  Dummy.
+   5. x3          float  %9.0g                  Uniform + chisq1.
+   6. x4          float  %9.0g                  No effect on y.
+   7. e           float  %9.0g                  Error in equaiton.
+   8. sortvar     float  %9.0g                  Sort index.
+   9. x11         float  %9.0g                  
+  10. x12         float  %9.0g                  
+  11. x13         float  %9.0g                  
+  12. x14         float  %9.0g                  
+  13. x22         float  %9.0g                  
+  14. x23         float  %9.0g                  
+  15. x24         float  %9.0g                  
+  16. x33         float  %9.0g                  
+  17. x34         float  %9.0g                  
+  18. x44         float  %9.0g                  
+  19. ebase       float  %9.0g                  Base for e.
+  20. res         float  %9.0g                  
+  21. ct          float  %9.0g                  
+  22. ct2         float  %9.0g                  
+-------------------------------------------------------------------------------
+Sorted by:  
+
+Variable |     Obs        Mean   Std. Dev.       Min        Max
+---------+-----------------------------------------------------
+      xb |  100000    4.564714   1.536172   2.001445   15.90227  
+      x1 |  100000    1.499012   .2886124    1.00002   1.999999  
+      x2 |  100000      .46551   .4988115          0          1  
+      x3 |  100000    1.600192    1.03109   .0011668   12.12769  
+      x4 |  100000     3.59375   1.692207  -2.283696   15.27936  
+   ebase |  100000    .4990463   .2887114   8.27e-06   .9999986  
+(obs=100000)
+
+        |       xb       x1       x2       x3       x4
+--------+---------------------------------------------
+      xb|   1.0000
+      x1|   0.8014   1.0000
+      x2|   0.7359   0.7283   1.0000
+      x3|   0.9095   0.5618   0.4088   1.0000
+      x4|   0.5101   0.3237   0.2348   0.5558   1.0000
+
+
+. log close
