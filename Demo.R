@@ -2,6 +2,8 @@ library(htmlTable)
 library(PerformanceAnalytics)
 library(reshape2)
 library(plyr)
+library(dplyr)
+library(ggplot2)
 rm(list = ls())
 
 # Distributions used in generating data
@@ -17,6 +19,8 @@ x1 <- 1 + b1
 x2 <- 3 * b1 + .6 * b2
 x3 <- 2 * b1 + .6 * b3
 x4 <- .1 * x1 + .9 * x3 - .8 * b4 + 4 * b5
+x2[x2 < -2.5] <- -2.5
+x4[x4 < -2.5] <- -2.5
 
 # One dummy variable created by splitting x2
 xD <- ifelse(x2 > 1.6, 1, 0)
@@ -71,16 +75,6 @@ E6 <- ifelse(xD == 1, 4 * En, En)
 source(file = "Long Ervin Replication.R")
 
 # Demo
-error(erlist = "E4", 
-      X = cbind(rep(1,5),
-                runif(5, 0, 1), 
-                runif(5, 0, 1),
-                runif(5, 0, 1),
-                runif(5, 0, 1),
-                runif(5, 0, 1)), 
-      Edist = rnorm(5))
-
-# Demo
 model(Y = runif(15, 0, 1), 
       X = cbind(rep(1,15),
                 runif(15, 0, 1), 
@@ -92,23 +86,30 @@ model(Y = runif(15, 0, 1),
       whichX = c(T, T, T, F, F, F))
 
 # Demo
-test_mod <- gdm(n = 1000, 
+model <- gdm(n = 1000, 
                 B = c(1, 1, 1, 1, 0, 0), 
-                Estructs = c("E3"),
+                Estruct = "E0",
                 whichX = c(T, T, T, T, T, F),
-                Edist = "Ech")
+                Edist = "En")
+
+
+#Demo
+testimate <- estimate("HOM", model)
+testimate <- lapply(c("HOM", "HC1"), estimate, test_mod)
+
+estimate("HC3", model)
 
 # replication demo
-testrep <- replicate(2, {
-  model <- gdm(n = 10, 
+testrep <- replicate(1000, {
+  model <- gdm(n = 1000, 
                B = c(1, 1, 0, 1, 0, 0), 
-               Estructs = c("E0", "E1", "E2"),
-               whichX = c(T, T, T, T, F, F),
+               Estruct = "E0",
+               whichX = c(T, T, F, T, F, F),
                Edist = "En")
   
-  estimates <- ldply(model, estimate)
-  estimates <- melt(estimates, id.vars = c(".id", "Adjustment", "Beta"))
-  return (estimates$value)
+  estimates <- lapply(c("HOM", "HC1"), estimate, model)
+  names(estimates) <- c("HOM", "HC1")
+  return (estimates)
 })
 
 
@@ -116,21 +117,146 @@ testimate <- ldply(test_mod, estimate)
 melt(testimate, id.vars = c(".id", "Adjustment", "Beta"))
 melt(testimate)
 
+sapply(c("HOM", "HC1"), performance, testrep, 1000)
+
+
 runSim(iterations = 10, 
        n = 10, 
        B = "1 1 1 1 0 0", 
-       Estructs = "E3", 
-       whichX = "T T T T T F", 
-       Edist = "Ech", 
+       Estruct = "E0", 
+       whichX = "T T T T F F", 
+       Edist = "En", 
+       adjust = c("HOM", "HC1"), 
        seed = 391741793)
 
-test <- F
-replicate(2, {
-  x <- sample(1:5, 1)
-  y <- x + 10
-  if(test) return(y)
-  print(ls())
-  return(x)
-})
 
+#run Sim
+source(file = "Long Ervin Replication.R")
+
+set.seed(20150630)
+
+design <- list(n = c(25, 50, 100, 250, 500, 1000),
+               B = "1 1 1 1 0 0",
+               Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
+               whichX = "T T T T T F",
+               Edist = c("En", "Ech", "Et"),
+               adjust = "HOM HC0 HC1 HC2 HC3 HC4 HC4m HC5 HC2_fp HC3_fp HC4_fp HC4m_fp HC5_fp")
+
+params <- expand.grid(design, stringsAsFactors = F)
+
+params$iterations <- 2
+params$seed <- round(runif(nrow(params)) * 2^30)
+
+source_obj <- ls()
+cluster <- start_parallel(source_obj)
+
+system.time(results <- mdply(params, .fun = runSim, .parallel = T))
+
+stopCluster(cluster)
+
+write.csv(results, file = "Results/20150630.csv")
+
+rm(list = ls())
+
+results <- read.csv("Results/20150629.csv")
+head(results)
+
+tableData <- select(results, n, Estruct, Edist, Parameter, Measure, HOM, HC0, HC1, HC2, HC3)
+tableData <- melt(tableData, id.vars = c("n", "Estruct", "Parameter", "Measure", "Edist"), variable.name = "Adjustment")
+tableData$n <- factor(tableData$n)
+head(tableData)
+     
+# Figure 1 Size
+Fig1 <- filter(tableData, 
+               Parameter == "B3",
+               Edist == "En", 
+               Measure == "Size", 
+               Estruct == "E0") %>%
+  select(n, Adjustment, value, Estruct)
+
+ggplot(Fig1, aes(x = n,
+                 y = value,
+                 group = Adjustment,
+                 color = Adjustment)) +
+  geom_line() +
+  geom_line(aes(y = .05,
+                color = "Nominal"))
+
+# Figure 1 Power
+Fig1p <- filter(tableData, 
+                Parameter == "B3", 
+                Edist == "Ech", 
+                Measure == "Power", 
+                Estruct == "E0") %>%
+  select(n, Adjustment, value, Estruct)
+
+ggplot(Fig1p, aes(x = n,
+                  y = value,
+                  group = Adjustment,
+                  color = Adjustment)) +
+  geom_line()
+
+# Figure 2
+Fig2 <- filter(tableData, 
+               Edist == "Ech", 
+               Measure == "Size", 
+               Estruct == "E2", 
+               Parameter != "B0" & Parameter != "B3") %>%
+  select(n, Adjustment, value, Estruct, Parameter)
+
+ggplot(Fig2, aes(x = n,
+                 y = value,
+                 group = Adjustment,
+                 color = Adjustment)) +
+  geom_line() +
+  facet_wrap(~Parameter) +
+  geom_line(aes(y = .05,
+                color = "Nominal"))
+
+# Figure 3
+Fig3 <- filter(tableData, Edist == "Ech", 
+               Measure == "Power", 
+               Estruct == "E3", 
+               Parameter == "B1" | Parameter == "B3") %>%
+  select(n, Adjustment, value, Estruct, Parameter)
+
+ggplot(Fig3, aes(x = n,
+                 y = value,
+                 group = Adjustment,
+                 color = Adjustment)) +
+  geom_line() +
+  facet_wrap(~Parameter)
+
+
+
+check <- filter(tableData,
+                Measure == "Size") %>%
+  select(n, Adjustment, value, Estruct, Edist, Parameter)
+
+ggplot(check, aes(x = n,
+                  y = value,
+                  group = Edist,
+                  color = Edist)) +
+  geom_line() + 
+  facet_wrap(~Parameter*Estruct*Adjustment)
+
+
+check <- filter(tableData,
+                Measure == "Size",
+                Edist == "Ech") %>%
+  select(n, Adjustment, value, Estruct, Parameter)
+
+ggplot(check, aes(x = n,
+                  y = value,
+                  group = Parameter,
+                  color = Parameter)) +
+  geom_line() + 
+  facet_wrap(~Estruct)
+
+###
+source(file = "Long Ervin Replication.R")
+
+testmod <- gdm(n = 1000, B = c(1, 1, 1, 1, 0, 0), Estruct = "E6", whichX = c(T, T, T, T, T, F), Edist = "Ech")
+testmod$coefs
+summary(lm(testmod$Y ~ testmod$X[,-1]))
 

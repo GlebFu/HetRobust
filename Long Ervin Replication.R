@@ -7,28 +7,6 @@ library(dplyr)
 library(ggplot2)
 rm(list = ls())
 
-# Returns a vector of response errors to be added to a vector of responses
-### erlist = mnemonic of error structure (character)
-### X = matrix of covariates
-### Edist = matrix of error distributions
-error <- function(erlist, X, Edist) {
-  x1 <- X[,2]
-  x2 <- X[,3]
-  x3 <- X[,4]
-  x4 <- X[,5]
-  xD <- X[,6]
-  
-  switch(erlist,
-         E0 = Edist,
-         E1 = sqrt(x1) * Edist,
-         E2 = sqrt(x3 + 1.6) * Edist,
-         E3 = sqrt(x3) * sqrt(x4 + 2.5) * Edist,
-         E4 = sqrt(x1) * sqrt(x2 + 2.5) * sqrt(x3) * Edist,
-         E5 = ifelse(xD == 1, 1.5 * Edist, Edist),
-         E6 = ifelse(xD == 1, 4 * Edist, Edist),
-  )
-}
-
 # Calculates a list of values for use in the estimation function
 ### Y = vector of response values
 ### X = matrix of covariates
@@ -59,7 +37,7 @@ model <- function(Y, X, trueB, whichX) {
   return(vars)
 }
 
-gdm <- function(n, B, Estructs, whichX, Edist) {
+gdm <- function(n, B, Estruct, whichX, Edist) {
   
   # Distributions used in generating data
   b1 <- runif(n, 0, 1)
@@ -74,6 +52,8 @@ gdm <- function(n, B, Estructs, whichX, Edist) {
   x2 <- 3 * b1 + .6 * b2
   x3 <- 2 * b1 + .6 * b3
   x4 <- .1 * x1 + .9 * x3 - .8 * b4 + 4 * b5
+  x2[x2 < -2.5] <- -2.5
+  x4[x4 < -2.5] <- -2.5
   
   # One dummy variable created by splitting x2
   xD <- ifelse(x2 > 1.6, 1, 0)
@@ -81,36 +61,35 @@ gdm <- function(n, B, Estructs, whichX, Edist) {
   # X matrix
   X <- cbind(x0, x1, x2, x3, x4, xD)
   
-  # X matrix with standardized x's
-  Xsd <- scale(X)
-  Xsd[,1] <- x0
-  
   # Three types of homoscedastistic error distributions:
   Edist <- switch(Edist,
                   En = rnorm(n, 0, 1),
-                  Ech = rchisq(n, 5),
+                  Ech = rchisq(n, 1),
                   Et = rt(n, 5))
   
+  # Seven tyoes of error structures
+  error <- switch(Estruct,
+                  E0 = Edist,
+                  E1 = sqrt(x1) * Edist,
+                  E2 = sqrt(x3 + 1.6) * Edist,
+                  E3 = sqrt(x3) * sqrt(x4 + 2.5) * Edist,
+                  E4 = sqrt(x1) * sqrt(x2 + 2.5) * sqrt(x3) * Edist,
+                  E5 = ifelse(xD == 1, 1.5 * Edist, Edist),
+                  E6 = ifelse(xD == 1, 4 * Edist, Edist),
+           )
+  
   # Generate DV with no error
-  Y <- t(B %*% t(X))
+  Y <- t(B %*% t(X)) + error
   
-  # Generate error matrix
-  Es <- lapply(Estructs, error, X, Edist)
-  
-  # Add error to DV
-  Y <- lapply(Es, function(Ers) Y + Ers)
-  
-  values <- lapply(Y, model, X, B, whichX)
-  
-  names(values) <- Estructs
+  values <- model(Y, X, B, whichX)
   
   return(values)
 }
 
-###  ESTIMATE FUNCTION IN PROGRESS ### 
 
-# cidf calculates the t-statistic, lower bound, and upper bound and returns dataframe
-cidf <- function(adjust) {
+pValues <- function(adjust) {
+  
+  
   t <- qt(.975, adjust$df)
   
   ci <- t(t(cbind(lb = adjust$Coef, ub = adjust$Coef)) + matrix(c(-1,1)) %*% (t*adjust$sd_e))
@@ -124,10 +103,30 @@ cidf <- function(adjust) {
   return(cidf)
 }
 
+f_p <- function(i, invX, W, e, h, H, I, w) {
+  
+  c <- invX[i,]
+  A <- diag((W * c)^2)
+  
+  var_B <- t(e) %*% A %*% e
+  
+  o4 <- e^4 / (3 * (w)^2)
+  o2o2 <- e^2 %*% t(e)^2 / (2*H^2 + (w) %*%t (w))
+  diag(o2o2) <- o4
+  sigma_hat <- o2o2
+  B <- ((I-H) %*% A %*% (I-H))
+  
+  num <- ((var_B)^2)
+  den <- sum(as.vector(t(B)) * as.vector(B * sigma_hat))
+  
+  return(num/den)
+}
+
+
 # estimation function takes model and vector of adjustments
 # need to design function to calculate appropriate adjustments given vector of adjustments
 # adjustment function will return a dataframe of adjustment name, parameter, estimated coefficient, standard error, degrees of freedom
-estimate <- function(model, adjust) {
+estimate <- function(adjust, model) {
   M <- model$M
   X <- model$X
   e <- model$e
@@ -137,207 +136,93 @@ estimate <- function(model, adjust) {
   p <- model$p
   coefs <- model$coefs
   B <- model$B
-  
-  OLSCM <- data.frame(Adjustment = rep("OLSCM", p),
-                      Beta = paste(rep("B", p),0:(p-1), sep = ""),
-                      Coef = coefs,
-                      sd_e = sqrt(diag(sum(e^2/(n-p)) * M)), 
-                      df = rep(n-p,p),
-                      B = B)
-  
-  HC0 <- data.frame(Adjustment = rep("HC0", p),
-                    Beta = paste(rep("B", p),0:(p-1), sep = ""),
-                    Coef = coefs,
-                    sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2)) %*% X %*% M)), 
-                    df = rep(n-p,p),
-                    B = B)
-  
-  HC1 <- data.frame(Adjustment = rep("HC1", p),
-                    Beta = paste(rep("B", p),0:(p-1), sep = ""),
-                    Coef = coefs,
-                    sd_e = sqrt((n/(n-p))*diag(M %*% t(X) %*% diag(as.vector(e^2)) %*% X %*% M)), 
-                    df = rep(n-p,p),
-                    B = B)
-  
-  HC2 <- data.frame(Adjustment = rep("HC2", p),
-                    Beta = paste(rep("B", p),0:(p-1), sep = ""),
-                    Coef = coefs,
-                    sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2/w)) %*% X %*% M)), 
-                    df = rep(n-p,p),
-                    B = B)
-  
-  HC3 <- data.frame(Adjustment = rep("HC3", p),
-                    Beta = paste(rep("B", p),0:(p-1), sep = ""),
-                    Coef = coefs,
-                    sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2/w^2)) %*% X %*% M)), 
-                    df = rep(n-p,p),
-                    B = B)
-  
-  HC4 <- data.frame(Adjustment = rep("HC4", p),
-                    Beta = paste(rep("B", p),0:(p-1), sep = ""),
-                    Coef = coefs,
-                    sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2/w^min(n*h/p,4))) %*% X %*% M)), 
-                    df = rep(n-p,p),
-                    B = B)
-  
-  HC4m <- data.frame(Adjustment = rep("HC4m", p),
-                     Beta = paste(rep("B", p),0:(p-1), sep = ""),
-                     Coef = coefs,
-                     sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2/w^(min(n*h/p,1) + min(n*h/p,1.5)))) %*% X %*% M)), 
-                     df = rep(n-p,p),
-                     B = B)
-  
-  HC5<- data.frame(Adjustment = rep("HC5", p),
-                   Beta = paste(rep("B", p),0:(p-1), sep = ""),
-                   Coef = coefs,
-                   sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2/w^(min(n*h/p,max(4,.7*n*max(h)/p))))) %*% X %*% M)), 
-                   df = rep(n-p,p),
-                   B = B)
+  I <- model$I
+  H <- model$H
+  invX <- model$invX
   
   
-  sdf <- rbind(OLSCM, HC0, HC1, HC2, HC3, HC4, HC4m, HC5)
+  sdf <- switch(adjust,
+                "HOM" = list(sd_e = sqrt(diag(sum(e^2 / (n - p)) * M)), 
+                             df = rep(n - p, p)),
+                
+                "HC0" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2)) %*% X %*% M)), 
+                             df = rep(n - p, p)),
+                
+                "HC1" = list(sd_e = sqrt((n / (n - p))*diag(M %*% t(X) %*% diag(as.vector(e^2)) %*% X %*% M)), 
+                             df = rep(n - p, p)),
+                
+                "HC2" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M)), 
+                             df = rep(n - p, p)),
+                
+                "HC3" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^2)) %*% X %*% M)), 
+                             df = rep(n - p, p)),
+                
+                "HC4" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^min(n * h / p, 4))) %*% X %*% M)), 
+                             df = rep(n - p, p)),
+                
+                "HC4m" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(min(n * h / p, 1) + min(n*h / p,1.5)))) %*% X %*% M)), 
+                              df = rep(n - p, p)),
+                
+                "HC5" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(min(n * h / p, max(4, .7 * n * max(h) / p))))) %*% X %*% M)), 
+                             df = rep(n - p, p)),
+                
+                "HC2_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M)), 
+                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)),
+                
+                "HC3_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^2)) %*% X %*% M)), 
+                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^2), e = e, h = h, H = H, I = I, w = w)),
+                
+                "HC4_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^min(n * h / p, 4))) %*% X %*% M)), 
+                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^min(n * h / p, 4)), e = e, h = h, H = H, I = I, w = w)),
+                
+                "HC4m_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(min(n * h / p, 1) + min(n*h / p,1.5)))) %*% X %*% M)), 
+                                 df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^(min(n * h / p, 1) + min(n*h / p,1.5))), e = e, h = h, H = H, I = I, w = w)),
+                
+                "HC5_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(min(n * h / p, max(4, .7 * n * max(h) / p))))) %*% X %*% M)), 
+                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^(min(n * h / p, max(4, .7 * n * max(h) / p)))), e = e, h = h, H = H, I = I, w = w)),
+                )
   
-  cidf <- cidf(sdf)
-  return(cbind(sdf, cidf))
+                
+  size <- 2 * pt(-abs((coefs - B) / sdf$sd_e), sdf$df)
+  power <- 2 * pt(-abs(coefs / sdf$sd_e), sdf$df)
+  pValues <- c(size, power)
+  names(pValues) <- paste(rep("B", p),0:(p-1), rep(c(" Size", " Power"), each = p), sep = "")
+  return(pValues)
 }
 
 
-performance <- function(results) {
-  cbind(M = apply(results, 1, mean, na.rm = T), Var = apply(results, 1, var, na.rm = T))
+performance <- function(x, results, iterations) {
+  results <- results[x,]
+  results <- lapply(results, function(x) x < .05)
+  Reduce("+", results)/iterations
 }
 
 
-runSim <- function(step, iterations, n, B, Estructs, whichX, Edist, seed = NULL) {
+runSim <- function(iterations, n, B, Estruct, whichX, Edist, adjust, seed = NULL) {
   require(reshape2)
   
-  # print(paste(Sys.time(), "Step", step, "- Begin"))
-  
   B <- as.numeric(unlist(strsplit(B, " ")))
-  Estructs <- unlist(strsplit(Estructs, " ")) 
   whichX <- as.logical(unlist(strsplit(whichX, " ")))
+  adjust <- unlist(strsplit(adjust, " "))
   
   if (!is.null(seed)) set.seed(seed)
-  
-  factors <- NULL
-  first <- T
   
   reps <- replicate(iterations, {
                     model <- gdm(n = n, 
                                  B = B, 
-                                 Estructs = Estructs,
+                                 Estruct = Estruct,
                                  whichX = whichX,
                                  Edist = Edist)
                     
-                    estimates <- ldply(model, estimate)
-                    names(estimates)[1] <- "Structure"
-                    estimates <- melt(estimates, id.vars = c("Structure", "Adjustment", "Beta"))
-                    
-                    if(!first) return (estimates$value)
-                    
-                    env <- parent.env(environment())
-                    env$factors <- estimates[,c("Structure", "Adjustment", "Beta", "variable")]
-                    env$first <- F
-    
-                    return(estimates$value)
+                    estimates <- lapply(adjust, estimate, model)
+                    names(estimates) <- adjust
+                    return(estimates)
   })
   
-  results <- performance(reps)
-  results <- cbind(factors, results)
-  
-  # print(paste(Sys.time(), " -Step ", step, " - End - ", round(step/18,2)*100, "% Complete", sep = ""))
-  
+  results <- sapply(adjust, performance, reps, iterations)
+  vars <- Reduce(rbind, strsplit(rownames(results), " "))
+  results <- data.frame(Parameter = vars[,1], Measure = vars[,2], results, stringsAsFactors = F)
+    
   return(results)
 }
-
-set.seed(20150616)
-
-design <- list(n = c(25, 50, 100, 250, 500, 1000),
-               B = "1 1 1 1 0 0",
-               Estructs = "E0 E1 E2 E3 E4 E5 E6",
-               whichX = "T T T T T F",
-               Edist = c("En", "Ech", "Et"))
-
-params <- expand.grid(design, stringsAsFactors = F)
-
-params <- cbind(step = 1:nrow(params), params)
-
-params$iterations <- 1000
-params$seed <- round(runif(nrow(params)) * 2^30)
-
-source_obj <- ls()
-cluster <- start_parallel(source_obj)
-
-system.time(results <- mdply(params, .fun = runSim, .parallel = T))
-
-stopCluster(cluster)
-
-write.csv(results, file = "Results/20150616.csv")
-
-#results <- read.csv("Results/20150616.csv")
-
-
-# Figure 1 Size
-Fig1 <- filter(results, 
-                    Beta == "B3",
-                    Edist == "Ech", 
-                    variable == "captured", 
-                    Structure == "E0") %>%
-  select(n, Adjustment, M, Structure)
-Fig1$M <- 1 - Fig1$M
-Fig1$n <- factor(Fig1$n)
-ggplot(Fig1, aes(x = n,
-                      y = M,
-                      group = Adjustment,
-                      color = Adjustment)) +
-  geom_line() +
-  geom_line(aes(y = .05,
-                color = "nominal"))
-
-# Figure 1 Power
-Fig1p <- filter(results, 
-                    Beta == "B3", 
-                    Edist == "Ech", 
-                    variable == "DNRNull", 
-                    Structure == "E0") %>%
-                select(n, Adjustment, M, Structure)
-Fig1p$M <- 1 - Fig1p$M
-Fig1p$n <- factor(Fig1p$n)
-ggplot(Fig1p, aes(x = n,
-                      y = M,
-                      group = Adjustment,
-                      color = Adjustment)) +
-  geom_line()
-
-# Figure 2
-Fig2 <- filter(results, 
-                    Edist == "Ech", 
-                    variable == "captured", 
-                    Structure == "E2", 
-                    Beta != "B0") %>%
-  select(n, Adjustment, M, Structure, Beta)
-Fig2$M <- 1 - Fig2$M
-Fig2$n <- factor(Fig2$n)
-ggplot(Fig2, aes(x = n,
-                      y = M,
-                      group = Adjustment,
-                      color = Adjustment)) +
-  geom_line() +
-  facet_wrap(~Beta) +
-  geom_line(aes(y = .05,
-                color = "nominal"))
-
-# Figure 3
-Fig3 <- filter(results, Edist == "Ech", 
-                    variable == "DNRNull", 
-                    Structure == "E3", 
-                    Beta == "B1" | Beta == "B3") %>%
-  select(n, Adjustment, M, Structure, Beta)
-Fig3$M <- 1 - Fig3$M
-Fig3$n <- factor(Fig3$n)
-ggplot(Fig3, aes(x = n,
-                      y = M,
-                      group = Adjustment,
-                      color = Adjustment)) +
-  geom_line() +
-  facet_wrap(~Beta)
 
