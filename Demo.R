@@ -133,18 +133,20 @@ runSim(iterations = 10,
 #run Sim
 source(file = "Long Ervin Replication.R")
 
-set.seed(20150630)
+set.seed(20150701)
 
 design <- list(n = c(25, 50, 100, 250, 500, 1000),
                B = "1 1 1 1 0 0",
                Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
                whichX = "T T T T T F",
                Edist = c("En", "Ech", "Et"),
-               adjust = "HOM HC0 HC1 HC2 HC3 HC4 HC4m HC5 HC2_fp HC3_fp HC4_fp HC4m_fp HC5_fp")
+               adjust = "HOM HC0 HC1 HC2 HC3")
+
+#adjust = "HOM HC0 HC1 HC2 HC3 HC4 HC4m HC5 HC2_fp HC3_fp HC4_fp HC4m_fp HC5_fp")
 
 params <- expand.grid(design, stringsAsFactors = F)
 
-params$iterations <- 2
+params$iterations <- 1000
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
@@ -154,7 +156,7 @@ system.time(results <- mdply(params, .fun = runSim, .parallel = T))
 
 stopCluster(cluster)
 
-write.csv(results, file = "Results/20150630.csv")
+write.csv(results, file = "Results/20150701.csv")
 
 rm(list = ls())
 
@@ -239,6 +241,20 @@ ggplot(check, aes(x = n,
                   color = Edist)) +
   geom_line() + 
   facet_wrap(~Parameter*Estruct*Adjustment)
+
+
+check <- filter(tableData,
+                Measure == "Size",
+                Edist == "Ech") %>%
+  select(n, Adjustment, value, Estruct, Edist, Parameter)
+
+ggplot(check, aes(x = n,
+                  y = value,
+                  group = Adjustment,
+                  color = Adjustment)) +
+  geom_line() + 
+  facet_wrap(~Parameter*Estruct)
+
 
 
 check <- filter(tableData,

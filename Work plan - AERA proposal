@@ -18,11 +18,11 @@ X JEP: prepare notes on Satterthwaite, Edgeworth, and saddlepoint approximations
 
 6/30
 - GF: Program Saddlepoint approximation
-- GF: Replicate small simulation in Kauermann & Carroll (2001)
 - JEP: Outline AERA proposal
 
 7/7
 - GF: Program Edgeworth approximations
+- GF: Replicate small simulation in Kauermann & Carroll (2001)
 - GF: Conduct test runs of full simulation, estimate computation time
 
 7/14
