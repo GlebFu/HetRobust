@@ -64,7 +64,7 @@ gdm <- function(n, B, Estruct, whichX, Edist) {
   # Three types of homoscedastistic error distributions:
   Edist <- switch(Edist,
                   En = rnorm(n, 0, 1),
-                  Ech = rchisq(n, 1),
+                  Ech = rchisq(n, 5) - 5,
                   Et = rt(n, 5))
   
   # Seven tyoes of error structures
@@ -157,13 +157,13 @@ estimate <- function(adjust, model) {
                 "HC3" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^2)) %*% X %*% M)), 
                              df = rep(n - p, p)),
                 
-                "HC4" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^min(n * h / p, 4))) %*% X %*% M)), 
+                "HC4" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^pmin(n * h / p, 4))) %*% X %*% M)), 
                              df = rep(n - p, p)),
                 
-                "HC4m" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(min(n * h / p, 1) + min(n*h / p,1.5)))) %*% X %*% M)), 
+                "HC4m" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(pmin(n * h / p, 1) + pmin(n*h / p,1.5)))) %*% X %*% M)), 
                               df = rep(n - p, p)),
                 
-                "HC5" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(min(n * h / p, max(4, .7 * n * max(h) / p))))) %*% X %*% M)), 
+                "HC5" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(pmin(n * h / p, pmax(4, .7 * n * max(h) / p))))) %*% X %*% M)), 
                              df = rep(n - p, p)),
                 
                 "HC2_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M)), 
@@ -172,14 +172,14 @@ estimate <- function(adjust, model) {
                 "HC3_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^2)) %*% X %*% M)), 
                                 df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^2), e = e, h = h, H = H, I = I, w = w)),
                 
-                "HC4_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^min(n * h / p, 4))) %*% X %*% M)), 
-                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^min(n * h / p, 4)), e = e, h = h, H = H, I = I, w = w)),
+                "HC4_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^pmin(n * h / p, 4))) %*% X %*% M)), 
+                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^pmin(n * h / p, 4)), e = e, h = h, H = H, I = I, w = w)),
                 
-                "HC4m_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(min(n * h / p, 1) + min(n*h / p,1.5)))) %*% X %*% M)), 
-                                 df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^(min(n * h / p, 1) + min(n*h / p,1.5))), e = e, h = h, H = H, I = I, w = w)),
+                "HC4m_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(pmin(n * h / p, 1) + pmin(n*h / p,1.5)))) %*% X %*% M)), 
+                                 df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^(pmin(n * h / p, 1) + pmin(n*h / p,1.5))), e = e, h = h, H = H, I = I, w = w)),
                 
-                "HC5_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(min(n * h / p, max(4, .7 * n * max(h) / p))))) %*% X %*% M)), 
-                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^(min(n * h / p, max(4, .7 * n * max(h) / p)))), e = e, h = h, H = H, I = I, w = w)),
+                "HC5_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(pmin(n * h / p, pmax(4, .7 * n * pmax(h) / p))))) %*% X %*% M)), 
+                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^(pmin(n * h / p, pmax(4, .7 * n * pmax(h) / p)))), e = e, h = h, H = H, I = I, w = w)),
                 )
   
                 

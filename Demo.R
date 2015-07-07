@@ -86,7 +86,7 @@ model(Y = runif(15, 0, 1),
       whichX = c(T, T, T, F, F, F))
 
 # Demo
-model <- gdm(n = 1000, 
+testmod <- gdm(n = 10, 
                 B = c(1, 1, 1, 1, 0, 0), 
                 Estruct = "E0",
                 whichX = c(T, T, T, T, T, F),
