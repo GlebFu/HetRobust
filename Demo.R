@@ -133,7 +133,7 @@ runSim(iterations = 10,
 #run Sim
 source(file = "Long Ervin Replication.R")
 
-set.seed(20150701)
+set.seed(20150707)
 
 design <- list(n = c(25, 50, 100, 250, 500, 1000),
                B = "1 1 1 1 0 0",
@@ -156,7 +156,7 @@ system.time(results <- mdply(params, .fun = runSim, .parallel = T))
 
 stopCluster(cluster)
 
-write.csv(results, file = "Results/20150701.csv")
+write.csv(results, file = "Results/20150707.csv")
 
 rm(list = ls())
 
