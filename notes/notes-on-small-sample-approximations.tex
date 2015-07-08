@@ -128,7 +128,7 @@ Several further HC variations have been proposed that aim to improve the accurac
 which produces an estimator that closely approximates the omit-1 jackknife variance estimator. Note that these correction factors will always be larger than those for HC2 because $\frac{1}{n} \leq h_ii \leq 1$. HC4, proposed by Cribari-Neto (2004), uses a correction factor that is further inflated for observations with high leverage: \[
 \omega_{4i} = \frac{1}{(1 - h_{ii})^{\delta^a_i}}, \]
 where $\delta^a_i = \min\left\{n h_{ii} / p, 4 \right\}$. Cribari-Neto and da Silva (2011) later suggested an modified estimator, HC4m, that uses a correction factor of the same form as $\omega_{4i}$, but where the exponent in the correction term is instead given by $\delta^b_i = \min\left\{n h_{ii} / p, 1 \right\} + \min\left\{n h_{ii} / p, 1.5 \right\}$. HC5, proposed by Cribari-Neto, Souza, and Vasconcellos (2007), also uses a correction factor that is tailored to account for the leverage of the observation: \[
-\omega_{5i} = \frac{1}{(1 - h_{ii})^{\delta^c_i}}, \]
+\omega_{5i} = \frac{1}{(1 - h_{ii})^{\delta^c_i / 2}}, \]
 where $\delta^c_i = \min\left\{n h_{ii} / p, \max \left\{4, k n h_{max} / p\right\}\right\}$, $h_{max} = \max\left\{h_{11},...,h_{nn}\right\}$, and $0 < k < 1$ is a user-selected constant; based on simulation evidence, Cribari-Neto and colleagues suggest taking $k = 0.7$.
 
 \section{Distribution of HC estimators}
