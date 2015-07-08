@@ -160,7 +160,7 @@ write.csv(results, file = "Results/20150707.csv")
 
 rm(list = ls())
 
-results <- read.csv("Results/20150629.csv")
+results <- read.csv("Results/20150707.csv")
 head(results)
 
 tableData <- select(results, n, Estruct, Edist, Parameter, Measure, HOM, HC0, HC1, HC2, HC3)
@@ -203,7 +203,7 @@ Fig2 <- filter(tableData,
                Edist == "Ech", 
                Measure == "Size", 
                Estruct == "E2", 
-               Parameter != "B0" & Parameter != "B3") %>%
+               Parameter != "B0") %>%
   select(n, Adjustment, value, Estruct, Parameter)
 
 ggplot(Fig2, aes(x = n,
@@ -232,7 +232,7 @@ ggplot(Fig3, aes(x = n,
 
 
 check <- filter(tableData,
-                Measure == "Size") %>%
+                Measure == "Power") %>%
   select(n, Adjustment, value, Estruct, Edist, Parameter)
 
 ggplot(check, aes(x = n,

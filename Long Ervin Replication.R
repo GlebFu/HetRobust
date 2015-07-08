@@ -28,16 +28,14 @@ model <- function(Y, X, trueB, whichX) {
   H <- X %*% invX
   h <- diag(H)
   I <- diag(1, n)
-  W <- 1 / sqrt(1 - h)
-  w <- 1 - h
   
-  vars <- list(X = X, Y = Y, B = B, invX = invX, H = H, h = h, I = I, W = W, w = w, 
+  vars <- list(X = X, Y = Y, B = B, invX = invX, H = H, h = h, I = I, 
                e = e, coefs = coefs, n = n, p = p, M = M)
   
   return(vars)
 }
 
-gdm <- function(n, B, Estruct, whichX, Edist) {
+gdm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c(T, T ,T ,T ,T ,F), Edist = "En") {
   
   # Distributions used in generating data
   b1 <- runif(n, 0, 1)
@@ -64,7 +62,7 @@ gdm <- function(n, B, Estruct, whichX, Edist) {
   # Three types of homoscedastistic error distributions:
   Edist <- switch(Edist,
                   En = rnorm(n, 0, 1),
-                  Ech = rchisq(n, 5) - 5,
+                  Ech = (rchisq(n, 5) - 5) / sqrt(10),
                   Et = rt(n, 5))
   
   # Seven tyoes of error structures
@@ -110,8 +108,8 @@ f_p <- function(i, invX, W, e, h, H, I, w) {
   
   var_B <- t(e) %*% A %*% e
   
-  o4 <- e^4 / (3 * (w)^2)
-  o2o2 <- e^2 %*% t(e)^2 / (2*H^2 + (w) %*%t (w))
+  o4 <- e^4 / (3 * w^2)
+  o2o2 <- e^2 %*% t(e)^2 / (2 * H^2 + w %*% t(w))
   diag(o2o2) <- o4
   sigma_hat <- o2o2
   B <- ((I-H) %*% A %*% (I-H))
@@ -122,7 +120,6 @@ f_p <- function(i, invX, W, e, h, H, I, w) {
   return(num/den)
 }
 
-
 # estimation function takes model and vector of adjustments
 # need to design function to calculate appropriate adjustments given vector of adjustments
 # adjustment function will return a dataframe of adjustment name, parameter, estimated coefficient, standard error, degrees of freedom
@@ -131,7 +128,6 @@ estimate <- function(adjust, model) {
   X <- model$X
   e <- model$e
   h <- model$h
-  w <- model$w
   n <- model$n
   p <- model$p
   coefs <- model$coefs
@@ -141,50 +137,90 @@ estimate <- function(adjust, model) {
   invX <- model$invX
   
   
-  sdf <- switch(adjust,
-                "HOM" = list(sd_e = sqrt(diag(sum(e^2 / (n - p)) * M)), 
-                             df = rep(n - p, p)),
-                
-                "HC0" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2)) %*% X %*% M)), 
-                             df = rep(n - p, p)),
-                
-                "HC1" = list(sd_e = sqrt((n / (n - p))*diag(M %*% t(X) %*% diag(as.vector(e^2)) %*% X %*% M)), 
-                             df = rep(n - p, p)),
-                
-                "HC2" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M)), 
-                             df = rep(n - p, p)),
-                
-                "HC3" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^2)) %*% X %*% M)), 
-                             df = rep(n - p, p)),
-                
-                "HC4" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^pmin(n * h / p, 4))) %*% X %*% M)), 
-                             df = rep(n - p, p)),
-                
-                "HC4m" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(pmin(n * h / p, 1) + pmin(n*h / p,1.5)))) %*% X %*% M)), 
-                              df = rep(n - p, p)),
-                
-                "HC5" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(pmin(n * h / p, pmax(4, .7 * n * max(h) / p))))) %*% X %*% M)), 
-                             df = rep(n - p, p)),
-                
-                "HC2_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M)), 
-                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)),
-                
-                "HC3_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^2)) %*% X %*% M)), 
-                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^2), e = e, h = h, H = H, I = I, w = w)),
-                
-                "HC4_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^pmin(n * h / p, 4))) %*% X %*% M)), 
-                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^pmin(n * h / p, 4)), e = e, h = h, H = H, I = I, w = w)),
-                
-                "HC4m_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(pmin(n * h / p, 1) + pmin(n*h / p,1.5)))) %*% X %*% M)), 
-                                 df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^(pmin(n * h / p, 1) + pmin(n*h / p,1.5))), e = e, h = h, H = H, I = I, w = w)),
-                
-                "HC5_fp" = list(sd_e = sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w^(pmin(n * h / p, pmax(4, .7 * n * pmax(h) / p))))) %*% X %*% M)), 
-                                df = sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w^(pmin(n * h / p, pmax(4, .7 * n * pmax(h) / p)))), e = e, h = h, H = H, I = I, w = w)),
-                )
-  
-                
-  size <- 2 * pt(-abs((coefs - B) / sdf$sd_e), sdf$df)
-  power <- 2 * pt(-abs(coefs / sdf$sd_e), sdf$df)
+  switch(adjust, 
+         HOM = {
+           sd_e <- sqrt(diag(sum(e^2 / (n - p)) * M)) 
+             df <- rep(n - p, p)
+         }, 
+         HC0 = {
+              w <- 1
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- rep(n - p, p)
+         }, 
+         HC1 = {
+              w <- (n / (n - p))
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- rep(n - p, p)
+         }, 
+         HC2 = {
+              w <- 1 - h
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- rep(n - p, p)
+         }, 
+         HC3 = {
+              w <- (1 - h)^2
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- rep(n - p, p)
+         }, 
+         HC4 = {
+              d <- pmin(n * h / p, 4)
+              w <- (1 - h)^d
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- rep(n - p, p)
+         }, 
+         HC4m = {
+              d <- pmin(n * h / p, 1) + pmin(n*h / p,1.5)
+              w <- (1 - h)^d
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- rep(n - p, p)
+         }, 
+         HC5 = {
+              d <- pmin(n * h / p, pmax(4, .7 * n * max(h) / p))
+              w <- (1 - h)^d/2
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- rep(n - p, p)
+         },
+         HC0_fp = {
+              w <- rep(1, n)
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
+         }, 
+         HC1_fp = {
+              w <- rep(n / (n - p), n)
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
+         }, 
+         HC2_fp = {
+              w <- 1 - h
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
+         }, 
+         HC3_fp = {
+              w <- (1 - h)^2
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
+         }, 
+         HC4_fp = {
+              d <- pmin(n * h / p, 4)
+              w <- (1 - h)^d
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
+         }, 
+         HC4m_fp = {
+              d <- pmin(n * h / p, 1) + pmin(n*h / p,1.5)
+              w <- (1 - h)^d
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
+         }, 
+         HC5_fp = {
+              d <- pmin(n * h / p, pmax(4, .7 * n * max(h) / p))
+              w <- (1 - h)^d/2
+           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
+         })
+                                
+  size <- 2 * pt(-abs((coefs - B) / sd_e), df)
+  power <- 2 * pt(-abs(coefs / sd_e), df)
   pValues <- c(size, power)
   names(pValues) <- paste(rep("B", p),0:(p-1), rep(c(" Size", " Power"), each = p), sep = "")
   return(pValues)
