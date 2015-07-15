@@ -12,7 +12,7 @@ rm(list = ls())
 ### X = matrix of covariates
 ### trueB = vector of known coeficients
 ### whichX = specifies which X strings to use in estimation
-model <- function(Y, X, trueB, whichX) {
+model_leg <- function(Y, X, trueB, whichX) {
   Y <- Y
   X <- X[, whichX]
   B <- trueB[whichX]
@@ -35,7 +35,7 @@ model <- function(Y, X, trueB, whichX) {
   return(vars)
 }
 
-gdm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c(T, T ,T ,T ,T ,F), Edist = "En") {
+gdm_leg <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c(T, T ,T ,T ,T ,F), Edist = "En") {
   
   # Distributions used in generating data
   b1 <- runif(n, 0, 1)
@@ -79,27 +79,11 @@ gdm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c(T, T
   # Generate DV with no error
   Y <- t(B %*% t(X)) + error
   
-  values <- model(Y, X, B, whichX)
+  values <- model_leg(Y, X, B, whichX)
   
   return(values)
 }
 
-
-pValues <- function(adjust) {
-  
-  
-  t <- qt(.975, adjust$df)
-  
-  ci <- t(t(cbind(lb = adjust$Coef, ub = adjust$Coef)) + matrix(c(-1,1)) %*% (t*adjust$sd_e))
-  
-  captured <- adjust$B > ci[,1] & adjust$B < ci[,2]
-  
-  DNRNull <- 0 > ci[,1] & 0 < ci[,2]
-
-  cidf = data.frame(t = t, lb = ci[,1] , ub = ci[,2], captured, DNRNull)
-    
-  return(cidf)
-}
 
 f_p <- function(i, invX, W, e, h, H, I, w) {
   
@@ -120,10 +104,25 @@ f_p <- function(i, invX, W, e, h, H, I, w) {
   return(num/den)
 }
 
+saddlepoint_pval <- function(i, invX, W, I, H, e, w, t) {
+  t <- t[i]
+  c <- invX[i,]
+  A <- diag((W * c)^2)
+  eig <- eigen(A %*% (I - H) %*% diag(as.vector(e^2 / w)) %*% (I - H))$values
+  g <- c(1, -t^2 * eig / sum(eig))
+  s_eq <- function(s) sum(g / (1 - 2 * g * s))
+  s_range <- if(s_eq(0) > 0) c(1 / (2 * min(g)), 0) else c(0, 1 / (2 * max(g)))
+  s <- uniroot(s_eq, s_range)$root
+  r <- sign(s) * sqrt(sum(log(1 / 2 * g * s)))
+  q <- s * sqrt(2 * sum(g^2 / (1 - 2 * g * s)^2))
+  p_val <- 1 - pnorm(r) - dnorm(r) * (1 / r - 1 / q)
+  c(s = s, p_val = p_val)  
+}
+
 # estimation function takes model and vector of adjustments
 # need to design function to calculate appropriate adjustments given vector of adjustments
 # adjustment function will return a dataframe of adjustment name, parameter, estimated coefficient, standard error, degrees of freedom
-estimate <- function(adjust, model) {
+estimate_leg <- function(estimator, f_p, saddle, model) {
   M <- model$M
   X <- model$X
   e <- model$e
@@ -137,90 +136,66 @@ estimate <- function(adjust, model) {
   invX <- model$invX
   
   
-  switch(adjust, 
+  switch(estimator, 
          HOM = {
-           sd_e <- sqrt(diag(sum(e^2 / (n - p)) * M)) 
-             df <- rep(n - p, p)
+              w <- NULL
+              W <- 1 / sqrt(w)
          }, 
          HC0 = {
               w <- 1
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- rep(n - p, p)
+              W <- 1 / sqrt(w)
          }, 
          HC1 = {
               w <- (n / (n - p))
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- rep(n - p, p)
+              W <- 1 / sqrt(w)
          }, 
          HC2 = {
               w <- 1 - h
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- rep(n - p, p)
+              W <- 1 / sqrt(w)
          }, 
          HC3 = {
               w <- (1 - h)^2
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- rep(n - p, p)
+              W <- 1 / sqrt(w)
          }, 
          HC4 = {
               d <- pmin(n * h / p, 4)
               w <- (1 - h)^d
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- rep(n - p, p)
+              W <- 1 / sqrt(w)
          }, 
          HC4m = {
               d <- pmin(n * h / p, 1) + pmin(n*h / p,1.5)
               w <- (1 - h)^d
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- rep(n - p, p)
+              W <- 1 / sqrt(w)
          }, 
          HC5 = {
               d <- pmin(n * h / p, pmax(4, .7 * n * max(h) / p))
               w <- (1 - h)^d/2
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- rep(n - p, p)
-         },
-         HC0_fp = {
-              w <- rep(1, n)
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
-         }, 
-         HC1_fp = {
-              w <- rep(n / (n - p), n)
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
-         }, 
-         HC2_fp = {
-              w <- 1 - h
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
-         }, 
-         HC3_fp = {
-              w <- (1 - h)^2
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
-         }, 
-         HC4_fp = {
-              d <- pmin(n * h / p, 4)
-              w <- (1 - h)^d
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
-         }, 
-         HC4m_fp = {
-              d <- pmin(n * h / p, 1) + pmin(n*h / p,1.5)
-              w <- (1 - h)^d
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
-         }, 
-         HC5_fp = {
-              d <- pmin(n * h / p, pmax(4, .7 * n * max(h) / p))
-              w <- (1 - h)^d/2
-           sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
-             df <- sapply(1:p, f_p, invX = invX, W = 1 / sqrt(w), e = e, h = h, H = H, I = I, w = w)
+              W <- 1 / sqrt(w)
          })
-                                
-  size <- 2 * pt(-abs((coefs - B) / sd_e), df)
-  power <- 2 * pt(-abs(coefs / sd_e), df)
+  
+  if(is.null(w)) {
+    sd_e <- sqrt(diag(sum(e^2 / (n - p)) * M)) 
+  } else {
+    sd_e <- sqrt(diag(M %*% t(X) %*% diag(as.vector(e^2 / w)) %*% X %*% M))
+  }
+  
+  if(f_p) {
+    df <- sapply(1:p, f_p, invX = invX, W = W, e = e, h = h, H = H, I = I, w = w)
+  } else {
+    df <- rep(n - p, p)
+  }
+  
+  t_s <- (coefs - B) / sd_e
+  t_p <- coefs / sd_e
+  
+  if(saddle) {
+    size <- sapply(1:p, saddlepoint_pval, invX = invX, W = W, I = I, H = H, e = e, w = w, t = t_s)
+    power <- sapply(1:p, saddlepoint_pval, invX = invX, W = W, I = I, H = H, e = e, w = w, t = t_p)               
+  } else {
+    size <- 2 * pt(-sapply(t_s, abs), df)
+    power <- 2 * pt(-sapply(t_p, abs), df)
+  }
+  
   pValues <- c(size, power)
   names(pValues) <- paste(rep("B", p),0:(p-1), rep(c(" Size", " Power"), each = p), sep = "")
   return(pValues)
@@ -234,12 +209,12 @@ performance <- function(x, results, iterations) {
 }
 
 
-runSim <- function(iterations, n, B, Estruct, whichX, Edist, adjust, seed = NULL) {
+runSim <- function(iterations, n, B, Estruct, whichX, Edist, estimator, seed = NULL) {
   require(reshape2)
   
   B <- as.numeric(unlist(strsplit(B, " ")))
   whichX <- as.logical(unlist(strsplit(whichX, " ")))
-  adjust <- unlist(strsplit(adjust, " "))
+  estimator <- unlist(strsplit(estimator, " "))
   
   if (!is.null(seed)) set.seed(seed)
   
@@ -250,12 +225,12 @@ runSim <- function(iterations, n, B, Estruct, whichX, Edist, adjust, seed = NULL
                                  whichX = whichX,
                                  Edist = Edist)
                     
-                    estimates <- lapply(adjust, estimate, model)
-                    names(estimates) <- adjust
+                    estimates <- lapply(estimator, estimate, model)
+                    names(estimates) <- estimator
                     return(estimates)
   })
   
-  results <- sapply(adjust, performance, reps, iterations)
+  results <- sapply(estimator, performance, reps, iterations)
   vars <- Reduce(rbind, strsplit(rownames(results), " "))
   results <- data.frame(Parameter = vars[,1], Measure = vars[,2], results, stringsAsFactors = F)
     

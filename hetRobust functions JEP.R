@@ -52,10 +52,10 @@ gdm <- function(n, B, Estruct, whichX, Edist) {
   # Three types of homoscedastistic error distributions:
   Edist <- switch(Edist,
                   En = rnorm(n, 0, 1),
-                  Ech = rchisq(n, 5) - 5,
+                  Ech = (rchisq(n, 5) - 5) / sqrt(10),
                   Et = rt(n, 5))
   
-  # Seven tyoes of error structures
+  # Seven types of error structures
   error <- switch(Estruct,
                   E0 = Edist,
                   E1 = sqrt(x1) * Edist,
@@ -73,8 +73,6 @@ gdm <- function(n, B, Estruct, whichX, Edist) {
   
   return(values)
 }
-
-
 
 #-----------------------------------
 # p-value from a two-sided t-test 
@@ -173,7 +171,6 @@ estimate <- function(HC, tests, model) {
   pValues
 }
 
-
 #-----------------------------------
 # simulation driver
 #-----------------------------------
@@ -211,7 +208,7 @@ runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, alpha, s
 HC <- c("HC0","HC1","HC2","HC3","HC4","HC4m","HC5")
 tests <- c("naive","Satt")
 iterations <- 1000
-n <- 25
+n <- 1000
 B <- "1 1 1 1 0 0"
 whichX <- "T T T T T F"
 Estruct <- "E0"
