@@ -153,6 +153,7 @@ saddle <- function(t_stats, Qs, n) {
   Qs <- cbind(Qs,Qs)
   sapply(1:length(t_stats), function(i) saddlepoint_pval(t = t_stats[i], Q = matrix(Qs[,i], n, n)))
 }
+
 #-----------------------------------
 # testing function
 #-----------------------------------
@@ -187,11 +188,22 @@ estimate <- function(HC, tests, model) {
   if ("naive" %in% tests) pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), df = n - p)
   if ("Satt" %in% tests) pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
                                                df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
-  if ("Saddle" %in% tests) pValues$Saddle_V1 <- saddle(t_stats = coefs_to_test/sqrt(V_b), 
-                                                      Qs = apply(X_M^2 / omega^2, 2, function(x) diag(x)%*%(diag(n) - H)),
-                                                      n)
+  if ("Saddle" %in% tests) {
+    pValues$Saddle_V1 <- saddle(t_stats = coefs_to_test/sqrt(V_b), 
+                                Qs = apply(X_M^2 / omega^2, 2, 
+                                function(x) diag(x) %*% (diag(n) - H)),
+                                n)
+    pValues$Saddle_V2 <- saddle(t_stats = coefs_to_test/sqrt(V_b), 
+                                Qs = apply(X_M^2 / omega^2, 2, 
+                                function(x) diag(x) %*% (diag(n) - H) %*% diag((e / omega)^2) %*% (diag(n) - H)),
+                                n)
+  }
+                                
   pValues
 }
+
+testmod <- gdm()
+estimate("HC0", "Saddle", testmod)
 
 #-----------------------------------
 # simulation driver
