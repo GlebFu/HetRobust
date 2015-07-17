@@ -25,7 +25,7 @@ estimate_model <- function(Y, X, trueB, whichX) {
   return(values)
 }
 
-gdm <- function(n, B, Estruct, whichX, Edist) {
+gdm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c(T, T ,T ,T ,T ,F), Edist = "En") {
   
   # Distributions used in generating data
   b1 <- runif(n, 0, 1)
@@ -134,6 +134,26 @@ Satt_results <- function(model, HC) {
 }
 
 #-----------------------------------
+#Saddlepoint approximation
+#-----------------------------------
+
+saddlepoint_pval <- function(t, Q) {
+  eig <- eigen(Q)$values # produces imaginary numbers
+  g <- c(1, -t^2 * eig / sum(eig))
+  s_eq <- function(s) sum(g / (1 - 2 * g * s))
+  s_range <- if (s_eq(0) > 0) c(1 / (2 * min(g)), 0) else c(0, 1 / (2 * max(g)))
+  s <- uniroot(s_eq, s_range)$root
+  r <- sign(s) * sqrt(sum(log(1 - 2 * g * s)))
+  q <- s * sqrt(2 * sum(g^2 / (1 - 2 * g * s)^2))
+  p_val <- 1 - pnorm(r) - dnorm(r) * (1 / r - 1 / q)
+  p_val = p_val
+}
+
+saddle <- function(t_stats, Qs, n) {
+  Qs <- cbind(Qs,Qs)
+  sapply(1:length(t_stats), function(i) saddlepoint_pval(t = t_stats[i], Q = matrix(Qs[,i], n, n)))
+}
+#-----------------------------------
 # testing function
 #-----------------------------------
 
@@ -167,7 +187,9 @@ estimate <- function(HC, tests, model) {
   if ("naive" %in% tests) pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), df = n - p)
   if ("Satt" %in% tests) pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
                                                df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
-  
+  if ("Saddle" %in% tests) pValues$Saddle_V1 <- saddle(t_stats = coefs_to_test/sqrt(V_b), 
+                                                      Qs = apply(X_M^2 / omega^2, 2, function(x) diag(x)%*%(diag(n) - H)),
+                                                      n)
   pValues
 }
 
