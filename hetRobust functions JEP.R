@@ -138,7 +138,7 @@ Satt_results <- function(model, HC) {
 #-----------------------------------
 
 saddlepoint_pval <- function(t, Q) {
-  eig <- eigen(Q)$values # produces imaginary numbers
+  eig <- eigen(Q, symmetric = TRUE, only.values=TRUE)$values # produces imaginary numbers
   g <- c(1, -t^2 * eig / sum(eig))
   s_eq <- function(s) sum(g / (1 - 2 * g * s))
   s_range <- if (s_eq(0) > 0) c(1 / (2 * min(g)), 0) else c(0, 1 / (2 * max(g)))
@@ -146,12 +146,20 @@ saddlepoint_pval <- function(t, Q) {
   r <- sign(s) * sqrt(sum(log(1 - 2 * g * s)))
   q <- s * sqrt(2 * sum(g^2 / (1 - 2 * g * s)^2))
   p_val <- 1 - pnorm(r) - dnorm(r) * (1 / r - 1 / q)
-  p_val = p_val
+  p_val
 }
 
-saddle <- function(t_stats, Qs, n) {
-  Qs <- cbind(Qs,Qs)
-  sapply(1:length(t_stats), function(i) saddlepoint_pval(t = t_stats[i], Q = matrix(Qs[,i], n, n)))
+saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
+  t_stats <- coef / sd
+  I_H <- diag(n) - H
+  A_sqrt_vec <- X_M / omega
+  if (approx == "model") {
+    Qs <- apply(A_sqrt_vec, 2, function(x) tcrossprod(x) * I_H)
+  } else {
+    Qs <- apply(A_sqrt_vec, 2, function(x) tcrossprod(tcrossprod(x, e / omega) * I_H))
+  }
+  Qs <- lapply(data.frame(Qs), matrix, nrow = n, ncol = n)
+  mapply(saddlepoint_pval, t = t_stats, Q = Qs)
 }
 
 #-----------------------------------
@@ -188,28 +196,29 @@ estimate <- function(HC, tests, model) {
   if ("naive" %in% tests) pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), df = n - p)
   if ("Satt" %in% tests) pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
                                                df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
-  if ("Saddle" %in% tests) {
-    pValues$Saddle_V1 <- saddle(t_stats = coefs_to_test/sqrt(V_b), 
-                                Qs = apply(X_M^2 / omega^2, 2, 
-                                function(x) diag(x) %*% (diag(n) - H)),
-                                n)
-    pValues$Saddle_V2 <- saddle(t_stats = coefs_to_test/sqrt(V_b), 
-                                Qs = apply(X_M^2 / omega^2, 2, 
-                                function(x) diag(x) %*% (diag(n) - H) %*% diag((e / omega)^2) %*% (diag(n) - H)),
-                                n)
+  if ("saddle" %in% tests) {
+    pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
+                                X_M = X_M, omega = omega, e = e,
+                                H = H, n = n, approx = "model")
+    pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
+                                X_M = X_M, omega = omega, e = e,
+                                H = H, n = n, approx = "empirical")
   }
                                 
   pValues
 }
 
 testmod <- gdm()
-estimate("HC0", "Saddle", testmod)
+HC <- "HC0"
+tests <- c("naive","Satt","saddle")
+model <- testmod
+estimate(HC, tests, testmod)
 
 #-----------------------------------
 # simulation driver
 #-----------------------------------
 
-runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, alpha, seed = NULL) {
+runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, seed = NULL) {
   require(plyr)
   require(reshape2)
   
@@ -229,6 +238,8 @@ runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, alpha, s
   })
   
   # performance calculations
+
+  if ("saddle" %in% tests) tests <- c(tests[tests != "saddle"], paste0("saddle_V",1:2))
   
   reps <- melt(reps, id.vars = c("HC","coef","criterion"), measure.vars = tests, variable.name = "test")
   ddply(reps, .(HC,coef,criterion,test), summarize, 
@@ -240,15 +251,16 @@ runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, alpha, s
 
 
 HC <- c("HC0","HC1","HC2","HC3","HC4","HC4m","HC5")
-tests <- c("naive","Satt")
+tests <- c("naive","Satt","saddle")
 iterations <- 1000
-n <- 1000
-B <- "1 1 1 1 0 0"
+n <- 25
+B <- "1 1 1 1 1 0"
 whichX <- "T T T T T F"
 Estruct <- "E0"
 Edist <- "En"
 
 system.time(result <- runSim(iterations, n, B, whichX, Estruct, Edist, HC, tests))
+subset(result, HC == "HC2")
 
 #---------------------------------
 # check against sandwich
