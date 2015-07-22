@@ -208,12 +208,6 @@ estimate <- function(HC, tests, model) {
   pValues
 }
 
-testmod <- gdm()
-HC <- "HC0"
-tests <- c("naive","Satt","saddle")
-model <- testmod
-estimate(HC, tests, testmod)
-
 #-----------------------------------
 # simulation driver
 #-----------------------------------
@@ -253,7 +247,7 @@ runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, seed = N
 HC <- c("HC0","HC1","HC2","HC3","HC4","HC4m","HC5")
 tests <- c("naive","Satt","saddle")
 iterations <- 1000
-n <- 25
+n <- 10
 B <- "1 1 1 1 1 0"
 whichX <- "T T T T T F"
 Estruct <- "E0"
