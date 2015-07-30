@@ -162,6 +162,47 @@ saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
   mapply(saddlepoint_pval, t = t_stats, Q = Qs)
 }
 
+
+#-----------------------------------
+#Edgeworth KC approximation
+#-----------------------------------
+nu_q <- function(q, Xmat) {
+  XX_tX <- chol2inv(chol(t(Xmat) %*% Xmat)) %*% t(Xmat)
+  H <- Xmat %*% XX_tX
+  h_i <- diag(H)
+  g_q <- XX_tX[q,]
+  sum(g_q^2)^2 / (sum(g_q^4) + sum(((g_q^2 / (1 - h_i)) %*% t(g_q^2 / (1 - h_i))) * H))
+}
+
+f_alpha <- function(a, nu) {
+  z_a <- qnorm(1 - a / 2)
+  a + (z_a^3 + z_a) * dnorm(z_a) / (2 * nu)
+}
+
+edgeKC_adj <- function(alpha, nu) {
+  alpha <- uniroot(function(a) f_alpha(a, nu = nu) - alpha, lower = 10^-12, upper = 1)$root
+  qnorm(1 - alpha / 2)
+}
+
+edgeKC_approx <- function(alpha, X) {
+  n <- nrow(X)
+  p <- ncol(X)
+  XX_tX <- chol2inv(chol(t(X) %*% X)) %*% t(X)
+  H <- X %*% XX_tX
+  h_i <- diag(H)
+  z_alpha <- qnorm(1 - alpha / 2)
+  crit <- function(q) {
+    g_q <- XX_tX[q,]
+    nu <- sum(g_q^2)^2 / (sum(g_q^4) + sum(((g_q^2 / (1 - h_i)) %*% t(g_q^2 / (1 - h_i))) * H))  
+    qt(1 - alpha / 2, df = n - p) + (1 / nu - sum(g_q^2)^2 / n) * (z_alpha^3 + z_alpha) / 4
+  }
+  sapply(1:p, crit)
+}
+
+edgePVal <- function(tHC, v) {
+  2*(1-pnorm(abs(tHC))) + dnorm(tHC)/(2*v)*(abs(tHC)^3 + abs(tHC))
+}
+
 #-----------------------------------
 # testing function
 #-----------------------------------
@@ -203,6 +244,10 @@ estimate <- function(HC, tests, model) {
     pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
                                 X_M = X_M, omega = omega, e = e,
                                 H = H, n = n, approx = "empirical")
+  }
+  if ("edge" %in% tests) {
+    v <- sapply(1:p, nu_q, Xmat = X)
+    pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
   }
                                 
   pValues

@@ -1,3 +1,5 @@
+library(microbenchmark)
+
 #--------------------------------
 # Kauermann & Carroll 
 #--------------------------------
@@ -39,13 +41,16 @@ crit_approx <- function(alpha, X) {
 n <- 25
 p <- 6
 X <- cbind(1, matrix(rnorm(n * (p - 1)), n, p - 1))
-v
 
 alpha <- 0.05
 v <- sapply(1:p, nu_q, Xmat = X)
 (crit1 <- sapply(v, crit_adj, alpha = alpha))
 (crit2 <- crit_approx(alpha, X = X))
 
+edgePVal <- function(tHC) {
+  2*(1-qnorm(abs(tHC))) + qnorm(tHC)/(2*v)*(abs(tHC)^3 + abs(tHC))
+}
+edgePVal(.05)
 #--------------------------------
 # Rothenberg 1988
 #--------------------------------

@@ -11,8 +11,8 @@ source("hetRobust debug.R")
 library(plyr)
 library(Pusto)
 
-results <- runSim(iterations = 100,
-                  n = 50,
+results <- runSim(iterations = 1000,
+                  n = 1000,
                   B = "1 1 1 1 0 0",
                   whichX = "T T T T T F",
                   Estruct = "E0",
