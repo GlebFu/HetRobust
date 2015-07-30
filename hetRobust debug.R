@@ -1,5 +1,6 @@
 rm(list = ls())
 
+
 #-----------------------------
 # Data-generating model
 #-----------------------------
@@ -23,6 +24,7 @@ estimate_model <- function(Y, X, trueB, whichX) {
   values <- list(X = X, Y = Y, B = B, X_M = X_M, H = H, h = h, e = e, coefs = coefs, n = n, p = p, M = M)
   
   return(values)
+  
 }
 
 gdm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c(T, T ,T ,T ,T ,F), Edist = "En") {
@@ -79,6 +81,7 @@ gdm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c(T, T
 #-----------------------------------
 
 t_test <- function(coef, sd, df) {
+  
   2 * pt(abs(coef / sd), df = df, lower.tail = FALSE)
 }
 
@@ -100,6 +103,7 @@ Satterthwaite <- function(V_b, X_M, omega, e, H, n, p) {
   }
   den <- apply(A_vec, 2, V_V)
   
+
   return(V_b^2 / den)
 }
 
@@ -130,6 +134,8 @@ Satt_results <- function(model, HC) {
   V_b <- colSums((X_M * e / omega)^2)
   df <- Satterthwaite(V_b, X_M, omega, e, H, n, p)  
   p_val <- t_test(coefs, sd = sqrt(V_b), df = df)
+
+  
   data.frame(b = coefs, sd = sqrt(V_b), df = df, p_val = p_val)
 }
 
@@ -146,7 +152,8 @@ saddlepoint_pval <- function(t, Q) {
   r <- sign(s) * sqrt(sum(log(1 - 2 * g * s)))
   q <- s * sqrt(2 * sum(g^2 / (1 - 2 * g * s)^2))
   p_val <- 1 - pnorm(r) - dnorm(r) * (1 / r - 1 / q)
-  p_val
+  
+  return(p_val)
 }
 
 saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
@@ -159,6 +166,8 @@ saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
     Qs <- apply(A_sqrt_vec, 2, function(x) tcrossprod(tcrossprod(x, e / omega) * I_H))
   }
   Qs <- lapply(data.frame(Qs), matrix, nrow = n, ncol = n)
+
+  
   mapply(saddlepoint_pval, t = t_stats, Q = Qs)
 }
 
@@ -167,6 +176,7 @@ saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
 #-----------------------------------
 
 estimate <- function(HC, tests, model) {
+  
   M <- model$M
   X <- model$X
   e <- as.vector(model$e)
@@ -204,7 +214,14 @@ estimate <- function(HC, tests, model) {
                                 X_M = X_M, omega = omega, e = e,
                                 H = H, n = n, approx = "empirical")
   }
-                                
+
+  if(sum(is.na(pValues)) > 0) {
+    print(pValues)
+    load("Problem Models.Rdata")
+    badmods[length(badmods) + 1] <- list(model)
+    save(badmods, file = "Problem Models.Rdata")
+  }
+  
   pValues
 }
 
@@ -224,25 +241,29 @@ runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, seed = N
   if (!is.null(seed)) set.seed(seed)
   
   reps <- rdply(iterations, {
+    
     model <- gdm(n = n, 
                  B = B, 
                  Estruct = Estruct,
                  whichX = whichX,
                  Edist = Edist)
     
-    ldply(HC, estimate, tests = tests, model = model)
+    
+    ldply(HC, estimate, tests = tests, model = model)  
   })
+  
+  save(reps, file = "Replication Results.Rdata")
   
   # performance calculations
 
   if ("saddle" %in% tests) tests <- c(tests[tests != "saddle"], paste0("saddle_V",1:2))
   
   reps <- melt(reps, id.vars = c("HC","coef","criterion"), measure.vars = tests, variable.name = "test")
+  
   ddply(reps, .(HC,coef,criterion,test), summarize, 
-        p01 = mean(ifelse(is.na(value), F, value < .01)),
-        p05 = mean(ifelse(is.na(value), F, value < .05)),
-        p10 = mean(ifelse(is.na(value), F, value < .10)),
-        percentNA = mean(is.na(value)))
+        p01 = mean(value < .01),
+        p05 = mean(value < .05),
+        p10 = mean(value < .10))
 }
 
 
