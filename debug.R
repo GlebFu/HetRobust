@@ -9,10 +9,10 @@ load("Problem Models.Rdata")
 
 debug(saddlepoint_pval)
 
-estimate(HC = "HC5", tests = "saddle", model = badmods[[2]])
-estimate(HC = "HC1", tests = "saddle", model = badmods[[3]])
+estimate(HC = "HC5", tests = "saddle", model = badmods[[1]])
+estimate(HC = "HC1", tests = "saddle", model = badmods[[2]])
+estimate(HC = "HC0", tests = "saddle", model = badmods[[3]])
 estimate(HC = "HC0", tests = "saddle", model = badmods[[4]])
-estimate(HC = "HC0", tests = "saddle", model = badmods[[5]])
 
 undebug(saddlepoint_pval)
 
