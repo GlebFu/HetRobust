@@ -245,7 +245,7 @@ estimate <- function(HC, tests, model) {
                                 X_M = X_M, omega = omega, e = e,
                                 H = H, n = n, approx = "empirical")
   }
-  if ("edge" %in% tests) {
+  if ("edgeKC" %in% tests) {
     v <- sapply(1:p, nu_q, Xmat = X)
     pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
   }

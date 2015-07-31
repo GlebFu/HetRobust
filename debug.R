@@ -1,43 +1,35 @@
-rm(list = ls())
-
-load("Problem Models.Rdata")
-badmods <- badmods[1]
-save(badmods, file = "Problem Models.Rdata")
+#-----------------------------
+# NA producing Models
+#-----------------------------
 
 rm(list = ls())
 
-source("hetRobust debug.R")
-
-library(plyr)
-library(Pusto)
-
-results <- runSim(iterations = 1000,
-                  n = 1000,
-                  B = "1 1 1 1 0 0",
-                  whichX = "T T T T T F",
-                  Estruct = "E0",
-                  Edist = "En",
-                  HC = "HC5",
-                  test = "saddle",
-                  seed = 899087467)
-
+source("hetRobust.R")
 load("Problem Models.Rdata")
 
-debug(estimate)
-debug(saddle)
 debug(saddlepoint_pval)
 
 estimate(HC = "HC5", tests = "saddle", model = badmods[[2]])
+estimate(HC = "HC1", tests = "saddle", model = badmods[[3]])
+estimate(HC = "HC0", tests = "saddle", model = badmods[[4]])
+estimate(HC = "HC0", tests = "saddle", model = badmods[[5]])
 
-
-undebug(estimate)
-undebug(saddle)
 undebug(saddlepoint_pval)
 
+#-----------------------------
+# pValues
+#-----------------------------
+rm(list = ls())
+source("hetRobust.R")
 
-load("Replication Results.Rdata")
+testmod <- gdm(n = 25, 
+               B = c(1, 1, 1, 1, 0, 0), 
+               Estruct = "E0", 
+               whichX = c(T, T ,T ,T ,T ,F), 
+               Edist = "En")
 
-write.csv(reps, file = "Replication Results.csv")
-write.csv(reps, file = "Replication Results2.csv")
+estimate(HC = "HC0",
+         tests = c("naive", "Satt", "saddle", "edgeKC"),
+         model = testmod)
 
-write.csv(results, file = "Results/20150728 debug.csv")
+debug(estimate)
