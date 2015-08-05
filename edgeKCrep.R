@@ -172,42 +172,22 @@ edgePVal <- function(tHC, v) {
 }
 
 #-----------------------------------
-#M & W jackknife etiamte
+#M & W jackknife etimate
 #-----------------------------------
 v_jack <- function(p, e, h, X_M, X, n, M) {
-  x <- X[,p]
-  e_star <- e * (1 - h)
-  g_hat <- X_M[,p]%*%e_star
-  v <- (n-1)/n * M[,p] * sum(x^2*e_star^2) * M[,p] - (n-1)/n * g_hat^2
-  return(v)
-}
-
-v_jack2 <- function(p, e, h, X, n) {
-  x <- X[,p]
-  M <- solve(t(x) %*% x)
-  X_M <- x %*% M
-  
-  e_star <- e * (1 - h)
-  g_hat <- e_star %*% X_M
-  v <- (n-1)/n * M * sum(x^2*e_star^2) * M - (n-1)/n * g_hat^2
-  return(v)
-}
-
-v_jack3 <- function(p, e, h, X_M, X, n, M) {
   z <- switch(p,
               "1" = c(1,0),
               "2" = c(0,1))
-  
-  x <- X[,p]
   
   e_star <- e * (1 - h)
   
   g_hat <- t(z) %*% M %*% t(X) %*% e_star
   
-  v <- (n-1)/n * t(z) %*% M * sum(t(x) * x * e_star^2) * M %*% z - (n - 1)/n * t(g_hat) * g_hat
+  v <- ((n-1)/n * t(z) %*% M * sum(t(X[,p]) * X[,p] * e_star^2)) %*% M %*% z - (n - 1)/n * t(g_hat) * g_hat
 
   return(v)
 }
+
 #-----------------------------------
 # testing function
 #-----------------------------------
