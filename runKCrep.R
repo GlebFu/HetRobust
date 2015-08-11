@@ -3,13 +3,13 @@ source("edgeKCrep.R")
 library(plyr)
 library(Pusto)
 
-set.seed(20150731)
+set.seed(20150805)
 
 design <- list(n = c(25, 40),
                mdl = 1:3,
                xDist = c("unif", "norm", "lap"),
                HC = "HC2",
-               tests = "naive edgeKC")
+               tests = "naive edgeKC jack")
 
 params <- expand.grid(design, stringsAsFactors = F)
 
@@ -23,7 +23,7 @@ system.time(results <- mdply(params, .fun = runSim, .parallel = T))
 
 stopCluster(cluster)
 
-write.csv(results, file = "Results/edgeKC 20150731.csv")
+write.csv(results, file = "Results/edgeKC 20150805.csv")
 
 library(ggplot2)
 library(dplyr)
@@ -34,8 +34,12 @@ covProb <- filter(results, criterion == "size", coef == "x1") %>%
 
 covProb$p05 <- 1 - covProb$p05
 
+covProb$xDist <- factor(covProb$xDist, levels = c("unif", "norm", "lap"))
+
 ggplot(covProb, aes(x = mdl,
-                    y = p05,
-                    color = test)) +
-  geom_line() +
-  facet_wrap(~n * xDist)
+                    y = p05)) +
+  geom_point(aes(shape = test)) +
+  facet_wrap(~n * xDist) +
+  theme_minimal() +
+  scale_shape(solid = FALSE)
+  

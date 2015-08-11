@@ -174,18 +174,15 @@ edgePVal <- function(tHC, v) {
 #-----------------------------------
 #M & W jackknife etimate
 #-----------------------------------
-v_jack <- function(p, e, h, X_M, X, n, M) {
-  z <- switch(p,
-              "1" = c(1,0),
-              "2" = c(0,1))
-  
-  e_star <- e * (1 - h)
-  
-  g_hat <- t(z) %*% M %*% t(X) %*% e_star
-  
-  v <- ((n-1)/n * t(z) %*% M * sum(t(X[,p]) * X[,p] * e_star^2)) %*% M %*% z - (n - 1)/n * t(g_hat) * g_hat
+v_jack <- function(e, h, X_M, X, n, M) {
 
-  return(v)
+  e_star <- e / (1 - h)
+  
+  g_hat <- M %*% t(X) %*% e_star
+  
+  v <- ((n-1)/n) * M %*% (t(X) %*% diag(e_star) %*% X) %*% M - ((n - 1)/n^2) * g_hat %*% t(g_hat)
+
+  return(diag(v))
 }
 
 #-----------------------------------
@@ -234,7 +231,11 @@ estimate <- function(HC, tests, model) {
     v <- sapply(1:p, nu_q, Xmat = X)
     pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
   }
-  
+  if("jack" %in% tests) {
+    v <- v_jack(e, h, X_M, X, n, M)
+    pValues$jack <- t_test(coefs_to_test, sqrt(v),
+                           df = n-p)
+  }
   pValues
 }
 

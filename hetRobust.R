@@ -204,6 +204,30 @@ edgePVal <- function(tHC, v) {
 }
 
 #-----------------------------------
+# Rothenberg 1988
+#-----------------------------------
+edgeR <- function(q, tHC, n, M, I, H, omega, e) {
+  sigma <- diag(sqrt(rchisq(n, 1)))
+  
+  I_H <- I - H
+  
+  Q <- I_H %*% sigma %*% I_H
+  
+  g_q <- (X %*% M)[,q]
+  
+  z_q <- (I_H) %*% sigma %*% g_q
+  
+  a <- sum(g_q^2 * z_q^2 / omega^2) / sum(g_q^2 * (e^2/omega^2))^2
+  
+  b <- sum(g_q^2 * diag(Q)^2 / omega^2)/ sum(g_q^2 * (e^2/omega^2)) - 1
+  
+}
+
+edgeR_pVal <- function(tHC)
+
+
+
+#-----------------------------------
 # testing function
 #-----------------------------------
 
