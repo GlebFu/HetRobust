@@ -214,7 +214,8 @@ r = \text{sign}(s)\sqrt{2sz + \sum_{i=0}^n \log\left(1 - 2\gamma_i s\right)}, \q
 for a constant $z$. The saddlepoint approximation is then 
 \begin{equation}
 \label{eq:saddlepoint_approx}
-\Pr(Z \leq z) \approx \Phi(r) + \phi(r)\left[\frac{1}{r} - \frac{1}{q}\right].
+\Pr(Z \leq z) \approx \begin{cases}\Phi(r) + \phi(r)\left[\frac{1}{r} - \frac{1}{q}\right] & s \neq 0 \\
+\frac{1}{2} + \frac{\sum_{i=0}^n \gamma_i^3}{3 \sqrt\pi \left(\sum_{i=0}^n \gamma_i^2\right)^{3/2}} & s = 0. \end{cases}
 \end{equation}
 Given an observed value for the $t$-statistic $t^{HC}_q$, a $p$-value for $H_0$ can be calculated by taking $\gamma_i = -\left(t^{HC}_q\right)^2 \lambda_i / \sum_{j=1}^n \lambda_j$ for $i = 1,...,n$, finding $s$, $r$, and $q$, and evaluating $1 - \Pr(Z \leq 0)$ using Equation (\ref{eq:saddlepoint_approx}).
 

@@ -1,5 +1,3 @@
-rm(list = ls())
-
 #-----------------------------
 # Data-generating model
 #-----------------------------
@@ -138,14 +136,20 @@ Satt_results <- function(model, HC) {
 #-----------------------------------
 
 saddlepoint_pval <- function(t, Q) {
-  eig <- eigen(Q, symmetric = TRUE, only.values=TRUE)$values # produces imaginary numbers
+  eig <- pmax(0, eigen(Q, symmetric = TRUE, only.values=TRUE)$values)
   g <- c(1, -t^2 * eig / sum(eig))
   s_eq <- function(s) sum(g / (1 - 2 * g * s))
   s_range <- if (s_eq(0) > 0) c(1 / (2 * min(g)), 0) else c(0, 1 / (2 * max(g)))
   s <- uniroot(s_eq, s_range)$root
-  r <- sign(s) * sqrt(sum(log(1 - 2 * g * s)))
-  q <- s * sqrt(2 * sum(g^2 / (1 - 2 * g * s)^2))
-  p_val <- 1 - pnorm(r) - dnorm(r) * (1 / r - 1 / q)
+  if (s != 0) {
+    r <- sign(s) * sqrt(sum(log(1 - 2 * g * s)))
+    q <- s * sqrt(2 * sum(g^2 / (1 - 2 * g * s)^2))
+    p_val1 <- 1 - pnorm(r) - dnorm(r) * (1 / r - 1 / q)
+    p_val2 <- 0.5 - sum(g^3) / (3 * sqrt(pi) * sum(g^2)^(3/2))
+    p_val <- min(p_val1, p_val2)
+  } else {
+    p_val <- 0.5 - sum(g^3) / (3 * sqrt(pi) * sum(g^2)^(3/2))
+  }
   p_val
 }
 
