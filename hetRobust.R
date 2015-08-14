@@ -210,24 +210,34 @@ edgePVal <- function(tHC, v) {
 #-----------------------------------
 # Rothenberg 1988
 #-----------------------------------
-edgeR <- function(q, tHC, n, M, I, H, omega, e) {
-  sigma <- diag(sqrt(rchisq(n, 1)))
-  
+edgeR <- function(q, tHC, X, n, M, I, H, omega, e, sigma = NULL) {
   I_H <- I - H
+  
+  if(q > length(tHC)/2) q <- q-length(tHC)/2
+  
+  tHC <- tHC[q]
+  
+  if(is.null(sigma)) sigma <- diag((e/omega)^2)
   
   Q <- I_H %*% sigma %*% I_H
   
   g_q <- (X %*% M)[,q]
   
-  z_q <- (I_H) %*% sigma %*% g_q
+  z_q <- ((I_H) %*% sigma %*% (X %*% M))[,q]
   
-  a <- sum(g_q^2 * z_q^2 / omega^2) / sum(g_q^2 * (e^2/omega^2))^2
+  a <- sum(g_q^2 * z_q^2 / omega^2) / sum(g_q^2 * (e/omega)^2)^2
   
-  b <- sum(g_q^2 * diag(Q)^2 / omega^2)/ sum(g_q^2 * (e^2/omega^2)) - 1
+  b <- sum(g_q^2 * diag(Q)^2 / omega^2) / sum(g_q^2 * ((e/omega)^2)) - 1
+  
+  v_q <- sum(g_q^2 * (e/omega)^2)^2 / (sum(g_q^4 * (e/omega)^4) / 3)
+  
+  pvalue <- 2 * (1 - pnorm(abs(tHC) / 2 * (2 - (1 + tHC^2) / (2 * v_q) - a * (tHC^2) - 1) - b))
+  
+  return(pvalue)
   
 }
 
-edgeR_pVal <- function(tHC)
+
 
 
 
@@ -273,9 +283,17 @@ estimate <- function(HC, tests, model) {
                                 X_M = X_M, omega = omega, e = e,
                                 H = H, n = n, approx = "empirical")
   }
+  
   if ("edgeKC" %in% tests) {
     v <- sapply(1:p, nu_q, Xmat = X)
     pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+  }
+  
+  if("edgeR" %in% tests) {
+    
+    pValues$edgeR_V1 <- sapply(1:(2*p), edgeR, coefs_to_test/sqrt(V_b), X, n, M, I = diag(n), H, omega, e, sigma = diag(n))
+    
+    pValues$edgeR_V2 <- sapply(1:(2*p), edgeR, coefs_to_test/sqrt(V_b), X, n, M, I = diag(n), H, omega, e)
   }
                                 
   pValues
