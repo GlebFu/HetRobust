@@ -1,0 +1,51 @@
+---
+title: "Initial Results"
+author: "Gleb Furman"
+date: "August 13, 2015"
+output: html_document
+classoption: landscape
+---
+
+
+```{r, cache = F, echo = F, warning = F, results = "hide", message = F}
+library(plyr)
+library(dplyr)
+library(ggplot2)
+library(htmlTable)
+library(reshape2)
+library(stargazer)
+
+rm(list = ls())
+
+results <- rbind(read.csv("20150805A.csv"),
+                 read.csv("20150805B.csv"),
+                 read.csv("20150805C.csv"))
+
+```
+
+Compare model based vs. empirical Saddlepoint Approximations.
+
+```{r, cache = F, echo = F, warning = F, results = "asis"}
+saddle <- filter(results, test == "saddle_V1" | test == "saddle_V2", criterion == "size") %>% 
+  select(n, Estruct, Edist, HC, coef, test, p05) %>% 
+  #melt(measure.vars = c("p01", "p05", "p10"), variable.name = "alpha", value.name = "p") %>%
+  dcast(... ~ HC + test, value.var = "p05")
+
+
+filter(saddle, Edist == "En", coef == "x0") %>% 
+  select(-Edist, -coef) %>% 
+  htmlTable(rnames = F)
+  #stargazer(summary = F)
+
+filter(saddle, Edist == "En", coef == "x1") %>% 
+  select(-Edist, -coef) %>% 
+  htmlTable(rnames = F)
+  #stargazer(summary = F)
+
+filter(saddle, Edist == "En", coef == "x2") %>% 
+  select(-Edist, -coef) %>% 
+  htmlTable(rnames = F)
+  #stargazer(summary = F)
+
+```
+
