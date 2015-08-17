@@ -170,6 +170,7 @@ saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
 #-----------------------------------
 #Edgeworth KC approximation
 #-----------------------------------
+
 nu_q <- function(q, Xmat) {
   XX_tX <- chol2inv(chol(t(Xmat) %*% Xmat)) %*% t(Xmat)
   H <- Xmat %*% XX_tX
@@ -213,7 +214,8 @@ edgePVal <- function(tHC, v) {
 edgeR <- function(q, tHC, X, n, M, I, H, omega, e, sigma = NULL) {
   I_H <- I - H
   
-  if(q > length(tHC)/2) q <- q-length(tHC)/2
+  # Restarts q to count from 1
+  if(q > length(tHC)/2) q <- q-length(tHC)/2 
   
   tHC <- tHC[q]
   
