@@ -134,13 +134,15 @@ saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
 #-----------------------------------
 #Edgeworth KC approximation
 #-----------------------------------
+
 nu_q <- function(q, Xmat) {
   XX_tX <- chol2inv(chol(t(Xmat) %*% Xmat)) %*% t(Xmat)
   H <- Xmat %*% XX_tX
   h_i <- diag(H)
   g_q <- XX_tX[q,]
-  sum(g_q^2)^2 / (sum(g_q^4) + sum(((g_q^2 / (1 - h_i)) %*% t(g_q^2 / (1 - h_i))) * H))
+  sum(g_q^2)^2 / (sum(g_q^4 * (1 - 2 * h_i) / (1 - h_i)^2) + sum(tcrossprod(g_q^2 / (1 - h_i)) * H^2))
 }
+
 
 f_alpha <- function(a, nu) {
   z_a <- qnorm(1 - a / 2)

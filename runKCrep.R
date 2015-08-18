@@ -1,7 +1,8 @@
-source("edgeKCrep.R")
-
 library(plyr)
 library(Pusto)
+rm(list=ls())
+source("edgeKCrep.R")
+
 
 set.seed(20150812)
 
@@ -13,7 +14,7 @@ design <- list(n = c(25, 40),
 
 params <- expand.grid(design, stringsAsFactors = F)
 
-params$iterations <- 2000
+params$iterations <- 10000
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
@@ -45,6 +46,7 @@ covProb$xDist <- factor(covProb$xDist, levels = c("unif", "norm", "lap"))
 ggplot(covProb, aes(x = mdl,
                     y = p05)) +
   geom_point(aes(shape = test)) +
+  geom_hline(yintercept = .95, linetype = "dashed") +
   facet_wrap(~n * xDist) +
   theme_minimal() +
   scale_shape(solid = FALSE)
