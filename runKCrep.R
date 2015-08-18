@@ -25,26 +25,23 @@ stopCluster(cluster)
 
 write.csv(results, file = "Results/edgeKC 20150812.csv")
 
+results <- read.csv("Results/edgeKC 20150812.csv")
+
 library(ggplot2)
 library(dplyr)
 
 
-covProb <- filter(results, criterion == "size", coef == "x1") %>%
-              select(n, mdl, xDist, test, p05, HC)
+filter(results, criterion == "size", coef == "x1", (test != "edgeKC" | HC != "HC3")) %>%
+  select(n, mdl, xDist, test, p05, HC) %>%
+  mutate(test = paste(test, HC),
+         p05 = 1 - p05,
+         mdl = factor(mdl),
+         xDist = factor(xDist, levels = c("unif","norm","lap"))) ->
+  covProb
+  
 
-covProb$test <- paste(covProb$test, covProb$HC)
-
-covProb <- filter(covProb, test != "edgeKC HC3")
-covProb$test <- factor(covProb$test)
-covProb$test <- factor(covProb$test, levels(covProb$test)[c(3,1,2)], ordered = T)
-
-covProb$p05 <- 1 - covProb$p05
-
-covProb$xDist <- factor(covProb$xDist, levels = c("unif", "norm", "lap"))
-
-ggplot(covProb, aes(x = mdl,
-                    y = p05)) +
-  geom_point(aes(shape = test)) +
+ggplot(covProb, aes(x = mdl, y = p05, shape = test, color = test)) +
+  geom_point() +
   facet_wrap(~n * xDist) +
   theme_minimal() +
   scale_shape(solid = FALSE)
