@@ -1,6 +1,7 @@
-source("SSTP.R")
 library(plyr)
 library(Pusto)
+rm(list=ls())
+source("SSTP.R")
 
 #-----------------------------
 # Data-generating model
@@ -102,27 +103,42 @@ system.time(results <- mdply(params, .fun = runSim, .parallel = T))
 
 stopCluster(cluster)
 
-write.csv(results, file = "Results/edgeKC 20150812.csv")
-
-results <- read.csv("Results/edgeKC 20150812.csv")
+save(results, file = "Results/edgeKC simulations.Rdata")
+load("Results/edgeKC simulations.Rdata")
 
 library(ggplot2)
 library(dplyr)
+library(tidyr)
+summary(results$percentNA)
+filter(results, percentNA > 0)
 
-
-filter(results, criterion == "size", coef == "x1", (test != "edgeKC" | HC != "HC3")) %>%
-  select(n, mdl, xDist, test, p05, HC) %>%
-  mutate(test = paste(test, HC),
-           p05 = 1 - p05,
+filter(results, criterion == "size") %>%
+  select(n, mdl, xDist, test, HC, coef, p01:p10) %>%
+  gather("alpha","reject_rate",p01:p10) %>%
+  mutate(test_HC = paste(test, HC),
+         coverage = 1 - reject_rate,
          mdl = factor(mdl),
          xDist = factor(xDist, levels = c("unif","norm","lap"))) ->
   covProb
-  
 
-ggplot(covProb, aes(x = mdl, y = p05, shape = test, color = test)) +
+# recreate KC Figure 1  
+
+filter(covProb, coef == "x1", alpha=="p05", 
+       test_HC %in% c("naive HC2","naive HC3", "edgeKC HC2")) %>%
+ggplot(aes(x = mdl, y = coverage, shape = test, color = test)) +
   geom_point() +
   geom_hline(yintercept = .95, linetype = "dashed") +
   facet_wrap(~n * xDist) +
   theme_minimal() +
   scale_shape(solid = FALSE)
   
+
+# compare all the tests
+
+alphas <- data.frame(alpha = unique(covProb$alpha), nominal = c(.99,.95,.90))
+
+ggplot(covProb, aes(test_HC, coverage, fill = test_HC)) + 
+  geom_boxplot() + 
+  geom_hline(data = alphas, aes(yintercept = nominal), linetype="dashed") + 
+  facet_grid(alpha ~ n, scales = "free_y") + 
+  theme_bw() + theme(legend.position = "bottom")

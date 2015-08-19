@@ -121,9 +121,11 @@ runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, seed = N
 
 testmod <- lapply(c(25, 50, 100, 250, 500), gdm)
 
-lapply(testmod, estimate, HC = "HC2", tests = "edgeR")
+pvals <- lapply(testmod, estimate, HC = "HC0", tests = c("Satt","saddle","edgeKC","edgeR"))
+pvals[[1]][1:5,4:9]
+pvals[[1]][6:10,4:9]
 
-model <- testmod[[1]]
+model <- testmod[[5]]
 HC <- "HC2"
 M <- model$M
 X <- model$X
@@ -149,10 +151,27 @@ omega <- switch(HC,
 V_b <- colSums((X_M * e / omega)^2)
 coefs_to_test <- c(coefs - B, coefs)
 
-# model-based 
-sapply(1:(2*p), edgeR, coefs_to_test/sqrt(V_b), X, n, M, I = diag(n), H, omega, e, sigma = diag(n))
-edgeR2(tHC = coefs_to_test / sqrt(V_b), X_M = X_M, n = n, H = H, omega = omega, e = e, approx = "model")
+tHC <- coefs_to_test / sqrt(V_b)
+
+sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+Satterthwaite(V_b, X_M, omega, e, H, n, p)
+(nu <- 6 * V_b^2 / colSums((X_M * e / omega)^4))
+
+# model-based
+q_ii <- -h
+a_vec <- 0
+(b_vec <- colSums((X_M / omega)^2 * q_ii) / colSums(X_M^2) - 1)
+t_adj1 <- abs(tHC) / 2 * (2 - (1 + tHC^2) / nu + a_vec * (tHC^2 - 1) + b_vec)
+p_edgeR1 <- 2 * (1 - pnorm(t_adj1))
+cbind(tHC, t_adj1, p_edgeR1)
 
 # empirical
-sapply(1:(2*p), edgeR, coefs_to_test/sqrt(V_b), X, n, M, I = diag(n), H, omega, e)
-edgeR2(tHC = coefs_to_test / sqrt(V_b), X_M = X_M, n = n, H = H, omega = omega, e = e, approx = "empirical")
+sigma <- (e/omega)^2
+I_H <- diag(nrow=n) - H
+q_ii <- colSums(I_H^2 * sigma) - sigma
+z_mat <- I_H %*% (sigma * X_M)
+(a_vec <- colSums((X_M * z_mat / omega)^2) / V_b^2)
+(b_vec <- colSums((X_M / omega)^2 * q_ii) / V_b - 1)
+t_adj2 <- abs(tHC) / 2 * (2 - (1 + tHC^2) / nu + a_vec * (tHC^2 - 1) + b_vec)
+p_edgeR2 <- 2 * (1 - pnorm(t_adj2))
+cbind(tHC, t_adj2, p_edgeR2)

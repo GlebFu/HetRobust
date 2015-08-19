@@ -111,50 +111,26 @@ edgePVal <- function(tHC, v) {
 #-----------------------------------
 # Rothenberg 1988
 #-----------------------------------
-edgeR <- function(q, tHC, X, n, M, I, H, omega, e, sigma = NULL) {
-  I_H <- I - H
-  
-  # Restarts q to count from 1
-  if(q > length(tHC)/2) q <- q-length(tHC)/2 
-  
-  tHC <- tHC[q]
-  
-  if(is.null(sigma)) sigma <- diag((e/omega)^2)
-  
-  Q <- I_H %*% sigma %*% I_H
-  
-  g_q <- (X %*% M)[,q]
-  
-  z_q <- ((I_H) %*% sigma %*% (X %*% M))[,q]
-  
-  a <- sum(g_q^2 * z_q^2 / omega^2) / sum(g_q^2 * (e/omega)^2)^2
-  
-  b <- sum(g_q^2 * diag(Q)^2 / omega^2) / sum(g_q^2 * ((e/omega)^2)) - 1
-  
-  v_q <- sum(g_q^2 * (e/omega)^2)^2 / (sum(g_q^4 * (e/omega)^4) / 3)
-  
-  pvalue <- 2 * (1 - pnorm(abs(tHC) / 2 * (2 - (1 + tHC^2) / (2 * v_q) - a * (tHC^2 - 1) - b)))
-  
-  return(pvalue)
-  
-}
 
-edgeR2 <- function(tHC, X_M, n, H, omega, e, approx = "model") {
+edgeR <- function(coefs, V_b, X_M, n, H, h, omega, e, approx = "model") {
   
-  I_H <- diag(nrow=n) - H
+  tHC <- coefs / sqrt(V_b)
   
-  sigma <- if (approx=="model") rep(1, n) else (e/omega)^2
+  if (approx=="model") {
+    q_ii <- -h
+    a_vec <- 0
+    b_vec <- colSums((X_M / omega)^2 * q_ii) / colSums(X_M^2) - 1
+  } else {
+    sigma <- (e/omega)^2
+    I_H <- diag(nrow=n) - H
+    q_ii <- colSums(I_H^2 * sigma) - sigma
+    z_mat <- I_H %*% (sigma * X_M)
+    a_vec <- colSums((X_M * z_mat / omega)^2) / V_b^2
+    b_vec <- colSums((X_M / omega)^2 * q_ii) / V_b - 1
+  }
+  nu <- 6 * V_b^2 / colSums((X_M * e / omega)^4)
   
-  q_ii <- as.vector(I_H^2 %*% sigma)
-
-  z_mat <- I_H %*% (sigma * X_M)
-  g_sigma_sq <- colSums(X_M^2 * sigma)
-  a_vec <- colSums((X_M * z_mat / omega)^2) / g_sigma_sq^2
-  b_vec <- colSums((X_M * q_ii / omega)^2) / g_sigma_sq - 1
-  g_e_omega <- X_M * e / omega
-  nu <- 3 * colSums(g_e_omega^2)^2 / colSums(g_e_omega^4)
-
-  2 * (1 - pnorm(abs(tHC) / 2 * (2 - (1 + tHC^2) / (2 * nu) - a_vec * (tHC^2 - 1) - b_vec)))
+  2 * (1 - pnorm(abs(tHC) / 2 * (2 - (1 + tHC^2) / nu + a_vec * (tHC^2 - 1) + b_vec)))
 }
 
 
@@ -203,15 +179,13 @@ estimate <- function(HC, tests, model) {
   }
   
   if ("edgeKC" %in% tests) {
-    v <- sapply(1:p, nu_q, Xmat = X)
+    v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
     pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
   }
   
   if("edgeR" %in% tests) {
-    
-    pValues$edgeR_V1 <- sapply(1:(2*p), edgeR, coefs_to_test/sqrt(V_b), X, n, M, I = diag(n), H, omega, e, sigma = diag(n))
-    
-    pValues$edgeR_V2 <- sapply(1:(2*p), edgeR, coefs_to_test/sqrt(V_b), X, n, M, I = diag(n), H, omega, e)
+    pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, H, h, omega, e, approx = "model")
+    pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, H, h, omega, e, approx = "empirical")
   }
   
   pValues
