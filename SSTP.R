@@ -98,41 +98,14 @@ saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
 #Edgeworth KC approximation
 #-----------------------------------
 
-nu_q <- function(q, Xmat) {
-  XX_tX <- chol2inv(chol(t(Xmat) %*% Xmat)) %*% t(Xmat)
-  H <- Xmat %*% XX_tX
-  h_i <- diag(H)
-  g_q <- XX_tX[q,]
-  sum(g_q^2)^2 / (sum(g_q^4 * (1 - 2 * h_i) / (1 - h_i)^2) + sum(tcrossprod(g_q^2 / (1 - h_i)) * H^2))
+nu_q <- function(q, X_M, H, h) {
+  g_q <- X_M[,q]
+  sum(g_q^2)^2 / (sum(g_q^4 * (1 - 2 * h) / (1 - h)^2) + sum(tcrossprod(g_q^2 / (1 - h)) * H^2))
 }
 
-f_alpha <- function(a, nu) {
-  z_a <- qnorm(1 - a / 2)
-  a + (z_a^3 + z_a) * dnorm(z_a) / (2 * nu)
-}
-
-edgeKC_adj <- function(alpha, nu) {
-  alpha <- uniroot(function(a) f_alpha(a, nu = nu) - alpha, lower = 10^-12, upper = 1)$root
-  qnorm(1 - alpha / 2)
-}
-
-edgeKC_approx <- function(alpha, X) {
-  n <- nrow(X)
-  p <- ncol(X)
-  XX_tX <- chol2inv(chol(t(X) %*% X)) %*% t(X)
-  H <- X %*% XX_tX
-  h_i <- diag(H)
-  z_alpha <- qnorm(1 - alpha / 2)
-  crit <- function(q) {
-    g_q <- XX_tX[q,]
-    nu <- sum(g_q^2)^2 / (sum(g_q^4) + sum(((g_q^2 / (1 - h_i)) %*% t(g_q^2 / (1 - h_i))) * H))  
-    qt(1 - alpha / 2, df = n - p) + (1 / nu - sum(g_q^2)^2 / n) * (z_alpha^3 + z_alpha) / 4
-  }
-  sapply(1:p, crit)
-}
 
 edgePVal <- function(tHC, v) {
-  2*(1-pnorm(abs(tHC))) + dnorm(tHC)/(2*v)*(abs(tHC)^3 + abs(tHC))
+  2 * (1 - pnorm(abs(tHC))) + (abs(tHC)^3 + abs(tHC)) * dnorm(tHC) / (2 * v)
 }
 
 #-----------------------------------
@@ -160,17 +133,86 @@ edgeR <- function(q, tHC, X, n, M, I, H, omega, e, sigma = NULL) {
   
   v_q <- sum(g_q^2 * (e/omega)^2)^2 / (sum(g_q^4 * (e/omega)^4) / 3)
   
-  pvalue <- 2 * (1 - pnorm(abs(tHC) / 2 * (2 - (1 + tHC^2) / (2 * v_q) - a * (tHC^2) - 1) - b))
+  pvalue <- 2 * (1 - pnorm(abs(tHC) / 2 * (2 - (1 + tHC^2) / (2 * v_q) - a * (tHC^2 - 1) - b)))
   
   return(pvalue)
   
 }
 
+edgeR2 <- function(tHC, X_M, n, H, omega, e, approx = "model") {
+  
+  I_H <- diag(nrow=n) - H
+  
+  sigma <- if (approx=="model") rep(1, n) else (e/omega)^2
+  
+  q_ii <- as.vector(I_H^2 %*% sigma)
+
+  z_mat <- I_H %*% (sigma * X_M)
+  g_sigma_sq <- colSums(X_M^2 * sigma)
+  a_vec <- colSums((X_M * z_mat / omega)^2) / g_sigma_sq^2
+  b_vec <- colSums((X_M * q_ii / omega)^2) / g_sigma_sq - 1
+  g_e_omega <- X_M * e / omega
+  nu <- 3 * colSums(g_e_omega^2)^2 / colSums(g_e_omega^4)
+
+  2 * (1 - pnorm(abs(tHC) / 2 * (2 - (1 + tHC^2) / (2 * nu) - a_vec * (tHC^2 - 1) - b_vec)))
+}
 
 
 
+#-----------------------------------
+# testing function
+#-----------------------------------
 
-
-
-
-
+estimate <- function(HC, tests, model) {
+  M <- model$M
+  X <- model$X
+  e <- as.vector(model$e)
+  h <- model$h
+  n <- model$n
+  p <- model$p
+  coefs <- as.vector(model$coefs)
+  B <- model$B
+  H <- model$H
+  X_M <- model$X_M
+  
+  omega <- switch(HC,
+                  HC0 = 1,
+                  HC1 = sqrt((n - p) / n),
+                  HC2 = sqrt(1 - h),
+                  HC3 = (1 - h),
+                  HC4 = (1 - h)^(pmin(h * n / p, 4) / 2),
+                  HC4m = (1 - h)^((pmin(h * n / p, 1) + pmin(h * n / p, 1.5))/2),
+                  HC5 = (1 - h)^(pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 4)
+  )
+  
+  V_b <- colSums((X_M * e / omega)^2)
+  coefs_to_test <- c(coefs - B, coefs)
+  
+  # testing
+  pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), criterion = rep(c("size","power"), each = p))
+  if ("naive" %in% tests) pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), df = n - p)
+  if ("Satt" %in% tests) pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+                                                df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+  if ("saddle" %in% tests) {
+    pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
+                                X_M = X_M, omega = omega, e = e,
+                                H = H, n = n, approx = "model")
+    pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
+                                X_M = X_M, omega = omega, e = e,
+                                H = H, n = n, approx = "empirical")
+  }
+  
+  if ("edgeKC" %in% tests) {
+    v <- sapply(1:p, nu_q, Xmat = X)
+    pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+  }
+  
+  if("edgeR" %in% tests) {
+    
+    pValues$edgeR_V1 <- sapply(1:(2*p), edgeR, coefs_to_test/sqrt(V_b), X, n, M, I = diag(n), H, omega, e, sigma = diag(n))
+    
+    pValues$edgeR_V2 <- sapply(1:(2*p), edgeR, coefs_to_test/sqrt(V_b), X, n, M, I = diag(n), H, omega, e)
+  }
+  
+  pValues
+}

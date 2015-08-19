@@ -5,6 +5,7 @@ library(Pusto)
 #-----------------------------
 # Data-generating model
 #-----------------------------
+
 estimate_model <- function(Y, X, B) {
   n <- nrow(X)
   p <- ncol(X)
@@ -45,56 +46,6 @@ gdm <- function(n = 20, mdl = 1, xDist = "norm", B = c(0,1)) {
 }
 
 #-----------------------------------
-# testing function
-#-----------------------------------
-
-estimate <- function(HC, tests, model) {
-  M <- model$M
-  X <- model$X
-  e <- as.vector(model$e)
-  h <- model$h
-  n <- model$n
-  p <- model$p
-  coefs <- as.vector(model$coefs)
-  B <- model$B
-  H <- model$H
-  X_M <- model$X_M
-  
-  omega <- switch(HC,
-                  HC0 = 1,
-                  HC1 = sqrt((n - p) / n),
-                  HC2 = sqrt(1 - h),
-                  HC3 = (1 - h),
-                  HC4 = (1 - h)^(pmin(h * n / p, 4) / 2),
-                  HC4m = (1 - h)^((pmin(h * n / p, 1) + pmin(h * n / p, 1.5))/2),
-                  HC5 = (1 - h)^(pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 4)
-  )
-  
-  V_b <- colSums((X_M * e / omega)^2)
-  coefs_to_test <- c(coefs - B, coefs)
-  
-  # testing
-  pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), criterion = rep(c("size","power"), each = p))
-  if ("naive" %in% tests) pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), df = n - p)
-  if ("Satt" %in% tests) pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
-                                                df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
-  if ("saddle" %in% tests) {
-    pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
-                                X_M = X_M, omega = omega, e = e,
-                                H = H, n = n, approx = "model")
-    pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
-                                X_M = X_M, omega = omega, e = e,
-                                H = H, n = n, approx = "empirical")
-  }
-  if ("edgeKC" %in% tests) {
-    v <- sapply(1:p, nu_q, Xmat = X)
-    pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
-  }
-
-  pValues
-}
-
-#-----------------------------------
 # simulation driver
 #-----------------------------------
 
@@ -131,15 +82,13 @@ runSim <- function(iterations, n, mdl, xDist, HC, tests, seed = NULL) {
 # Run Kauermann & Carroll Simulation
 #-----------------------------
 
-
-
 set.seed(20150812)
 
 design <- list(n = c(25, 40),
                mdl = 1:3,
                xDist = c("unif", "norm", "lap"),
                HC = "HC2 HC3",
-               tests = "naive edgeKC")
+               tests = "naive Satt edgeKC saddle")
 
 params <- expand.grid(design, stringsAsFactors = F)
 
@@ -164,7 +113,7 @@ library(dplyr)
 filter(results, criterion == "size", coef == "x1", (test != "edgeKC" | HC != "HC3")) %>%
   select(n, mdl, xDist, test, p05, HC) %>%
   mutate(test = paste(test, HC),
-         p05 = 1 - p05,
+           p05 = 1 - p05,
          mdl = factor(mdl),
          xDist = factor(xDist, levels = c("unif","norm","lap"))) ->
   covProb
