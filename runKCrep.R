@@ -83,9 +83,9 @@ runSim <- function(iterations, n, mdl, xDist, HC, tests, seed = NULL) {
 # Run Kauermann & Carroll Simulation
 #-----------------------------
 
-set.seed(20150812)
+set.seed(20150819)
 
-design <- list(n = c(25, 40),
+design <- list(n = c(20, 40),
                mdl = 1:3,
                xDist = c("unif", "norm", "lap"),
                HC = "HC2 HC3",
@@ -103,7 +103,7 @@ system.time(results <- mdply(params, .fun = runSim, .parallel = T))
 
 stopCluster(cluster)
 
-save(results, file = "Results/edgeKC simulations.Rdata")
+save(results, file = "Results/edgeKC simulations 08-19-15.Rdata")
 load("Results/edgeKC simulations.Rdata")
 
 library(ggplot2)
@@ -125,7 +125,7 @@ filter(results, criterion == "size") %>%
 
 filter(covProb, coef == "x1", alpha=="p05", 
        test_HC %in% c("naive HC2","naive HC3", "edgeKC HC2")) %>%
-ggplot(aes(x = mdl, y = coverage, shape = test, color = test)) +
+ggplot(aes(x = mdl, y = coverage, shape = test_HC, color = test_HC)) +
   geom_point() +
   geom_hline(yintercept = .95, linetype = "dashed") +
   facet_wrap(~n * xDist) +
