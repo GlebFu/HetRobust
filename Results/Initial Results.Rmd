@@ -11,11 +11,10 @@ classoption: landscape
 library(plyr)
 library(dplyr)
 library(ggplot2)
-library(htmlTable)
 library(reshape2)
-library(stargazer)
 
 rm(list = ls())
+
 
 results <- rbind(read.csv("20150805A.csv"),
                  read.csv("20150805B.csv"),
@@ -23,29 +22,56 @@ results <- rbind(read.csv("20150805A.csv"),
 
 ```
 
-Compare model based vs. empirical Saddlepoint Approximations.
-
-```{r, cache = F, echo = F, warning = F, results = "asis"}
-saddle <- filter(results, test == "saddle_V1" | test == "saddle_V2", criterion == "size") %>% 
-  select(n, Estruct, Edist, HC, coef, test, p05) %>% 
-  #melt(measure.vars = c("p01", "p05", "p10"), variable.name = "alpha", value.name = "p") %>%
-  dcast(... ~ HC + test, value.var = "p05")
+The first figure displays the performance as measured by size of each HC * Test combination at the .05 level for each sample size. Each box plot represents error distribution (3) * error structure (7) * variable (6). HC1 combined with the model version of saddlepoint seems to outperform all other combinations on average.
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
 
 
-filter(saddle, Edist == "En", coef == "x0") %>% 
-  select(-Edist, -coef) %>% 
-  htmlTable(rnames = F)
-  #stargazer(summary = F)
 
-filter(saddle, Edist == "En", coef == "x1") %>% 
-  select(-Edist, -coef) %>% 
-  htmlTable(rnames = F)
-  #stargazer(summary = F)
+filter(results, criterion == "size") %>%
+  select(n, Estruct, Edist, HC, coef, test, p05) %>%
+  ggplot(aes(y = p05,
+             x = test,
+             color = test)) +
+  geom_boxplot() +
+  facet_grid(n ~ HC) +
+  ylim(.025, .075) + 
+  geom_hline(aes(yintercept = .05), linetype = "dashed") +
+  theme_bw() + theme(legend.position = "bottom")
 
-filter(saddle, Edist == "En", coef == "x2") %>% 
-  select(-Edist, -coef) %>% 
-  htmlTable(rnames = F)
-  #stargazer(summary = F)
 
 ```
 
+The second figure is identical to the first with the exception of displaying power.This figure displays extremely low power even at the larger sample sizes across all testing conditions and is troubling. 
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+
+filter(results, criterion == "power") %>%
+  select(n, Estruct, Edist, HC, coef, test, p05) %>%
+  ggplot(aes(y = p05,
+             x = test,
+             color = test)) +
+  geom_boxplot() +
+  facet_grid(n ~ HC) +
+  geom_hline(aes(yintercept = .95), linetype = "dashed") +
+  theme_bw() + theme(legend.position = "bottom")
+
+
+```
+
+
+
+The final figure attempts to illustrate the similarity between an error distribution in the shape of $\chi_5^2$ and $t_5$. Long and Ervin found that there was little difference between the two and opted to exclude the $t_5$ distribution.
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+
+filter(results, criterion == "size", Edist != "En") %>%
+  select(n, Estruct, Edist, HC, coef, test, p05) %>%
+  mutate(test_Edist = paste(test, Edist)) %>%
+  ggplot(aes(y = p05,
+             x = test_Edist,
+             color = test_Edist)) +
+  geom_boxplot() +
+  facet_grid(n ~ HC) +
+  geom_hline(aes(yintercept = .05), linetype = "dashed") +
+  theme_bw() + theme(legend.position = "bottom")
+
+
+```
