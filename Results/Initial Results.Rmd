@@ -20,6 +20,10 @@ results <- rbind(read.csv("20150805A.csv"),
                  read.csv("20150805B.csv"),
                  read.csv("20150805C.csv"))
 
+#results <- rbind(read.csv("Results/20150805A.csv"),
+#                 read.csv("Results/20150805B.csv"),
+#                 read.csv("Results/20150805C.csv"))
+
 ```
 
 The first figure displays the performance as measured by size of each HC * Test combination at the .05 level for each sample size. Each box plot represents error distribution (3) * error structure (7) * variable (6). HC1 combined with the model version of saddlepoint seems to outperform all other combinations on average.
@@ -41,17 +45,32 @@ filter(results, criterion == "size") %>%
 
 ```
 
-The second figure is identical to the first with the exception of displaying power.This figure displays extremely low power even at the larger sample sizes across all testing conditions and is troubling. 
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
-
-filter(results, criterion == "power") %>%
+filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
   ggplot(aes(y = p05,
              x = test,
              color = test)) +
   geom_boxplot() +
   facet_grid(n ~ HC) +
-  geom_hline(aes(yintercept = .95), linetype = "dashed") +
+  ylim(.025, .075) + 
+  geom_hline(aes(yintercept = .05), linetype = "dashed") +
+  theme_bw() + theme(legend.position = "bottom")
+
+```
+
+
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+
+filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
+  select(n, Estruct, Edist, HC, coef, test, p05) %>%
+  ggplot(aes(y = p05,
+             x = test,
+             color = test)) +
+  geom_boxplot() +
+  facet_grid(n ~ Edist * HC) +
+  ylim(.025, .075) + 
+  geom_hline(aes(yintercept = .05), linetype = "dashed") +
   theme_bw() + theme(legend.position = "bottom")
 
 
@@ -59,19 +78,32 @@ filter(results, criterion == "power") %>%
 
 
 
-The final figure attempts to illustrate the similarity between an error distribution in the shape of $\chi_5^2$ and $t_5$. Long and Ervin found that there was little difference between the two and opted to exclude the $t_5$ distribution.
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
 
-filter(results, criterion == "size", Edist != "En") %>%
+results2 <- filter(results, criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
-  mutate(test_Edist = paste(test, Edist)) %>%
-  ggplot(aes(y = p05,
-             x = test_Edist,
-             color = test_Edist)) +
-  geom_boxplot() +
-  facet_grid(n ~ HC) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed") +
-  theme_bw() + theme(legend.position = "bottom")
+  mutate(under = ifelse(p05 <= .05, T, F), 
+         underdif = ifelse(under, p05 - .05, NA),
+         overdif = ifelse(!under, p05 - .05, NA))
 
+merge(aggregate(under ~ HC * test * n, results2, mean),
+      aggregate(underdif ~ HC * test * n, results2, mean),
+      by = c("HC", "test", "n")) ->
+  stats
+
+stats <- merge(stats, 
+               aggregate(overdif ~ HC * test * n, results2, mean),
+               by = c("HC", "test", "n"))
+
+melt(stats, id.vars = c("HC", "test", "n", "under")) %>%
+  mutate(direction = ifelse(value < 0, under, 1 - under)) %>%
+  ggplot(aes(x = test,
+             y = value,
+             color = variable,
+             size = direction)) +
+  geom_point() +
+  facet_grid(n ~ HC)  + 
+  geom_hline(aes(yintercept = 0), linetype = "dashed")  +
+  ylim(-.05, .05)
 
 ```
