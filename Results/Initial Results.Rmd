@@ -107,3 +107,69 @@ melt(stats, id.vars = c("HC", "test", "n", "under")) %>%
   ylim(-.05, .05)
 
 ```
+
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+edm <- function() {
+  
+  spread <- seq(-3, 3, by = .01)
+  
+  # Distributions used in generating data
+  b1 <- dunif(spread, 0, 1)
+  b2 <- dnorm(spread, 0, 1)
+  b3 <- dchisq(spread, 1)
+  b4 <- dnorm(spread, 0, 1)
+  b5 <- dunif(spread, 0, 1)
+  
+  # Four independant variables based on distributions
+  x0 <- 1
+  x1 <- 1 + b1
+  x2 <- 3 * b1 + .6 * b2
+  x3 <- 2 * b1 + .6 * b3
+  x4 <- .1 * x1 + .9 * x3 - .8 * b4 + 4 * b5
+  x2[x2 < -2.5] <- -2.5
+  x4[x4 < -2.5] <- -2.5
+  
+  # One dummy variable created by splitting x2
+  xD <- ifelse(x2 > 1.6, 1, 0)
+  
+  # Three types of homoscedastistic error distributions:
+  
+  En = dnorm(spread, 0, 1)
+  Ech = (dchisq(spread, 5) - 5) / sqrt(10)
+  Et = dt(spread, 5)
+
+  # Seven types of error structures
+  
+  E0 = 1
+  E1 = sqrt(x1)
+  E2 = sqrt(x3 + 1.6)
+  E3 = sqrt(x3) * sqrt(x4 + 2.5)
+  E4 = sqrt(x1) * sqrt(x2 + 2.5) * sqrt(x3)
+  E5 = ifelse(xD == 1, 1.5, 1)
+  E6 = ifelse(xD == 1, 4, 1)
+  
+  ESs <- cbind(E0, E1, E2, E3, E4, E5, E6)
+  
+  EnES <- cbind(spread = spread, dist = "En", En * ESs)
+  EchES <- cbind(spread = spread, dist = "Ech", Ech * ESs)
+  EtES <- cbind(spread = spread, dist = "Et", Et * ESs)
+
+  EDESs <- rbind(En = EnES, Ech = EchES, Et = EtES)
+  
+  EDESs <- as.data.frame(EDESs)
+ 
+  return(EDESs)
+}
+
+EDists <-  edm()
+
+ggplot(EDists, aes(x = spread,
+                   y = E0,
+                   fill = dist)) +
+  geom_point()
+
+save(EDists, file = "Error Dists.RData")
+
+EDists <- load("Results/Error Dists.RData")
+
+```
