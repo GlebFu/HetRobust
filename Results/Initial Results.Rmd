@@ -27,7 +27,7 @@ results <- rbind(read.csv("20150805A.csv"),
 ```
 
 The first figure displays the performance as measured by size of each HC * Test combination at the .05 level for each sample size. Each box plot represents error distribution (3) * error structure (7) * variable (6). HC1 combined with the model version of saddlepoint seems to outperform all other combinations on average.
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 
 
@@ -45,7 +45,7 @@ filter(results, criterion == "size") %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
   ggplot(aes(y = p05,
@@ -60,7 +60,7 @@ filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
 ```
 
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
@@ -78,7 +78,7 @@ filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
 
 
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 results2 <- filter(results, criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
@@ -108,7 +108,7 @@ melt(stats, id.vars = c("HC", "test", "n", "under")) %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 edm <- function() {
   
   # Distributions used in generating data
@@ -146,13 +146,21 @@ edm <- function() {
   E5 = ifelse(xD == 1, 1.5, 1)
   E6 = ifelse(xD == 1, 4, 1)
   
+  X <- cbind(x0, x1, x2, x3, x4, xD)
+  
+  B = c(1, 1, 1, 1, 0, 0)
+  
+  Y <- as.vector(X %*% B)
+  
   ESs <- cbind(E0, E1, E2, E3, E4, E5, E6)
   
-  EnES <- data.frame(dist = "En", En * ESs)
-  EchES <- data.frame(dist = "Ech", Ech * ESs)
-  EtES <- data.frame(dist = "Et", Et * ESs)
+  EnES <- data.frame(dist = "En", Y = Y, En * ESs)
+  EchES <- data.frame(dist = "Ech", Y = Y, Ech * ESs)
+  EtES <- data.frame(dist = "Et", Y = Y, Et * ESs)
 
   EDESs <- rbind(En = EnES, Ech = EchES, Et = EtES)
+  
+
 
  
   return(EDESs)
@@ -163,17 +171,22 @@ EDists <-  edm()
 backup <- EDists
 EDists <- backup
 
-EDists <-  melt(EDists, id.vars = "dist", variable.name = "EStructs", value.name = "x")
+EDists <-  melt(EDists, id.vars = c("dist", "Y"), variable.name = "EStructs", value.name = "x")
 
-ggplot(EDists, aes(x = x)) +
-  geom_histogram(binwidth =.1) +
-  facet_grid(EStructs ~ dist) +
-  xlim(-10,10)
+ggplot(EDists, aes(x = Y,
+                   y = x)) +
+  geom_point() +
+  facet_grid(EStructs ~ dist)
+
+ggplot(EDists, aes(x = x,
+                   y = Y)) +
+  geom_point() +
+  facet_grid(EStructs ~ dist)
 
 ```
 
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05, test) %>%
@@ -188,7 +201,7 @@ filter(results, criterion == "size") %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, test == "naive", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
@@ -203,7 +216,7 @@ filter(results, test == "naive", criterion == "size") %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, test == "saddle_V1", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
@@ -218,7 +231,7 @@ filter(results, test == "saddle_V1", criterion == "size") %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, test == "saddle_V2", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
@@ -233,7 +246,7 @@ filter(results, test == "saddle_V2", criterion == "size") %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, test == "Satt", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
@@ -249,7 +262,7 @@ filter(results, test == "Satt", criterion == "size") %>%
 ```
 
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, test == "naive", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
@@ -264,7 +277,7 @@ filter(results, test == "naive", criterion == "size") %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, test == "saddle_V1", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
@@ -279,7 +292,7 @@ filter(results, test == "saddle_V1", criterion == "size") %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, test == "saddle_V2", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
@@ -294,15 +307,15 @@ filter(results, test == "saddle_V2", criterion == "size") %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 10}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
 
 filter(results, test == "Satt", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
   ggplot(aes(x = HC,
              y = p05,
-             color = Estruct)) +
+             color = HC)) +
   geom_boxplot() +
-  facet_grid(n ~ HC) +
+  facet_grid(n ~ Estruct) +
   geom_hline(aes(yintercept = .05), linetype = "dashed")  +
   ylim(.025, .075) +
   theme_bw() + theme(legend.position = "bottom")
