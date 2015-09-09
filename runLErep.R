@@ -121,7 +121,7 @@ runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, seed = N
 
 
 
-set.seed(20150812)
+set.seed(2015098)
 
 design <- list(n = c(25, 50, 100, 250, 500),
                B = "1 1 1 1 0 0",
@@ -131,7 +131,16 @@ design <- list(n = c(25, 50, 100, 250, 500),
                HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
                tests = "naive Satt saddle edgeKC edgeR")
 
-params <- expand.grid(design, stringsAsFactors = F)
+design2 <- list(n = c(25, 50, 100, 250, 500),
+               B = "1 0 1 1 0 1",
+               whichX = "T F T T T T",
+               Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
+               Edist = c("En", "Ech", "Et"),
+               HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
+               tests = "naive Satt saddle edgeKC edgeR")
+
+params <- rbind(expand.grid(design, stringsAsFactors = F), 
+                expand.grid(design2, stringsAsFactors = F))
 
 params$iterations <- 1
 params$seed <- round(runif(nrow(params)) * 2^30)
@@ -143,16 +152,6 @@ system.time(results <- mdply(params, .fun = runSim, .parallel = T))
 
 stopCluster(cluster)
 
-write.csv(results, file = "Results/20150812.csv")
-
-source("hetRobust.R")
-
-testmod <- gdm()
+write.csv(results, file = "Results/2015098.csv")
 
 
-estimate("HC1", "edgeR", testmod)
-
-debug(edgeR)
-debug(estimate)
-undebug(estimate)
-undebug(edgeR)
