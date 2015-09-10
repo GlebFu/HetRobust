@@ -1,5 +1,4 @@
 library(plyr)
-library(Pusto)
 
 
 #-----------------------------
@@ -146,12 +145,24 @@ params$iterations <- 10
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
-cluster <- start_parallel(source_obj)
+
+library(Rmpi)
+library(snow)
+library(foreach)
+library(iterators)
+library(doSNOW)
+library(plyr)
+
+cluster <- getMPIcluster()
+registerDoSNOW(cluster)
+
+clusterExport(cluster, source_obj)
+
 clusterEvalQ(cluster, source("SSTP.R"))
 clusterEvalQ(cluster, library(plyr))
 clusterEvalQ(cluster, library(reshape2))
-clusterEvalQ(cluster, library(compiler))
-clusterEvalQ(cluster, enableJIT(3))
+#clusterEvalQ(cluster, library(compiler))
+#clusterEvalQ(cluster, enableJIT(3))
 
 system.time(results <- mdply(params, .fun = runSim, .parallel = T))
 
