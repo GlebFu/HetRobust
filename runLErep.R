@@ -2,6 +2,7 @@ source("SSTP.R")
 library(plyr)
 library(Pusto)
 
+
 #-----------------------------
 # Data-generating model
 #-----------------------------
@@ -129,7 +130,7 @@ design <- list(n = c(25, 50, 100, 250, 500),
                Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
                Edist = c("En", "Ech", "Et"),
                HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
-               tests = "naive Satt saddle edgeKC edgeR")
+               tests = "naive Satt saddle edgeKC")
 
 design2 <- list(n = c(25, 50, 100, 250, 500),
                B = "1 0 1 1 0 1",
@@ -137,12 +138,12 @@ design2 <- list(n = c(25, 50, 100, 250, 500),
                Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
                Edist = c("En", "Ech", "Et"),
                HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
-               tests = "naive Satt saddle edgeKC edgeR")
+               tests = "naive Satt saddle edgeKC")
 
 params <- rbind(expand.grid(design, stringsAsFactors = F), 
                 expand.grid(design2, stringsAsFactors = F))
 
-params$iterations <- 1
+params$iterations <- 10
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
