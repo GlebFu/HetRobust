@@ -141,7 +141,7 @@ design2 <- list(n = c(25, 50, 100, 250, 500),
 params <- rbind(expand.grid(design, stringsAsFactors = F), 
                 expand.grid(design2, stringsAsFactors = F))
 
-params$iterations <- 10
+params$iterations <- 100
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
@@ -168,6 +168,6 @@ system.time(results <- mdply(params, .fun = runSim, .parallel = T))
 
 stopCluster(cluster)
 
-write.csv(results, file = "Results/2015098.csv")
+write.csv(results, file = "2015098.csv")
 
 

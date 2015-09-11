@@ -1,0 +1,33 @@
+TACC: Starting up job 5736446
+TACC: Setting up parallel environment for MVAPICH2+mpispawn.
+TACC: Starting parallel tasks...
+
+R version 3.2.1 (2015-06-18) -- "World-Famous Astronaut"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> tringsAsFactors = F), 
+Error: unexpected ')' in "tringsAsFactors = F)"
+Execution halted
+[c557-804.stampede.tacc.utexas.edu:mpispawn_0][child_handler] MPI process (rank: 0, pid: 35189) exited with status 1
+[c557-804.stampede.tacc.utexas.edu:mpispawn_0][child_handler] MPI process (rank: 1, pid: 35190) exited with status 1
+Timeout during client startup.
+read: Connection reset by peer
+Error writing receiving environ!
+TACC: MPI job exited with code: 1
+ 
+TACC: Shutdown complete. Exiting.
