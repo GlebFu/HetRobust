@@ -120,7 +120,7 @@ runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, seed = N
 
 
 
-set.seed(2015098)
+set.seed(20150911)
 
 design <- list(n = c(25, 50, 100, 250, 500),
                B = "1 1 1 1 0 0",
@@ -141,7 +141,7 @@ design2 <- list(n = c(25, 50, 100, 250, 500),
 params <- rbind(expand.grid(design, stringsAsFactors = F), 
                 expand.grid(design2, stringsAsFactors = F))
 
-params$iterations <- 10
+params$iterations <- 10000
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
@@ -168,6 +168,6 @@ system.time(results <- mdply(params, .fun = runSim, .parallel = T))
 
 stopCluster(cluster)
 
-write.csv(results, file = "Results/2015098.csv")
+write.csv(results, file = "Results/20150911.csv")
 
 
