@@ -1,0 +1,5199 @@
+TACC: Starting up job 5741265
+TACC: Setting up parallel environment for MVAPICH2+mpispawn.
+TACC: Starting parallel tasks...
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+
+R version 3.0.3 (2014-03-06) -- "Warm Puppy"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Loading required package: utils
+> library(plyr)
+> 
+> 
+> #-----------------------------
+> # Data-generating model
+> #-----------------------------
+> 
+> estimate_model <- function(Y, X, trueB, whichX) {
++   
++   X <- X[, whichX]
++   B <- trueB[whichX]
++   
++   n <- nrow(X)
++   p <- ncol(X)
++   
++   M <- solve(t(X) %*% X)
++   X_M <- X %*% M
++   coefs <- colSums(Y * X_M)
++   e <- Y - as.vector(X %*% coefs)
++   
++   H <- X_M %*% t(X)
++   h <- diag(H)
++   
++   values <- list(X = X, Y = Y, B = B, X_M = X_M, H = H, h = h, e = e, coefs = coefs, n = n, p = p, M = M)
++   
++   return(values)
++ }
+> 
+> gdm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c(T, T ,T ,T ,T ,F), Edist = "En") {
++   
++   # Distributions used in generating data
++   b1 <- runif(n, 0, 1)
++   b2 <- rnorm(n, 0, 1)
++   b3 <- rchisq(n, 1)
++   b4 <- rnorm(n, 0, 1)
++   b5 <- runif(n, 0, 1)
++   
++   # Four independant variables based on distributions
++   x0 <- 1
++   x1 <- 1 + b1
++   x2 <- 3 * b1 + .6 * b2
++   x3 <- 2 * b1 + .6 * b3
++   x4 <- .1 * x1 + .9 * x3 - .8 * b4 + 4 * b5
++   x2[x2 < -2.5] <- -2.5
++   x4[x4 < -2.5] <- -2.5
++   
++   # One dummy variable created by splitting x2
++   xD <- ifelse(x2 > 1.6, 1, 0)
++   
++   # X matrix
++   X <- cbind(x0, x1, x2, x3, x4, xD)
++   
++   # Three types of homoscedastistic error distributions:
++   Edist <- switch(Edist,
++                   En = rnorm(n, 0, 1),
++                   Ech = (rchisq(n, 5) - 5) / sqrt(10),
++                   Et = rt(n, 5))
++   
++   # Seven types of error structures
++   error <- switch(Estruct,
++                   E0 = Edist,
++                   E1 = sqrt(x1) * Edist,
++                   E2 = sqrt(x3 + 1.6) * Edist,
++                   E3 = sqrt(x3) * sqrt(x4 + 2.5) * Edist,
++                   E4 = sqrt(x1) * sqrt(x2 + 2.5) * sqrt(x3) * Edist,
++                   E5 = ifelse(xD == 1, 1.5 * Edist, Edist),
++                   E6 = ifelse(xD == 1, 4 * Edist, Edist)
++   )
++   
++   # Generate DV
++   Y <- as.vector(X %*% B) + error
++   
++   values <- estimate_model(Y, X, B, whichX)
++   
++   return(values)
++ }
+> 
+> 
+> #-----------------------------------
+> # simulation driver
+> #-----------------------------------
+> 
+> runSim <- function(iterations, n, B, whichX, Estruct, Edist, HC, tests, seed = NULL) {
++   require(plyr)
++   require(reshape2)
++   
++   B <- as.numeric(unlist(strsplit(B, " ")))
++   whichX <- as.logical(unlist(strsplit(whichX, " ")))
++   HC <- as.character(unlist(strsplit(HC, " ")))
++   tests <- as.character(unlist(strsplit(tests, " ")))
++   
++   if (!is.null(seed)) set.seed(seed)
++   
++   reps <- rdply(iterations, {
++     model <- gdm(n = n, 
++                  B = B, 
++                  Estruct = Estruct,
++                  whichX = whichX,
++                  Edist = Edist)
++     
++     ldply(HC, estimate, tests = tests, model = model)
++   })
++   
++   # performance calculations
++   
++   if ("saddle" %in% tests) tests <- c(tests[tests != "saddle"], paste0("saddle_V",1:2))
++   
++   reps <- melt(reps, id.vars = c("HC","coef","criterion"), measure.vars = tests, variable.name = "test")
++   ddply(reps, .(HC,coef,criterion,test), summarize, 
++         p01 = mean(ifelse(is.na(value), F, value < .01)),
++         p05 = mean(ifelse(is.na(value), F, value < .05)),
++         p10 = mean(ifelse(is.na(value), F, value < .10)),
++         percentNA = mean(is.na(value)))
++ }
+> 
+> #-----------------------------
+> # Run Long & Ervin Simulation
+> #-----------------------------
+> 
+> 
+> 
+> 
+> set.seed(20150911)
+> 
+> design <- list(n = c(25, 50, 100, 250, 500),
++                B = "1 1 1 1 0 0",
++                whichX = "T T T T T F",
++                Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
++                Edist = c("En", "Ech", "Et"),
++                HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
++                tests = "naive Satt saddle edgeKC")
+> 
+> design2 <- list(n = c(25, 50, 100, 250, 500),
++                B = "1 0 1 1 0 1",
++                whichX = "T F T T T T",
++                Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
++                Edist = c("En", "Ech", "Et"),
++                HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
++                tests = "naive Satt saddle edgeKC")
+> 
+> params <- rbind(expand.grid(design, stringsAsFactors = F), 
++                 expand.grid(design2, stringsAsFactors = F))
+> 
+> params$iterations <- 10000
+> params$seed <- round(runif(nrow(params)) * 2^30)
+> 
+> source_obj <- ls()
+> 
+> library(Rmpi)
+> library(snow)
+> library(foreach)
+> library(iterators)
+> library(doSNOW)
+> library(plyr)
+> 
+> cluster <- getMPIcluster()
+> registerDoSNOW(cluster)
+> 
+> clusterExport(cluster, source_obj)
+> 
+> clusterEvalQ(cluster, source("SSTP.R"))
+[[1]]
+[[1]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[1]]$visible
+[1] FALSE
+
+
+[[2]]
+[[2]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[2]]$visible
+[1] FALSE
+
+
+[[3]]
+[[3]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[3]]$visible
+[1] FALSE
+
+
+[[4]]
+[[4]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[4]]$visible
+[1] FALSE
+
+
+[[5]]
+[[5]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[5]]$visible
+[1] FALSE
+
+
+[[6]]
+[[6]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[6]]$visible
+[1] FALSE
+
+
+[[7]]
+[[7]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[7]]$visible
+[1] FALSE
+
+
+[[8]]
+[[8]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[8]]$visible
+[1] FALSE
+
+
+[[9]]
+[[9]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[9]]$visible
+[1] FALSE
+
+
+[[10]]
+[[10]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[10]]$visible
+[1] FALSE
+
+
+[[11]]
+[[11]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[11]]$visible
+[1] FALSE
+
+
+[[12]]
+[[12]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[12]]$visible
+[1] FALSE
+
+
+[[13]]
+[[13]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[13]]$visible
+[1] FALSE
+
+
+[[14]]
+[[14]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[14]]$visible
+[1] FALSE
+
+
+[[15]]
+[[15]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[15]]$visible
+[1] FALSE
+
+
+[[16]]
+[[16]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[16]]$visible
+[1] FALSE
+
+
+[[17]]
+[[17]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[17]]$visible
+[1] FALSE
+
+
+[[18]]
+[[18]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[18]]$visible
+[1] FALSE
+
+
+[[19]]
+[[19]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[19]]$visible
+[1] FALSE
+
+
+[[20]]
+[[20]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[20]]$visible
+[1] FALSE
+
+
+[[21]]
+[[21]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[21]]$visible
+[1] FALSE
+
+
+[[22]]
+[[22]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[22]]$visible
+[1] FALSE
+
+
+[[23]]
+[[23]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[23]]$visible
+[1] FALSE
+
+
+[[24]]
+[[24]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[24]]$visible
+[1] FALSE
+
+
+[[25]]
+[[25]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[25]]$visible
+[1] FALSE
+
+
+[[26]]
+[[26]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[26]]$visible
+[1] FALSE
+
+
+[[27]]
+[[27]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[27]]$visible
+[1] FALSE
+
+
+[[28]]
+[[28]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[28]]$visible
+[1] FALSE
+
+
+[[29]]
+[[29]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[29]]$visible
+[1] FALSE
+
+
+[[30]]
+[[30]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[30]]$visible
+[1] FALSE
+
+
+[[31]]
+[[31]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[31]]$visible
+[1] FALSE
+
+
+[[32]]
+[[32]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[32]]$visible
+[1] FALSE
+
+
+[[33]]
+[[33]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[33]]$visible
+[1] FALSE
+
+
+[[34]]
+[[34]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[34]]$visible
+[1] FALSE
+
+
+[[35]]
+[[35]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[35]]$visible
+[1] FALSE
+
+
+[[36]]
+[[36]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[36]]$visible
+[1] FALSE
+
+
+[[37]]
+[[37]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[37]]$visible
+[1] FALSE
+
+
+[[38]]
+[[38]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[38]]$visible
+[1] FALSE
+
+
+[[39]]
+[[39]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[39]]$visible
+[1] FALSE
+
+
+[[40]]
+[[40]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[40]]$visible
+[1] FALSE
+
+
+[[41]]
+[[41]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[41]]$visible
+[1] FALSE
+
+
+[[42]]
+[[42]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[42]]$visible
+[1] FALSE
+
+
+[[43]]
+[[43]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[43]]$visible
+[1] FALSE
+
+
+[[44]]
+[[44]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[44]]$visible
+[1] FALSE
+
+
+[[45]]
+[[45]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[45]]$visible
+[1] FALSE
+
+
+[[46]]
+[[46]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[46]]$visible
+[1] FALSE
+
+
+[[47]]
+[[47]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[47]]$visible
+[1] FALSE
+
+
+[[48]]
+[[48]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[48]]$visible
+[1] FALSE
+
+
+[[49]]
+[[49]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[49]]$visible
+[1] FALSE
+
+
+[[50]]
+[[50]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[50]]$visible
+[1] FALSE
+
+
+[[51]]
+[[51]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[51]]$visible
+[1] FALSE
+
+
+[[52]]
+[[52]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[52]]$visible
+[1] FALSE
+
+
+[[53]]
+[[53]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[53]]$visible
+[1] FALSE
+
+
+[[54]]
+[[54]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[54]]$visible
+[1] FALSE
+
+
+[[55]]
+[[55]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[55]]$visible
+[1] FALSE
+
+
+[[56]]
+[[56]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[56]]$visible
+[1] FALSE
+
+
+[[57]]
+[[57]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[57]]$visible
+[1] FALSE
+
+
+[[58]]
+[[58]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[58]]$visible
+[1] FALSE
+
+
+[[59]]
+[[59]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[59]]$visible
+[1] FALSE
+
+
+[[60]]
+[[60]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[60]]$visible
+[1] FALSE
+
+
+[[61]]
+[[61]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[61]]$visible
+[1] FALSE
+
+
+[[62]]
+[[62]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[62]]$visible
+[1] FALSE
+
+
+[[63]]
+[[63]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[63]]$visible
+[1] FALSE
+
+
+[[64]]
+[[64]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[64]]$visible
+[1] FALSE
+
+
+[[65]]
+[[65]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[65]]$visible
+[1] FALSE
+
+
+[[66]]
+[[66]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[66]]$visible
+[1] FALSE
+
+
+[[67]]
+[[67]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[67]]$visible
+[1] FALSE
+
+
+[[68]]
+[[68]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[68]]$visible
+[1] FALSE
+
+
+[[69]]
+[[69]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[69]]$visible
+[1] FALSE
+
+
+[[70]]
+[[70]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[70]]$visible
+[1] FALSE
+
+
+[[71]]
+[[71]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[71]]$visible
+[1] FALSE
+
+
+[[72]]
+[[72]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[72]]$visible
+[1] FALSE
+
+
+[[73]]
+[[73]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[73]]$visible
+[1] FALSE
+
+
+[[74]]
+[[74]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[74]]$visible
+[1] FALSE
+
+
+[[75]]
+[[75]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[75]]$visible
+[1] FALSE
+
+
+[[76]]
+[[76]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[76]]$visible
+[1] FALSE
+
+
+[[77]]
+[[77]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[77]]$visible
+[1] FALSE
+
+
+[[78]]
+[[78]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[78]]$visible
+[1] FALSE
+
+
+[[79]]
+[[79]]$value
+function (HC, tests, model) 
+{
+    M <- model$M
+    X <- model$X
+    e <- as.vector(model$e)
+    h <- model$h
+    n <- model$n
+    p <- model$p
+    coefs <- as.vector(model$coefs)
+    B <- model$B
+    H <- model$H
+    X_M <- model$X_M
+    omega <- switch(HC, HC0 = 1, HC1 = sqrt((n - p)/n), HC2 = sqrt(1 - 
+        h), HC3 = (1 - h), HC4 = (1 - h)^(pmin(h * n/p, 4)/2), 
+        HC4m = (1 - h)^((pmin(h * n/p, 1) + pmin(h * n/p, 1.5))/2), 
+        HC5 = (1 - h)^(pmin(h * n/p, pmax(4, 0.7 * n * max(h)/p))/4))
+    V_b <- colSums((X_M * e/omega)^2)
+    coefs_to_test <- c(coefs - B, coefs)
+    pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), 
+        criterion = rep(c("size", "power"), each = p))
+    if ("naive" %in% tests) 
+        pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = n - p)
+    if ("Satt" %in% tests) 
+        pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
+            df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+    if ("saddle" %in% tests) {
+        pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "model")
+        pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b), 
+            X_M = X_M, omega = omega, e = e, H = H, n = n, approx = "empirical")
+    }
+    if ("edgeKC" %in% tests) {
+        v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
+        pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
+    }
+    if ("edgeR" %in% tests) {
+        pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "model")
+        pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, 
+            H, h, omega, e, approx = "empirical")
+    }
+    pValues
+}
+
+[[79]]$visible
+[1] FALSE
+
+
+> clusterEvalQ(cluster, library(plyr))
+[[1]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[2]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[3]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[4]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[5]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[6]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[7]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[8]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[9]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[10]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[11]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[12]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[13]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[14]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[15]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[16]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[17]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[18]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[19]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[20]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[21]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[22]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[23]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[24]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[25]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[26]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[27]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[28]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[29]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[30]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[31]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[32]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[33]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[34]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[35]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[36]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[37]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[38]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[39]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[40]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[41]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[42]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[43]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[44]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[45]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[46]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[47]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[48]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[49]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[50]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[51]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[52]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[53]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[54]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[55]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[56]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[57]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[58]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[59]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[60]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[61]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[62]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[63]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[64]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[65]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[66]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[67]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[68]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[69]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[70]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[71]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[72]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[73]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[74]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[75]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[76]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[77]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[78]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[79]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+> clusterEvalQ(cluster, library(reshape2))
+[[1]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[2]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[3]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[4]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[5]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[6]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[7]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[8]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[9]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[10]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[11]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[12]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[13]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[14]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[15]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[16]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[17]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[18]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[19]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[20]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[21]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[22]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[23]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[24]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[25]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[26]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[27]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[28]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[29]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[30]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[31]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[32]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[33]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[34]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[35]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[36]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[37]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[38]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[39]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[40]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[41]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[42]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[43]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[44]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[45]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[46]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[47]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[48]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[49]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[50]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[51]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[52]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[53]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[54]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[55]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[56]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[57]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[58]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[59]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[60]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[61]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[62]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[63]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[64]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[65]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[66]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[67]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[68]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[69]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[70]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[71]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[72]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[73]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[74]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[75]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[76]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[77]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[78]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[79]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+> #clusterEvalQ(cluster, library(compiler))
+> #clusterEvalQ(cluster, enableJIT(3))
+> 
+> system.time(results <- mdply(params, .fun = runSim, .parallel = T))
+Error in do.ply(i) : 
+  task 126 failed - "infinite or missing values in 'x'"
+Calls: system.time ... mdply -> adply -> ldply -> llply -> %dopar% -> <Anonymous>
+In addition: Warning messages:
+1: <anonymous>: ... may be used in an incorrect context: ‘.fun(piece, ...)’
+ 
+2: <anonymous>: ... may be used in an incorrect context: ‘.fun(piece, ...)’
+ 
+Timing stopped at: 78713.28 0.774 90817.62 
+Execution halted
+[c405-404.stampede.tacc.utexas.edu:mpispawn_0][readline] Unexpected End-Of-File on file descriptor 5. MPI process died?
+[c405-404.stampede.tacc.utexas.edu:mpispawn_0][mtpmi_processops] Error while reading PMI socket. MPI process died?
+[c405-404.stampede.tacc.utexas.edu:mpispawn_0][child_handler] MPI process (rank: 0, pid: 111509) exited with status 1
+[c514-503.stampede.tacc.utexas.edu:mpispawn_3][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c514-503.stampede.tacc.utexas.edu:mpispawn_3][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c514-503.stampede.tacc.utexas.edu:mpispawn_3][handle_mt_peer] Error while reading PMI socket. MPI process died?
+[c478-203.stampede.tacc.utexas.edu:mpispawn_2][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c478-203.stampede.tacc.utexas.edu:mpispawn_2][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c478-203.stampede.tacc.utexas.edu:mpispawn_2][handle_mt_peer] Error while reading PMI socket. MPI process died?
+[c408-603.stampede.tacc.utexas.edu:mpispawn_1][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c408-603.stampede.tacc.utexas.edu:mpispawn_1][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c408-603.stampede.tacc.utexas.edu:mpispawn_1][handle_mt_peer] Error while reading PMI socket. MPI process died?
+[c518-104.stampede.tacc.utexas.edu:mpispawn_4][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c518-104.stampede.tacc.utexas.edu:mpispawn_4][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c518-104.stampede.tacc.utexas.edu:mpispawn_4][handle_mt_peer] Error while reading PMI socket. MPI process died?
+TACC: MPI job exited with code: 1
+ 
+TACC: Shutdown complete. Exiting.
