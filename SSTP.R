@@ -140,6 +140,8 @@ edgeR <- function(coefs, V_b, X_M, n, H, h, omega, e, approx = "model") {
 #-----------------------------------
 
 estimate <- function(HC, tests, model) {
+  save(model, file = "Error Model.RData")
+  
   M <- model$M
   X <- model$X
   e <- as.vector(model$e)

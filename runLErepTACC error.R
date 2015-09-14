@@ -131,8 +131,8 @@ design <- list(n = c(25, 50, 100, 250, 500),
                tests = "naive Satt saddle edgeKC")
 
 design2 <- list(n = c(25, 50, 100, 250, 500),
-               B = "1 1 0 1 0 1",
-               whichX = "T T F T T T",
+               B = "1 0 1 1 0 1",
+               whichX = "T F T T T T",
                Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
                Edist = c("En", "Ech", "Et"),
                HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
@@ -170,5 +170,17 @@ stopCluster(cluster)
 
 write.csv(results, file = "Results/20150911.csv")
 
+#TACC Fail Test
 
+test <- runSim(iterations = 10000, 
+               n = 25, 
+               B = "1 0 1 1 0 1",
+               whichX = "T F T T T T",
+               Estruct = "E4",
+               Edist = "En",
+               HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
+               tests = "saddle",
+               seed = "1017031697")
 
+testmod <- model
+estimate("HC4", "saddle", testmod)
