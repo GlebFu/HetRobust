@@ -146,32 +146,32 @@ params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
 
-library(Rmpi)
-library(snow)
-library(foreach)
-library(iterators)
-library(doSNOW)
-library(plyr)
-
-cluster <- getMPIcluster()
-registerDoSNOW(cluster)
-
-clusterExport(cluster, source_obj)
-
-clusterEvalQ(cluster, source("SSTP.R"))
-clusterEvalQ(cluster, library(plyr))
-clusterEvalQ(cluster, library(reshape2))
-#clusterEvalQ(cluster, library(compiler))
-#clusterEvalQ(cluster, enableJIT(3))
-
-system.time(results <- mdply(params, .fun = runSim, .parallel = T))
-
-stopCluster(cluster)
-
-write.csv(results, file = "Results/20150911.csv")
+# library(Rmpi)
+# library(snow)
+# library(foreach)
+# library(iterators)
+# library(doSNOW)
+# library(plyr)
+# 
+# cluster <- getMPIcluster()
+# registerDoSNOW(cluster)
+# 
+# clusterExport(cluster, source_obj)
+# 
+# clusterEvalQ(cluster, source("SSTP.R"))
+# clusterEvalQ(cluster, library(plyr))
+# clusterEvalQ(cluster, library(reshape2))
+# #clusterEvalQ(cluster, library(compiler))
+# #clusterEvalQ(cluster, enableJIT(3))
+# 
+# system.time(results <- mdply(params, .fun = runSim, .parallel = T))
+# 
+# stopCluster(cluster)
+# 
+# write.csv(results, file = "Results/20150911.csv")
 
 #TACC Fail Test
-
+source("SSTP.R")
 test <- runSim(iterations = 10000, 
                n = 25, 
                B = "1 0 1 1 0 1",
@@ -182,5 +182,10 @@ test <- runSim(iterations = 10000,
                tests = "saddle",
                seed = "1017031697")
 
-testmod <- model
-estimate("HC4", "saddle", testmod)
+load("Error Model.RData")
+estimate("HC2", "saddle", model)
+model$X
+
+HC <- "HC2"
+tests <- c("naive","Satt","saddle","edgeKC")
+

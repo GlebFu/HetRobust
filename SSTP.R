@@ -77,20 +77,25 @@ saddlepoint_pval <- function(t, Q) {
   } else {
     p_val <- 0.5 - sum(g^3) / (3 * sqrt(pi) * sum(g^2)^(3/2))
   }
-  p_val
+  return(p_val)
 }
 
 saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
-  t_stats <- coef / sd
-  I_H <- diag(n) - H
-  A_sqrt_vec <- X_M / omega
-  if (approx == "model") {
-    Qs <- apply(A_sqrt_vec, 2, function(x) tcrossprod(x) * I_H)
+  if (!all(is.finite(sd))) {
+    return(rep(1,length(coef)))
   } else {
-    Qs <- apply(A_sqrt_vec, 2, function(x) tcrossprod(tcrossprod(x, e / omega) * I_H))
+    t_stats <- coef / sd
+    I_H <- diag(n) - H
+    A_sqrt_vec <- X_M / omega
+    if (approx == "model") {
+      Qs <- apply(A_sqrt_vec, 2, function(x) tcrossprod(x) * I_H)
+    } else {
+      Qs <- apply(A_sqrt_vec, 2, function(x) tcrossprod(tcrossprod(x, e / omega) * I_H))
+    }
+    Qs <- lapply(data.frame(Qs), matrix, nrow = n, ncol = n)
+    p_vals <- mapply(saddlepoint_pval, t = t_stats, Q = Qs)
+    return(p_vals)
   }
-  Qs <- lapply(data.frame(Qs), matrix, nrow = n, ncol = n)
-  mapply(saddlepoint_pval, t = t_stats, Q = Qs)
 }
 
 
