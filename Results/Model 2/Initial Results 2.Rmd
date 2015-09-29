@@ -16,21 +16,24 @@ library(reshape2)
 rm(list = ls())
 
 
-results <- rbind(read.csv("20150805A.csv"),
-                 read.csv("20150805B.csv"),
-                 read.csv("20150805C.csv"))
+results <- rbind(read.csv("20150915A.csv"),
+                 read.csv("20150915C.csv"),
+                 read.csv("20150915D.csv"),
+                 read.csv("20150915B.csv"))
 
-#results <- rbind(read.csv("Results/20150805A.csv"),
-#                 read.csv("Results/20150805B.csv"),
-#                 read.csv("Results/20150805C.csv"))
+#results <- rbind(read.csv("Results/Model 2/20150915A.csv"),
+#                 read.csv("Results/Model 2/20150915C.csv"),
+#                 read.csv("Results/Model 2/20150915D.csv"),
+#                 read.csv("Results/Model 2/20150915B.csv"))
 
 ```
+
 
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
 
 
-filter(results, criterion == "size") %>%
+filter(results, test != "edgeKC", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
   ggplot(aes(y = p05,
              x = test,
@@ -48,7 +51,7 @@ filter(results, criterion == "size") %>%
 ```
 
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
-filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
+filter(results, test != "edgeKC", criterion == "size", HC == "HC2" | HC == "HC3") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
   ggplot(aes(y = p05,
              x = test,
@@ -67,7 +70,7 @@ filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
 
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
-filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
+filter(results, test != "edgeKC", criterion == "size", HC == "HC2" | HC == "HC3") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
   ggplot(aes(y = p05,
              x = test,
@@ -88,7 +91,7 @@ filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
 
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15, eval = F}
 
-results2 <- filter(results, criterion == "size") %>%
+results2 <- filter(results, test != "edgeKC", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
   mutate(under = ifelse(p05 <= .05, T, F), 
          underdif = ifelse(under, p05 - .05, NA),
@@ -196,7 +199,7 @@ ggplot(EDists, aes(x = x,
 
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15, eval = F}
 
-filter(results, criterion == "size") %>%
+filter(results, test != "edgeKC", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05, test) %>%
   ggplot(aes(x = Estruct,
              y = p05,
