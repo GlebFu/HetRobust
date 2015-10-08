@@ -4,7 +4,7 @@
 #SBATCH -e LESim.o%j      # Name of stderr output file(%j expands to jobId)
 #SBATCH -n 80               # Total number of mpi tasks requested
 #SBATCH -p normal           # Submit to the 'normal' or 'development' queue
-#SBATCH -t 28:00:00          # Run time (hh:mm:ss)
+#SBATCH -t 30:00:00          # Run time (hh:mm:ss)
 #SBATCH -A Parallel-demonstrati    # Allocation name to charge job against
 #SBATCH --mail-user=gleb.furman@gmail.com # specify email address for notifications
 #SBATCH --mail-type=begin   # email when job begins
