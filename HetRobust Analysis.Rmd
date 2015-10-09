@@ -21,13 +21,12 @@ levels(results$B) <- c("Model 2", "Model 1")
 
 ```
 
-The first figure displays the performance as measured by size of each HC * Test combination at the .05 level for each sample size. Each box plot represents error distribution (3) * error structure (7) * variable (6). HC1 combined with the model version of saddlepoint seems to outperform all other combinations on average.
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
 filter(results, criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
   group_by(test, HC, n) %>%
-  mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05,.5,.4)) %>%
+  mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05427,.5,.4)) %>%
   ggplot(aes(y = p05,
              x = test,
              fill = test,
@@ -35,75 +34,17 @@ filter(results, criterion == "size") %>%
   geom_boxplot() +
   facet_grid(n ~ HC) +
   ylim(.025, .075) + 
-  geom_hline(aes(yintercept = .05), linetype = "dashed") +
-  theme_bw() + theme(legend.position = "bottom")
-
-```
-
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
-filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
-  select(n, Estruct, Edist, HC, coef, test, p05) %>%
-  ggplot(aes(y = p05,
-             x = test,
-             color = test)) +
-  geom_boxplot() +
-  facet_grid(n ~ HC) +
-  ylim(.025, .075) + 
-  geom_hline(aes(yintercept = .05), linetype = "dashed") +
-  theme_bw() + theme(legend.position = "bottom")
-
+  geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
+  geom_hline(aes(yintercept = .05)) +
+  theme_bw() + theme(legend.position = "bottom") + 
+  scale_alpha(guide = 'none') +
+  labs(title = "Performance of Sandwich Estimators with Adjustment",
+       y = "Size",
+       x = "Adjustments")
 ```
 
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
-
-filter(results, criterion == "size", HC == "HC2" | HC == "HC3") %>%
-  select(n, Estruct, Edist, HC, coef, test, p05) %>%
-  ggplot(aes(y = p05,
-             x = test,
-             color = test)) +
-  geom_boxplot() +
-  facet_grid(n ~ Edist * HC) +
-  ylim(.025, .075) + 
-  geom_hline(aes(yintercept = .05), linetype = "dashed") +
-  theme_bw() + theme(legend.position = "bottom")
-
-
-```
-
-
-
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
-
-results2 <- filter(results, criterion == "size") %>%
-  select(n, Estruct, Edist, HC, coef, test, p05) %>%
-  mutate(under = ifelse(p05 <= .05, T, F), 
-         underdif = ifelse(under, p05 - .05, NA),
-         overdif = ifelse(!under, p05 - .05, NA))
-
-merge(aggregate(under ~ HC * test * n, results2, mean),
-      aggregate(underdif ~ HC * test * n, results2, mean),
-      by = c("HC", "test", "n")) ->
-  stats
-
-stats <- merge(stats, 
-               aggregate(overdif ~ HC * test * n, results2, mean),
-               by = c("HC", "test", "n"))
-
-melt(stats, id.vars = c("HC", "test", "n", "under")) %>%
-  mutate(direction = ifelse(value < 0, under, 1 - under)) %>%
-  ggplot(aes(x = test,
-             y = value,
-             color = variable,
-             size = direction)) +
-  geom_point() +
-  facet_grid(n ~ HC)  + 
-  geom_hline(aes(yintercept = 0), linetype = "dashed")  +
-  ylim(-.05, .05)
-
-```
-
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15, eval = F}
 edm <- function() {
   
   # Distributions used in generating data
@@ -180,139 +121,118 @@ ggplot(EDists, aes(x = x,
 
 ```
 
-
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
-
-filter(results, criterion == "size") %>%
-  select(n, Estruct, Edist, HC, coef, p05, test) %>%
-  ggplot(aes(x = Estruct,
-             y = p05,
-             color = test)) +
-  geom_boxplot() +
-  facet_grid(n ~ HC) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed")  +
-  ylim(.025, .075) +
-  theme_bw() + theme(legend.position = "bottom")
-
-```
-
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
 filter(results, test == "naive", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
-  ggplot(aes(x = Estruct,
+  group_by(HC, Estruct, n) %>%
+  mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05427,.5,.4)) %>%
+  ggplot(aes(x = HC,
              y = p05,
-             color = Estruct)) +
+             fill = HC,
+             alpha = alpha)) +
   geom_boxplot() +
-  facet_grid(n ~ HC) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed")  +
+  facet_grid(n ~ Estruct) +
+  geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
+  geom_hline(aes(yintercept = .05)) +
   ylim(.025, .075) +
-  theme_bw() + theme(legend.position = "bottom")
+  theme_bw() + theme(legend.position = "bottom") + 
+  scale_alpha(guide = 'none') +
+  labs(title = "Performance of Naive Sandwich Estimators by Error Structure",
+       y = "Size",
+       x = "Sandwich Estimators")
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+
+filter(results, test == "edgeKC", criterion == "size") %>%
+  select(n, Estruct, Edist, HC, coef, p05) %>%
+  group_by(HC, Estruct, n) %>%
+  mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05427,.5,.4)) %>%
+  ggplot(aes(x = HC,
+             y = p05,
+             fill = HC,
+             alpha = alpha)) +
+  geom_boxplot() +
+  facet_grid(n ~ Estruct) +
+  geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
+  geom_hline(aes(yintercept = .05)) +
+  ylim(.025, .075) +
+  theme_bw() + theme(legend.position = "bottom") + 
+  scale_alpha(guide = 'none') +
+  labs(title = "Performance of EdgeKC Sandwich Estimators by Error Structure",
+       y = "Size",
+       x = "Sandwich Estimators")
+
+```
+
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
 filter(results, test == "saddle_V1", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
-  ggplot(aes(x = Estruct,
+  group_by(HC, Estruct, n) %>%
+  mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05427,.5,.4)) %>%
+  ggplot(aes(x = HC,
              y = p05,
-             color = Estruct)) +
+             fill = HC,
+             alpha = alpha)) +
   geom_boxplot() +
-  facet_grid(n ~ HC) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed")  +
+  facet_grid(n ~ Estruct) +
+  geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
+  geom_hline(aes(yintercept = .05)) +
   ylim(.025, .075) +
-  theme_bw() + theme(legend.position = "bottom")
+  theme_bw() + theme(legend.position = "bottom") + 
+  scale_alpha(guide = 'none') +
+  labs(title = "Performance of Model-Based Saddlepoint Sandwich Estimators by Error Structure",
+       y = "Size",
+       x = "Sandwich Estimators")
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
 filter(results, test == "saddle_V2", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
-  ggplot(aes(x = Estruct,
+  group_by(HC, Estruct, n) %>%
+  mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05427,.5,.4)) %>%
+  ggplot(aes(x = HC,
              y = p05,
-             color = Estruct)) +
+             fill = HC,
+             alpha = alpha)) +
   geom_boxplot() +
-  facet_grid(n ~ HC) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed")  +
+  facet_grid(n ~ Estruct) +
+  geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
+  geom_hline(aes(yintercept = .05)) +
   ylim(.025, .075) +
-  theme_bw() + theme(legend.position = "bottom")
+  theme_bw() + theme(legend.position = "bottom") + 
+  scale_alpha(guide = 'none') +
+  labs(title = "Performance of Empirical-Based Saddlepoint Sandwich Estimators by Error Structure",
+       y = "Size",
+       x = "Sandwich Estimators")
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
 filter(results, test == "Satt", criterion == "size") %>%
   select(n, Estruct, Edist, HC, coef, p05) %>%
-  ggplot(aes(x = Estruct,
-             y = p05,
-             color = Estruct)) +
-  geom_boxplot() +
-  facet_grid(n ~ HC) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed")  +
-  ylim(.025, .075) +
-  theme_bw() + theme(legend.position = "bottom")
-
-```
-
-
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
-
-filter(results, test == "naive", criterion == "size") %>%
-  select(n, Estruct, Edist, HC, coef, p05) %>%
+  group_by(HC, Estruct, n) %>%
+  mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05427,.5,.4)) %>%
   ggplot(aes(x = HC,
              y = p05,
-             color = HC)) +
+             fill = HC,
+             alpha = alpha)) +
   geom_boxplot() +
   facet_grid(n ~ Estruct) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed")  +
+  geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
+  geom_hline(aes(yintercept = .05)) +
   ylim(.025, .075) +
-  theme_bw() + theme(legend.position = "bottom")
+  theme_bw() + theme(legend.position = "bottom") + 
+  scale_alpha(guide = 'none') +
+  labs(title = "Performance of Satterthwaite Sandwich Estimators by Error Structure",
+       y = "Size",
+       x = "Sandwich Estimators")
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
-
-filter(results, test == "saddle_V1", criterion == "size") %>%
-  select(n, Estruct, Edist, HC, coef, p05) %>%
-  ggplot(aes(x = HC,
-             y = p05,
-             color = HC)) +
-  geom_boxplot() +
-  facet_grid(n ~ Estruct) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed")  +
-  ylim(.025, .075) +
-  theme_bw() + theme(legend.position = "bottom")
-
-```
-
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
-
-filter(results, test == "saddle_V2", criterion == "size") %>%
-  select(n, Estruct, Edist, HC, coef, p05) %>%
-  ggplot(aes(x = HC,
-             y = p05,
-             color = HC)) +
-  geom_boxplot() +
-  facet_grid(n ~ Estruct) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed")  +
-  ylim(.025, .075) +
-  theme_bw() + theme(legend.position = "bottom")
-
-```
-
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 30, fig.height = 25}
-
-filter(results, test == "Satt", criterion == "size") %>%
-  select(n, Estruct, Edist, HC, coef, p05) %>%
-  ggplot(aes(x = HC,
-             y = p05,
-             color = HC)) +
-  geom_boxplot() +
-  facet_grid(n ~ Estruct) +
-  geom_hline(aes(yintercept = .05), linetype = "dashed")  +
-  ylim(.025, .075) +
-  theme_bw() + theme(legend.position = "bottom")
-
-```
