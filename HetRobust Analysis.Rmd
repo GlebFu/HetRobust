@@ -33,7 +33,7 @@ filter(results, criterion == "size") %>%
              alpha = alpha)) +
   geom_boxplot() +
   facet_grid(n ~ HC) +
-  ylim(.025, .075) + 
+  coord_cartesian(ylim = c(.000, .075)) + 
   geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
   geom_hline(aes(yintercept = .05)) +
   theme_bw() + theme(legend.position = "bottom") + 
