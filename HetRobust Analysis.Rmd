@@ -304,10 +304,40 @@ compare <- function(vals, nom = .05427) {
 }
 
 
-filter(results, HC == "HC3", criterion == "size", test != "naive") %>%
-  select(n:Edist, coef, test, p05) %>%
+filter(results, criterion == "size") %>%
   merge(HC3) %>%
-  mutate(comp = as.factor(apply(cbind(x = naive, y = p05), 1, compare))) %>%
+  mutate(comp = unlist(apply(cbind(x = naive, y = p05), 1, compare))) ->
+  H2HHC3
+
+group_by(H2HHC3, HC, test) %>%
+  summarize(percs = paste(round(mean(comp == "x"),2), round(mean(comp == "y"),2), sep = "\n")) -> 
+  perc
+
+ggplot(H2HHC3, aes(x = naive,
+             y = p05,
+             color = comp)) +
+    geom_point(size = 1) +
+    geom_abline(intercept = 0, slope = 1) + 
+    geom_hline(aes(yintercept = .05)) + 
+    geom_vline(aes(xintercept = .05)) +
+    geom_hline(aes(yintercept = .05427), linetype = "dashed")+
+    geom_vline(aes(xintercept = .05427), linetype = "dashed") +
+    facet_grid(HC ~ test, scales = "free_y") +
+  labs(title = "All Models vs Naive HC3",
+       y = "HC1",
+       x = "HC3") +
+  geom_text(data = perc, 
+            aes(x = .07, 
+                y = .15, 
+                label = percs, 
+                size = 5,
+                color = NA), 
+            parse = F)
+
+
+
+
+filter(H2HHC3, HC == "HC1", criterion == "size") %>%
   ggplot(aes(x = naive,
              y = p05,
              color = comp)) +
@@ -317,13 +347,13 @@ filter(results, HC == "HC3", criterion == "size", test != "naive") %>%
     geom_vline(aes(xintercept = .05)) +
     geom_hline(aes(yintercept = .05427), linetype = "dashed")+
     geom_vline(aes(xintercept = .05427), linetype = "dashed") +
-    facet_wrap(~test)
+    facet_wrap(~test) +
+  labs(title = "Adjusted HC3 vs Naive HC3",
+       y = "Adjusted HC3",
+       x = "HC3")
 
 
-filter(results, HC == "HC1", criterion == "size") %>%
-  select(n:Edist, coef, test, p05) %>%
-  merge(HC3) %>%
-  mutate(comp = unlist(apply(cbind(x = naive, y = p05), 1, compare))) %>%
+filter(H2HHC3, HC == "HC1", criterion == "size") %>%
   ggplot(aes(x = naive,
              y = p05,
              color = comp)) +
@@ -333,12 +363,12 @@ filter(results, HC == "HC1", criterion == "size") %>%
     geom_vline(aes(xintercept = .05)) +
     geom_hline(aes(yintercept = .05427), linetype = "dashed")+
     geom_vline(aes(xintercept = .05427), linetype = "dashed") +
-    facet_wrap(~test)
+    facet_wrap(~test) +
+  labs(title = "HC1 vs Naive HC3",
+       y = "HC1",
+       x = "HC3")
 
-filter(results, HC == "HC2", criterion == "size") %>%
-  select(n:Edist, coef, test, p05) %>%
-  merge(HC3) %>%
-  mutate(comp = unlist(apply(cbind(x = naive, y = p05), 1, compare))) %>%
+filter(H2HHC3, HC == "HC1", criterion == "size") %>%
   ggplot(aes(x = naive,
              y = p05,
              color = comp)) +
@@ -348,23 +378,58 @@ filter(results, HC == "HC2", criterion == "size") %>%
     geom_vline(aes(xintercept = .05)) +
     geom_hline(aes(yintercept = .05427), linetype = "dashed")+
     geom_vline(aes(xintercept = .05427), linetype = "dashed") +
-    facet_wrap(~test)
+    facet_wrap(~test) +
+  labs(title = "HC1 vs Naive HC2",
+       y = "HC1",
+       x = "HC3")
 
-filter(results, HC == "HC3", criterion == "size") %>%
-  select(n:Edist, coef, test, p05) %>%
-  merge(HC3) %>%
-  mutate(comp = unlist(apply(cbind(x = naive, y = p05), 1, compare))) %>%
-  ggplot(aes(x = naive,
-             y = p05,
-             color = comp)) +
-    geom_point(size = 1) +
-    geom_abline(intercept = 0, slope = 1) + 
-    geom_hline(aes(yintercept = .05)) + 
-    geom_vline(aes(xintercept = .05)) +
-    geom_hline(aes(yintercept = .05427), linetype = "dashed")+
-    geom_vline(aes(xintercept = .05427), linetype = "dashed") +
-    facet_wrap(~test)
 
 
 ```
 
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+HC3 <- filter(results, HC == "HC3", criterion == "size", test == "naive", n == 25) %>%
+  select(n:Edist, coef, naive = p05)
+
+compare <- function(vals, nom = .05427) {
+  if(vals[1] > nom & vals[2] <= nom) return("y")
+  if(vals[1] <= nom & vals[2] > nom) return("x")
+  if(vals[1] > nom & vals[2] > nom & vals[1] > vals[2]) return("y")
+  if(vals[1] > nom & vals[2] > nom & vals[1] < vals[2]) return("x")
+  if(vals[1] <= nom & vals[2] <= nom & vals[1] > vals[2]) return("x")
+  if(vals[1] <= nom & vals[2] <= nom & vals[1] < vals[2]) return("y")
+  return("equal")
+}
+
+
+filter(results, criterion == "size", n == 25) %>%
+  merge(HC3) %>%
+  mutate(comp = unlist(apply(cbind(x = naive, y = p05), 1, compare))) ->
+  H2HHC3
+
+group_by(H2HHC3, HC, test) %>%
+  summarize(percs = paste(round(mean(comp == "x"),2), round(mean(comp == "y"),2), sep = "\n")) -> 
+  perc
+
+ggplot(H2HHC3, aes(x = naive,
+             y = p05,
+             color = comp)) +
+    geom_point(size = 1) +
+    geom_abline(intercept = 0, slope = 1) + 
+    geom_hline(aes(yintercept = .05)) + 
+    geom_vline(aes(xintercept = .05)) +
+    geom_hline(aes(yintercept = .05427), linetype = "dashed")+
+    geom_vline(aes(xintercept = .05427), linetype = "dashed") +
+    facet_grid(HC ~ test) +
+  labs(title = "All Models vs Naive HC3 @ n = 25",
+       y = "HC1",
+       x = "HC3") +
+  geom_text(data = perc, 
+            aes(x = .07, 
+                y = .15, 
+                label = percs, 
+                size = 5,
+                color = NA), 
+            parse = F)
+
+```
