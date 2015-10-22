@@ -10,6 +10,8 @@ library(plyr)
 library(dplyr)
 library(ggplot2)
 library(reshape2)
+library(moments)
+library(tidyr)
 
 rm(list = ls())
 
@@ -44,6 +46,28 @@ filter(results, criterion == "size") %>%
        x = "Adjustments")
 ```
 
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+
+filter(results, criterion == "size", n == 25) %>%
+  select(Estruct, Edist, HC, coef, test, p05) %>%
+  group_by(test, HC, Estruct) %>%
+  mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05427,.5,.4)) %>%
+  ggplot(aes(y = p05,
+             x = test,
+             fill = test,
+             alpha = alpha)) +
+  geom_boxplot() +
+  facet_grid(Estruct ~ HC) +
+  coord_cartesian(ylim = c(.000, .075)) + 
+  geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
+  geom_hline(aes(yintercept = .05)) +
+  theme_bw() + theme(legend.position = "bottom") + 
+  scale_alpha(guide = 'none') +
+  labs(title = "Performance of Sandwich Estimators with Adjustment at n = 25
+       ",
+       y = "Size",
+       x = "Adjustments")
+```
 
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15, eval = F}
 edm <- function() {
@@ -109,23 +133,44 @@ backup <- EDists
 EDists <- backup
 
 EDists <-  melt(EDists, id.vars = c("dist", "Y"), variable.name = "EStructs", value.name = "x")
+EDists <-  rbind(EDists, mutate(EDists, dist = "All"))
+
+group_by(EDists, dist, EStructs) %>%
+  summarize(stats = paste(round(mean(x)), 
+                  round(sd(x),2), 
+                  round(skewness(x),2), 
+                  round(kurtosis(x),2), 
+                  sep = "\n")) ->
+  EDistStats
 
 ggplot(EDists, aes(x = Y,
                    y = x)) +
   geom_point(alpha = .1,
              size = 1) +
   coord_cartesian(ylim = c(-30, 30)) +
-  facet_grid(EStructs ~ dist)
+  facet_grid(EStructs ~ dist) +
+  geom_text(data = EDistStats, 
+            aes(x = 15, 
+                y = 1, 
+                label = stats, 
+                size = 5), 
+            parse = F) +
+  theme(legend.position = "none")
 
-ggplot(EDists, aes(x = x)) +
+ggplot(EDists, aes(x = x,
+                   y = ..density..)) +
   geom_histogram(binwidth = .1) +
-  coord_cartesian(xlim = c(-20, 20)) +
-  facet_grid(EStructs ~ dist)
+  coord_cartesian(xlim = c(-10, 10)) +
+  facet_grid(EStructs ~ dist) +
+  geom_text(data = EDistStats, 
+            aes(x = 5, 
+                y = .3, 
+                label = stats, 
+                size = 5), 
+            parse = F) +
+  theme(legend.position = "none")
 
-ggplot(EDists, aes(x = x)) +
-  geom_histogram(binwidth = .1) +
-  coord_cartesian(xlim = c(-20, 20)) +
-  facet_wrap(EStructs)
+
 
 ```
 
@@ -241,6 +286,85 @@ filter(results, test == "Satt", criterion == "size") %>%
   labs(title = "Performance of Satterthwaite Sandwich Estimators by Error Structure",
        y = "Size",
        x = "Sandwich Estimators")
+
+```
+
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+HC3 <- filter(results, HC == "HC3", criterion == "size", test == "naive") %>%
+  select(n:Edist, coef, naive = p05)
+
+compare <- function(vals, nom = .05427) {
+  if(vals[1] > nom & vals[2] <= nom) return("y")
+  if(vals[1] <= nom & vals[2] > nom) return("x")
+  if(vals[1] > nom & vals[2] > nom & vals[1] > vals[2]) return("y")
+  if(vals[1] > nom & vals[2] > nom & vals[1] < vals[2]) return("x")
+  if(vals[1] <= nom & vals[2] <= nom & vals[1] > vals[2]) return("x")
+  if(vals[1] <= nom & vals[2] <= nom & vals[1] < vals[2]) return("y")
+  return("equal")
+}
+
+
+filter(results, HC == "HC3", criterion == "size", test != "naive") %>%
+  select(n:Edist, coef, test, p05) %>%
+  merge(HC3) %>%
+  mutate(comp = as.factor(apply(cbind(x = naive, y = p05), 1, compare))) %>%
+  ggplot(aes(x = naive,
+             y = p05,
+             color = comp)) +
+    geom_point(size = 1) +
+    geom_abline(intercept = 0, slope = 1) + 
+    geom_hline(aes(yintercept = .05)) + 
+    geom_vline(aes(xintercept = .05)) +
+    geom_hline(aes(yintercept = .05427), linetype = "dashed")+
+    geom_vline(aes(xintercept = .05427), linetype = "dashed") +
+    facet_wrap(~test)
+
+
+filter(results, HC == "HC1", criterion == "size") %>%
+  select(n:Edist, coef, test, p05) %>%
+  merge(HC3) %>%
+  mutate(comp = unlist(apply(cbind(x = naive, y = p05), 1, compare))) %>%
+  ggplot(aes(x = naive,
+             y = p05,
+             color = comp)) +
+    geom_point(size = 1) +
+    geom_abline(intercept = 0, slope = 1) + 
+    geom_hline(aes(yintercept = .05)) + 
+    geom_vline(aes(xintercept = .05)) +
+    geom_hline(aes(yintercept = .05427), linetype = "dashed")+
+    geom_vline(aes(xintercept = .05427), linetype = "dashed") +
+    facet_wrap(~test)
+
+filter(results, HC == "HC2", criterion == "size") %>%
+  select(n:Edist, coef, test, p05) %>%
+  merge(HC3) %>%
+  mutate(comp = unlist(apply(cbind(x = naive, y = p05), 1, compare))) %>%
+  ggplot(aes(x = naive,
+             y = p05,
+             color = comp)) +
+    geom_point(size = 1) +
+    geom_abline(intercept = 0, slope = 1) + 
+    geom_hline(aes(yintercept = .05)) + 
+    geom_vline(aes(xintercept = .05)) +
+    geom_hline(aes(yintercept = .05427), linetype = "dashed")+
+    geom_vline(aes(xintercept = .05427), linetype = "dashed") +
+    facet_wrap(~test)
+
+filter(results, HC == "HC3", criterion == "size") %>%
+  select(n:Edist, coef, test, p05) %>%
+  merge(HC3) %>%
+  mutate(comp = unlist(apply(cbind(x = naive, y = p05), 1, compare))) %>%
+  ggplot(aes(x = naive,
+             y = p05,
+             color = comp)) +
+    geom_point(size = 1) +
+    geom_abline(intercept = 0, slope = 1) + 
+    geom_hline(aes(yintercept = .05)) + 
+    geom_vline(aes(xintercept = .05)) +
+    geom_hline(aes(yintercept = .05427), linetype = "dashed")+
+    geom_vline(aes(xintercept = .05427), linetype = "dashed") +
+    facet_wrap(~test)
+
 
 ```
 
