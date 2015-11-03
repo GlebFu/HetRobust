@@ -12,6 +12,7 @@ library(ggplot2)
 library(reshape2)
 library(moments)
 library(tidyr)
+library(htmlTable)
 
 rm(list = ls())
 
@@ -387,25 +388,25 @@ filter(H2HHC3, HC == "HC1", criterion == "size") %>%
 
 ```
 
-```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15, eval = F}
 HC3 <- filter(results, HC == "HC3", criterion == "size", test == "naive", n == 25) %>%
   select(n:Edist, coef, naive = p05)
 
-compare <- function(vals, nom = .05427) {
+ compare <- function(vals, nom = .05427) {
+  if(vals[1] == vals[2]) return("equal")
   if(vals[1] > nom & vals[2] <= nom) return("y")
   if(vals[1] <= nom & vals[2] > nom) return("x")
   if(vals[1] > nom & vals[2] > nom & vals[1] > vals[2]) return("y")
   if(vals[1] > nom & vals[2] > nom & vals[1] < vals[2]) return("x")
   if(vals[1] <= nom & vals[2] <= nom & vals[1] > vals[2]) return("x")
   if(vals[1] <= nom & vals[2] <= nom & vals[1] < vals[2]) return("y")
-  return("equal")
 }
-
 
 filter(results, criterion == "size", n == 25) %>%
   merge(HC3) %>%
   mutate(comp = unlist(apply(cbind(x = naive, y = p05), 1, compare))) ->
   H2HHC3
+
 
 group_by(H2HHC3, HC, test) %>%
   summarize(percs = paste(round(mean(comp == "x"),2), round(mean(comp == "y"),2), sep = "\n")) -> 
@@ -431,5 +432,78 @@ ggplot(H2HHC3, aes(x = naive,
                 size = 5,
                 color = NA), 
             parse = F)
+
+```
+
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+PIR <- filter(results, criterion == "size", n == "25") %>%
+  mutate(method = paste(test, HC, sep = "_")) %>%
+  select(n:Edist, coef, method, p05)
+
+PIR <- merge(PIR, spread(PIR, key = method, value = p05))
+
+compare <- function(y, x, nom = .05427) {
+  vals <- cbind(y, x)
+  
+  vals[x == y] <- "equal"
+  
+  vals[(x > nom & y <= nom) | 
+         (x > nom & y > nom & x > y) | 
+         (x <= nom & y <= nom & x < y)] <- "y"
+  
+  vals[(x <= nom & y > nom) |
+         (x > nom & y > nom & x < y) |
+         (x <= nom & y <= nom & x > y)] <- "x"
+ 
+  return(vals[,1])
+}
+
+PIR[,8:42] <- sapply(select(PIR, edgeKC_HC0:Satt_HC5), compare, x = PIR$p05)
+
+
+gather(PIR, key = "vs", value = "winPercent", edgeKC_HC0:Satt_HC5) %>%
+  group_by(method, vs) %>%
+  summarize(winPercent = round(mean(winPercent == "x")*100, 2)) %>%
+  spread(key = vs, value = winPercent) -> test
+
+htmlTable(test)
+
+```
+
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+
+test2 <- as.data.frame(test[,c(1,12)])
+test2 <- test2[test2[,2] == 3.81,]
+paste(test2[,1], collapse = ", ")
+
+test3 <- filter(PIR, method == "naive_HC3") %>%
+  select(n:p05, edgeKC_HC3, edgeKC_HC4m, naive_HC4m, saddle_V1_HC3, 
+         saddle_V1_HC4, saddle_V1_HC4m, saddle_V2_HC3, saddle_V2_HC4, 
+         saddle_V2_HC4m, Satt_HC3, Satt_HC4m)
+
+test4 <- cbind(test3, sapply(select(test3, edgeKC_HC3:Satt_HC4m), compare, x = test3$p05))
+test4 <- test4[order(test4[,19]),]
+test4 <- test4[,1:19]
+
+#ggplot(H2HHC3, aes(x = naive,
+#             y = p05,
+#             color = comp)) +
+#    geom_point(size = 1) +
+#    geom_abline(intercept = 0, slope = 1) + 
+#    geom_hline(aes(yintercept = .05)) + 
+#    geom_vline(aes(xintercept = .05)) +
+#    geom_hline(aes(yintercept = .05427), linetype = "dashed")+
+#    geom_vline(aes(xintercept = .05427), linetype = "dashed") +
+#    facet_grid(HC ~ test) +
+#  labs(title = "All Models vs Naive HC3 @ n = 25",
+#       y = "HC1",
+#       x = "HC3") +
+#  geom_text(data = perc, 
+#            aes(x = .07, 
+#                y = .15, 
+#                label = percs, 
+#                size = 5,
+#                color = NA), 
+#            parse = F)
 
 ```
