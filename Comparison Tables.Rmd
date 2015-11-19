@@ -25,6 +25,24 @@ results$test <- factor(results$test, levels = c("naive", "edgeKC", "saddle_V1", 
 levels(results$test) <- c("N", "E", "S_M", "S_E", "S")
 levels(results$HC) <- c("0", "1", "2", "3", "4", "4m", "5")
 
+compare <- function(y, x, max = .05427, target = .05) {
+  vals <- cbind(y, x)
+  
+  vals[x == y] <- "equal"
+  
+  vals[(x > max & y <= max) | 
+         (x > max & y > max & x > y) | 
+         (x <= max & y <= max & 
+            abs(target - x) > abs(target - y))] <- "y"
+  
+  vals[(x <= max & y > max) |
+         (x > max & y > max & x < y) |
+         (x <= max & y <= max & 
+            abs(target - x) < abs(target - y))] <- "x"
+ 
+  return(vals[,1])
+}
+
 ```
 
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
@@ -34,21 +52,7 @@ PIR <- filter(results, criterion == "size", n == "25") %>%
 
 PIR <- merge(PIR, spread(PIR, key = method, value = p05))
 
-compare <- function(y, x, nom = .05427) {
-  vals <- cbind(y, x)
-  
-  vals[x == y] <- "equal"
-  
-  vals[(x > nom & y <= nom) | 
-         (x > nom & y > nom & x > y) | 
-         (x <= nom & y <= nom & x < y)] <- "y"
-  
-  vals[(x <= nom & y > nom) |
-         (x > nom & y > nom & x < y) |
-         (x <= nom & y <= nom & x > y)] <- "x"
- 
-  return(vals[,1])
-}
+
 
 PIR[,8:42] <- sapply(select(PIR, E_0:S_M_5), compare, x = PIR$p05)
 
@@ -58,29 +62,49 @@ gather(PIR, key = "vs", value = "winPercent", E_0:S_M_5) %>%
   summarize(winPercent = round(mean(winPercent == "x")*100, 2)) %>%
   spread(key = vs, value = winPercent) -> Size_25_p05
 
-htmlTable(Size_25_p05)
 write.csv(Size_25_p05, file = "Size_25_p05.csv")
 
-PIR$condper <- apply(PIR[,9:42], 1, function(x) mean(x == "x"))
+```
 
-select(PIR, n:p05, condper) %>%
-  group_by(method) %>%
-  summarize(condper = round(mean(condper)*100, 2)) %>%
-  as.data.frame()
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+PIR <- filter(results, criterion == "size", n == "500") %>%
+  mutate(method = paste(test, HC, sep = "_")) %>%
+  select(n:Edist, coef, method, p05)
+
+PIR <- merge(PIR, spread(PIR, key = method, value = p05))
+
+
+
+PIR[,8:42] <- sapply(select(PIR, E_0:S_M_5), compare, x = PIR$p05)
+
+
+gather(PIR, key = "vs", value = "winPercent", E_0:S_M_5) %>%
+  group_by(method, vs) %>%
+  summarize(winPercent = round(mean(winPercent == "x")*100, 2)) %>%
+  spread(key = vs, value = winPercent) -> Size_500_p05
+
+write.csv(Size_500_p05, file = "Size_500_p05.csv")
+
 ```
 
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
-test2 <- as.data.frame(PIR[,c(1,12)])
-test2 <- test2[test2[,2] == 3.81,]
-
-
-test3 <- filter(PIR, method == "naive_HC3") %>%
-  select(n:p05, eval(parse(text = paste(test2[,1], collapse = ", "))))
-
-test4 <- cbind(test3, sapply(select(test3, edgeKC_HC3:Satt_HC4m), compare, x = test3$p05))
-test4 <- test4[order(test4[,19]),]
-test4 <- test4[,1:19]
-
-
+filter(results, criterion == "size", n == 25) %>%
+  select(n, Estruct, Edist, HC, coef, test, p05) %>%
+  group_by(test, HC) %>%
+  mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05427,.5,.4)) %>%
+  ggplot(aes(y = p05,
+             x = test,
+             fill = test,
+             alpha = alpha)) +
+  geom_boxplot() +
+  facet_grid(n ~ HC) +
+  coord_cartesian(ylim = c(.000, .075)) + 
+  geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
+  geom_hline(aes(yintercept = .05)) +
+  theme_bw() + theme(legend.position = "bottom") + 
+  scale_alpha(guide = 'none') +
+  labs(title = "Performance of Sandwich Estimators with Adjustment",
+       y = "Size",
+       x = "Adjustments")
 ```
