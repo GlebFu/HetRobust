@@ -25,7 +25,7 @@ results$test <- factor(results$test, levels = c("naive", "edgeKC", "saddle_V1", 
 levels(results$test) <- c("N", "E", "S_M", "S_E", "S")
 levels(results$HC) <- c("0", "1", "2", "3", "4", "4m", "5")
 
-compare <- function(y, x, max = .05427, target = .05) {
+compare <- function(y, x, max = .01427, target = .01) {
   vals <- cbind(y, x)
   
   vals[x == y] <- "equal"
@@ -45,6 +45,7 @@ compare <- function(y, x, max = .05427, target = .05) {
 
 ```
 
+#Size_25_p05
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 PIR <- filter(results, criterion == "size", n == "25") %>%
   mutate(method = paste(test, HC, sep = "_")) %>%
@@ -66,6 +67,7 @@ write.csv(Size_25_p05, file = "Size_25_p05.csv")
 
 ```
 
+#Size_500_p05
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 PIR <- filter(results, criterion == "size", n == "500") %>%
   mutate(method = paste(test, HC, sep = "_")) %>%
@@ -87,6 +89,29 @@ write.csv(Size_500_p05, file = "Size_500_p05.csv")
 
 ```
 
+#Size_25_p01
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+PIR <- filter(results, criterion == "size", n == "25") %>%
+  mutate(method = paste(test, HC, sep = "_")) %>%
+  select(n:Edist, coef, method, p01)
+
+PIR <- merge(PIR, spread(PIR, key = method, value = p01))
+
+
+
+PIR[,8:42] <- sapply(select(PIR, E_0:S_M_5), compare, x = PIR$p01)
+
+
+gather(PIR, key = "vs", value = "winPercent", E_0:S_M_5) %>%
+  group_by(method, vs) %>%
+  summarize(winPercent = round(mean(winPercent == "x")*100, 2)) %>%
+  spread(key = vs, value = winPercent) -> Size_25_p01
+
+write.csv(Size_25_p01, file = "Size_25_p01.csv")
+
+```
+
+#Size_25_p05
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
 filter(results, criterion == "size", n == 25) %>%
@@ -99,9 +124,32 @@ filter(results, criterion == "size", n == 25) %>%
              alpha = alpha)) +
   geom_boxplot() +
   facet_grid(n ~ HC) +
-  coord_cartesian(ylim = c(.000, .075)) + 
+  coord_cartesian(ylim = c(.000, .07)) + 
   geom_hline(aes(yintercept = .05427), linetype = "dashed") + 
   geom_hline(aes(yintercept = .05)) +
+  theme_bw() + theme(legend.position = "bottom") + 
+  scale_alpha(guide = 'none') +
+  labs(title = "Performance of Sandwich Estimators with Adjustment",
+       y = "Size",
+       x = "Adjustments")
+```
+
+#Size_25_p01
+```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
+
+filter(results, criterion == "size", n == 25) %>%
+  select(n, Estruct, Edist, HC, coef, test, p01) %>%
+  group_by(test, HC) %>%
+  mutate(alpha = ifelse(quantile(p01, prob = .75) <= .01427,.5,.4)) %>%
+  ggplot(aes(y = p01,
+             x = test,
+             fill = test,
+             alpha = alpha)) +
+  geom_boxplot() +
+  facet_grid(n ~ HC) +
+  coord_cartesian(ylim = c(.000, .02)) + 
+  geom_hline(aes(yintercept = .01427), linetype = "dashed") + 
+  geom_hline(aes(yintercept = .01)) +
   theme_bw() + theme(legend.position = "bottom") + 
   scale_alpha(guide = 'none') +
   labs(title = "Performance of Sandwich Estimators with Adjustment",
