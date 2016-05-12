@@ -65,6 +65,7 @@
 \addtolength{\textheight}{1.3in}%
 \addtolength{\topmargin}{-.8in}%
 
+\usepackage[textwidth=1in, textsize=tiny]{todonotes}
 
 
 \newcommand{\Prob}{\text{Pr}}
@@ -127,11 +128,12 @@ The text of your abstract.  200 or fewer words.
 
 Linear regression models, estimated by ordinary least squares (OLS), are one of the most important and ubiquitous tools in applied statistical work.
 Classically, hypothesis tests and confidence intervals for linear regression coefficients rely on the assumption that the model errors are homoskedastic, or have constant variance for all values of the covariates. 
-However, it can be difficult to diagnose violations of this assumption---particularly in small samples---and so it is often desirable to use methods that do not rely on it. 
-One common solution is to use a heteroskedasticity-consistent covariance matrix estimator (HCCME), which provides an asymptotically consistent estimate of the sampling variance of OLS coefficient estimates for models with heteroskedasticity of an unknown form. 
-Generalizations of HCCME are also available that provide asymptotically consistent variance estimates for auto-correlated errors \citep{Newey1987simple,Newey1994automatic} or errors that have an unknown dependence structure within clusters of observations \citep{Liang1986longitudinal}.
+In practice though, it can be difficult to diagnose violations of this assumption, and so it is often desirable to use methods that do not rely on it. 
+One common solution is to use heteroskedasticity-consistent covariance matrix estimators (HCCMEs), which provide asymptotically consistent estimates of the sampling variance of OLS coefficient estimates for models with heteroskedasticity of an unknown form. 
 
-HCCMEs were introduced by \citet{Huber1967behavior}, \citet{Eicker1967limit}, and \citet{White1980heteroskedasticity}. \citet{MacKinnon1985some} proposed several variations to improve the finite-sample properties of the HCCMEs. 
+HCCMEs were introduced in the statistics literature by \citet{Huber1967behavior} and \citet{Eicker1967limit}, in the survey sampling literature by\todo{add citations} and in econometrics by \citet{White1980heteroskedasticity}. They are an attractive tool because they rely on weaker assumptions than classical methods and are easier to implement than other methods for handling heteroskedastic errors. However, the guarantees that they provide are only asymptotic. In practice, it is not always clear whether a given sample is sufficently large to trust the asymptotic approximations. Furthermore, some of the HCCMEs tend to be too liberal (producing variance estimates that are biased towards zero and hypothesis tests with greater than nominal size) when the sample size is small. 
+
+\citet{MacKinnon1985some} proposed several variations to improve the finite-sample properties of the HCCMEs. 
 In a large simulation study, \citet{Long2000using} demonstrated that one of these variations, HC3, performs substantially better than the others.
 HC3 is the default in software such as the R package \texttt{sandwich} \citep{Zeileis2004econometric}, although the original HCCME (commonly called HC0) remains the default in SAS \texttt{proc reg} and Stata's \texttt{regress} command with \texttt{vce(robust)}. 
 More recently, several further variations on the HCCMEs have been proposed \citep{Cribari-Neto2004asymptotic, Cribari-Neto2007inference, Cribari-Neto2011new}. 
@@ -171,7 +173,7 @@ Under the general model that allows for heteroskedasticity, the true variance of
 \label{eq:var_beta}
 \Var\left(\bs{\hat\beta}\right) = \frac{1}{n} \bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}'\right) \bm{M}
 \end{equation}
-The HCCMEs all involve estimating $\Var\left(\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with crude estimates involving the squared residuals. Although taken singly, the squared residual $e_i^2$ is a poor estimate of $\sigma_i^2$, together the residuals provide an adequate means of estimating the middle term of Equation (\ref{eq:var_beta}). The HCCCMEs all have the general form 
+The HCCMEs all involve estimating $\Var\left(\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates involving the squared residuals. The HCCCMEs all have the general form 
 \begin{equation}
 \label{eq:sandwich}
 \bm{V}^{HC} = \frac{1}{n} \bm{M} \left(\frac{1}{n}\sum_{i=1}^n \omega_i e_i^2 \bm{x}_i\bm{x}'\right)\bm{M} 
