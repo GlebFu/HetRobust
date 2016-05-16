@@ -121,7 +121,7 @@ The null hypothesis is tested by comparing $t^{HC2}_q$ to a $t$-distribution wit
 \subsection{Edgeworth approximation}
 
 Rothenberg (1988) developed an Edgeworth approximation for the distribution of Wald-type $t$-statistics based on the HC0 variance estimator. It is straight-forward to generalize the approach to any of the HC estimators. Let \[
-\bm{Q} = \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right), \qquad \bm{z}_q = \left(\bm{I} - \bm{H}\right)\bs\Sigma \bm{g}, \qquad a = \frac{\sum_{i=1}^n g_{qi}^2 z_{qi}^2 / \omega_i^2 }{\left(\sum_{i=1}^n g_{qi}^2 \sigma_i^2\right)^2}, \qquad b = \frac{\sum_{i=1}^n g_{qi}^2  q_{ii} / \omega_i^2}{\sum_{i=1}^n g_{qi}^2 \sigma_i^2} - 1. \]
+\bm{Q} = \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right) - \bs\Sigma, \qquad \bm{z}_q = \left(\bm{I} - \bm{H}\right)\bs\Sigma \bm{g}, \qquad a = \frac{\sum_{i=1}^n g_{qi}^2 z_{qi}^2 / \omega_i^2 }{\left(\sum_{i=1}^n g_{qi}^2 \sigma_i^2\right)^2}, \qquad b = \frac{\sum_{i=1}^n g_{qi}^2  q_{ii} / \omega_i^2}{\sum_{i=1}^n g_{qi}^2 \sigma_i^2} - 1. \]
 Let $z_{\alpha}$ denote the $1 - \alpha / 2$ quantile from a standard normal distribution. For an observed value of the test statistic $t^{HC}_q$, the corresponding p-value is calculated as \[
 p = 2 \left[1 - \Phi\left[\frac{\left|t^{HC}_q\right|}{2}\left(2 - \frac{1 + \left(t^{HC}_q\right)^2}{\nu_q} + a\left(\left(t^{HC}_q\right)^2 - 1\right) + b\right)\right]\right], \]
 where $\Phi(\cdot)$ is the standard normal cumulative distribution function. A further approximation provides a means for calculating a critical value for a specified $\alpha$-level. Here, the hypothesis test is rejected if $t^{HC}_q$ is greater than the critical value $t_{crit}$ defined by \[

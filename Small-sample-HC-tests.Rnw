@@ -128,14 +128,44 @@ The HCCMEs all involve estimating $\Var\left(\bs{\hat\beta}\right)$ by replacing
 \end{equation}
 where $\omega_{1},...,\omega_{n}$ are correction terms that differ for the various HC estimators. Under weak assumptions, the weak law of large numbers ensures that the middle term in Equation (\ref{eq:sandwich}) converges to the corresponding term in (\ref{eq:var_beta}) as the sample size increases. Furthermore, the robust Wald statistic $T\left(\bm{V}^{HC}\right)$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T\left(\bm{V}^{HC}\right)\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. Because this test often has inflated size in small samples, it is common to instead use the critical value from a $t$ distribution with $n - p$ degrees of freedom.
 
-\subsection{Satterthwaite approximation} 
+\subsection{Rothenberg's Edgeworth approximation}
+
+\citet{Rothenberg1988approximate} developed an Edgeworth approximation for the distribution of Wald-type $t$-statistics based on the HC0 variance estimator.
+It is straight-forward to generalize the approach to any of the HC estimators.
+Let
+\begin{align*}
+g_i &= \bm{x}_i\bm{M}\bm{c} \\
+f_i &= n \bm{x}_i \bm{M} \bm{X}' \bs\Sigma \bm{X}\bm{M}\bm{c} \\ 
+q_i &= \bm{x}_i\bm{M}\bm{X}'\bs\Sigma \bm{X}\bm{M}\bm{x}_i' \\
+a &= \frac{\sum_{i=1}^n \omega_i g_i^2 z_i^2}{\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2} \\
+b &= \frac{\sum_{i=1}^n \omega_i g_i^2  q_{ii}}{\sum_{i=1}^n g_i^2 \sigma_i^2} \\
+\nu &= \frac{2\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4 \sigma_i^4}
+\end{align*}
+For an observed value of the test statistic $t_{HC}$, the corresponding p-value is calculated as \[
+p = 2 \left[1 - \Phi\left[\frac{\left|t_{HC}\right|}{2}\left(2 - \frac{1 + t_{HC}^2}{\nu} + a\left(t_{HC}^2 - 1\right) + b\right)\right]\right], \]
+where $\Phi(\cdot)$ is the standard normal cumulative distribution function. 
+A further approximation provides a means for calculating a critical value for a specified $\alpha$-level. Let $z_{\alpha}$ denote the $1 - \alpha / 2$ quantile from a standard normal distribution. Here, the hypothesis test is rejected if $t_{HC}$ is greater than the critical value $t_{crit}$ defined by \[
+t_{crit} = \frac{z_{\alpha}}{2}\left[2 + \frac{z_{\alpha}^2 + 1}{\nu} - a\left(z_{\alpha}^2 - 1\right) - b\right]. \]
+In practice, these testing procedures will need to be based on estimates of the quantities involved. Rothenberg proposed a simple estimate of the degrees of freedom: \[
+\nu_q = \frac{6\left(\sum_{i=1}^n \omega_i g_i^2 e_i^2\right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4 e_i^4}.
+\]
+Rothenberg also proposed to calculate $a$, $b$, $\bm{z}_q$, and $\bm{Q}$ by simply replacing the values of $\sigma_i^2$ with $\omega_i e_i^2$. Alternately, one could assume that $\bs\Sigma = \sigma^2 \bm{I}$, in which case $\bm{z} = \bm{0}$, $a = 0$, 
+\[
+b = - \frac{\sum_{i=1}^n h_i \omega_i g_i^2}{\sum_{i=1}^n g_i^2}, \qquad \text{and} \qquad 
+\nu = \frac{2\left(\sum_{i=1}^n g_i^2 \right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4}. 
+\]
 
 \subsection{Kauermann and Carroll's Edgeworth approximation}
 
-\subsection{Rothenberg's Edgeworth approximation}
+\citet{Kauermann2001note}
+
+\subsection{Satterthwaite approximation} 
+
+\citet{Lipsitz1999degrees}
 
 \subsection{Saddlepoint approximation}
 
+\citet{McCaffrey2006improved}
 
 \section{Simulation study}
 \label{sec:verify}
