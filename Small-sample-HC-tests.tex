@@ -65,6 +65,7 @@
 \addtolength{\textheight}{1.3in}%
 \addtolength{\topmargin}{-.8in}%
 
+\usepackage[textwidth=1in, textsize=tiny]{todonotes}
 
 
 \newcommand{\Prob}{\text{Pr}}
@@ -127,11 +128,12 @@ The text of your abstract.  200 or fewer words.
 
 Linear regression models, estimated by ordinary least squares (OLS), are one of the most important and ubiquitous tools in applied statistical work.
 Classically, hypothesis tests and confidence intervals for linear regression coefficients rely on the assumption that the model errors are homoskedastic, or have constant variance for all values of the covariates. 
-However, it can be difficult to diagnose violations of this assumption---particularly in small samples---and so it is often desirable to use methods that do not rely on it. 
-One common solution is to use a heteroskedasticity-consistent covariance matrix estimator (HCCME), which provides an asymptotically consistent estimate of the sampling variance of OLS coefficient estimates for models with heteroskedasticity of an unknown form. 
-Generalizations of HCCME are also available that provide asymptotically consistent variance estimates for auto-correlated errors \citep{Newey1987simple,Newey1994automatic} or errors that have an unknown dependence structure within clusters of observations \citep{Liang1986longitudinal}.
+In practice though, it can be difficult to diagnose violations of this assumption, and so it is often desirable to use methods that do not rely on it. 
+One common solution is to use heteroskedasticity-consistent covariance matrix estimators (HCCMEs), which provide asymptotically consistent estimates of the sampling variance of OLS coefficient estimates for models with heteroskedasticity of an unknown form. 
 
-HCCMEs were introduced by \citet{Huber1967behavior}, \citet{Eicker1967limit}, and \citet{White1980heteroskedasticity}. \citet{MacKinnon1985some} proposed several variations to improve the finite-sample properties of the HCCMEs. 
+HCCMEs were introduced in the statistics literature by \citet{Huber1967behavior} and \citet{Eicker1967limit}, in the survey sampling literature by\todo{add citations} and in econometrics by \citet{White1980heteroskedasticity}. They are an attractive tool because they rely on weaker assumptions than classical methods and are easier to implement than other methods for handling heteroskedastic errors. However, the guarantees that they provide are only asymptotic. In practice, it is not always clear whether a given sample is sufficently large to trust the asymptotic approximations. Furthermore, some of the HCCMEs tend to be too liberal (producing variance estimates that are biased towards zero and hypothesis tests with greater than nominal size) when the sample size is small. 
+
+\citet{MacKinnon1985some} proposed several variations to improve the finite-sample properties of the HCCMEs. 
 In a large simulation study, \citet{Long2000using} demonstrated that one of these variations, HC3, performs substantially better than the others.
 HC3 is the default in software such as the R package \texttt{sandwich} \citep{Zeileis2004econometric}, although the original HCCME (commonly called HC0) remains the default in SAS \texttt{proc reg} and Stata's \texttt{regress} command with \texttt{vce(robust)}. 
 More recently, several further variations on the HCCMEs have been proposed \citep{Cribari-Neto2004asymptotic, Cribari-Neto2007inference, Cribari-Neto2011new}. 
@@ -148,21 +150,28 @@ In this paper, we review the various small-sample approximations for hypothesis 
 \section{Methods}
 \label{sec:meth}
 
-\subsection{Model}
-
 We will consider the regression model
 \begin{equation}
 y_i = \bm{x}_i\bs\beta + \epsilon_i,
 \end{equation}
-for $i = 1,...,n$, where $y_i$ is the outcome, $\bm{x}_i$ is a $1 \times p$ row-vector of covariates (including an intercept) for observation $i$, $\bs\beta = (\beta_1,...,\beta_p)'$ is a $p \times 1$ vector of regression coefficients, and $\epsilon_i$ is a mean-zero error term with variance $\sigma_i^2$. We shall assume that the errors are mutually independent. For ease of notation, let $\bm{y} = \left(y_1,...,y_n\right)'$ denote the $n \times 1$ vector of outcomes, $\bm{X} = \left(\bm{x}_1',...,\bm{x}_n'\right)'$ be the $n \times p$ design matrix, and $\bs\epsilon$ be the $n \times 1$ vector of errors with $\E\left(\bs\epsilon\right) = \bm{0}$ and $\Var\left(\bs\epsilon\right) = \bs\Sigma = \diag\left(\sigma_1^2,...,\sigma_n^2\right)$. Let $\bm{M} = \left(\bm{X}'\bm{X} / n\right)^{-1}$. Finally, let $\bs{\hat\beta} = \left(\bm{M}\right)\bm{X}'\bm{y} / n$ denote the vector of OLS estimates and $e_i = y_i - \bm{x}_i \bs{\hat\beta}$ denote the residual for unit $i$. 
+for $i = 1,...,n$, where $y_i$ is the outcome, $\bm{x}_i$ is a $1 \times p$ row-vector of covariates (including an intercept) for observation $i$, $\bs\beta$ is a $p \times 1$ vector of regression coefficients, and $\epsilon_i$ is a mean-zero error term with variance $\sigma_i^2$. 
+We shall assume that the errors are mutually independent. 
+For ease of notation, let $\bm{y} = \left(y_1,...,y_n\right)'$ denote the $n \times 1$ vector of outcomes, $\bm{X} = \left(\bm{x}_1',...,\bm{x}_n'\right)'$ be the $n \times p$ design matrix, and $\bs\epsilon$ be the $n \times 1$ vector of errors with $\E\left(\bs\epsilon\right) = \bm{0}$ and $\Var\left(\bs\epsilon\right) = \bs\Sigma = \diag\left(\sigma_1^2,...,\sigma_n^2\right)$. 
+Let $\bm{M} = \left(\bm{X}'\bm{X} / n\right)^{-1}$. 
+Let $\bs{\hat\beta} = \bm{M}\bm{X}'\bm{y} / n$ denote the vector of OLS estimates and $e_i = y_i - \bm{x}_i \bs{\hat\beta}$, $i = 1,...,n$ denote the residuals. 
 
-The goal is to test a hypothesis regarding a linear combination of the regression coefficients $\bm{c}'\bs\beta$, i.e., $H_0: \bm{c}'\bs\beta = k$, with Type-I error rate $\alpha$. All tests under consideration are based on the Wald statistic
+The goal is to test a hypothesis regarding a linear combination of the regression coefficients $\bm{c}'\bs\beta$, i.e., $H_0: \bm{c}'\bs\beta = k$, with Type-I error rate $\alpha$. 
+All tests under consideration are based on the Wald statistic
 \begin{equation}
 T(\bm{V}) = \frac{\bm{c}'\bs{\hat\beta} - k}{\sqrt{\bm{c}' \bm{V} \bm{c}}},
 \end{equation}
 where $\bm{V}$ is some estimator for $\Var\left(\bs{\hat\beta}\right)$. 
 
-If the errors are homoskedastic, so that $\sigma_i^2 = \sigma^2$ for $i = 1,...,n$, then the hypothesis can be tested using a standard t-test. The variance of $\bs\beta$ is then estimated by $\bm{V}^{hom} = \hat\sigma^2 \bm{M}$, where $\hat\sigma^2 = \left(\sum_{i=1}^n e_i^2\right) / (n - p)$. Under $H_0$ and assuming that the errors are normally distributed and homoskedastic, the t-statistic follows a $t$ distribution with $n - p$ degrees of freedom. Thus, $H_0$ is rejected if $\left|T\left(\bm{V}^{hom}\right)\right| > F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right)$, where $F_t^{-1}(x; \nu)$ is the quantile function for a $t$ distribution with $\nu$ degrees of freedom. However, if the errors are instead heteroskedastic, the variance estimator $\bm{V}^{hom}$ will be inconsistent and this t-test will generally have incorrect size. 
+If the errors are homoskedastic, so that $\sigma_i^2 = \sigma^2$ for $i = 1,...,n$, then the hypothesis can be tested using a standard t test. 
+The variance of $\bs\beta$ is then estimated by $\bm{V}^{hom} = \hat\sigma^2 \bm{M}$, where $\hat\sigma^2 = \left(\sum_{i=1}^n e_i^2\right) / (n - p)$. 
+Under $H_0$ and assuming that the errors are normally distributed, the test statistic follows a $t$ distribution with $n - p$ degrees of freedom. 
+Thus, $H_0$ is rejected if $\left|T\left(\bm{V}^{hom}\right)\right| > F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right)$, where $F_t^{-1}(x; \nu)$ is the quantile function for a $t$ distribution with $\nu$ degrees of freedom. 
+However, if the errors are instead heteroskedastic, the variance estimator $\bm{V}^{hom}$ will be inconsistent and this t test will generally have incorrect size. 
 
 \subsection{HCCMEs}
 
@@ -171,12 +180,36 @@ Under the general model that allows for heteroskedasticity, the true variance of
 \label{eq:var_beta}
 \Var\left(\bs{\hat\beta}\right) = \frac{1}{n} \bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}'\right) \bm{M}
 \end{equation}
-The HCCMEs all involve estimating $\Var\left(\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with crude estimates involving the squared residuals. Although taken singly, the squared residual $e_i^2$ is a poor estimate of $\sigma_i^2$, together the residuals provide an adequate means of estimating the middle term of Equation (\ref{eq:var_beta}). The HCCCMEs all have the general form 
+The HCCCMEs all have the general form, which involves estimating $\Var\left(\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates involving the squared residuals:
 \begin{equation}
 \label{eq:sandwich}
 \bm{V}^{HC} = \frac{1}{n} \bm{M} \left(\frac{1}{n}\sum_{i=1}^n \omega_i e_i^2 \bm{x}_i\bm{x}'\right)\bm{M} 
 \end{equation}
-where $\omega_{1},...,\omega_{n}$ are correction terms that differ for the various HC estimators. Under weak assumptions, the weak law of large numbers ensures that the middle term in Equation (\ref{eq:sandwich}) converges to the corresponding term in (\ref{eq:var_beta}) as the sample size increases. Furthermore, the robust Wald statistic $T\left(\bm{V}^{HC}\right)$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T\left(\bm{V}^{HC}\right)\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. Because this test often has inflated size in small samples, it is common to instead use the critical value from a $t$ distribution with $n - p$ degrees of freedom.
+where $\omega_{1},...,\omega_{n}$ are weighting terms that differ for the various HC estimators. 
+Under weak assumptions, the weak law of large numbers ensures that the middle term in Equation (\ref{eq:sandwich}) converges to the corresponding term in (\ref{eq:var_beta}) as the sample size increases. 
+Furthermore, the robust Wald statistic $T\left(\bm{V}^{HC}\right)$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. 
+Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T\left(\bm{V}^{HC}\right)\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. 
+In practice, it is common to instead use the critical value from a $t$ distribution with $n - p$ degrees of freedom.
+
+\citet{White1980heteroskedasticity} originally described the HCCME without any correction factor, which is equivalent to taking $\omega_i = 1$ for $i = 1,...,n$. 
+This form has come to be known as HC0. 
+Subsequently, various correction factors have been proposed that improve on the finite-sample behavior of HC0. 
+Following common convention, we refer to these correction factors by number. 
+
+\citet{MacKinnon1985some} suggested HC1, which takes $\omega_i = n / (n - p)$ for $i = 1,...,n$, and HC2, which uses $\omega_i = \left(1 - h_i\right)^{-1}$, where $h_i = \bm{x}_i \bm{M} \bm{x}_i'$ is the hat value for unit $i$. 
+HC2 has the property that $\bm{V}^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
+\citet{Davidson1993estimation} proposed HC3, which uses $\omega_i =  \left(1 - h_i\right)^{-2}$ and closely approximates a leave-on-out jackknife variance estimator. 
+
+Cribari-Neto and colleagues subsequently proposed three further variations, HC4 \citep{Cribari-Neto2004asymptotic}, HC4m \citep{Cribari-Neto2011new}, and HC5 \citep{Cribari-Neto2007inference}, all of which aim to improve upon HC3 for design matrices where some observations are very influential. 
+In each variation, the correction factor has the form $\omega_i = \left(1 - h_i\right)^{-\delta_i}$ for some value of $\delta_i$. 
+The exponent terms for these three variations are:
+\begin{align*}
+\text{HC4:} \qquad \delta_i &= \min\{h_i n / p, 4\} \\
+\text{HC4m:} \qquad \delta_i &= \min\left\{h_i n / p, 1 \right\} + \min\left\{h_i n / p, 1.5 \right\} \\
+\text{HC5:} \qquad \delta_i &= \frac{1}{2}\min\left\{h_i n / p, \max \left\{4, 0.7 h_{(n)} n / p\right\}\right\}
+\end{align*}
+where $h_{(n)} = \max\left\{h_{1},...,h_{n}\right\}$.
+All of these correction factors inflate the squared residual terms to a greater extent when the observation has a higher degree of leverage. HC4 truncates the degree of inflation at 4 times the average leverage. Compared to HC4, HC4m inflates observations with lower leverage more strongly, but it also truncates the maximum degree of inflation at 2.5 times the average. In HC5, the truncation depends on the maximum leverage value but the degree of inflation will tend to be smaller than HC4. 
 
 \subsection{Rothenberg's Edgeworth approximation}
 
@@ -186,7 +219,7 @@ Let
 \begin{align*}
 g_i &= \bm{x}_i\bm{M}\bm{c} \\
 f_i &= n \bm{x}_i \bm{M} \bm{X}' \bs\Sigma \bm{X}\bm{M}\bm{c} \\ 
-\bm{Q} &= \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right) - \bs\Sigma \\
+q_i &= \bm{x}_i\bm{M}\bm{X}'\bs\Sigma \bm{X}\bm{M}\bm{x}_i' \\
 a &= \frac{\sum_{i=1}^n \omega_i g_i^2 z_i^2}{\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2} \\
 b &= \frac{\sum_{i=1}^n \omega_i g_i^2  q_{ii}}{\sum_{i=1}^n g_i^2 \sigma_i^2} \\
 \nu &= \frac{2\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4 \sigma_i^4}

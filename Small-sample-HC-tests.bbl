@@ -18,6 +18,11 @@ Cribari-Neto, F., Souza, T.~C. \harvardand\ Vasconcellos, K. L.~P.
   and leveraged data}', {\em Communications in Statistics - Theory and Methods}
   {\bf 36}(10),~1877--1888.
 
+\harvarditem{Davidson \harvardand\ MacKinnon}{1993}{Davidson1993estimation}
+Davidson, R. \harvardand\ MacKinnon, J.~G.  \harvardyearleft
+  1993\harvardyearright , {\em {Estimation and Inference in Econometrics}},
+  Oxford University Press, New York, NY.
+
 \harvarditem{Eicker}{1967}{Eicker1967limit}
 Eicker, F.  \harvardyearleft 1967\harvardyearright , {Limit theorems for
   regressions with unequal and dependent errors}, {\em in} `Proceedings of the
@@ -35,11 +40,6 @@ Kauermann, G. \harvardand\ Carroll, R.~J.  \harvardyearleft
   2001\harvardyearright , `{A note on the efficiency of sandwich covariance
   matrix estimation}', {\em Journal of the American Statistical Association}
   {\bf 96}(456),~1387--1396.
-
-\harvarditem{Liang \harvardand\ Zeger}{1986}{Liang1986longitudinal}
-Liang, K.-Y. \harvardand\ Zeger, S.~L.  \harvardyearleft 1986\harvardyearright
-  , `{Longitudinal data analysis using generalized linear models}', {\em
-  Biometrika} {\bf 73}(1),~13--22.
 
 \harvarditem[Lipsitz et~al.]{Lipsitz, Ibrahim \harvardand\
   Parzen}{1999}{Lipsitz1999degrees}
@@ -64,16 +64,6 @@ McCaffrey, D.~F. \harvardand\ Bell, R.~M.  \harvardyearleft
   2006\harvardyearright , `{Improved hypothesis testing for coefficients in
   generalized estimating equations with small samples of clusters.}', {\em
   Statistics in medicine} {\bf 25}(23),~4081--98.
-
-\harvarditem{Newey \harvardand\ West}{1987}{Newey1987simple}
-Newey, W.~K. \harvardand\ West, K.  \harvardyearleft 1987\harvardyearright ,
-  `{A simple, positive definite, heteroskedasticity and autocorrelation
-  consistent covariance matrix}', {\em Econometrica} {\bf 55}(3),~703--708.
-
-\harvarditem{Newey \harvardand\ West}{1994}{Newey1994automatic}
-Newey, W.~K. \harvardand\ West, K.~D.  \harvardyearleft 1994\harvardyearright ,
-  `{Automatic lag selection in covariance matrix estimation}', {\em The Review
-  of Economic Studies} {\bf 61}(4),~631--653.
 
 \harvarditem{Rothenberg}{1988}{Rothenberg1988approximate}
 Rothenberg, T.  \harvardyearleft 1988\harvardyearright , `{Approximate power
