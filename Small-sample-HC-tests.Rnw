@@ -146,7 +146,7 @@ This form has come to be known as HC0.
 Subsequently, various correction factors have been proposed that improve on the finite-sample behavior of HC0. 
 Following common convention, we refer to these correction factors by number. 
 
-\citet{MacKinnon1985some} suggested HC1, which takes $\omega_i = n / (n - p)$ for $i = 1,...,n$, and HC2, which uses $\omega_i = \left(1 - h_i\right)^{-1}$, where $h_i = \bm{x}_i \bm{M} \bm{x}_i'$ is the hat value for unit $i$. 
+\citet{MacKinnon1985some} suggested HC1, which takes $\omega_i = n / (n - p)$ for $i = 1,...,n$, and HC2, which uses $\omega_i = \left(1 - h_i\right)^{-1}$, where $h_i = n \bm{x}_i \bm{M} \bm{x}_i'$ is the hat value for unit $i$. 
 HC2 has the property that $\bm{V}^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
 \citet{Davidson1993estimation} proposed HC3, which uses $\omega_i =  \left(1 - h_i\right)^{-2}$ and closely approximates a leave-on-out jackknife variance estimator. 
 
@@ -163,34 +163,52 @@ All of these correction factors inflate the squared residual terms to a greater 
 
 \subsection{Rothenberg's Edgeworth approximation}
 
-\citet{Rothenberg1988approximate} developed an Edgeworth approximation for the distribution of Wald-type $t$-statistics based on the HC0 variance estimator.
-It is straight-forward to generalize the approach to any of the HC estimators.
+\citet{Rothenberg1988approximate} developed an Edgeworth approximation for the distribution of Wald-type t-statistics under the assumption that the errors are normally distributed. The original approximation was developed for tests based on the HC0 variance estimator, but extending it other HCCMEs is straightforward; here, we state the more general form. 
 Let
 \begin{align*}
 g_i &= \bm{x}_i\bm{M}\bm{c} \\
-f_i &= n \bm{x}_i \bm{M} \bm{X}' \bs\Sigma \bm{X}\bm{M}\bm{c} \\ 
-q_i &= \bm{x}_i\bm{M}\bm{X}'\bs\Sigma \bm{X}\bm{M}\bm{x}_i' \\
+z_i &= \sigma_i^2 g_i - \bm{x}_i \bm{M}\bm{X}'\bs\Sigma \bm{X} \bm{M}\bm{c} / n \\ 
+q_i &= \frac{1}{n^2} \bm{x}_i\bm{M}\bm{X}'\bs\Sigma \bm{X}\bm{M}\bm{x}_i'  - 2 h_i \\
 a &= \frac{\sum_{i=1}^n \omega_i g_i^2 z_i^2}{\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2} \\
-b &= \frac{\sum_{i=1}^n \omega_i g_i^2  q_{ii}}{\sum_{i=1}^n g_i^2 \sigma_i^2} \\
+b &= \frac{\sum_{i=1}^n \omega_i g_i^2  q_i}{\sum_{i=1}^n g_i^2 \sigma_i^2} \\
 \nu &= \frac{2\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4 \sigma_i^4}
 \end{align*}
-For an observed value of the test statistic $t_{HC}$, the corresponding p-value is calculated as \[
-p = 2 \left[1 - \Phi\left[\frac{\left|t_{HC}\right|}{2}\left(2 - \frac{1 + t_{HC}^2}{\nu} + a\left(t_{HC}^2 - 1\right) + b\right)\right]\right], \]
-where $\Phi(\cdot)$ is the standard normal cumulative distribution function. 
-A further approximation provides a means for calculating a critical value for a specified $\alpha$-level. Let $z_{\alpha}$ denote the $1 - \alpha / 2$ quantile from a standard normal distribution. Here, the hypothesis test is rejected if $t_{HC}$ is greater than the critical value $t_{crit}$ defined by \[
-t_{crit} = \frac{z_{\alpha}}{2}\left[2 + \frac{z_{\alpha}^2 + 1}{\nu} - a\left(z_{\alpha}^2 - 1\right) - b\right]. \]
-In practice, these testing procedures will need to be based on estimates of the quantities involved. Rothenberg proposed a simple estimate of the degrees of freedom: \[
-\nu_q = \frac{6\left(\sum_{i=1}^n \omega_i g_i^2 e_i^2\right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4 e_i^4}.
+Rothenberg's Edgeworth approximation is then given by 
+\[
+\Pr\left(T(\bm{V}^{HC}) \leq t \right) \approx \Phi\left[t \left(1 - \frac{1 + t^2}{2\nu} + \frac{a\left(t^2 - 1\right) + b}{2}\right)\right], 
 \]
-Rothenberg also proposed to calculate $a$, $b$, $\bm{z}_q$, and $\bm{Q}$ by simply replacing the values of $\sigma_i^2$ with $\omega_i e_i^2$. Alternately, one could assume that $\bs\Sigma = \sigma^2 \bm{I}$, in which case $\bm{z} = \bm{0}$, $a = 0$, 
+where $\Phi(\cdot)$ is the standard normal cumulative distribution function.
+Based on the Edgeworth approximation, \citet{Rothenberg1988approximate} proposed a test in which the null hypothesis is rejected if the observed test statistic is greater than the critical value defined by 
+\begin{equation}
+\label{eq:edge_Roth}
+t_{crit} = z_{\alpha}\left[1 + \frac{z_{\alpha}^2 + 1}{2 \nu} - \frac{a\left(z_{\alpha}^2 - 1\right) + b}{2}\right],
+\end{equation}
+where $z_\alpha$ is the $1 - \alpha / 2$ standard normal critical value. 
+
+In practice, the quantities $a$, $b$, and $\nu$ must be estimated because they depend on the unknown error variances. 
+Rothenberg proposed to do so by replacing values of $\sigma_i^2$ with $\omega_i e_i^2$ and values of $\sigma_i^4$ with $\omega_i^2 e_i^4 / 3$. 
+Alternately, one could assume that $\bs\Sigma = \sigma^2 \bm{I}$, in which case $a = 0$, 
 \[
 b = - \frac{\sum_{i=1}^n h_i \omega_i g_i^2}{\sum_{i=1}^n g_i^2}, \qquad \text{and} \qquad 
-\nu = \frac{2\left(\sum_{i=1}^n g_i^2 \right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4}. 
+\nu = \frac{2\left(\sum_{i=1}^n g_i^2 \right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4}.
 \]
 
 \subsection{Kauermann and Carroll's Edgeworth approximation}
 
-\citet{Kauermann2001note}
+\citet{Kauermann2001note} proposed a method of constructing confidence intervals based on HC variance estimators that is based on a somewhat simpler Edgeworth approximation. The hypothesis testing procedure corresponding to their proposed confidence intervals rejects the null if $\left|t_{HC} \right| > z_{\tilde\alpha}$, where $\tilde\alpha$ is implicitly defined as the solution to \begin{equation}
+\label{eq:Kauermann_crit}
+\alpha = \tilde\alpha + \frac{\phi\left(z_{\tilde\alpha}\right)}{2 \nu_q}\left(z_{\tilde\alpha}^3 + z_{\tilde\alpha}\right), 
+\end{equation}
+where $\phi(\cdot)$ is the density of the standard normal distribution and \[
+\nu_q  = \frac{2 \left[\Var(\hat\beta_q)\right]^2}{\Var\left(V^{HC}_{qq}\right)}\] 
+is a degrees of freedom measure. Equivalently, the $p$-value for the test is given by \[
+p = 2 \left[1 - \Phi\left(|t^{HC}_q|\right)\right] + \frac{\phi\left(t^{HC}_q\right)}{2 \nu_q}\left(\left|t^{HC}_q\right|^3 + \left|t^{HC}_q\right|\right), \]
+These authors also offer a further approximation for the critical value $z_{\tilde\alpha}$, which saves the trouble of solving Equation (\ref{eq:Kauermann_crit}):
+\[
+z_{\tilde\alpha} = F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right) + \frac{\left(z_\alpha^3 + z_\alpha\right)}{4}\left(\frac{1}{\nu_q} - \frac{\left(\sum_{i=1}^n g_{qi}^2\right)^2}{n}\right). \]
+
+In contrast to the degrees of freedom estimator used by Lipsitz and colleagues (as given in Equation \ref{eq:Satterthwaite}), Kauermann and Carroll calculate the degrees of freedom under the working assumption that the errors are actually homoskedastic. Under this working assumption, the HC2 variance estimator is unbiased, with degrees of freedom are given by \[
+\nu_q = \left(\sum_{i=1}^n g_{qi}^2\right)^2\left(\sum_{i=1}^n g_{qi}^4 + \sum_{i=1}^n \sum_{j \neq i} \frac{g_{qi}^2 g_{qj}^2 h_{ij}^2}{(1 - h_{ii})(1 - h_{jj})}\right)^{-1} \].
 
 \subsection{Satterthwaite approximation} 
 
