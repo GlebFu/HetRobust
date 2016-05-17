@@ -78,27 +78,27 @@ The text of your abstract.  200 or fewer words.
 
 Linear regression models, estimated by ordinary least squares (OLS), are one of the most important and ubiquitous tools in applied statistical work.
 Classically, hypothesis tests and confidence intervals for linear regression coefficients rely on the assumption that the model errors are homoskedastic, or have constant variance for all values of the covariates. 
-In practice though, it can be difficult to diagnose violations of this assumption, and so it is often desirable to not rely on it, nor to make other assumptions about how the error variances related to the covariates. 
-This requires valid methods of inference in linear regression models with heteroskedasticity of an unknown form.\todo{Connect to Behrens-Fisher problem and cluster-robust variance estimation?} 
+In practice though, it can be difficult to diagnose violations of this assumption, and similarly difficult to construct and defend other assumptions about how the error variances related to the covariates. 
+Thus, it is often desirable to use methods of inference that remain valid for models with heteroskedasticity of an unknown form.\todo{Connect to Behrens-Fisher problem and cluster-robust variance estimation?} 
 
-One well-known approach to inference in this setting is based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs), which provide asymptotically consistent estimates of the sampling variance of OLS coefficient estimates under quite general conditions. HCCMEs were introduced in the statistics literature by \citet{Huber1967behavior} and \citet{Eicker1967limit}, in the survey sampling literature by\todo{add citations} and in econometrics by \citet{White1980heteroskedasticity}. They are an attractive tool because they rely on weaker assumptions than classical methods. However, they also have the drawback that it is not always clear whether a given sample is sufficently large to trust the asymptotic approximations by which they are warranted. Furthermore, it is known that some of the HCCMEs tend to be too liberal (producing variance estimates that are biased towards zero and hypothesis tests with greater than nominal size) when the sample size is small \citep{Long2000using}. 
+One well-known approach to inference in this setting is based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs), which provide asymptotically consistent estimates of the sampling variance of OLS coefficient estimates under quite general conditions. HCCMEs were introduced in the statistics literature by \citet{Huber1967behavior} and \citet{Eicker1967limit}, in the survey sampling literature by\todo{add citations} and in econometrics by \citet{White1980heteroskedasticity}. They are an attractive tool because they rely on weaker assumptions than classical methods. However, they also have the drawback that it is not always clear whether a given sample is sufficently large to trust the asymptotic approximations by which they are warranted. Furthermore, when the sample size is small, it is known that some of the HCCMEs tend to be too liberal, producing variance estimates that are biased towards zero and hypothesis tests with greater than nominal size \citep{Long2000using}. 
 
 Since \citet{White1980heteroskedasticity} introduced the HCCME in econometrics, methods for improving the finite-sample properties of HCCMEs have been studied extensively.  
 The most well-known strand of this work has considered modifications to the HCCME itself that lead to more accurate tests and CIs in finite samples. \citet{MacKinnon1985some} and \citet{Davidson1993estimation} proposed several such modifications that are now readily available in software. 
 Based upon an extensive set of simulations, \citet{Long2000using} demonstrated that one of these modifications, known as HC3, performs substantially better than the others.
 As a result, HC3 is the default in software such as the R package \texttt{sandwich} \citep{Zeileis2004econometric}, although White's original HCCME remains the default in SAS \texttt{proc reg} and Stata's \texttt{regress} command with \texttt{vce(robust)}. 
-More recently, several further variations on the HCCMEs have been proposed \citep{Cribari-Neto2004asymptotic, Cribari-Neto2007inference, Cribari-Neto2011new}, which aim to improve upon the performance of HC in models where the regressors exhibit high leverage. 
+More recently, several further variations on the HCCMEs have been proposed \citep{Cribari-Neto2004asymptotic, Cribari-Neto2007inference, Cribari-Neto2011new}, which aim to improve upon the performance of HC3 in models where the regressors exhibit high leverage. 
 For hypothesis testing, HCCMEs are typically used to calculate t-statistics, which are compared to standard normal or $t(n - p)$ reference distributions, where $n$ is the sample size and $p$ is the dimension of the coefficient vector.
 
 An alternative approach to improving the small-sample properties of hypothesis tests based on HCCMEs is to find a better approximation to the null sampling distribution of the test statistic. 
 Several such approximations have been proposed, including Satterthwaite approximations \citep{Lipsitz1999degrees}, Edgeworth approximations \citep{Rothenberg1988approximate, Kauermann2001note}, and saddlepoint approximations \citep{McCaffrey2006improved}. 
 Although there is evidence that each of these approximations improves upon the standard, large-sample tests, their performance has been examined only under a limited range of conditions. 
 Moreover, it appears that these approximations have been developed in isolation, without reference to previous work, and they have received little or no attention in recent reviews \citep[e.g., none are discussed by][]{MacKinnon2013thirty}. 
-In contrast to the various HC corrections, to our knowledge, none of the distributional approximations are implemented in standard software packages for data analysis. 
+In contrast to the various HC corrections, to our knowledge, none of the distributional approximations are implemented in standard software packages for data analysis.\todo{Add more on gaps in literature.} 
 
-In this paper, we review the various small-sample approximations for hypothesis tests based on HCCMEs, using a common notation in order to facilitate comparisons among them. In so doing, we identify several further variations on the approximations that have not previously been considered. We then evaluate the performance of these approximations, along with the standard methods, in a large simulation study. The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.
+In this paper, we review the various small-sample approximations for hypothesis tests based on HCCMEs, using a common notation in order to facilitate comparisons among them. In so doing, we identify several further variations on the approximations that have not previously been considered. We then evaluate the performance of these approximations, along with the standard methods, in a large simulation study. The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.\todo{Outline paper}
 
-\section{Methods}
+\section{Model}
 \label{sec:meth}
 
 We will consider the regression model
@@ -155,7 +155,7 @@ Following common convention, we refer to these correction factors by number. Let
 \text{HC5:} \qquad \delta_i &= \frac{1}{2}\min\left\{h_i n / p, \max \left\{4, 0.7 h_{(n)} n / p\right\}\right\}
 \end{align*}
 
-\citet{MacKinnon1985some} suggested HC1, which takes $\omega_i = n / (n - p)$ for $i = 1,...,n$, and HC2, which uses $\omega_i = \left(1 - h_i\right)^{-1}$, where . 
+\citet{MacKinnon1985some} suggested HC1, which takes $\omega_i = n / (n - p)$ for $i = 1,...,n$, and HC2, which uses $\omega_i = \left(1 - h_i\right)^{-1}$, where $h_i = n \bm{x}_i \bm{M} \bm{x}_i'$ is the hat value for unit $i$. 
 HC2 has the property that $\bm{V}^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
 \citet{Davidson1993estimation} proposed HC3, which uses $\omega_i =  \left(1 - h_i\right)^{-2}$ and closely approximates a leave-on-out jackknife variance estimator. 
 
@@ -165,14 +165,65 @@ The exponent terms for these three variations are:
 where $h_{(n)} = \max\left\{h_{1},...,h_{n}\right\}$.
 All of these correction factors inflate the squared residual terms to a greater extent when the observation has a higher degree of leverage. HC4 truncates the degree of inflation at 4 times the average leverage. Compared to HC4, HC4m inflates observations with lower leverage more strongly, but it also truncates the maximum degree of inflation at 2.5 times the average. In HC5, the truncation depends on the maximum leverage value but the degree of inflation will tend to be smaller than HC4. 
 
+\section{Distributional approximations}
+
+
 \subsection{Satterthwaite approximation} 
+
+\citet{Lipsitz1999degrees}
 
 \subsection{Kauermann and Carroll's Edgeworth approximation}
 
+\citet{Kauermann2001note} proposed a method of constructing confidence intervals based on HC variance estimators that is based on a somewhat simpler Edgeworth approximation. The hypothesis testing procedure corresponding to their proposed confidence intervals rejects the null if $\left|t_{HC} \right| > z_{\tilde\alpha}$, where $\tilde\alpha$ is implicitly defined as the solution to \begin{equation}
+\label{eq:Kauermann_crit}
+\alpha = \tilde\alpha + \frac{\phi\left(z_{\tilde\alpha}\right)}{2 \nu_q}\left(z_{\tilde\alpha}^3 + z_{\tilde\alpha}\right), 
+\end{equation}
+where $\phi(\cdot)$ is the density of the standard normal distribution and \[
+\nu_q  = \frac{2 \left[\Var(\hat\beta_q)\right]^2}{\Var\left(V^{HC}_{qq}\right)}\] 
+is a degrees of freedom measure. Equivalently, the $p$-value for the test is given by \[
+p = 2 \left[1 - \Phi\left(|t^{HC}_q|\right)\right] + \frac{\phi\left(t^{HC}_q\right)}{2 \nu_q}\left(\left|t^{HC}_q\right|^3 + \left|t^{HC}_q\right|\right), \]
+These authors also offer a further approximation for the critical value $z_{\tilde\alpha}$, which saves the trouble of solving Equation (\ref{eq:Kauermann_crit}):
+\[
+z_{\tilde\alpha} = F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right) + \frac{\left(z_\alpha^3 + z_\alpha\right)}{4}\left(\frac{1}{\nu_q} - \frac{\left(\sum_{i=1}^n g_{qi}^2\right)^2}{n}\right). \]
+
+In contrast to the degrees of freedom estimator used by Lipsitz and colleagues (as given in Equation \ref{eq:Satterthwaite}), Kauermann and Carroll calculate the degrees of freedom under the working assumption that the errors are actually homoskedastic. Under this working assumption, the HC2 variance estimator is unbiased, with degrees of freedom are given by \[
+\nu_q = \left(\sum_{i=1}^n g_{qi}^2\right)^2\left(\sum_{i=1}^n g_{qi}^4 + \sum_{i=1}^n \sum_{j \neq i} \frac{g_{qi}^2 g_{qj}^2 h_{ij}^2}{(1 - h_{ii})(1 - h_{jj})}\right)^{-1} \].
+
 \subsection{Rothenberg's Edgeworth approximation}
+
+\citet{Rothenberg1988approximate} developed an Edgeworth approximation for the distribution of Wald-type t-statistics under the assumption that the errors are normally distributed. The original approximation was developed for tests based on the HC0 variance estimator, but extending it other HCCMEs is straightforward; here, we state the more general form. 
+Let
+\begin{align*}
+g_i &= \bm{x}_i\bm{M}\bm{c} \\
+z_i &= \sigma_i^2 g_i - \bm{x}_i \bm{M}\bm{X}'\bs\Sigma \bm{X} \bm{M}\bm{c} / n \\ 
+q_i &= \frac{1}{n^2} \bm{x}_i\bm{M}\bm{X}'\bs\Sigma \bm{X}\bm{M}\bm{x}_i'  - 2 h_i \\
+a &= \frac{\sum_{i=1}^n \omega_i g_i^2 z_i^2}{\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2} \\
+b &= \frac{\sum_{i=1}^n \omega_i g_i^2  q_i}{\sum_{i=1}^n g_i^2 \sigma_i^2} \\
+\nu &= \frac{2\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4 \sigma_i^4}
+\end{align*}
+Rothenberg's Edgeworth approximation is then given by 
+\[
+\Pr\left(T(\bm{V}^{HC}) \leq t \right) \approx \Phi\left[t \left(1 - \frac{1 + t^2}{2\nu} + \frac{a\left(t^2 - 1\right) + b}{2}\right)\right], 
+\]
+where $\Phi(\cdot)$ is the standard normal cumulative distribution function.
+Based on the Edgeworth approximation, \citet{Rothenberg1988approximate} proposed a test in which the null hypothesis is rejected if the observed test statistic is greater than the critical value defined by 
+\begin{equation}
+\label{eq:edge_Roth}
+t_{crit} = z_{\alpha}\left[1 + \frac{z_{\alpha}^2 + 1}{2 \nu} - \frac{a\left(z_{\alpha}^2 - 1\right) + b}{2}\right],
+\end{equation}
+where $z_\alpha$ is the $1 - \alpha / 2$ standard normal critical value. 
+
+In practice, the quantities $a$, $b$, and $\nu$ must be estimated because they depend on the unknown error variances. 
+Rothenberg proposed to do so by replacing values of $\sigma_i^2$ with $\omega_i e_i^2$ and values of $\sigma_i^4$ with $\omega_i^2 e_i^4 / 3$. 
+Alternately, one could assume that $\bs\Sigma = \sigma^2 \bm{I}$, in which case $a = 0$, 
+\[
+b = - \frac{\sum_{i=1}^n h_i \omega_i g_i^2}{\sum_{i=1}^n g_i^2}, \qquad \text{and} \qquad 
+\nu = \frac{2\left(\sum_{i=1}^n g_i^2 \right)^2}{\sum_{i=1}^n \omega_i^2 g_i^4}.
+\]
 
 \subsection{Saddlepoint approximation}
 
+\citet{McCaffrey2006improved}
 
 \section{Simulation study}
 \label{sec:verify}
