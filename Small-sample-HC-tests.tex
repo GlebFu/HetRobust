@@ -148,8 +148,8 @@ In contrast to the various HC corrections, to our knowledge, none of the distrib
 
 In this paper, we review the various small-sample approximations for hypothesis tests based on HCCMEs, using a common notation in order to facilitate comparisons among them. In so doing, we identify several further variations on the approximations that have not previously been considered. We then evaluate the performance of these approximations, along with the standard methods, in a large simulation study. The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.\todo{Outline paper}
 
-\section{Model}
-\label{sec:meth}
+\section{Methods}
+\label{sec:model}
 
 We will consider the regression model
 \begin{equation}
@@ -188,39 +188,47 @@ The HCCCMEs estimate $\Var\left(\bs{\hat\beta}\right)$ by replacing the $\sigma_
 \end{equation}
 where $\omega_{1},...,\omega_{n}$ are weighting terms that differ for the various HC estimators. 
 Under weak assumptions, the weak law of large numbers ensures that the middle term in Equation (\ref{eq:sandwich}) converges to the corresponding term in (\ref{eq:var_beta}) as the sample size increases. 
-Furthermore, the robust Wald statistic $T\left(\bm{V}^{HC}\right)$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. 
-Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T\left(\bm{V}^{HC}\right)\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. 
-In practice, it is common to instead use the critical value from a $t$ distribution with $n - p$ degrees of freedom.
 
 \citet{White1980heteroskedasticity} originally described the HCCME without any correction factor, which is equivalent to taking $\omega_i = 1$ for $i = 1,...,n$. 
 This form has come to be known as HC0. 
 Subsequently, various correction factors have been proposed that aim to improve on the finite-sample behavior of HC0. 
-Following common convention, we refer to these correction factors by number. Letting $h_i = \bm{x}_i \bm{M} \bm{x}_i'$ denote the hat value for unit $i$, the correction factors are as follows:
+Following common convention, we refer to these correction factors by number. Letting $h_i = n \bm{x}_i \bm{M} \bm{x}_i'$ denote the hat value for unit $i$, the correction factors are as follows:
 \begin{align*}
 \text{HC1:} \qquad \omega_i &= n / (n - p) \\
 \text{HC2:} \qquad \omega_i &= (1 - h_i)^{-1} \\
 \text{HC3:} \qquad \omega_i &= (1 - h_i)^{-2} \\
 \text{HC4:} \qquad \omega_i &= (1 - h_i)^{-\delta}, \qquad \delta_i = \min\{h_i n / p, 4\} \\
-\text{HC4m:} \qquad \delta_i &= \min\left\{h_i n / p, 1 \right\} + \min\left\{h_i n / p, 1.5 \right\} \\
-\text{HC5:} \qquad \delta_i &= \frac{1}{2}\min\left\{h_i n / p, \max \left\{4, 0.7 h_{(n)} n / p\right\}\right\}
+\text{HC4m:} \qquad \omega_i &= (1 - h_i)^{-\delta}, \qquad \delta_i = \min\left\{h_i n / p, 1 \right\} + \min\left\{h_i n / p, 1.5 \right\} \\
+\text{HC5:} \qquad \omega_i &= (1 - h_i)^{-\delta}, \qquad \delta_i = \frac{1}{2}\min\left\{h_i n / p, \max \left\{4, 0.7 h_{(n)} n / p\right\}\right\}
 \end{align*}
-
-\citet{MacKinnon1985some} suggested HC1, which takes $\omega_i = n / (n - p)$ for $i = 1,...,n$, and HC2, which uses $\omega_i = \left(1 - h_i\right)^{-1}$, where $h_i = n \bm{x}_i \bm{M} \bm{x}_i'$ is the hat value for unit $i$. 
-HC2 has the property that $\bm{V}^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
-\citet{Davidson1993estimation} proposed HC3, which uses $\omega_i =  \left(1 - h_i\right)^{-2}$ and closely approximates a leave-on-out jackknife variance estimator. 
+\citet{MacKinnon1985some} suggested HC1, which uses an ad hoc correction similar to the correction used for $\hat\sigma^2$, and HC2, which has the property that $\bm{V}^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
+\citet{Davidson1993estimation} proposed HC3 as an approximation to the leave-on-out jackknife variance estimator. 
 
 Cribari-Neto and colleagues subsequently proposed three further variations, HC4 \citep{Cribari-Neto2004asymptotic}, HC4m \citep{Cribari-Neto2011new}, and HC5 \citep{Cribari-Neto2007inference}, all of which aim to improve upon HC3 for design matrices where some observations are very influential. 
-In each variation, the correction factor has the form $\omega_i = \left(1 - h_i\right)^{-\delta_i}$ for some value of $\delta_i$. 
-The exponent terms for these three variations are:
-where $h_{(n)} = \max\left\{h_{1},...,h_{n}\right\}$.
-All of these correction factors inflate the squared residual terms to a greater extent when the observation has a higher degree of leverage. HC4 truncates the degree of inflation at 4 times the average leverage. Compared to HC4, HC4m inflates observations with lower leverage more strongly, but it also truncates the maximum degree of inflation at 2.5 times the average. In HC5, the truncation depends on the maximum leverage value but the degree of inflation will tend to be smaller than HC4. 
+All of these correction factors inflate the squared residual terms to a greater extent when the observation has a higher degree of leverage. 
+HC4 truncates the degree of inflation at 4 times the average leverage. 
+Compared to HC4, HC4m inflates observations with lower leverage more strongly, but it also truncates the maximum degree of inflation at 2.5 times the average. 
+In HC5, the truncation depends on the maximum leverage value but the degree of inflation will tend to be smaller than HC4. 
 
-\section{Distributional approximations}
+For any of the HCCMEs, the robust Wald statistic $T\left(\bm{V}^{HC}\right)$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. 
+Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T\left(\bm{V}^{HC}\right)\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. 
+In practice, it is common to instead use the critical value from a $t$ distribution with $n - p$ degrees of freedom. 
+However, use of the $t_{n-p}$ reference distribution is only an ad hoc approximation.
 
+The following subsections review several different, better-grounded approximations to the null sampling distribution of $T\left(\bm{V}^{HC}\right)$. As will be seen, its distribution depends on the structure of the error variances, which are unknown and must thus be estimated. One of the 
 
 \subsection{Satterthwaite approximation} 
 
-\citet{Lipsitz1999degrees}
+\citet{Lipsitz1999degrees} proposed a small-sample corrected hypothesis testing procedure that is based on a Satterthwaite approximation for the distribution of $V^{HC2}_{qq}$. The Satterthwaite approximation involves approximating the distribution of $V^{HC2}_{qq}$ by a multiple of a $\chi^2$ distribution with degrees of freedom $2 \left[\E\left(V^{HC2}_{qq}\right)\right]^2 / \Var\left(V^{HC2}_{qq}\right)$. In practice, the mean and variance must be estimated because they involve the unknown quantity $\bs\Sigma$. Lipsitz and colleagues note that the variance of $V^{HCx}_{qq}$ can be written as \[
+\Var\left(V^{HCx}_{qq}\right) = 2\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\right)\circ \bm{S}\right]\right], \]
+where $\circ$ denotes the element-wise (Hadamard) product and $\bm{S}$ has entries $S_{ij} = \sigma_i^2 \sigma_j^2$. They propose to estimate $\bm{S}$ using the matrix with entries \[
+\hat{S}_{ii} = \frac{e_i^4}{3(1 - h_{ii})^2} \quad \text{for } i = 1,...,n \quad \text{and} \quad \hat{S}_{ij} = \frac{e_i^2 e_j^2}{2 h_{ij}^2 + (1 - h_{ii})(1 - h_{jj})} \quad \text{for } i \neq j. \]
+They then construct estimated degrees of freedom $\nu_q$ by substituting $V^{HC2}_{qq}$ in place of its expectation and taking 
+\begin{equation}
+\label{eq:Satterthwaite}
+\nu_q = \frac{\left(V^{HC2}_{qq}\right)^2}{\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}_{2q} \left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}_{2q} \left(\bm{I} - \bm{H}\right)\right)\circ \bm{\hat{S}}\right]\right]}.
+\end{equation}
+The null hypothesis is tested by comparing $t^{HC2}_q$ to a $t$-distribution with $\nu_q$ degrees of freedom, i.e., $H_0$ is rejected if $|t^{HC2}_q| > F_t^{-1}(1 - \alpha / 2; \nu_q)$. Equivalently, the $p$-value corresponding to $H_0$ is $2 \left[1 - F_t\left(|t_q^{HC2}|; \nu_q\right)\right]$, where $F_t(x; \nu)$ is the cumulative distribution function of a $t_\nu$ distribution.
 
 \subsection{Kauermann and Carroll's Edgeworth approximation}
 
@@ -273,7 +281,24 @@ b = - \frac{\sum_{i=1}^n h_i \omega_i g_i^2}{\sum_{i=1}^n g_i^2}, \qquad \text{a
 
 \subsection{Saddlepoint approximation}
 
-\citet{McCaffrey2006improved}
+\citet{McCaffrey2006improved} developed small-sample adjustments to test statistics based on cluster-robust variance estimators, of which HC variance estimators are a special case. They consider both a Satterthwaite approximation (similar to Lipsitz et al.) and a saddlepoint approximation for the distribution of the test statistic, finding that the latter produced tests with more accurate size. The saddlepoint approximation is obtained as follows. Let Observe that the cumulative distribution of $t^{HC}_q$ can be expressed as \[
+\Pr\left(t^{HC}_q \leq t\right) = \Pr\left(\frac{\left(\hat\beta_q - c\right)^2}{\Var(\hat\beta_q)} - t^2 \frac{V^{HC}_{qq}}{\Var(\hat\beta_q)} \leq 0\right). \]
+Note that $\left(\hat\beta_q - c\right)^2 / \Var(\hat\beta_q) ~ \chi^2_1$ and that $V^{HC}_{qq}$ is distributed as a weighted sum of $\chi^2_1$ random variables, with weights given by the eigen-values $\lambda_1,...,\lambda_n$ of the matrix $\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$. Assuming that $V^{HC}_{qq}$ is unbiased, so that \[
+\E\left(V^{HC}_{qq}\right) = \tr\left[\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\right] = \sum_{j=1}^n \lambda_j, \]
+and that $\hat\beta_q$ is independent of $V^{HC}_{qq}$, it follows that the $\Pr\left(t^{HC}_q \leq t\right)$ can be expressed as $\Pr(Z \leq 0)$, where $Z = \sum_{i=0}^n \gamma_i z_i$,
+$\gamma_0 = 1$, $\gamma_i = -t^2 \lambda_i / \sum_{j=1}^n \lambda_j$, and $z_0,...,z_n \iid \chi^2_1$.
+
+The saddlepoint technique is a means to approximate the distribution of $Z$. Let $s$ be the saddlepoint, defined implicitly as the solution to \[
+\sum_{i=0}^n \frac{\gamma_i}{1 - 2 \gamma_i s} = 0. \]
+Note that the solution to the saddlepoint equation will be in the range $\left(\left(2 \min\left\{\gamma_0,...,\gamma_n\right\}\right)^{-1}, 0 \right)$ if $\sum_{i=0}^n \gamma_i > 0$ and in the range $\left(0, \left(2 \max\left\{\gamma_0,...,\gamma_n\right\}\right)^{-1}\right)$ if $\sum_{i=0}^n \gamma_i \leq 0$. Define the quantities $r$ and $q$ as \[
+r = \text{sign}(s)\sqrt{2sz + \sum_{i=0}^n \log\left(1 - 2\gamma_i s\right)}, \qquad q = s \sqrt{2 \sum_{i=0}^n \frac{\gamma_i^2}{\left(1 - 2 \gamma_i s\right)^2}} \]
+for a constant $z$. The saddlepoint approximation is then 
+\begin{equation}
+\label{eq:saddlepoint_approx}
+\Pr(Z \leq z) \approx \begin{cases}\Phi(r) + \phi(r)\left[\frac{1}{r} - \frac{1}{q}\right] & s \neq 0 \\
+\frac{1}{2} + \frac{\sum_{i=0}^n \gamma_i^3}{3 \sqrt\pi \left(\sum_{i=0}^n \gamma_i^2\right)^{3/2}} & s = 0. \end{cases}
+\end{equation}
+Given an observed value for the $t$-statistic $t^{HC}_q$, a $p$-value for $H_0$ can be calculated by taking $\gamma_i = -\left(t^{HC}_q\right)^2 \lambda_i / \sum_{j=1}^n \lambda_j$ for $i = 1,...,n$, finding $s$, $r$, and $q$, and evaluating $1 - \Pr(Z \leq 0)$ using Equation (\ref{eq:saddlepoint_approx}).
 
 \section{Simulation study}
 \label{sec:verify}
