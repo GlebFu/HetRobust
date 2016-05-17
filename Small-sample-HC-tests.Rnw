@@ -114,27 +114,27 @@ Let $\bs{\hat\beta} = \bm{M}\bm{X}'\bm{y} / n$ denote the vector of OLS estimate
 The goal is to test a hypothesis regarding a linear combination of the regression coefficients $\bm{c}'\bs\beta$, i.e., $H_0: \bm{c}'\bs\beta = k$, with Type-I error rate $\alpha$. 
 All tests under consideration are based on the Wald statistic
 \begin{equation}
-T(\bm{V}) = \frac{\bm{c}'\bs{\hat\beta} - k}{\sqrt{\bm{c}' \bm{V} \bm{c}}},
+T(V) = \frac{\bm{c}'\bs{\hat\beta} - k}{\sqrt{V}},
 \end{equation}
-where $\bm{V}$ is some estimator for $\Var\left(\bs{\hat\beta}\right)$. 
+where $V$ some estimator for $\Var\left(\bm{c}'\bs{\hat\beta}\right)$. 
 
 If the errors are homoskedastic, so that $\sigma_i^2 = \sigma^2$ for $i = 1,...,n$, then the hypothesis can be tested using a standard t test. 
-The variance of $\bs\beta$ is then estimated by $\bm{V}^{hom} = \hat\sigma^2 \bm{M}$, where $\hat\sigma^2 = \left(\sum_{i=1}^n e_i^2\right) / (n - p)$. 
+The variance of $\bm{c}'\bs\beta$ is then estimated by $V^{hom} = \hat\sigma^2 \bm{c}'\bm{M}\bm{c}$, where $\hat\sigma^2 = \left(\sum_{i=1}^n e_i^2\right) / (n - p)$. 
 Under $H_0$ and assuming that the errors are normally distributed, the test statistic follows a $t$ distribution with $n - p$ degrees of freedom. 
-Thus, $H_0$ is rejected if $\left|T\left(\bm{V}^{hom}\right)\right| > F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right)$, where $F_t^{-1}(x; \nu)$ is the quantile function for a $t$ distribution with $\nu$ degrees of freedom. 
-If the errors are instead heteroskedastic, the variance estimator $\bm{V}^{hom}$ will be inconsistent and this t test will generally have incorrect size. 
+Thus, $H_0$ is rejected if $\left|T\left(V^{hom}\right)\right| > F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right)$, where $F_t^{-1}(x; \eta)$ is the quantile function for a $t$ distribution with $\eta$ degrees of freedom. 
+If the errors are instead heteroskedastic, the variance estimator $V^{hom}$ will be inconsistent and this t test will generally have incorrect size. 
 
 \subsection{HCCMEs}
 
 Under the general model that allows for heteroskedasticity, the true variance of the OLS estimator is 
 \begin{equation}
 \label{eq:var_beta}
-\Var\left(\bs{\hat\beta}\right) = \frac{1}{n} \bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}'\right) \bm{M}
+\Var\left(\bm{c}'\bs{\hat\beta}\right) = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}'\right) \bm{M}\bm{c}
 \end{equation}
-The HCCCMEs estimate $\Var\left(\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates involving the squared residuals. They all have the same general form:  
+The HCCCMEs estimate $\Var\left(\bm{c}'\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates involving the squared residuals. They all have the same general form:  
 \begin{equation}
 \label{eq:sandwich}
-\bm{V}^{HC} = \frac{1}{n} \bm{M} \left(\frac{1}{n}\sum_{i=1}^n \omega_i e_i^2 \bm{x}_i\bm{x}'\right)\bm{M} 
+V^{HC} = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \omega_i e_i^2 \bm{x}_i\bm{x}'\right)\bm{M} \bm{c}
 \end{equation}
 where $\omega_{1},...,\omega_{n}$ are weighting terms that differ for the various HC estimators. 
 Under weak assumptions, the weak law of large numbers ensures that the middle term in Equation (\ref{eq:sandwich}) converges to the corresponding term in (\ref{eq:var_beta}) as the sample size increases. 
@@ -151,7 +151,7 @@ Following common convention, we refer to these correction factors by number. Let
 \text{HC4m:} \qquad \omega_i &= (1 - h_i)^{-\delta}, \qquad \delta_i = \min\left\{h_i n / p, 1 \right\} + \min\left\{h_i n / p, 1.5 \right\} \\
 \text{HC5:} \qquad \omega_i &= (1 - h_i)^{-\delta}, \qquad \delta_i = \frac{1}{2}\min\left\{h_i n / p, \max \left\{4, 0.7 h_{(n)} n / p\right\}\right\}
 \end{align*}
-\citet{MacKinnon1985some} suggested HC1, which uses an ad hoc correction similar to the correction used for $\hat\sigma^2$, and HC2, which has the property that $\bm{V}^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
+\citet{MacKinnon1985some} suggested HC1, which uses an ad hoc correction similar to the correction used for $\hat\sigma^2$, and HC2, which has the property that $V^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
 \citet{Davidson1993estimation} proposed HC3 as an approximation to the leave-on-out jackknife variance estimator. 
 
 Cribari-Neto and colleagues subsequently proposed three further variations, HC4 \citep{Cribari-Neto2004asymptotic}, HC4m \citep{Cribari-Neto2011new}, and HC5 \citep{Cribari-Neto2007inference}, all of which aim to improve upon HC3 for design matrices where some observations are very influential. 
@@ -160,25 +160,39 @@ HC4 truncates the degree of inflation at 4 times the average leverage.
 Compared to HC4, HC4m inflates observations with lower leverage more strongly, but it also truncates the maximum degree of inflation at 2.5 times the average. 
 In HC5, the truncation depends on the maximum leverage value but the degree of inflation will tend to be smaller than HC4. 
 
-For any of the HCCMEs, the robust Wald statistic $T\left(\bm{V}^{HC}\right)$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. 
-Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T\left(\bm{V}^{HC}\right)\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. 
+For any of the HCCMEs, the robust Wald statistic $T\left(V^{HC}\right)$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. 
+Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T\left(V^{HC}\right)\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. 
 In practice, it is common to instead use the critical value from a $t$ distribution with $n - p$ degrees of freedom. 
 However, use of the $t_{n-p}$ reference distribution is only an ad hoc approximation.
 
-The following subsections review several different, better-grounded approximations to the null sampling distribution of $T\left(\bm{V}^{HC}\right)$. As will be seen, its distribution depends on the structure of the error variances, which are unknown and must thus be estimated. One of the 
+The following subsections review several distinct, better-grounded approximations to the null sampling distribution of $T\left(V^{HC}\right)$. As will be seen, all of the approximations depend on the structure of the unknown error variances. A key consideration in developing these approximations is how to estimate the error variances. Past proposals have each considered different strategies, including estimating the errors empirically (as in the HCCME itself) or by assuming that they follow a known structure. 
 
 \subsection{Satterthwaite approximation} 
 
-\citet{Lipsitz1999degrees} proposed a small-sample corrected hypothesis testing procedure that is based on a Satterthwaite approximation for the distribution of $V^{HC2}_{qq}$. The Satterthwaite approximation involves approximating the distribution of $V^{HC2}_{qq}$ by a multiple of a $\chi^2$ distribution with degrees of freedom $2 \left[\E\left(V^{HC2}_{qq}\right)\right]^2 / \Var\left(V^{HC2}_{qq}\right)$. In practice, the mean and variance must be estimated because they involve the unknown quantity $\bs\Sigma$. Lipsitz and colleagues note that the variance of $V^{HCx}_{qq}$ can be written as \[
-\Var\left(V^{HCx}_{qq}\right) = 2\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\right)\circ \bm{S}\right]\right], \]
-where $\circ$ denotes the element-wise (Hadamard) product and $\bm{S}$ has entries $S_{ij} = \sigma_i^2 \sigma_j^2$. They propose to estimate $\bm{S}$ using the matrix with entries \[
+\citet{Lipsitz1999degrees} proposed a hypothesis testing procedure that is based on a Satterthwaite approximation for the distribution of $T\left(V^{HC}\right)$, using the HC2 form of the variance estimator. The Satterthwaite approximation involves approximating the distribution of $V^{HC}$ by a multiple of a $\chi^2$ distribution with degrees of freedom $\eta$ chosen by match the first two moments of $V^{HC}$. In the abstract, the degrees of freedom are given by 
+\[
+\eta = 2 \left[\E\left(V^{HC}\right)\right]^2 / \Var\left(V^{HC}\right).
+\]
+The null hypothesis is then tested by comparing $T\left(V^{HC}\right)$ to a $t$-distribution with $\eta$ degrees of freedom. 
+
+The moments of $V^{HC}$ can be obtained by observing that the variance estimator is a quadratic form in the errors, which can be written as \[
+V^{HC} = \sum_{i=1}^n \omega_i \left(g_i e_i / n \right)^2 = \bm{e}' \bm{A} \bm{e}, \]
+where $g_i = \bm{x}_i \bm{M} \bm{c}$ and $\bm{A} = \diag\left(\omega_1 g_1^2 / n^2,...,\omega_n g_n^2 / n^2\right)$. It follows from the properties of quadratic forms that $\E\left(V^{HC}\right) = \tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\right]$, where $\bm{I}$ is an $n \times n$ identity matrix and $\bm{H} = n\bm{X}\bm{M}\bm{X}'$ is the hat matrix. Furthermore, assuming that the errors are normally distributed, the variance of the quadratic form is
+\begin{align*}
+\Var\left(V^{HC}\right) &= 2\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\right] \\
+&= 2\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\right)\circ \bm{S}\right]\right], 
+\end{align*}
+where $\circ$ denotes the element-wise (Hadamard) product and $\bm{S}$ has entries $S_{ij} = \sigma_i^2 \sigma_j^2$. 
+
+The mean and variance involve the unknown quantity $\bs\Sigma$ and thus must be estimated. Lipsitz and colleagues propose to treat $V^{HC}$ as unbiased and to estimate $\bm{S}$ using the matrix with entries \[
 \hat{S}_{ii} = \frac{e_i^4}{3(1 - h_{ii})^2} \quad \text{for } i = 1,...,n \quad \text{and} \quad \hat{S}_{ij} = \frac{e_i^2 e_j^2}{2 h_{ij}^2 + (1 - h_{ii})(1 - h_{jj})} \quad \text{for } i \neq j. \]
-They then construct estimated degrees of freedom $\nu_q$ by substituting $V^{HC2}_{qq}$ in place of its expectation and taking 
+They then construct estimated degrees of freedom by substituting $\bm{c}'\bm{V}^{HC} \bm{c}$ in place of its expectation and taking 
 \begin{equation}
-\label{eq:Satterthwaite}
-\nu_q = \frac{\left(V^{HC2}_{qq}\right)^2}{\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}_{2q} \left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}_{2q} \left(\bm{I} - \bm{H}\right)\right)\circ \bm{\hat{S}}\right]\right]}.
+\label{eq:nu_empirical}
+\eta_E = \frac{\left(\bm{c}'\bm{V}^{HC}\bm{c}\right)^2}{\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}_{2q} \left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\left(\bm{I} - \bm{H}\right)\right)\circ \bm{\hat{S}}\right]\right]}.
 \end{equation}
-The null hypothesis is tested by comparing $t^{HC2}_q$ to a $t$-distribution with $\nu_q$ degrees of freedom, i.e., $H_0$ is rejected if $|t^{HC2}_q| > F_t^{-1}(1 - \alpha / 2; \nu_q)$. Equivalently, the $p$-value corresponding to $H_0$ is $2 \left[1 - F_t\left(|t_q^{HC2}|; \nu_q\right)\right]$, where $F_t(x; \nu)$ is the cumulative distribution function of a $t_\nu$ distribution.
+
+
 
 \subsection{Kauermann and Carroll's Edgeworth approximation}
 
