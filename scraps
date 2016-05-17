@@ -1,3 +1,4 @@
 Generalizations of HCCME are also available that provide asymptotically consistent variance estimates for auto-correlated errors \citep{Newey1987simple,Newey1994automatic} or errors that have an unknown dependence structure within clusters of observations \citep{Liang1986longitudinal}.
 
+
 Although the squared residual $e_i^2$ is a poor estimate of $\sigma_i^2$ when considered in isolation, together the squared residuals provide an adequate means of estimating the middle term of Equation (\ref{eq:var_beta}). 

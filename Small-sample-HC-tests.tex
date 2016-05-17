@@ -128,21 +128,22 @@ The text of your abstract.  200 or fewer words.
 
 Linear regression models, estimated by ordinary least squares (OLS), are one of the most important and ubiquitous tools in applied statistical work.
 Classically, hypothesis tests and confidence intervals for linear regression coefficients rely on the assumption that the model errors are homoskedastic, or have constant variance for all values of the covariates. 
-In practice though, it can be difficult to diagnose violations of this assumption, and so it is often desirable to use methods that do not rely on it. 
-One common solution is to use heteroskedasticity-consistent covariance matrix estimators (HCCMEs), which provide asymptotically consistent estimates of the sampling variance of OLS coefficient estimates for models with heteroskedasticity of an unknown form. 
+In practice though, it can be difficult to diagnose violations of this assumption, and so it is often desirable to not rely on it, nor to make other assumptions about how the error variances related to the covariates. 
+This requires valid methods of inference in linear regression models with heteroskedasticity of an unknown form.\todo{Connect to Behrens-Fisher problem and cluster-robust variance estimation?} 
 
-HCCMEs were introduced in the statistics literature by \citet{Huber1967behavior} and \citet{Eicker1967limit}, in the survey sampling literature by\todo{add citations} and in econometrics by \citet{White1980heteroskedasticity}. They are an attractive tool because they rely on weaker assumptions than classical methods and are easier to implement than other methods for handling heteroskedastic errors. However, the guarantees that they provide are only asymptotic. In practice, it is not always clear whether a given sample is sufficently large to trust the asymptotic approximations. Furthermore, some of the HCCMEs tend to be too liberal (producing variance estimates that are biased towards zero and hypothesis tests with greater than nominal size) when the sample size is small. 
+One well-known approach to inference in this setting is based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs), which provide asymptotically consistent estimates of the sampling variance of OLS coefficient estimates under quite general conditions. HCCMEs were introduced in the statistics literature by \citet{Huber1967behavior} and \citet{Eicker1967limit}, in the survey sampling literature by\todo{add citations} and in econometrics by \citet{White1980heteroskedasticity}. They are an attractive tool because they rely on weaker assumptions than classical methods. However, they also have the drawback that it is not always clear whether a given sample is sufficently large to trust the asymptotic approximations by which they are warranted. Furthermore, it is known that some of the HCCMEs tend to be too liberal (producing variance estimates that are biased towards zero and hypothesis tests with greater than nominal size) when the sample size is small \citep{Long2000using}. 
 
-\citet{MacKinnon1985some} proposed several variations to improve the finite-sample properties of the HCCMEs. 
-In a large simulation study, \citet{Long2000using} demonstrated that one of these variations, HC3, performs substantially better than the others.
-HC3 is the default in software such as the R package \texttt{sandwich} \citep{Zeileis2004econometric}, although the original HCCME (commonly called HC0) remains the default in SAS \texttt{proc reg} and Stata's \texttt{regress} command with \texttt{vce(robust)}. 
-More recently, several further variations on the HCCMEs have been proposed \citep{Cribari-Neto2004asymptotic, Cribari-Neto2007inference, Cribari-Neto2011new}. 
-For hypothesis testing, HCCMEs are typically used to calculate t-statistics, which are compared to standard normal or $t(n - p)$ reference distributions, where $n$ is the sample size and $p$ is the dimension of the coefficient vector. 
+Since \citet{White1980heteroskedasticity} introduced the HCCME in econometrics, methods for improving the finite-sample properties of HCCMEs have been studied extensively.  
+The most well-known strand of this work has considered modifications to the HCCME itself that lead to more accurate tests and CIs in finite samples. \citet{MacKinnon1985some} and \citet{Davidson1993estimation} proposed several such modifications that are now readily available in software. 
+Based upon an extensive set of simulations, \citet{Long2000using} demonstrated that one of these modifications, known as HC3, performs substantially better than the others.
+As a result, HC3 is the default in software such as the R package \texttt{sandwich} \citep{Zeileis2004econometric}, although White's original HCCME remains the default in SAS \texttt{proc reg} and Stata's \texttt{regress} command with \texttt{vce(robust)}. 
+More recently, several further variations on the HCCMEs have been proposed \citep{Cribari-Neto2004asymptotic, Cribari-Neto2007inference, Cribari-Neto2011new}, which aim to improve upon the performance of HC in models where the regressors exhibit high leverage. 
+For hypothesis testing, HCCMEs are typically used to calculate t-statistics, which are compared to standard normal or $t(n - p)$ reference distributions, where $n$ is the sample size and $p$ is the dimension of the coefficient vector.
 
-Another approach to improving the small-sample properties of hypothesis tests based on HCCMEs is to find a better approximation to the null sampling distribution of the test statistic. 
+An alternative approach to improving the small-sample properties of hypothesis tests based on HCCMEs is to find a better approximation to the null sampling distribution of the test statistic. 
 Several such approximations have been proposed, including Satterthwaite approximations \citep{Lipsitz1999degrees}, Edgeworth approximations \citep{Rothenberg1988approximate, Kauermann2001note}, and saddlepoint approximations \citep{McCaffrey2006improved}. 
 Although there is evidence that each of these approximations improves upon the standard, large-sample tests, their performance has been examined only under a limited range of conditions. 
-Moreover, it appears that these approximations have been developed independently and without reference to previous work, and their performance has never been compared under a common set of conditions. 
+Moreover, it appears that these approximations have been developed in isolation, without reference to previous work, and they have received little or no attention in recent reviews \citep[e.g., none are discussed by][]{MacKinnon2013thirty}. 
 In contrast to the various HC corrections, to our knowledge, none of the distributional approximations are implemented in standard software packages for data analysis. 
 
 In this paper, we review the various small-sample approximations for hypothesis tests based on HCCMEs, using a common notation in order to facilitate comparisons among them. In so doing, we identify several further variations on the approximations that have not previously been considered. We then evaluate the performance of these approximations, along with the standard methods, in a large simulation study. The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.
@@ -171,7 +172,7 @@ If the errors are homoskedastic, so that $\sigma_i^2 = \sigma^2$ for $i = 1,...,
 The variance of $\bs\beta$ is then estimated by $\bm{V}^{hom} = \hat\sigma^2 \bm{M}$, where $\hat\sigma^2 = \left(\sum_{i=1}^n e_i^2\right) / (n - p)$. 
 Under $H_0$ and assuming that the errors are normally distributed, the test statistic follows a $t$ distribution with $n - p$ degrees of freedom. 
 Thus, $H_0$ is rejected if $\left|T\left(\bm{V}^{hom}\right)\right| > F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right)$, where $F_t^{-1}(x; \nu)$ is the quantile function for a $t$ distribution with $\nu$ degrees of freedom. 
-However, if the errors are instead heteroskedastic, the variance estimator $\bm{V}^{hom}$ will be inconsistent and this t test will generally have incorrect size. 
+If the errors are instead heteroskedastic, the variance estimator $\bm{V}^{hom}$ will be inconsistent and this t test will generally have incorrect size. 
 
 \subsection{HCCMEs}
 
@@ -180,12 +181,12 @@ Under the general model that allows for heteroskedasticity, the true variance of
 \label{eq:var_beta}
 \Var\left(\bs{\hat\beta}\right) = \frac{1}{n} \bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}'\right) \bm{M}
 \end{equation}
-The HCCCMEs all have the general form, which involves estimating $\Var\left(\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates involving the squared residuals:
+The HCCCMEs estimate $\Var\left(\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates involving the squared residuals. They all have the same general form:  
 \begin{equation}
 \label{eq:sandwich}
 \bm{V}^{HC} = \frac{1}{n} \bm{M} \left(\frac{1}{n}\sum_{i=1}^n \omega_i e_i^2 \bm{x}_i\bm{x}'\right)\bm{M} 
 \end{equation}
-where $\omega_{1},...,\omega_{n}$ are correction terms that differ for the various HC estimators. 
+where $\omega_{1},...,\omega_{n}$ are weighting terms that differ for the various HC estimators. 
 Under weak assumptions, the weak law of large numbers ensures that the middle term in Equation (\ref{eq:sandwich}) converges to the corresponding term in (\ref{eq:var_beta}) as the sample size increases. 
 Furthermore, the robust Wald statistic $T\left(\bm{V}^{HC}\right)$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. 
 Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T\left(\bm{V}^{HC}\right)\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. 
@@ -193,21 +194,24 @@ In practice, it is common to instead use the critical value from a $t$ distribut
 
 \citet{White1980heteroskedasticity} originally described the HCCME without any correction factor, which is equivalent to taking $\omega_i = 1$ for $i = 1,...,n$. 
 This form has come to be known as HC0. 
-Subsequently, various correction factors have been proposed in order to improve on the finite-sample behavior of HC0. 
-Following common convention, we refer to these correction factors by number. 
+Subsequently, various correction factors have been proposed that aim to improve on the finite-sample behavior of HC0. 
+Following common convention, we refer to these correction factors by number. Letting $h_i = \bm{x}_i \bm{M} \bm{x}_i'$ denote the hat value for unit $i$, the correction factors are as follows:
+\begin{align*}
+\text{HC1:} \qquad \omega_i &= n / (n - p) \\
+\text{HC2:} \qquad \omega_i &= (1 - h_i)^{-1} \\
+\text{HC3:} \qquad \omega_i &= (1 - h_i)^{-2} \\
+\text{HC4:} \qquad \omega_i &= (1 - h_i)^{-\delta}, \qquad \delta_i = \min\{h_i n / p, 4\} \\
+\text{HC4m:} \qquad \delta_i &= \min\left\{h_i n / p, 1 \right\} + \min\left\{h_i n / p, 1.5 \right\} \\
+\text{HC5:} \qquad \delta_i &= \frac{1}{2}\min\left\{h_i n / p, \max \left\{4, 0.7 h_{(n)} n / p\right\}\right\}
+\end{align*}
 
-\citet{MacKinnon1985some} suggested HC1, which takes $\omega_i = n / (n - p)$ for $i = 1,...,n$, and HC2, which uses $\omega_i = \left(1 - h_i\right)^{-1}$, where $h_i = \bm{x}_i \bm{M} \bm{x}_i'$ is the hat value for unit $i$. 
+\citet{MacKinnon1985some} suggested HC1, which takes $\omega_i = n / (n - p)$ for $i = 1,...,n$, and HC2, which uses $\omega_i = \left(1 - h_i\right)^{-1}$, where . 
 HC2 has the property that $\bm{V}^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
 \citet{Davidson1993estimation} proposed HC3, which uses $\omega_i =  \left(1 - h_i\right)^{-2}$ and closely approximates a leave-on-out jackknife variance estimator. 
 
 Cribari-Neto and colleagues subsequently proposed three further variations, HC4 \citep{Cribari-Neto2004asymptotic}, HC4m \citep{Cribari-Neto2011new}, and HC5 \citep{Cribari-Neto2007inference}, all of which aim to improve upon HC3 for design matrices where some observations are very influential. 
 In each variation, the correction factor has the form $\omega_i = \left(1 - h_i\right)^{-\delta_i}$ for some value of $\delta_i$. 
 The exponent terms for these three variations are:
-\begin{align*}
-\text{HC4:} \qquad \delta_i &= \min\{h_i n / p, 4\} \\
-\text{HC4m:} \qquad \delta_i &= \min\left\{h_i n / p, 1 \right\} + \min\left\{h_i n / p, 1.5 \right\} \\
-\text{HC5:} \qquad \delta_i &= \frac{1}{2}\min\left\{h_i n / p, \max \left\{4, 0.7 h_{(n)} n / p\right\}\right\}
-\end{align*}
 where $h_{(n)} = \max\left\{h_{1},...,h_{n}\right\}$.
 All of these correction factors inflate the squared residual terms to a greater extent when the observation has a higher degree of leverage. HC4 truncates the degree of inflation at 4 times the average leverage. Compared to HC4, HC4m inflates observations with lower leverage more strongly, but it also truncates the maximum degree of inflation at 2.5 times the average. In HC5, the truncation depends on the maximum leverage value but the degree of inflation will tend to be smaller than HC4. 
 
