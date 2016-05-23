@@ -1,0 +1,89 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Cribari-Neto}{2004}{Cribari-Neto2004asymptotic}
+Cribari-Neto, F.  \harvardyearleft 2004\harvardyearright , `{Asymptotic
+  inference under heteroskedasticity of unknown form}', {\em Computational
+  Statistics and Data Analysis} {\bf 45}(2),~215--233.
+
+\harvarditem{Cribari-Neto \harvardand\ da~Silva}{2011}{Cribari-Neto2011new}
+Cribari-Neto, F. \harvardand\ da~Silva, W.~B.  \harvardyearleft
+  2011\harvardyearright , `{A new heteroskedasticity-consistent covariance
+  matrix estimator for the linear regression model}', {\em Advances in
+  Statistical Analysis} {\bf 95}(2),~129--146.
+
+\harvarditem[Cribari-Neto et~al.]{Cribari-Neto, Souza \harvardand\
+  Vasconcellos}{2007}{Cribari-Neto2007inference}
+Cribari-Neto, F., Souza, T.~C. \harvardand\ Vasconcellos, K. L.~P.
+  \harvardyearleft 2007\harvardyearright , `{Inference under heteroskedasticity
+  and leveraged data}', {\em Communications in Statistics - Theory and Methods}
+  {\bf 36}(10),~1877--1888.
+
+\harvarditem{Davidson \harvardand\ MacKinnon}{1993}{Davidson1993estimation}
+Davidson, R. \harvardand\ MacKinnon, J.~G.  \harvardyearleft
+  1993\harvardyearright , {\em {Estimation and Inference in Econometrics}},
+  Oxford University Press, New York, NY.
+
+\harvarditem{Eicker}{1967}{Eicker1967limit}
+Eicker, F.  \harvardyearleft 1967\harvardyearright , {Limit theorems for
+  regressions with unequal and dependent errors}, {\em in} `Proceedings of the
+  Fifth Berkeley symposium on Mathematical Statistics and Probability',
+  University of California Press, Berkeley, CA, pp.~59--82.
+
+\harvarditem{Huber}{1967}{Huber1967behavior}
+Huber, P.~J.  \harvardyearleft 1967\harvardyearright , {The behavior of maximum
+  likelihood estimates under nonstandard conditions}, {\em in} `Proceedings of
+  the Fifth Berkeley symposium on Mathematical Statistics and Probability',
+  University of California Press, Berkeley, CA, pp.~221--233.
+
+\harvarditem{Kauermann \harvardand\ Carroll}{2001}{Kauermann2001note}
+Kauermann, G. \harvardand\ Carroll, R.~J.  \harvardyearleft
+  2001\harvardyearright , `{A note on the efficiency of sandwich covariance
+  matrix estimation}', {\em Journal of the American Statistical Association}
+  {\bf 96}(456),~1387--1396.
+
+\harvarditem[Lipsitz et~al.]{Lipsitz, Ibrahim \harvardand\
+  Parzen}{1999}{Lipsitz1999degrees}
+Lipsitz, S.~R., Ibrahim, J.~G. \harvardand\ Parzen, M.  \harvardyearleft
+  1999\harvardyearright , `{A degrees-of-freedom approximation for a
+  t-statistic with heterogeneous variance}', {\em Journal of the Royal
+  Statistical Society: Series D (The Statistician)} {\bf 48}(4),~495--506.
+
+\harvarditem{Long \harvardand\ Ervin}{2000}{Long2000using}
+Long, J.~S. \harvardand\ Ervin, L.~H.  \harvardyearleft 2000\harvardyearright ,
+  `{Using heteroscedasticity consistent standard errors in the linear
+  regression model}', {\em The American Statistician} {\bf 54}(3),~217--224.
+
+\harvarditem{MacKinnon}{2013}{MacKinnon2013thirty}
+MacKinnon, J.~G.  \harvardyearleft 2013\harvardyearright , {Thirty years of
+  heteroskedasticity-robust inference}, {\em in} X.~Chen \harvardand\ N.~R.
+  Swanson, eds, `Recent Advances and Future Directions in Causality,
+  Prediction, and Specification Analysis', Springer New York, New York, NY.
+
+\harvarditem{MacKinnon \harvardand\ White}{1985}{MacKinnon1985some}
+MacKinnon, J.~G. \harvardand\ White, H.  \harvardyearleft 1985\harvardyearright
+  , `{Some heteroskedasticity-consistent covariance matrix estimators with
+  improved finite sample properties}', {\em Journal of Econometrics} {\bf
+  29},~305--325.
+
+\harvarditem{McCaffrey \harvardand\ Bell}{2006}{McCaffrey2006improved}
+McCaffrey, D.~F. \harvardand\ Bell, R.~M.  \harvardyearleft
+  2006\harvardyearright , `{Improved hypothesis testing for coefficients in
+  generalized estimating equations with small samples of clusters.}', {\em
+  Statistics in medicine} {\bf 25}(23),~4081--98.
+
+\harvarditem{Rothenberg}{1988}{Rothenberg1988approximate}
+Rothenberg, T.  \harvardyearleft 1988\harvardyearright , `{Approximate power
+  functions for some robust tests of regression coefficients}', {\em
+  Econometrica} {\bf 56}(5),~997--1019.
+
+\harvarditem{White}{1980}{White1980heteroskedasticity}
+White, H.  \harvardyearleft 1980\harvardyearright , `{A
+  heteroskedasticity-consistent covariance matrix estimator and a direct test
+  for heteroskedasticity}', {\em Econometrica} {\bf 48}(4),~817--838.
+
+\harvarditem{Zeileis}{2004}{Zeileis2004econometric}
+Zeileis, A.  \harvardyearleft 2004\harvardyearright , `{Econometric computing
+  with HC and HAC covariance matrix estimators}', {\em Journal of Statistical
+  Software} {\bf 11}(10),~1--17.
+
+\end{thebibliography}
