@@ -1,5 +1,11 @@
 \begin{thebibliography}{xx}
 
+\harvarditem{Bell \harvardand\ McCaffrey}{2002}{Bell2002bias}
+Bell, R.~M. \harvardand\ McCaffrey, D.~F.  \harvardyearleft
+  2002\harvardyearright , `{Bias reduction in standard errors for linear
+  regression with multi-stage samples}', {\em Survey Methodology} {\bf
+  28}(2),~169--181.
+
 \harvarditem{Cribari-Neto}{2004}{Cribari-Neto2004asymptotic}
 Cribari-Neto, F.  \harvardyearleft 2004\harvardyearright , `{Asymptotic
   inference under heteroskedasticity of unknown form}', {\em Computational
@@ -64,6 +70,11 @@ MacKinnon, J.~G. \harvardand\ White, H.  \harvardyearleft 1985\harvardyearright
   , `{Some heteroskedasticity-consistent covariance matrix estimators with
   improved finite sample properties}', {\em Journal of Econometrics} {\bf
   29},~305--325.
+
+\harvarditem{Mathai \harvardand\ Provost}{1992}{mathai1992quadratic}
+Mathai, A.~M. \harvardand\ Provost, S.~B.  \harvardyearleft
+  1992\harvardyearright , {\em {Quadratic forms in random variables: theory and
+  applications}}, M. Dekker, New York.
 
 \harvarditem{McCaffrey \harvardand\ Bell}{2006}{McCaffrey2006improved}
 McCaffrey, D.~F. \harvardand\ Bell, R.~M.  \harvardyearleft
