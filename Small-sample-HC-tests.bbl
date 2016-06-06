@@ -41,6 +41,11 @@ Huber, P.~J.  \harvardyearleft 1967\harvardyearright , {The behavior of maximum
   the Fifth Berkeley symposium on Mathematical Statistics and Probability',
   University of California Press, Berkeley, CA, pp.~221--233.
 
+\harvarditem{Imbens \harvardand\ Kolesar}{2015}{Imbens2015robust}
+Imbens, G.~W. \harvardand\ Kolesar, M.  \harvardyearleft 2015\harvardyearright
+  , {Robust standard errors in small samples: Some practical advice}.
+\newline\harvardurl{https://www.princeton.edu/{~}mkolesar/papers/small-robust.pdf}
+
 \harvarditem{Kauermann \harvardand\ Carroll}{2001}{Kauermann2001note}
 Kauermann, G. \harvardand\ Carroll, R.~J.  \harvardyearleft
   2001\harvardyearright , `{A note on the efficiency of sandwich covariance
@@ -86,6 +91,16 @@ McCaffrey, D.~F. \harvardand\ Bell, R.~M.  \harvardyearleft
 Rothenberg, T.  \harvardyearleft 1988\harvardyearright , `{Approximate power
   functions for some robust tests of regression coefficients}', {\em
   Econometrica} {\bf 56}(5),~997--1019.
+
+\harvarditem{Satterthwaite}{1946}{Satterthwaite1946approximate}
+Satterthwaite, F.~E.  \harvardyearleft 1946\harvardyearright , `{An approximate
+  distribution of estimates of variance components}', {\em Biometrics bulletin}
+  {\bf 2}(6),~110--114.
+
+\harvarditem{Welch}{1947}{Welch1947generalization}
+Welch, B.  \harvardyearleft 1947\harvardyearright , `{The generalization of
+  Student's' problem when several different population variances are
+  involved}', {\em Biometrika} {\bf 34}(1/2),~28--35.
 
 \harvarditem{White}{1980}{White1980heteroskedasticity}
 White, H.  \harvardyearleft 1980\harvardyearright , `{A
