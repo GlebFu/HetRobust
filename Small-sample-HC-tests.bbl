@@ -1,5 +1,10 @@
 \begin{thebibliography}{xx}
 
+\harvarditem{Arellano}{1987}{Arellano1987computing}
+Arellano, M.  \harvardyearleft 1987\harvardyearright , `{Computing robust
+  standard errors for within-groups estimators}', {\em Oxford Bulletin of
+  Economics and Statistics} {\bf 49}(4),~431--434.
+
 \harvarditem{Bell \harvardand\ McCaffrey}{2002}{Bell2002bias}
 Bell, R.~M. \harvardand\ McCaffrey, D.~F.  \harvardyearleft
   2002\harvardyearright , `{Bias reduction in standard errors for linear
@@ -41,6 +46,10 @@ Eicker, F.  \harvardyearleft 1967\harvardyearright , {Limit theorems for
   Fifth Berkeley symposium on Mathematical Statistics and Probability',
   University of California Press, Berkeley, CA, pp.~59--82.
 
+\harvarditem{Fuller}{1975}{fuller1975regression}
+Fuller, W.~A.  \harvardyearleft 1975\harvardyearright , `Regression analysis
+  for sample survey', {\em Sankhya Series C} {\bf 37},~117--132.
+
 \harvarditem{Huber}{1967}{Huber1967behavior}
 Huber, P.~J.  \harvardyearleft 1967\harvardyearright , {The behavior of maximum
   likelihood estimates under nonstandard conditions}, {\em in} `Proceedings of
@@ -58,6 +67,11 @@ Kauermann, G. \harvardand\ Carroll, R.~J.  \harvardyearleft
   matrix estimation}', {\em Journal of the American Statistical Association}
   {\bf 96}(456),~1387--1396.
 
+\harvarditem{Liang \harvardand\ Zeger}{1986}{Liang1986longitudinal}
+Liang, K.-Y. \harvardand\ Zeger, S.~L.  \harvardyearleft 1986\harvardyearright
+  , `{Longitudinal data analysis using generalized linear models}', {\em
+  Biometrika} {\bf 73}(1),~13--22.
+
 \harvarditem[Lipsitz et~al.]{Lipsitz, Ibrahim \harvardand\
   Parzen}{1999}{Lipsitz1999degrees}
 Lipsitz, S.~R., Ibrahim, J.~G. \harvardand\ Parzen, M.  \harvardyearleft
@@ -69,6 +83,11 @@ Lipsitz, S.~R., Ibrahim, J.~G. \harvardand\ Parzen, M.  \harvardyearleft
 Long, J.~S. \harvardand\ Ervin, L.~H.  \harvardyearleft 2000\harvardyearright ,
   `{Using heteroscedasticity consistent standard errors in the linear
   regression model}', {\em The American Statistician} {\bf 54}(3),~217--224.
+
+\harvarditem{Lugannani \harvardand\ Rice}{1980}{Lugannani1980saddlepoint}
+Lugannani, R. \harvardand\ Rice, S.  \harvardyearleft 1980\harvardyearright ,
+  `{Saddle point approximation for the distribution of the sum of independent
+  random variables}', {\em Advances in Applied Probability} {\bf 12}(2),~475.
 
 \harvarditem{MacKinnon}{2013}{MacKinnon2013thirty}
 MacKinnon, J.~G.  \harvardyearleft 2013\harvardyearright , {Thirty years of
@@ -103,6 +122,12 @@ Satterthwaite, F.~E.  \harvardyearleft 1946\harvardyearright , `{An approximate
   distribution of estimates of variance components}', {\em Biometrics bulletin}
   {\bf 2}(6),~110--114.
 
+\harvarditem{Skinner}{1989}{skinner1989domain}
+Skinner, C.~J.  \harvardyearleft 1989\harvardyearright , {Domain means,
+  regression and multivariate analyses}, {\em in} C.~J. Skinner, D.~Holt
+  \harvardand\ T.~F. Smith, eds, `Analysis of complex surveys', John Wiley \&
+  Sons, New York, NY, pp.~59--88.
+
 \harvarditem{Welch}{1947}{Welch1947generalization}
 Welch, B.  \harvardyearleft 1947\harvardyearright , `{The generalization of
   Student's' problem when several different population variances are
@@ -112,6 +137,10 @@ Welch, B.  \harvardyearleft 1947\harvardyearright , `{The generalization of
 White, H.  \harvardyearleft 1980\harvardyearright , `{A
   heteroskedasticity-consistent covariance matrix estimator and a direct test
   for heteroskedasticity}', {\em Econometrica} {\bf 48}(4),~817--838.
+
+\harvarditem{White}{1984}{white1984asymptotic}
+White, H.  \harvardyearleft 1984\harvardyearright , {\em Asymptotic theory for
+  econometricians}, Academic Press, Inc., Orlando, FL.
 
 \harvarditem{Zeileis}{2004}{Zeileis2004econometric}
 Zeileis, A.  \harvardyearleft 2004\harvardyearright , `{Econometric computing

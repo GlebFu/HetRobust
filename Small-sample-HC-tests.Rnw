@@ -78,10 +78,10 @@ The text of your abstract.  200 or fewer words.
 Linear regression models, estimated by ordinary least squares (OLS), are one of the most important and ubiquitous tools in applied statistical work.
 Classically, hypothesis tests and confidence intervals for linear regression coefficients rely on the assumption that the model errors are homoskedastic, or have constant variance for all values of the covariates. 
 In practice though, it can be difficult to diagnose violations of this assumption, and similarly difficult to construct and defend other assumptions about how the error variances related to the covariates. 
-Thus, it is often desirable to use methods of inference that remain valid for models with heteroskedasticity of an unknown form.\todo{Connect to Behrens-Fisher problem and cluster-robust variance estimation?} 
+Thus, it is often desirable to use methods of inference that remain valid for models with heteroskedasticity of an unknown form.
 
 One well-known approach to inference in this setting is based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs), which yield asymptotically consistent estimates of the sampling variance of OLS coefficient estimates under quite general conditions. 
-HCCMEs were introduced in the statistics literature by \citet{Huber1967behavior} and \citet{Eicker1967limit}, in the survey sampling literature by\todo{add citations} and in econometrics by \citet{White1980heteroskedasticity}. 
+HCCMEs were introduced in the statistics literature by \citet{Huber1967behavior} and \citet{Eicker1967limit}, in the survey sampling literature by \citet{fuller1975regression}\todo{Kish \& Frankel, 1974?}, and in econometrics by \citet{White1980heteroskedasticity}. 
 They are an attractive tool because they rely on weaker assumptions than classical methods. 
 However, they also have the drawback that it is not always clear whether a given sample is sufficently large to trust the asymptotic approximations by which they are warranted. 
 Furthermore, when the sample size is small, it is known that some of the HCCMEs tend to be too liberal, producing variance estimates that are biased towards zero and hypothesis tests with greater than nominal size \citep{Long2000using}. 
@@ -104,10 +104,11 @@ In so doing, we identify several further variations on the approximations that h
 We then evaluate the performance of these approximations, along with the standard methods, in a large simulation study. 
 The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.
 
-The HCCMEs studied in this paper are a special case of the general class of cluster-robust covariance matrix estimators (CRCMEs), also known as sandwich estimators or linearization estimators, which are commonly used in regression analysis of multi-stage survey data \citep{skinner1989domain}, econometric panel data models \citep{Arellano1987computing, white1984asymptotic}, and generalized estimating equations for longitudinal data \citep{Liang1986longitudinal}. 
+HCCMEs are a special case of the general class of cluster-robust covariance matrix estimators (CRCMEs), also known as sandwich estimators or linearization estimators, which are commonly used in regression analysis of multi-stage survey data \citep{skinner1989domain}, econometric panel data models \citep{Arellano1987computing, white1984asymptotic}, and generalized estimating equations for longitudinal data \citep{Liang1986longitudinal}. 
 CRCMEs are useful for variance estimation in settings where the error structure is both heteroskedastic and dependent within clusters of observations.
 Some of the small-sample tests considered in this paper were developed for CRCMEs \citep[i.e.,]{Bell2002bias, McCaffrey2006improved}, while the others are readily extended to this more general case.
-We focus on 
+We focus on the case of heteroskedastic (but not clustered) linear regression for sake of clarity and in order to keep the simulation studies tractable. 
+Furthermore, the similarity of HCCMEs and CRCMEs suggests that our findings will provide direction for which small-sample methods will perform well in the more general case.
 
 \todo{Outline paper}
 
@@ -266,7 +267,7 @@ Using the HC2 correction factors, the degrees of freedom simplify further to
 
 \subsection{Kauermann and Carroll's Edgeworth approximation}
 
-\citet{Kauermann2001note} proposed two confidence intervals for $\bm{c}'\bs{\hat\beta}$ based on an Edgeworth approximation to the distribution of $T^{HC}$. 
+\citet{Kauermann2001note} proposed approximate confidence intervals for $\bm{c}'\bs{\hat\beta}$ based on an Edgeworth approximation to the distribution of $T^{HC}$. 
 Their approximation is based on the assumption that $V^{HC}$ is unbiased and independent of $\bm{c}'\bs{\hat\beta}$. 
 Let $\Phi(\cdot)$ and $\phi(\cdot)$ denote the standard normal cumulative distribution function and density function and let $z_\alpha = \Phi^{-1}\left(1 - \alpha / 2\right)$ denote the $1 - \alpha / 2$ critical value. 
 The hypothesis testing procedure corresponding to the confidence interval proposed by \citet{Kauermann2001note} rejects the null if $\left|T^{HC} \right| > z_{\tilde\alpha}$, where $\tilde\alpha$ is defined implicitly as the solution to 
@@ -274,13 +275,18 @@ The hypothesis testing procedure corresponding to the confidence interval propos
 \label{eq:Kauermann_crit}
 \alpha = \tilde\alpha + \frac{\phi\left(z_{\tilde\alpha}\right)}{2 \nu}\left(z_{\tilde\alpha}^3 + z_{\tilde\alpha}\right).
 \end{equation}
-Equivalently, the $p$-value for the test is given by \[
-p = 2 \left[1 - \Phi\left(\left|T^{HC}\right|\right)\right] + \frac{\phi\left(\left|T^{HC}\right|\right)}{2 \nu}\left(\left|T^{HC}\right|^3 + \left|T^{HC}\right|\right). \]
-Kauermann and Carroll focus on the HC2 variance estimator and calculate its degrees of freedom based on the working assumption that the errors are actually homoskedastic, as in Equation (\ref{eq:nu_hom_HC2}). An alternative would be to use the empirical degrees of freedom estimate, $\nu_E$, from Equation(\ref{eq:nu_empirical}). 
+Equivalently, the $p$-value for the test is given by 
+\begin{equation}
+\label{eq:Kauermann_pval}
+p = 2 \left[1 - \Phi\left(\left|T^{HC}\right|\right)\right] + \frac{\phi\left(\left|T^{HC}\right|\right)}{2 \nu}\left(\left|T^{HC}\right|^3 + \left|T^{HC}\right|\right).
+\end{equation}
+Kauermann and Carroll focus on the HC2 variance estimator and calculate its degrees of freedom based on the working assumption that the errors are actually homoskedastic, as $\nu_H$ from Equation (\ref{eq:nu_hom_HC2}). An alternative would be to use the empirical degrees of freedom estimate, $\nu_E$, from Equation(\ref{eq:nu_empirical}). 
 
 \citet{Kauermann2001note} also offer the following further approximation for the critical value $z_{\tilde\alpha}$:
-\[
-z_{\tilde\alpha} = F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right) + \frac{\left(z_\alpha^3 + z_\alpha\right)}{4}\left(\frac{1}{\nu} - \frac{\left(\sum_{i=1}^n g_i^2\right)^2}{n - p}\right). \]
+\begin{equation}
+\label{eq:Kauermann_approx}
+z_{\tilde\alpha} = F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right) + \frac{z_\alpha^3 + z_\alpha}{4 \nu} - \frac{\left(z_\alpha^3 + z_\alpha\right)\left(\sum_{i=1}^n g_i^2\right)^2}{4 (n - p)}.
+\end{equation}
 This further approximation is convenient for calculating a confidence interval for $\bm{c}'\bs{\hat\beta}$ because it avoids the need to numerically solve Equation (\ref{eq:Kauermann_crit}). 
 The simulation studies reported in the following section evaluate both approximations.\todo{Names for each approximation?}
 
@@ -295,43 +301,46 @@ f_i &= n g_i \sigma_i^2 - n \sum_{j=1}^n g_j h_{ij} \sigma_j^2 \\
 q_i &= \left(\sum_{j=1}^n h_{ij}^2 \sigma_j^2 \right) - 2 h_{ii} \sigma_i^2 \\
 a &= \left(\sum_{i=1}^n g_i^2 f_i^2\right) \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^{-2} \\
 b &= \left(\sum_{i=1}^n g_i^2  q_i\right) \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^{-1} \\
-\nu_R &= 2\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2 \left(\sum_{i=1}^n g_i^4 \sigma_i^4\right)^{-1}
+\nu_R &= \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2 \left(\sum_{i=1}^n g_i^4 \sigma_i^4\right)^{-1}
 \end{align*}
 Rothenberg's Edgeworth approximation is then given by 
 \[
-\Pr\left(T^{HC} \leq t \right) \approx \Phi\left[t \left(1 - \frac{1 + t^2}{2 \nu_R} + \frac{a\left(t^2 - 1\right) + b}{2}\right)\right]. 
+\Pr\left(T^{HC} \leq t \right) \approx \Phi\left[t \left(1 - \frac{1 + t^2}{4 \nu_R} + \frac{a\left(t^2 - 1\right) + b}{2}\right)\right]. 
 \]
 Here, the $a$ term measures covariance between $\bm{c}'\bs{\hat\beta}$ and $V^{HC}$; the $b$ term measures the relative bias of $V^{HC}$; and $\nu_R$ is an approximate degrees of freedom measure.
 
 Based on this Edgeworth approximation, \citet{Rothenberg1988approximate} proposed a test in which the null hypothesis is rejected if $\left|T^{HC}\right| > t_{\alpha}$, where the critical value $t_{\alpha}$ is defined by 
 \begin{equation}
 \label{eq:edge_Roth}
-t_\alpha = z_{\alpha}\left[1 + \frac{z_{\alpha}^2 + 1}{2 \nu} - \frac{a\left(z_{\alpha}^2 - 1\right) + b}{2}\right].
-\end{equation}\todo{Is this right??? Compare to Kauermann and Carroll's approximate CI.}
+t_\alpha = z_{\alpha} + \frac{z_{\alpha}^3 + z_{\alpha}}{4 \nu} - \frac{z_{\alpha}}{2}\left[a\left(z_{\alpha}^2 - 1\right) + b \right].
+\end{equation}
+It can be seen that this critical value is quite similar to Kauermann and Carroll's closed-form approximate critical value (Equation \ref{eq:Kauermann_approx}), the only differences being that the first term uses a standard normal quantile rather than a $t_{n - p}$ quantile and that the third terms differ. 
+
 In practice, the $a$ and $b$ terms and the degrees of freedom $\nu_R$ must be estimated because they depend on the unknown error variances.
 Rothenberg proposed to do so by replacing values of $\sigma_i^2$ with $e_i^2$ and values of $\sigma_i^4$ with $e_i^4 / 3$.
 An alternative---not considered by Rothenberg---is to calculate $a$, $b$, and $\nu$ based on the assumption that the errors are homoskedastic. In this case, $a = 0$, 
 \[
 b = \frac{\sum_{i=1}^n h_{ii} g_i^2}{\sum_{i=1}^n g_i^2}, \qquad \text{and} \qquad 
-\nu_R = \frac{2\left(\sum_{i=1}^n g_i^2 \right)^2}{\sum_{i=1}^n g_i^4}.
+\nu_R = \frac{\left(\sum_{i=1}^n g_i^2 \right)^2}{\sum_{i=1}^n g_i^4}.
 \]
-Using the "model-based" estimates of the adjustment quantities may be a reasonable alternative, considering that if the bias of $V^{HC}$ could be well-estimated empirically, one could simply correct the estimator itself. 
+Using the "model-based" estimates of the adjustment quantities may be reasonable, considering that if the bias of $V^{HC}$ could be well-estimated empirically, one could simply correct the estimator itself. 
 
 \subsection{Saddlepoint approximation}
 
 \citet{McCaffrey2006improved} developed small-sample adjustments to test statistics based on cluster-robust variance estimators, of which HC variance estimators are a special case. 
 They consider both a Satterthwaite approximation (similar to Lipsitz et al.) and a saddlepoint approximation for the distribution of the test statistic, finding that the latter produced tests with more accurate size. 
-The saddlepoint approximation is obtained as follows. 
-Observe that the cumulative distribution of $T^{HC}$ can be expressed as \[
+
+The saddlepoint technique is a means to approximate the distribution of a random variable based on its cumulant generating function.
+The test proposed by \citet{McCaffrey2006improved} is derived by first representing $\left|T^{HC}\right|$ as a weighted sum of independent $\chi^2_1$ variates, then approximating its cumulative distribution using the \citet{Lugannani1980saddlepoint} saddlepoint formula. 
+The cumulative distribution of $T^{HC}$ can be expressed as \[
 \Pr\left(\left|T^{HC}\right| \leq t\right) = \Pr\left(\frac{\left(\bm{c}\bs{\hat\beta} - k\right)^2}{\Var\left(\bm{c}\bs{\hat\beta}\right)} - t^2 \frac{V^{HC}}{\Var\left(\bm{c}\bs{\hat\beta}\right)} \leq 0\right). \]
-Note that $\left(\bm{c}\bs{\hat\beta} - k\right)^2 / \Var\left(\bm{c}\bs{\hat\beta}\right) \sim \chi^2_1$ and that $V^{HC}$ is distributed as a weighted sum of $\chi^2_1$ random variables, as in Equation (\ref{eq:weighted_sum_chi_sq}). 
+Observe that $\left(\bm{c}\bs{\hat\beta} - k\right)^2 / \Var\left(\bm{c}\bs{\hat\beta}\right) \sim \chi^2_1$ and that $V^{HC}$ is distributed as a weighted sum of $\chi^2_1$ random variables, as in Equation (\ref{eq:weighted_sum_chi_sq}). 
 \citet{McCaffrey2006improved} assume that $V^{HC}$ is unbiased, so that \[
 \E\left(V^{HC}\right) = \tr\left[\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\right] = \sum_{j=1}^{n - p} \lambda_j, \]
 and that $\bs{\hat\beta}$ is independent of $V^{HC}$. 
-It then follows that the $\Pr\left(T^{HC} \leq t\right)$ can be expressed as $\Pr(Z \leq 0)$, where $Z = \sum_{i=0}^{n-p} \gamma_i Z_i$,
+It then follows that the $\Pr\left(\left|T^{HC}\right| \leq t\right)$ can be expressed as $\Pr(Z \leq 0)$, where $Z = \sum_{i=0}^{n-p} \gamma_i Z_i$,
 $\gamma_0 = 1$, $\gamma_i = -t^2 \lambda_i / \sum_{j=1}^{n - p} \lambda_j$ for $i = 1,...,n - p$, and $Z_0,...,Z_{n-p} \iid \chi^2_1$.
 
-The saddlepoint technique is a means to approximate the distribution of $Z$.\todo{Cite} 
 Let $s$ be the saddlepoint, defined implicitly as the solution to \[
 \sum_{i=0}^{n-p} \frac{\gamma_i}{1 - 2 \gamma_i s} = 0. \]
 Note that the solution to the saddlepoint equation will be in the range $\left(\left(2 \min\left\{\gamma_0,...,\gamma_{n-p}\right\}\right)^{-1}, 0 \right)$ if $\sum_{i=0}^{n-p} \gamma_i > 0$ and in the range $\left(0, \left(2 \max\left\{\gamma_0,...,\gamma_{n-p}\right\}\right)^{-1}\right)$ if $\sum_{i=0}^{n-p} \gamma_i \leq 0$. 
@@ -347,7 +356,7 @@ The saddlepoint approximation is then
 Given an observed value for the $t$-statistic $t^{HC}$, a $p$-value for $H_0$ can be calculated by taking $\gamma_i = -\left(t^{HC}\right)^2 \lambda_i / \sum_{j=1}^n \lambda_j$ for $i = 1,...,n$, finding $s$, $r$, and $q$, and evaluating $1 - \Pr(Z \leq 0)$ using Equation (\ref{eq:saddlepoint_approx}).\todo{Note numerical truncation method.}
 
 The eigenvalues of the matrix $\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$ involve the unknown error variances, and thus must be estimated in order to apply the saddlepoint approximation. 
-\citet{McCaffrey2006improved} suggest doing so based on a working model. 
+\citet{McCaffrey2006improved} propose to do so based on a working model. 
 For instance, assuming that the errors are homoskedastic implies that the eigenvalues of the simpler matrix $\bm{A}\left(\bm{I} - \bm{H}\right)$ may be used in the saddlepoint calculations.\todo{Any closed form expression for these eigenvalues?} 
 An alternative, not considered by \citet{McCaffrey2006improved}, would be to use the eigenvalues of $\bm{A}\left(\bm{I} - \bm{H}\right)\bs{\hat\Sigma}\left(\bm{I} - \bm{H}\right)$, where $\bs{\hat\Sigma} = \diag\left(e_1^2,...,e_n^2\right)$.
 For sake of completeness, the simulation studies examined the performance of both McCaffrey and Bell's working model approach and the empirical approach to calculating the saddlepoint approximation.
