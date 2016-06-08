@@ -284,9 +284,9 @@ Prior to \citet{Kauermann2001note}, \citet{Rothenberg1988approximate} developed 
 Let
 \begin{align*}
 f_i &= n g_i \sigma_i^2 - n \sum_{j=1}^n g_j h_{ij} \sigma_j^2 \\ 
-q_i &= 2 h_{ii} - \sum_{j=1}^n h_{ij}^2 \sigma_j^2 \\
+q_i &= \left(\sum_{j=1}^n h_{ij}^2 \sigma_j^2 \right) - 2 h_{ii} \sigma_i^2 \\
 a &= \left(\sum_{i=1}^n g_i^2 f_i^2\right) \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^{-2} \\
-b &= \left(-\sum_{i=1}^n g_i^2  q_i\right) \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^{-1} \\
+b &= \left(\sum_{i=1}^n g_i^2  q_i\right) \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^{-1} \\
 \nu_R &= 2\left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2 \left(\sum_{i=1}^n g_i^4 \sigma_i^4\right)^{-1}
 \end{align*}
 Rothenberg's Edgeworth approximation is then given by 
@@ -299,41 +299,65 @@ Based on this Edgeworth approximation, \citet{Rothenberg1988approximate} propose
 \begin{equation}
 \label{eq:edge_Roth}
 t_\alpha = z_{\alpha}\left[1 + \frac{z_{\alpha}^2 + 1}{2 \nu} - \frac{a\left(z_{\alpha}^2 - 1\right) + b}{2}\right].
-\end{equation}
+\end{equation}\todo{Is this right??? Compare to Kauermann and Carroll's approximate CI.}
 In practice, the $a$ and $b$ terms and the degrees of freedom $\nu_R$ must be estimated because they depend on the unknown error variances.
 Rothenberg proposed to do so by replacing values of $\sigma_i^2$ with $e_i^2$ and values of $\sigma_i^4$ with $e_i^4 / 3$.
 An alternative---not considered by Rothenberg---is to calculate $a$, $b$, and $\nu$ based on the assumption that the errors are homoskedastic. In this case, $a = 0$, 
 \[
-b = - \frac{\sum_{i=1}^n h_{ii} g_i^2}{\sum_{i=1}^n g_i^2}, \qquad \text{and} \qquad 
-\nu = \frac{2\left(\sum_{i=1}^n g_i^2 \right)^2}{\sum_{i=1}^n g_i^4}.
+b = \frac{\sum_{i=1}^n h_{ii} g_i^2}{\sum_{i=1}^n g_i^2}, \qquad \text{and} \qquad 
+\nu_R = \frac{2\left(\sum_{i=1}^n g_i^2 \right)^2}{\sum_{i=1}^n g_i^4}.
 \]
+Using the "model-based" estimates of the adjustment quantities may be a reasonable alternative, considering that if the bias of $V^{HC}$ could be well-estimated empirically, one could simply correct the estimator itself. 
 
 \subsection{Saddlepoint approximation}
 
-\citet{McCaffrey2006improved} developed small-sample adjustments to test statistics based on cluster-robust variance estimators, of which HC variance estimators are a special case. They consider both a Satterthwaite approximation (similar to Lipsitz et al.) and a saddlepoint approximation for the distribution of the test statistic, finding that the latter produced tests with more accurate size. The saddlepoint approximation is obtained as follows. Let Observe that the cumulative distribution of $t^{HC}_q$ can be expressed as \[
-\Pr\left(t^{HC}_q \leq t\right) = \Pr\left(\frac{\left(\hat\beta_q - c\right)^2}{\Var(\hat\beta_q)} - t^2 \frac{V^{HC}_{qq}}{\Var(\hat\beta_q)} \leq 0\right). \]
-Note that $\left(\hat\beta_q - c\right)^2 / \Var(\hat\beta_q) ~ \chi^2_1$ and that $V^{HC}_{qq}$ is distributed as a weighted sum of $\chi^2_1$ random variables, with weights given by the eigen-values $\lambda_1,...,\lambda_n$ of the matrix $\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$. Assuming that $V^{HC}_{qq}$ is unbiased, so that \[
-\E\left(V^{HC}_{qq}\right) = \tr\left[\bm{A}_{xq} \left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\right] = \sum_{j=1}^n \lambda_j, \]
-and that $\hat\beta_q$ is independent of $V^{HC}_{qq}$, it follows that the $\Pr\left(t^{HC}_q \leq t\right)$ can be expressed as $\Pr(Z \leq 0)$, where $Z = \sum_{i=0}^n \gamma_i z_i$,
-$\gamma_0 = 1$, $\gamma_i = -t^2 \lambda_i / \sum_{j=1}^n \lambda_j$, and $z_0,...,z_n \iid \chi^2_1$.
+\citet{McCaffrey2006improved} developed small-sample adjustments to test statistics based on cluster-robust variance estimators, of which HC variance estimators are a special case. 
+They consider both a Satterthwaite approximation (similar to Lipsitz et al.) and a saddlepoint approximation for the distribution of the test statistic, finding that the latter produced tests with more accurate size. 
+The saddlepoint approximation is obtained as follows. 
+Observe that the cumulative distribution of $T^{HC}$ can be expressed as \[
+\Pr\left(\left|T^{HC}\right| \leq t\right) = \Pr\left(\frac{\left(\bm{c}\bs{\hat\beta} - k\right)^2}{\Var\left(\bm{c}\bs{\hat\beta}\right)} - t^2 \frac{V^{HC}}{\Var\left(\bm{c}\bs{\hat\beta}\right)} \leq 0\right). \]
+Note that $\left(\bm{c}\bs{\hat\beta} - k\right)^2 / \Var\left(\bm{c}\bs{\hat\beta}\right) \sim \chi^2_1$ and that $V^{HC}$ is distributed as a weighted sum of $\chi^2_1$ random variables, as in Equation (\ref{eq:weighted_sum_chi_sq}). 
+\citet{McCaffrey2006improved} assume that $V^{HC}$ is unbiased, so that \[
+\E\left(V^{HC}\right) = \tr\left[\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\right] = \sum_{j=1}^{n - p} \lambda_j, \]
+and that $\bs{\hat\beta}$ is independent of $V^{HC}$. 
+It then follows that the $\Pr\left(T^{HC} \leq t\right)$ can be expressed as $\Pr(Z \leq 0)$, where $Z = \sum_{i=0}^{n-p} \gamma_i Z_i$,
+$\gamma_0 = 1$, $\gamma_i = -t^2 \lambda_i / \sum_{j=1}^{n - p} \lambda_j$ for $i = 1,...,n - p$, and $Z_0,...,Z_{n-p} \iid \chi^2_1$.
 
-The saddlepoint technique is a means to approximate the distribution of $Z$. Let $s$ be the saddlepoint, defined implicitly as the solution to \[
-\sum_{i=0}^n \frac{\gamma_i}{1 - 2 \gamma_i s} = 0. \]
-Note that the solution to the saddlepoint equation will be in the range $\left(\left(2 \min\left\{\gamma_0,...,\gamma_n\right\}\right)^{-1}, 0 \right)$ if $\sum_{i=0}^n \gamma_i > 0$ and in the range $\left(0, \left(2 \max\left\{\gamma_0,...,\gamma_n\right\}\right)^{-1}\right)$ if $\sum_{i=0}^n \gamma_i \leq 0$. Define the quantities $r$ and $q$ as \[
-r = \text{sign}(s)\sqrt{2sz + \sum_{i=0}^n \log\left(1 - 2\gamma_i s\right)}, \qquad q = s \sqrt{2 \sum_{i=0}^n \frac{\gamma_i^2}{\left(1 - 2 \gamma_i s\right)^2}} \]
-for a constant $z$. The saddlepoint approximation is then 
+The saddlepoint technique is a means to approximate the distribution of $Z$.\todo{Cite} 
+Let $s$ be the saddlepoint, defined implicitly as the solution to \[
+\sum_{i=0}^{n-p} \frac{\gamma_i}{1 - 2 \gamma_i s} = 0. \]
+Note that the solution to the saddlepoint equation will be in the range $\left(\left(2 \min\left\{\gamma_0,...,\gamma_{n-p}\right\}\right)^{-1}, 0 \right)$ if $\sum_{i=0}^{n-p} \gamma_i > 0$ and in the range $\left(0, \left(2 \max\left\{\gamma_0,...,\gamma_{n-p}\right\}\right)^{-1}\right)$ if $\sum_{i=0}^{n-p} \gamma_i \leq 0$. 
+Define the quantities $r$ and $q$ as \[
+r = \text{sign}(s)\sqrt{2sz + \sum_{i=0}^{n-p} \log\left(1 - 2\gamma_i s\right)}, \qquad q = s \sqrt{2 \sum_{i=0}^{n-p} \frac{\gamma_i^2}{\left(1 - 2 \gamma_i s\right)^2}} \]
+for a constant $z$. 
+The saddlepoint approximation is then 
 \begin{equation}
 \label{eq:saddlepoint_approx}
-\Pr(Z \leq z) \approx \begin{cases}\Phi(r) + \phi(r)\left[\frac{1}{r} - \frac{1}{q}\right] & s \neq 0 \\
+\Pr(Z \leq z) \approx \begin{cases}\Phi(r) + \phi(r)\left[r^{-1} - q^{-1}\right] & s \neq 0 \\
 \frac{1}{2} + \frac{\sum_{i=0}^n \gamma_i^3}{3 \sqrt\pi \left(\sum_{i=0}^n \gamma_i^2\right)^{3/2}} & s = 0. \end{cases}
-\end{equation}
-Given an observed value for the $t$-statistic $t^{HC}_q$, a $p$-value for $H_0$ can be calculated by taking $\gamma_i = -\left(t^{HC}_q\right)^2 \lambda_i / \sum_{j=1}^n \lambda_j$ for $i = 1,...,n$, finding $s$, $r$, and $q$, and evaluating $1 - \Pr(Z \leq 0)$ using Equation (\ref{eq:saddlepoint_approx}).
+\end{equation}\todo{Cite}
+Given an observed value for the $t$-statistic $t^{HC}$, a $p$-value for $H_0$ can be calculated by taking $\gamma_i = -\left(t^{HC}\right)^2 \lambda_i / \sum_{j=1}^n \lambda_j$ for $i = 1,...,n$, finding $s$, $r$, and $q$, and evaluating $1 - \Pr(Z \leq 0)$ using Equation (\ref{eq:saddlepoint_approx}).\todo{Note numerical truncation method.}
+
+The eigenvalues of the matrix $\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$ involve the unknown error variances, and thus must be estimated in order to apply the saddlepoint approximation. 
+\citet{McCaffrey2006improved} suggest doing so based on a working model. 
+For instance, assuming that the errors are homoskedastic implies that the eigenvalues of the simpler matrix $\bm{A}\left(\bm{I} - \bm{H}\right)$ may be used in the saddlepoint calculations.\todo{Any closed form expression for these eigenvalues?} 
+An alternative, not considered by \citet{McCaffrey2006improved}, would be to use the eigenvalues of $\bm{A}\left(\bm{I} - \bm{H}\right)\bs{\hat\Sigma}\left(\bm{I} - \bm{H}\right)$, where $\bs{\hat\Sigma} = \diag\left(e_1^2,...,e_n^2\right)$.
+For sake of completeness, the simulation studies examined the performance of both McCaffrey and Bell's working model approach and the empirical approach to calculating the saddlepoint approximation.
+
+\subsection{Remarks}
+
+All three/four approximations invoke the assumption that the errors are normally distributed.
+Most approximations also make the assumption that $V^{HC}$ is independent of the OLS coefficient estimator, which will not hold unless the errors are homoskedastic.
+The approximations may differ in the extent to which they rely on these assumptions, and thus the extent to which their performance suffers under data-generating models with non-normal or heteroskedastic errors.
+Some versions of the approximations involve a working model, and it is unclear how discrepancies between the working model and the true data generating model will affect their performance. 
 
 \section{Simulations}
 \label{sec:simulations}
 
-\section{Conclusion}
+\section{Discussion}
 \label{sec:conc}
+
+Cite \citet{Cai2008new} on heteroskedasticity-robust F-tests.
 
 
 \newpage
