@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.2)  7 JUN 2016 21:51
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.2)  8 JUN 2016 08:04
 entering extended mode
 **Small-sample-HC-tests.tex
 (C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.tex
@@ -691,7 +691,7 @@ Overfull \hbox (27.76999pt too wide) in paragraph at lines 393--393
 Here is how much of TeX's memory you used:
  13313 strings out of 493921
  260211 string characters out of 3144871
- 320325 words of memory out of 3000000
+ 320324 words of memory out of 3000000
  16350 multiletter control sequences out of 15000+200000
  14444 words of font info for 51 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191

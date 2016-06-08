@@ -102,7 +102,15 @@ In contrast to the various HC corrections, none of the distributional approximat
 In this paper, we review the various small-sample approximations for hypothesis tests based on HCCMEs, using a common notation in order to facilitate comparisons among them. 
 In so doing, we identify several further variations on the approximations that have not previously been considered. 
 We then evaluate the performance of these approximations, along with the standard methods, in a large simulation study. 
-The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.\todo{Outline paper}
+The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.
+
+The HCCMEs studied in this paper are a special case of the general class of cluster-robust covariance matrix estimators (CRCMEs), also known as sandwich estimators or linearization estimators, which are commonly used in regression analysis of multi-stage survey data \citep{skinner1989domain}, econometric panel data models \citep{Arellano1987computing, white1984asymptotic}, and generalized estimating equations for longitudinal data \citep{Liang1986longitudinal}. 
+CRCMEs are useful for variance estimation in settings where the error structure is both heteroskedastic and dependent within clusters of observations.
+Some of the small-sample tests considered in this paper were developed for CRCMEs \citep[i.e.,]{Bell2002bias, McCaffrey2006improved}, while the others are readily extended to this more general case.
+We focus on 
+
+\todo{Outline paper}
+
 
 \section{Theoretical context}
 \label{sec:context}
@@ -240,7 +248,7 @@ The empirically estimated degrees of freedom are then given by
 \nu_E = \frac{\left(V^{HC}\right)^2}{\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A} \left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\right)\circ \bm{\hat{S}}\right]\right]}.
 \end{equation}
 
-\citet{Bell2002bias} developed a similar test (also based on a Satterthwaite approximation) for linear regressions with data from multi-stage samples, in which the error structure may be both heteroskedastic and dependent within clusters of observations. 
+\citet{Bell2002bias} developed a similar test (also based on a Satterthwaite approximation)
 Rather than estimate the moments of $V^{HC}$ empirically, \citet{Bell2002bias} suggested calculating (\ref{eq:V_expectation}) and (\ref{eq:V_variance}) based on a working model for the error structure \citep[see also][]{Imbens2015robust}. 
 In the present context, one candidate working model is to assume that the errors are homoskedastic, so that $\bs\Sigma = \sigma^2 \bm{I}$.
 Under homoskedasticity, the degrees of freedom reduce to 
