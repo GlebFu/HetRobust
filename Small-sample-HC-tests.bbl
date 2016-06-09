@@ -46,15 +46,25 @@ Eicker, F.  \harvardyearleft 1967\harvardyearright , {Limit theorems for
   Fifth Berkeley symposium on Mathematical Statistics and Probability',
   University of California Press, Berkeley, CA, pp.~59--82.
 
-\harvarditem{Fuller}{1975}{fuller1975regression}
+\harvarditem{Fuller}{1975}{Fuller1975regression}
 Fuller, W.~A.  \harvardyearleft 1975\harvardyearright , `Regression analysis
   for sample survey', {\em Sankhya Series C} {\bf 37},~117--132.
+
+\harvarditem{Goutis \harvardand\ Casella}{1999}{Goutis1999explaining}
+Goutis, C. \harvardand\ Casella, G.  \harvardyearleft 1999\harvardyearright ,
+  `{Explaining the saddlepoint approximation}', {\em The American Statistician}
+  {\bf 53}(3),~216--224.
 
 \harvarditem{Huber}{1967}{Huber1967behavior}
 Huber, P.~J.  \harvardyearleft 1967\harvardyearright , {The behavior of maximum
   likelihood estimates under nonstandard conditions}, {\em in} `Proceedings of
   the Fifth Berkeley symposium on Mathematical Statistics and Probability',
   University of California Press, Berkeley, CA, pp.~221--233.
+
+\harvarditem{Huzurbazar}{1999}{Huzurbazar1999practical}
+Huzurbazar, S.  \harvardyearleft 1999\harvardyearright , `{Practical
+  saddlepoint approximations}', {\em The American Statistician} {\bf
+  53}(3),~225--232.
 
 \harvarditem{Imbens \harvardand\ Kolesar}{2015}{Imbens2015robust}
 Imbens, G.~W. \harvardand\ Kolesar, M.  \harvardyearleft 2015\harvardyearright
@@ -122,7 +132,7 @@ Satterthwaite, F.~E.  \harvardyearleft 1946\harvardyearright , `{An approximate
   distribution of estimates of variance components}', {\em Biometrics bulletin}
   {\bf 2}(6),~110--114.
 
-\harvarditem{Skinner}{1989}{skinner1989domain}
+\harvarditem{Skinner}{1989}{Skinner1989domain}
 Skinner, C.~J.  \harvardyearleft 1989\harvardyearright , {Domain means,
   regression and multivariate analyses}, {\em in} C.~J. Skinner, D.~Holt
   \harvardand\ T.~F. Smith, eds, `Analysis of complex surveys', John Wiley \&
