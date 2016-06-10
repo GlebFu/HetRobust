@@ -112,7 +112,11 @@
 
 \bigskip
 \begin{abstract}
-The text of your abstract.  200 or fewer words.
+In linear regression models, estimated by ordinary least squares, it is often desirable to use hypothesis tests and confidence intervals that remain valid in the presence of heteroskedastic errors. 
+Wald tests based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs, also known as sandwich estimators or simply "robust" standard errors) are a well known and widely applied method that remains asymptotically valid under heteroskedasticity of an unspecified form.
+Wald-type t-tests based on HCCMEs maintain nominal rejection rates when the sample size is large, but they are not always accurate with small samples; moreover, it can be difficult to determine whether a given sample is large enough to trust the asymptotic approximation.
+This paper reviews several approaches to approximating the null sampling distribution of HCCME t-tests and thereby improving the accuracy of rejection rates in small samples.
+Using simulations, we investigate the relative performance of Satterthwaite, Edgeworth, and saddlepoint approximations under a wide range of data generating processes.\todo{Explain results} 
 \end{abstract}
 
 \noindent%
@@ -145,13 +149,19 @@ For hypothesis testing, HCCMEs are typically used to calculate t-statistics, whi
 An alternative approach to improving the small-sample properties of hypothesis tests based on HCCMEs is to find a better approximation to the null sampling distribution of the test statistic. 
 Several such approximations have been proposed, including Satterthwaite approximations \citep{Lipsitz1999degrees}, Edgeworth approximations \citep{Rothenberg1988approximate, Kauermann2001note}, and saddlepoint approximations \citep{McCaffrey2006improved}. 
 Although there is evidence that each of these approximations improves upon the standard, large-sample tests, their performance has been examined only under a limited range of conditions. 
-Moreover, it appears that these approximations have been developed in isolation, without reference to previous work, and they have received little or no attention in recent reviews \citep[e.g., none are discussed by][]{MacKinnon2013thirty}. 
+Moreover, it appears that these approximations have been developed in isolation, without reference to previous work, and they have received little subsequent attention \citep[e.g., none are discussed in the recent review by][]{MacKinnon2013thirty}. 
 In contrast to the various HC corrections, none of the distributional approximations are implemented in standard software packages for data analysis.\todo{Add more on gaps in literature.} 
 
 In this paper, we review the various small-sample approximations for hypothesis tests based on HCCMEs, using a common notation in order to facilitate comparisons among them. 
 In so doing, we identify several further variations on the approximations that have not previously been considered. 
 We then evaluate the performance of these approximations, along with the standard methods, in a large simulation study. 
 The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.
+
+Another approach to approximating the distribution of test statistics based on HCCMEs is via bootstrap resampling. 
+Recent attention has focused on a wild bootstrap technique proposed by \citet{Liu1988bootstrap}, which is valid under heteroskedasticity and provides substantially more accurate rejection rates than standard approaches in small samples \citep{Flachaire2005boostrapping, Davidson2008wild}. 
+However, there are several nuances involved in implementing accurate wild bootstrap tests, including how to adjust the residuals, the choice of auxilliary distributions, and whether to bootstrap under a restricted model \citep{MacKinnon2013thirty}. 
+In light of these additional considerations, as well as the computational intensity of simulations that involve resampling methods, the present investigation is limited to hypothesis testing procedures that do not involve resampling. 
+In further work, we will investigate the performance of the best-performing methods identified in this paper compared to resampling tests such as wild bootstrapping.\todo{Adequate?}
 
 HCCMEs are a special case of the general class of cluster-robust covariance matrix estimators (CRCMEs), also known as sandwich estimators or linearization estimators, which are commonly used in regression analysis of multi-stage survey data \citep{Fuller1975regression, Skinner1989domain}, econometric panel data models \citep{white1984asymptotic, Arellano1987computing}, and generalized estimating equations for longitudinal data \citep{Liang1986longitudinal}. 
 CRCMEs are useful for variance estimation in settings where the error structure is both heteroskedastic and dependent within clusters of observations.
@@ -413,15 +423,17 @@ The simulation studies examine the performance of both the working model approac
 \subsection{Remarks}
 
 We have reviewed several approximations for the null sampling distribution of $T^{HC}$ and have also noted that any of the approximations could be applied using either empirical estimates of the model errors or estimates based on an assumed working model, such as homoskedasticity.
-Although all the approximations appear promising, it is not clear on the basis of their derivation which approach is most accurate with small samples, nor whether any of the approaches represents an improvement on conventional practice. 
-
 All of the approximations are derived under the assumption that the model errors are normally distributed, and several of them invoke the additional assumption that $V^{HC}$ is independent of the OLS coefficient estimator, which will not hold precisely unless the errors are homoskedastic. 
-The approximations may differ in the extent to which they rely on these assumptions, and thus the extent to which their performance suffers under data-generating models with non-normal or heteroskedastic errors.
+The approximations may differ in the extent to which their performance suffers under data-generating models with non-normal or heteroskedastic errors.
 Furthermore, some versions of the approximations involve a working model, and it is unclear how discrepancies between the working model and the true data generating model will affect their performance. 
-In the following section, we report two simulation studies that investigate the performance the distributional approximations under a range of conditions. 
+Thus, it is not clear on the basis of their derivation which approach is most accurate with small samples, nor whether any of the approaches represents an improvement on conventional practice.
 
 \section{Simulations}
 \label{sec:simulations}
+
+This section reports two simulation studies that investigate the performance the distributional approximations under a range of conditions.
+A factor
+
 
 \section{Discussion}
 \label{sec:conc}

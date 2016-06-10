@@ -35,6 +35,11 @@ Cribari-Neto, F., Souza, T.~C. \harvardand\ Vasconcellos, K. L.~P.
   and leveraged data}', {\em Communications in Statistics - Theory and Methods}
   {\bf 36}(10),~1877--1888.
 
+\harvarditem{Davidson \harvardand\ Flachaire}{2008}{Davidson2008wild}
+Davidson, R. \harvardand\ Flachaire, E.  \harvardyearleft 2008\harvardyearright
+  , `{The wild bootstrap, tamed at last}', {\em Journal of Econometrics} {\bf
+  146}(1),~162--169.
+
 \harvarditem{Davidson \harvardand\ MacKinnon}{1993}{Davidson1993estimation}
 Davidson, R. \harvardand\ MacKinnon, J.~G.  \harvardyearleft
   1993\harvardyearright , {\em {Estimation and Inference in Econometrics}},
@@ -45,6 +50,11 @@ Eicker, F.  \harvardyearleft 1967\harvardyearright , {Limit theorems for
   regressions with unequal and dependent errors}, {\em in} `Proceedings of the
   Fifth Berkeley symposium on Mathematical Statistics and Probability',
   University of California Press, Berkeley, CA, pp.~59--82.
+
+\harvarditem{Flachaire}{2005}{Flachaire2005boostrapping}
+Flachaire, E.  \harvardyearleft 2005\harvardyearright , `{Bootstrapping
+  heteroskedastic regression models: Wild bootstrap vs. pairs bootstrap}', {\em
+  Computational Statistics and Data Analysis} {\bf 49}(2),~361--376.
 
 \harvarditem{Fuller}{1975}{Fuller1975regression}
 Fuller, W.~A.  \harvardyearleft 1975\harvardyearright , `Regression analysis
@@ -88,6 +98,11 @@ Lipsitz, S.~R., Ibrahim, J.~G. \harvardand\ Parzen, M.  \harvardyearleft
   1999\harvardyearright , `{A degrees-of-freedom approximation for a
   t-statistic with heterogeneous variance}', {\em Journal of the Royal
   Statistical Society: Series D (The Statistician)} {\bf 48}(4),~495--506.
+
+\harvarditem{Liu}{1988}{Liu1988bootstrap}
+Liu, R.~Y.  \harvardyearleft 1988\harvardyearright , `{Bootstrap procedures
+  under some non-i.i.d. models}', {\em The Annals of Statistics} {\bf
+  16}(4),~1696--1708.
 
 \harvarditem{Long \harvardand\ Ervin}{2000}{Long2000using}
 Long, J.~S. \harvardand\ Ervin, L.~H.  \harvardyearleft 2000\harvardyearright ,

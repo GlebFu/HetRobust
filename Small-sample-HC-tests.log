@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.9.5)  9 JUN 2016 14:56
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.9.5)  10 JUN 2016 13:57
 entering extended mode
 **Small-sample-HC-tests.tex
 (C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.tex
@@ -546,86 +546,106 @@ File: english.apc 2013/07/21 v6.03 apacite language file
 LaTeX Info: Redefining \BPBI on input line 129.
 LaTeX Info: Redefining \BHBI on input line 130.
 )
-ABD: EveryShipout initializing macros [1
-Non-PDF special ignored!
-
-{C:/Users/jep2963/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Overfull \hbox (27.76999pt too wide) in paragraph at lines 149--149
+ABD: EveryShipout initializing macros
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 119--119
 [][][] 
  []
 
 
-Overfull \hbox (27.76999pt too wide) in paragraph at lines 149--149
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 119--119
+[][][] 
+ []
+
+[1
+Non-PDF special ignored!
+
+{C:/Users/jep2963/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 153--153
+[][][] 
+ []
+
+
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 153--153
+[][][] 
+ []
+
+
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 164--164
+[][][] 
+ []
+
+
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 164--164
 [][][] 
  []
 
 [3]
-Overfull \hbox (27.76999pt too wide) in paragraph at lines 162--162
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 172--172
 [][][] 
  []
 
 
-Overfull \hbox (27.76999pt too wide) in paragraph at lines 162--162
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 172--172
 [][][] 
  []
 
 [4] [5]
-Overfull \hbox (8.95706pt too wide) in paragraph at lines 226--231
+Overfull \hbox (8.95706pt too wide) in paragraph at lines 236--241
 []\OT1/cmr/m/n/12 Cribari-Neto and col-leagues sub-se-quently pro-posed three f
 ur-ther vari-a-tions, HC4 (Cribari-
  []
 
 [6] [7] [8] [9]
-Overfull \hbox (27.76999pt too wide) in paragraph at lines 340--340
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 350--350
 [][][] 
  []
 
 
-Overfull \hbox (27.76999pt too wide) in paragraph at lines 340--340
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 350--350
 [][][] 
  []
 
-[10] [11]
-Overfull \hbox (27.76999pt too wide) in paragraph at lines 409--409
+[10] [11] [12]
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 419--419
 [][][] 
  []
 
 
-Overfull \hbox (27.76999pt too wide) in paragraph at lines 409--409
+Overfull \hbox (27.76999pt too wide) in paragraph at lines 419--419
 [][][] 
  []
 
-[12] [13] [14]
-(C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.bbl [15] [16])
-[17] (C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.aux) ) 
+[13] [14] (C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.bbl
+[15] [16]) [17]
+(C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.aux) ) 
 Here is how much of TeX's memory you used:
- 13310 strings out of 493921
- 260210 string characters out of 3144871
- 303453 words of memory out of 3000000
- 16346 multiletter control sequences out of 15000+200000
+ 13332 strings out of 493921
+ 260799 string characters out of 3144871
+ 305836 words of memory out of 3000000
+ 16368 multiletter control sequences out of 15000+200000
  14980 words of font info for 53 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 62i,12n,76p,683b,695s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Pr
-ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Prog
-ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Progra
-m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program 
-Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fi
-les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program File
-s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files (
-x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files (x86
-)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files (x86)
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files (x86)/MiKTeX 2.
-9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
-type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmtt12.pfb>
-Output written on Small-sample-HC-tests.pdf (17 pages, 265320 bytes).
+ 62i,12n,76p,683b,898s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fil
+es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files
+ (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files (
+x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files (x8
+6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files (x86)/
+MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files (x86)/MiK
+TeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files (x86)/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 
+2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmtt12.pfb>
+Output written on Small-sample-HC-tests.pdf (17 pages, 271665 bytes).
 PDF statistics:
  132 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
