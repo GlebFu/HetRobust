@@ -1,5 +1,27 @@
 \begin{thebibliography}{xx}
 
+\harvarditem{Arellano}{1987}{Arellano1987computing}
+Arellano, M.  \harvardyearleft 1987\harvardyearright , `{Computing robust
+  standard errors for within-groups estimators}', {\em Oxford Bulletin of
+  Economics and Statistics} {\bf 49}(4),~431--434.
+
+\harvarditem{Bell \harvardand\ McCaffrey}{2002}{Bell2002bias}
+Bell, R.~M. \harvardand\ McCaffrey, D.~F.  \harvardyearleft
+  2002\harvardyearright , `{Bias reduction in standard errors for linear
+  regression with multi-stage samples}', {\em Survey Methodology} {\bf
+  28}(2),~169--181.
+
+\harvarditem{Cai \harvardand\ Hayes}{2008}{Cai2008new}
+Cai, L. \harvardand\ Hayes, A.~F.  \harvardyearleft 2008\harvardyearright , `{A
+  new test of linear hypotheses in OLS regression under heteroscedasticity of
+  unknown form}', {\em Journal of Educational and Behavioral Statistics} {\bf
+  33}(1),~21--40.
+
+\harvarditem{Chesher \harvardand\ Austin}{1991}{Chesher1991finite}
+Chesher, A. \harvardand\ Austin, G.  \harvardyearleft 1991\harvardyearright ,
+  `{The finite-sample distributions of heteroskedasticity robust Wald
+  statistics}', {\em Journal of Econometrics} {\bf 47}(1),~153--173.
+
 \harvarditem{Cribari-Neto}{2004}{Cribari-Neto2004asymptotic}
 Cribari-Neto, F.  \harvardyearleft 2004\harvardyearright , `{Asymptotic
   inference under heteroskedasticity of unknown form}', {\em Computational
@@ -18,6 +40,11 @@ Cribari-Neto, F., Souza, T.~C. \harvardand\ Vasconcellos, K. L.~P.
   and leveraged data}', {\em Communications in Statistics - Theory and Methods}
   {\bf 36}(10),~1877--1888.
 
+\harvarditem{Davidson \harvardand\ Flachaire}{2008}{Davidson2008wild}
+Davidson, R. \harvardand\ Flachaire, E.  \harvardyearleft 2008\harvardyearright
+  , `{The wild bootstrap, tamed at last}', {\em Journal of Econometrics} {\bf
+  146}(1),~162--169.
+
 \harvarditem{Davidson \harvardand\ MacKinnon}{1993}{Davidson1993estimation}
 Davidson, R. \harvardand\ MacKinnon, J.~G.  \harvardyearleft
   1993\harvardyearright , {\em {Estimation and Inference in Econometrics}},
@@ -29,17 +56,46 @@ Eicker, F.  \harvardyearleft 1967\harvardyearright , {Limit theorems for
   Fifth Berkeley symposium on Mathematical Statistics and Probability',
   University of California Press, Berkeley, CA, pp.~59--82.
 
+\harvarditem{Flachaire}{2005}{Flachaire2005boostrapping}
+Flachaire, E.  \harvardyearleft 2005\harvardyearright , `{Bootstrapping
+  heteroskedastic regression models: Wild bootstrap vs. pairs bootstrap}', {\em
+  Computational Statistics and Data Analysis} {\bf 49}(2),~361--376.
+
+\harvarditem{Fuller}{1975}{Fuller1975regression}
+Fuller, W.~A.  \harvardyearleft 1975\harvardyearright , `Regression analysis
+  for sample survey', {\em Sankhya Series C} {\bf 37},~117--132.
+
+\harvarditem{Goutis \harvardand\ Casella}{1999}{Goutis1999explaining}
+Goutis, C. \harvardand\ Casella, G.  \harvardyearleft 1999\harvardyearright ,
+  `{Explaining the saddlepoint approximation}', {\em The American Statistician}
+  {\bf 53}(3),~216--224.
+
 \harvarditem{Huber}{1967}{Huber1967behavior}
 Huber, P.~J.  \harvardyearleft 1967\harvardyearright , {The behavior of maximum
   likelihood estimates under nonstandard conditions}, {\em in} `Proceedings of
   the Fifth Berkeley symposium on Mathematical Statistics and Probability',
   University of California Press, Berkeley, CA, pp.~221--233.
 
+\harvarditem{Huzurbazar}{1999}{Huzurbazar1999practical}
+Huzurbazar, S.  \harvardyearleft 1999\harvardyearright , `{Practical
+  saddlepoint approximations}', {\em The American Statistician} {\bf
+  53}(3),~225--232.
+
+\harvarditem{Imbens \harvardand\ Kolesar}{2015}{Imbens2015robust}
+Imbens, G.~W. \harvardand\ Kolesar, M.  \harvardyearleft 2015\harvardyearright
+  , {Robust standard errors in small samples: Some practical advice}.
+\newline\harvardurl{https://www.princeton.edu/{~}mkolesar/papers/small-robust.pdf}
+
 \harvarditem{Kauermann \harvardand\ Carroll}{2001}{Kauermann2001note}
 Kauermann, G. \harvardand\ Carroll, R.~J.  \harvardyearleft
   2001\harvardyearright , `{A note on the efficiency of sandwich covariance
   matrix estimation}', {\em Journal of the American Statistical Association}
   {\bf 96}(456),~1387--1396.
+
+\harvarditem{Liang \harvardand\ Zeger}{1986}{Liang1986longitudinal}
+Liang, K.-Y. \harvardand\ Zeger, S.~L.  \harvardyearleft 1986\harvardyearright
+  , `{Longitudinal data analysis using generalized linear models}', {\em
+  Biometrika} {\bf 73}(1),~13--22.
 
 \harvarditem[Lipsitz et~al.]{Lipsitz, Ibrahim \harvardand\
   Parzen}{1999}{Lipsitz1999degrees}
@@ -48,10 +104,20 @@ Lipsitz, S.~R., Ibrahim, J.~G. \harvardand\ Parzen, M.  \harvardyearleft
   t-statistic with heterogeneous variance}', {\em Journal of the Royal
   Statistical Society: Series D (The Statistician)} {\bf 48}(4),~495--506.
 
+\harvarditem{Liu}{1988}{Liu1988bootstrap}
+Liu, R.~Y.  \harvardyearleft 1988\harvardyearright , `{Bootstrap procedures
+  under some non-i.i.d. models}', {\em The Annals of Statistics} {\bf
+  16}(4),~1696--1708.
+
 \harvarditem{Long \harvardand\ Ervin}{2000}{Long2000using}
 Long, J.~S. \harvardand\ Ervin, L.~H.  \harvardyearleft 2000\harvardyearright ,
   `{Using heteroscedasticity consistent standard errors in the linear
   regression model}', {\em The American Statistician} {\bf 54}(3),~217--224.
+
+\harvarditem{Lugannani \harvardand\ Rice}{1980}{Lugannani1980saddlepoint}
+Lugannani, R. \harvardand\ Rice, S.  \harvardyearleft 1980\harvardyearright ,
+  `{Saddle point approximation for the distribution of the sum of independent
+  random variables}', {\em Advances in Applied Probability} {\bf 12}(2),~475.
 
 \harvarditem{MacKinnon}{2013}{MacKinnon2013thirty}
 MacKinnon, J.~G.  \harvardyearleft 2013\harvardyearright , {Thirty years of
@@ -65,6 +131,11 @@ MacKinnon, J.~G. \harvardand\ White, H.  \harvardyearleft 1985\harvardyearright
   improved finite sample properties}', {\em Journal of Econometrics} {\bf
   29},~305--325.
 
+\harvarditem{Mathai \harvardand\ Provost}{1992}{mathai1992quadratic}
+Mathai, A.~M. \harvardand\ Provost, S.~B.  \harvardyearleft
+  1992\harvardyearright , {\em {Quadratic forms in random variables: theory and
+  applications}}, M. Dekker, New York.
+
 \harvarditem{McCaffrey \harvardand\ Bell}{2006}{McCaffrey2006improved}
 McCaffrey, D.~F. \harvardand\ Bell, R.~M.  \harvardyearleft
   2006\harvardyearright , `{Improved hypothesis testing for coefficients in
@@ -76,10 +147,30 @@ Rothenberg, T.  \harvardyearleft 1988\harvardyearright , `{Approximate power
   functions for some robust tests of regression coefficients}', {\em
   Econometrica} {\bf 56}(5),~997--1019.
 
+\harvarditem{Satterthwaite}{1946}{Satterthwaite1946approximate}
+Satterthwaite, F.~E.  \harvardyearleft 1946\harvardyearright , `{An approximate
+  distribution of estimates of variance components}', {\em Biometrics bulletin}
+  {\bf 2}(6),~110--114.
+
+\harvarditem{Skinner}{1989}{Skinner1989domain}
+Skinner, C.~J.  \harvardyearleft 1989\harvardyearright , {Domain means,
+  regression and multivariate analyses}, {\em in} C.~J. Skinner, D.~Holt
+  \harvardand\ T.~F. Smith, eds, `Analysis of complex surveys', John Wiley \&
+  Sons, New York, NY, pp.~59--88.
+
+\harvarditem{Welch}{1947}{Welch1947generalization}
+Welch, B.  \harvardyearleft 1947\harvardyearright , `{The generalization of
+  Student's' problem when several different population variances are
+  involved}', {\em Biometrika} {\bf 34}(1/2),~28--35.
+
 \harvarditem{White}{1980}{White1980heteroskedasticity}
 White, H.  \harvardyearleft 1980\harvardyearright , `{A
   heteroskedasticity-consistent covariance matrix estimator and a direct test
   for heteroskedasticity}', {\em Econometrica} {\bf 48}(4),~817--838.
+
+\harvarditem{White}{1984}{white1984asymptotic}
+White, H.  \harvardyearleft 1984\harvardyearright , {\em Asymptotic theory for
+  econometricians}, Academic Press, Inc., Orlando, FL.
 
 \harvarditem{Zeileis}{2004}{Zeileis2004econometric}
 Zeileis, A.  \harvardyearleft 2004\harvardyearright , `{Econometric computing

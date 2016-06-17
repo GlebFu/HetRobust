@@ -5,7 +5,7 @@ rm(list=ls())
 t_crit <- function(alpha, a, b, nu) {
   if (alpha == 0) return(Inf)
   z_a <- qnorm(1 - alpha / 2)
-  0.5 * z_a * (2 + z_a^2 * max(0, 1 / nu - a) + 1 / nu  + a - b)
+  0.5 * z_a * (2 + z_a^2 * max(0, 1 / (2 * nu) - a) + 1 / (2 * nu)  + a - b)
 }
 
 p_crit <- function(t_HC, a, b, nu) uniroot(function(alpha) t_crit(alpha, a = a, b = b, nu = nu) - abs(t_HC), lower = 0, upper = 1)$root
@@ -33,12 +33,12 @@ sim_MacKinnon <- function(n, p, gamma, beta, const) {
   
   a_emp <- sum(omega * g_i^2 * (g_i^2 * res_sq^2 / 3 + f_i^2 - 2 * g_i * f_i * res_sq)) / sum(g_i^2 * res_sq)^2
   b_emp <- sum(omega * q_i * g_i^2) / sum(g_i^2 * res_sq)
-  nu_emp <- 6 * sum(omega * g_i^2 * res_sq)^2 / sum(omega^2 * g_i^4 * res_sq^2)
-  p_emp_direct <- 2 * (1 - pnorm(0.5 * abs(t_HC) * (2 - (1 + t_HC^2) / nu_emp + a_emp * (t_HC^2 - 1) + b_emp)))
+  nu_emp <- 3 * sum(omega * g_i^2 * res_sq)^2 / sum(omega^2 * g_i^4 * res_sq^2)
+  p_emp_direct <- 2 * (1 - pnorm(0.5 * abs(t_HC) * (2 - (1 + t_HC^2) / (2 * nu_emp) + a_emp * (t_HC^2 - 1) + b_emp)))
   
   b_hom <- - sum(omega * h_i * g_i^2) / sum(g_i^2)
-  nu_hom <- 2 * sum(omega * g_i^2)^2 / sum(omega^2 * g_i^4)
-  p_hom_direct <- 2 * (1 - pnorm(0.5 * abs(t_HC) * (2 - (1 + t_HC^2) / nu_hom + b_hom)))
+  nu_hom <- sum(omega * g_i^2)^2 / sum(omega^2 * g_i^4)
+  p_hom_direct <- 2 * (1 - pnorm(0.5 * abs(t_HC) * (2 - (1 + t_HC^2) / (2 * nu_hom) + b_hom)))
   
   p_emp_crit <- p_crit(t_HC, a = a_emp, b = b_emp, nu = nu_emp)
   p_hom_crit <- p_crit(t_HC, a = 0, b = b_hom, nu = nu_hom)
@@ -52,7 +52,8 @@ sim_MacKinnon <- function(n, p, gamma, beta, const) {
              b = c(b_emp, b_hom),
              direct = c(p_emp_direct, p_hom_direct),
              crit = c(p_emp_crit, p_hom_crit),
-             tdist = 2 * pt(abs(t_HC), df = df, lower.tail = FALSE))
+             tdist = 2 * pt(abs(t_HC), df = df, lower.tail = FALSE),
+             KC = 2 * (1 - pnorm(abs(t_HC))) + dnorm(abs(t_HC)) * (abs(t_HC)^3 + abs(t_HC)) / (2 * df))
 }
 
 reject_rate <- function(p, alpha) {
@@ -66,8 +67,8 @@ run_sim <- function(reps, alpha, n, p, gamma, seed = NULL) {
   const <- c(rep(0, p), 1)
   replicate(reps, sim_MacKinnon(n, p, gamma, beta, const), simplify = FALSE) %>%
     bind_rows() %>%
-    select(version, direct, crit, tdist) %>%
-    gather("approx","p", direct, crit, tdist) %>% 
+    select(version, direct, crit, tdist, KC) %>%
+    gather("approx","p", direct, crit, tdist, KC) %>% 
     group_by(version, approx) %>%
     do(reject_rate(.$p, alpha))
 }
