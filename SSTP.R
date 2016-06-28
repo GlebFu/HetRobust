@@ -158,17 +158,22 @@ estimate <- function(HC, tests, model) {
   H <- model$H
   X_M <- model$X_M
   
-  omega <- switch(HC,
-                  HC0 = 1,
-                  HC1 = sqrt((n - p) / n),
-                  HC2 = sqrt(1 - h),
-                  HC3 = (1 - h),
-                  HC4 = (1 - h)^(pmin(h * n / p, 4) / 2),
-                  HC4m = (1 - h)^((pmin(h * n / p, 1) + pmin(h * n / p, 1.5))/2),
-                  HC5 = (1 - h)^(pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 4)
-  )
-  
-  V_b <- colSums((X_M * e / omega)^2)
+  if(HC != "OLS") {
+      omega <- switch(HC,
+                      HC0 = 1,
+                      HC1 = sqrt((n - p) / n),
+                      HC2 = sqrt(1 - h),
+                      HC3 = (1 - h),
+                      HC4 = (1 - h)^(pmin(h * n / p, 4) / 2),
+                      HC4m = (1 - h)^((pmin(h * n / p, 1) + pmin(h * n / p, 1.5))/2),
+                      HC5 = (1 - h)^(pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 4)
+      )
+      V_b <- colSums((X_M * e / omega)^2)
+      
+  } else {
+    V_b <- diag(as.vector((t(e) %*% e)/(n - p)) * M)
+  }    
+
   coefs_to_test <- c(coefs - B, coefs)
   
   # testing
@@ -196,4 +201,5 @@ estimate <- function(HC, tests, model) {
   }
   
   pValues
+  
 }

@@ -4,6 +4,7 @@ rescale_sd <- function(p, gamma, beta, iterations) {
   1 / sqrt(mean(sigma_sq_unscaled))
 }
 
+
 gamma <- seq(0,2,0.1)
 f <- sapply(gamma, rescale_sd, p = 4, beta = c(1,1,1,1,0), iterations = 10^6)
 cbind(gamma, f)
@@ -31,3 +32,13 @@ f <- rescale_sd(p, gamma, beta, iterations = 10^7)
 SD_replicates <- replicate(10000, sim_MacKinnon(n, p, beta, gamma, f))
 SD_comparison <- apply(SD_replicates, c(1,2), mean)
 SD_comparison[,"het"] / SD_comparison[,"hom"]
+
+############
+#delete
+
+
+rm(list = ls())
+
+X <- cbind(1, matrix(exp(rnorm(40 * 4)), 40, 4))
+beta <- c(1,1,1,1,0)
+gamma <- 1
