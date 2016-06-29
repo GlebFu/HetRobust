@@ -88,38 +88,38 @@ runSim <- function(iterations, n, B, whichX, g, zg, HC, tests, seed = NULL) {
 #-----------------------------
 # Run MacKinnon Replication
 #-----------------------------
-set.seed(20160628)
-
-load("scale.rdata")
-design <- list(n = seq(20,100,20),
-               B = "1 1 1 1 0",
-               whichX = "T T T T T",
-               g = seq(0,2,0.05),
-               HC = "HC1 HC2 HC3 HC4",
-               tests = "naive")
-
-
-
-params <- expand.grid(design, stringsAsFactors = F)
-
-params <- merge(params, scale)
-
-params$iterations <- 10000
-params$seed <- round(runif(nrow(params)) * 2^30)
-
-source_obj <- ls()
-cluster <- start_parallel(source_obj)
-
-system.time(results <- mdply(params, .fun = runSim, .parallel = T))
-
-stopCluster(cluster)
-
-write.csv(results, file = "Results/MacKinnon/20160629Mac.csv")
+# set.seed(20160628)
+# 
+# load("scale.rdata")
+# design <- list(n = seq(20,100,20),
+#                B = "1 1 1 1 0",
+#                whichX = "T T T T T",
+#                g = seq(0,2,0.05),
+#                HC = "HC1 HC2 HC3 HC4",
+#                tests = "naive")
+# 
+# 
+# 
+# params <- expand.grid(design, stringsAsFactors = F)
+# 
+# params <- merge(params, scale)
+# 
+# params$iterations <- 10000
+# params$seed <- round(runif(nrow(params)) * 2^30)
+# 
+# source_obj <- ls()
+# cluster <- start_parallel(source_obj)
+# 
+# system.time(results <- mdply(params, .fun = runSim, .parallel = T))
+# 
+# stopCluster(cluster)
+# 
+# write.csv(results, file = "Results/MacKinnon/20160629Mac.csv")
 
 #-----------------------------
 # Run MacKinnon Simulation
 #-----------------------------
-set.seed(20160628)
+set.seed(20160629)
 
 load("scale.rdata")
 design <- list(n = seq(20,100,20),
@@ -141,7 +141,7 @@ params <- rbind(expand.grid(design, stringsAsFactors = F),
 
 params <- merge(params, scale)
 
-params$iterations <- 100
+params$iterations <- 1000
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
