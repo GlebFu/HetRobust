@@ -114,7 +114,7 @@ write.csv(Size_25_p01, file = "Size_25_p01.csv")
 #Size_25_p05
 ```{r, cache = T, echo = F, warning = F, results = "asis", fig.width = 15, fig.height = 15}
 
-filter(results, criterion == "size", n == 25) %>%
+filter(results, criterion == "size", n == 500) %>%
   select(n, Estruct, Edist, HC, coef, test, p05) %>%
   group_by(test, HC) %>%
   mutate(alpha = ifelse(quantile(p05, prob = .75) <= .05427,.5,.4)) %>%
