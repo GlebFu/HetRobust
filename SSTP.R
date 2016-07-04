@@ -11,13 +11,13 @@ t_test <- function(coef, sd, df) {
 # Satterthwaite degrees of freedom 
 #-----------------------------------
 
-Satterthwaite <- function(V_b, X_M, omega, e, H, n, p) {
+Satterthwaite_empirical <- function(V_b, X_M, omega, e, H, n) {
   
-  sigma_hat <- tcrossprod(e^2) / (2 * H^2 + tcrossprod(rep(omega, length.out = n)^2))
-  diag(sigma_hat) <- (omega * e)^4 / 3
+  sigma_hat <- tcrossprod(omega * e^2) / (2 * tcrossprod(omega) * H^2 + 1)
+  diag(sigma_hat) <- (omega^2) * (e^4) / 3
   I_H <- diag(n) - H
 
-  A_vec <- X_M^2 / omega^2
+  A_vec <- omega * X_M^2
   
   V_V <- function(a) {
     B <- I_H %*% (a * I_H)
@@ -28,34 +28,18 @@ Satterthwaite <- function(V_b, X_M, omega, e, H, n, p) {
   return(V_b^2 / den)
 }
 
-# function that provides full results based on Satterthwaite df
-
-Satt_results <- function(model, HC) {
-  M <- model$M
-  X <- model$X
-  e <- as.vector(model$e)
-  h <- model$h
-  n <- model$n
-  p <- model$p
-  coefs <- as.vector(model$coefs)
-  B <- model$B
-  H <- model$H
-  X_M <- model$X_M
+Satterthwaite_model <- function(X_M, omega, H, h) {
   
-  omega <- switch(HC,
-                  HC0 = 1,
-                  HC1 = sqrt((n - p) / n),
-                  HC2 = sqrt(1 - h),
-                  HC3 = (1 - h),
-                  HC4 = (1 - h)^(pmin(h * n / p, 4) / 2),
-                  HC4m = (1 - h)^((pmin(h * n / p, 1) + pmin(h * n / p, 1.5))/2),
-                  HC5 = (1 - h)^(pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 4)
-  )
+  A_vec <- omega * X_M^2
   
-  V_b <- colSums((X_M * e / omega)^2)
-  df <- Satterthwaite(V_b, X_M, omega, e, H, n, p)  
-  p_val <- t_test(coefs, sd = sqrt(V_b), df = df)
-  data.frame(b = coefs, sd = sqrt(V_b), df = df, p_val = p_val)
+  df_A <- function(a) {
+    x <- (1 - h) * omega * a^2
+    B <- H * tcrossprod(omega * a^2)
+    diag(B) <- x
+    sum(x)^2 / sum(B)
+  }
+  
+  apply(A_vec, 2, df_A)
 }
 
 #-----------------------------------
@@ -99,18 +83,12 @@ saddle <- function(coef, sd, X_M, omega, e, H, n, approx = "model") {
 }
 
 
-#-----------------------------------
-#Edgeworth KC approximation
-#-----------------------------------
+#------------------------------------------------
+# Kauermann-Carroll Edgeworth approximation
+#------------------------------------------------
 
-nu_q <- function(q, X_M, H, h) {
-  g_q <- X_M[,q]
-  sum(g_q^2)^2 / (sum(g_q^4 * (1 - 2 * h) / (1 - h)^2) + sum(tcrossprod(g_q^2 / (1 - h)) * H^2))
-}
-
-
-edgePVal <- function(tHC, v) {
-  2 * (1 - pnorm(abs(tHC))) + (abs(tHC)^3 + abs(tHC)) * dnorm(tHC) / (2 * v)
+edgePVal <- function(tHC, df) {
+  2 * (1 - pnorm(abs(tHC))) + (abs(tHC)^3 + abs(tHC)) * dnorm(tHC) / (2 * df)
 }
 
 #-----------------------------------
@@ -144,8 +122,7 @@ edgeR <- function(coefs, V_b, X_M, n, H, h, omega, e, approx = "model") {
 # testing function
 #-----------------------------------
 
-estimate <- function(HC, tests, model) {
-  #save(model, file = "Error Model.RData")
+estimate <- function(HC, model) {
   
   M <- model$M
   X <- model$X
@@ -158,29 +135,37 @@ estimate <- function(HC, tests, model) {
   H <- model$H
   X_M <- model$X_M
   
-  if(HC != "OLS") {
-      omega <- switch(HC,
-                      HC0 = 1,
-                      HC1 = sqrt((n - p) / n),
-                      HC2 = sqrt(1 - h),
-                      HC3 = (1 - h),
-                      HC4 = (1 - h)^(pmin(h * n / p, 4) / 2),
-                      HC4m = (1 - h)^((pmin(h * n / p, 1) + pmin(h * n / p, 1.5))/2),
-                      HC5 = (1 - h)^(pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 4)
-      )
-      V_b <- colSums((X_M * e / omega)^2)
-      
-  } else {
-    V_b <- diag(as.vector((t(e) %*% e)/(n - p)) * M)
-  }    
-
+  omega <- switch(HC,
+                  HC0 = 1,
+                  HC1 = n / (n - p),
+                  HC2 = 1 / (1 - h),
+                  HC3 = (1 - h)^(-2),
+                  HC4 = (1 - h)^(-pmin(h * n / p, 4)),
+                  HC4m = (1 - h)^(-(pmin(h * n / p, 1) + pmin(h * n / p, 1.5))),
+                  HC5 = (1 - h)^(-pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 2)
+  )
+  V_b <- colSums(omega * (X_M * e)^2)
+  
   coefs_to_test <- c(coefs - B, coefs)
   
-  # testing
-  pValues <- data.frame(HC = HC, coef = rep(colnames(X), 2), criterion = rep(c("size","power"), each = p))
-  if ("naive" %in% tests) pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), df = n - p)
-  if ("Satt" %in% tests) pValues$Satt <- t_test(coefs_to_test, sd = sqrt(V_b), 
-                                                df = Satterthwaite(V_b, X_M, omega, e, H, n, p))
+  # testing 
+  pValues <- data.frame(HC = HC, 
+                        coef = rep(colnames(X), 2), 
+                        criterion = rep(c("size","power"), each = p))
+  
+  # naive t tests
+  pValues$naive <- t_test(coefs_to_test, sd = sqrt(V_b), df = n - p)
+  
+  # Satterthwaite tests
+  df_E <- Satterthwaite_empirical(V_b, X_M, omega, e, H, n)
+  df_H <- Satterthwaite_model(X_M, omega, H, h)
+  pValues$Satt_E <- t_test(coefs_to_test, sd = sqrt(V_b), df = df_E)
+  pValues$Satt_H <- t_test(coefs_to_test, sd = sqrt(V_b), df = df_H)
+
+  # Kauermann-Carroll edgeworth approximations
+  pValues$KC_E <- edgePVal(coefs_to_test/sqrt(V_b), df = df_E)
+  pValues$KC_H <- edgePVal(coefs_to_test/sqrt(V_b), df = df_H)
+  
   if ("saddle" %in% tests) {
     pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
                                 X_M = X_M, omega = omega, e = e,
@@ -188,11 +173,6 @@ estimate <- function(HC, tests, model) {
     pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
                                 X_M = X_M, omega = omega, e = e,
                                 H = H, n = n, approx = "empirical")
-  }
-  
-  if ("edgeKC" %in% tests) {
-    v <- sapply(1:p, nu_q, X_M = X_M, H = H, h = h)
-    pValues$edgeKC <- edgePVal(coefs_to_test/sqrt(V_b), v)
   }
   
   if("edgeR" %in% tests) {
