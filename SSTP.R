@@ -166,19 +166,17 @@ estimate <- function(HC, model) {
   pValues$KC_E <- edgePVal(coefs_to_test/sqrt(V_b), df = df_E)
   pValues$KC_H <- edgePVal(coefs_to_test/sqrt(V_b), df = df_H)
   
-  if ("saddle" %in% tests) {
-    pValues$saddle_V1 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
+  # Rothenberg's edgeworth approximations
+  pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, H, h, omega, e, approx = "model")
+  pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, H, h, omega, e, approx = "empirical")
+
+  # saddlepoint approximations
+  pValues$saddle_H <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
                                 X_M = X_M, omega = omega, e = e,
                                 H = H, n = n, approx = "model")
-    pValues$saddle_V2 <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
+  pValues$saddle_E <- saddle(coef = coefs_to_test, sd = sqrt(V_b),
                                 X_M = X_M, omega = omega, e = e,
                                 H = H, n = n, approx = "empirical")
-  }
-  
-  if("edgeR" %in% tests) {
-    pValues$edgeR_V1 <- edgeR(coefs_to_test, V_b, X_M, n, H, h, omega, e, approx = "model")
-    pValues$edgeR_V2 <- edgeR(coefs_to_test, V_b, X_M, n, H, h, omega, e, approx = "empirical")
-  }
   
   pValues
   
