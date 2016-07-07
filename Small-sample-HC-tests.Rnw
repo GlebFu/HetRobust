@@ -62,7 +62,7 @@
 
 \bigskip
 \begin{abstract}
-In linear regression models, estimated by ordinary least squares, it is often desirable to use hypothesis tests and confidence intervals that remain valid in the presence of heteroskedastic errors. 
+In linear regression models estimated by ordinary least squares, it is often desirable to use hypothesis tests and confidence intervals that remain valid in the presence of heteroskedastic errors. 
 Wald tests based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs, also known as sandwich estimators or simply "robust" standard errors) are a well known and widely applied method that remains asymptotically valid under heteroskedasticity of an unspecified form.
 Wald-type t-tests based on HCCMEs maintain nominal rejection rates when the sample size is large, but they are not always accurate with small samples; moreover, it can be difficult to determine whether a given sample is large enough to trust the asymptotic approximation.
 This paper reviews several approaches to approximating the null sampling distribution of HCCME t-tests and thereby improving the accuracy of rejection rates in small samples.
@@ -167,7 +167,7 @@ V^{HC} = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \omega_i e_i^2 
 where $\omega_{1},...,\omega_{n}$ are weighting terms that differ for the various HC estimators. 
 Under general assumptions, the weak law of large numbers ensures that the middle term in Equation (\ref{eq:sandwich}) converges to the corresponding term in (\ref{eq:var_beta}) as the sample size increases, and so $V^{HC}$ is asymptotically consistent \citep{White1980heteroskedasticity}.
 
-\citet{White1980heteroskedasticity} originally described the HCCME without any correction factor, which is equivalent to taking $\omega_i = 1$ for $i = 1,...,n$. 
+\citet{White1980heteroskedasticity} originally described the HCCME without any correction factor, equivalent to taking $\omega_i = 1$ for $i = 1,...,n$. 
 This form has come to be known as HC0. 
 Subsequently, various correction factors have been proposed that aim to improve on the finite-sample behavior of HC0. 
 Following common convention, we refer to these correction factors by number.
@@ -190,7 +190,7 @@ Compared to HC4, HC4m inflates observations with lower leverage more strongly, w
 In HC5, the truncation point depends on the maximum leverage value but the degree of inflation will tend to be smaller than HC4. 
 
 For any of the HCCMEs, the robust Wald statistic $T^{HC} = \left(\bm{c}'\bs{\hat\beta} - k\right) / \sqrt{V^{HC}}$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. 
-Thus, any asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T^{HC}\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. 
+Thus, an asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T^{HC}\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. 
 In practice, it is common to instead use the critical value from a $t$ distribution with $n - p$ degrees of freedom. 
 However, use of the $t_{n-p}$ reference distribution is only an ad hoc approximation. In Section \ref{sec:approximations}, we review several distinct, better-grounded approximations to the null sampling distribution of $T^{HC}$. 
 
@@ -201,26 +201,23 @@ The approximations described in the following section all involve expressions fo
 
 For any of the correction factors (HC0-HC5), the variance estimator $V^{HC}$ is a quadratic form in the residuals (and thus also in the errors), which can be written as 
 \[
-V^{HC} = \sum_{i=1}^n \omega_i \left(g_i e_i\right)^2 = \bm{e}' \bm{A} \bm{e} = \bs\epsilon'\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\bs\epsilon , \]
-where $g_i = \bm{x}_i \bm{M} \bm{c} / n$ and $\bm{A} = \diag\left(\omega_1 g_1^2,...,\omega_n g_n^2\right)$ \citep{Bell2002bias, Cribari-Neto2011new}. 
+V^{HC} = \sum_{i=1}^n \omega_i \left(g_i e_i\right)^2 = \bm{e}' \bm{A} \bm{e} = \bs\epsilon' \bm{B} \bs\epsilon , \]
+where $g_i = \bm{x}_i \bm{M} \bm{c} / n$, $\bm{A} = \diag\left(\omega_1 g_1^2,...,\omega_n g_n^2\right)$, and $\bm{B} = \left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)$ \citep{Bell2002bias, Cribari-Neto2011new}. 
 It follows from the properties of quadratic forms that 
 \begin{equation}
 \label{eq:V_expectation}
-\E\left(V^{HC}\right) = \tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\right]. 
+\E\left(V^{HC}\right) = \tr\left[\bm{B}\bs\Sigma\right]. 
 \end{equation}
 Furthermore, assuming that the model errors are normally distributed, the variance of the quadratic form is
 \begin{equation}
 \label{eq:V_variance}
-\begin{aligned}
-\Var\left(V^{HC}\right) &= 2\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\right] \\
-&= 2\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\right)\circ \bm{S}\right]\right], 
-\end{aligned}
+\Var\left(V^{HC}\right) = 2\tr\left[\bm{B} \bs\Sigma \bm{B} \bs\Sigma\right] = 2\tr\left[\bm{B} \left(\bm{B} \circ \bm{S}\right)\right], 
 \end{equation}
 where $\circ$ denotes the element-wise (Hadamard) product and $\bm{S}$ has entries $S_{ij} = \sigma_i^2 \sigma_j^2$ \citep{Lipsitz1999degrees}. 
 
 Again assuming that the model errors are normally distributed, the sampling distribution of $V^{HC}$ can be expressed as a weighted sum of $\chi^2_1$ random variables. 
-Note that the matrix $\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma$ has rank $n - p$, and let $\lambda_1,...,\lambda_{n - p}$ denote its non-zero eigenvalues, arranged in descending order. 
-Let $Z_0,Z_1,...,Z_{n-p}$ denote independent $\chi^2_1$ random variates. 
+Note that the matrix $\bm{B}\bs\Sigma$ has rank $n - p$, and let $\lambda_1,...,\lambda_{n - p}$ denote its non-zero eigenvalues, arranged in descending order. 
+Let $Z_1,...,Z_{n-p}$ denote independent $\chi^2_1$ random variates. 
 Then 
 \begin{equation}
 \label{eq:weighted_sum_chi_sq}
@@ -255,7 +252,7 @@ to be used as an estimate of $\bm{S}$ in Equation (\ref{eq:V_variance}).
 The empirically estimated degrees of freedom are then given by
 \begin{equation}
 \label{eq:nu_empirical}
-\nu_E = \frac{\left(V^{HC}\right)^2}{\tr\left[\left(\bm{I} - \bm{H}\right)\bm{A} \left(\bm{I} - \bm{H}\right)\left[\left(\left(\bm{I} - \bm{H}\right)\bm{A}\left(\bm{I} - \bm{H}\right)\right)\circ \bm{\hat{S}}\right]\right]}.
+\nu_E = \frac{\left(V^{HC}\right)^2}{\tr\left[\bm{B} \left(\bm{B} \circ \bm{\hat{S}}\right)\right]}.
 \end{equation}
 
 \citet{Bell2002bias} proposed a similar test (also based on a Satterthwaite approximation) for regression coefficients with standard errors estimated by a CRCME. 
@@ -264,13 +261,13 @@ In the present context, a leading candidate for a working model is to assume tha
 The degrees of freedom then reduce to 
 \begin{equation}
 \label{eq:nu_hom}
-\nu_H = \left(\sum_{i=1}^n (1 - h_{ii})\omega_i g_i^2 \right)^2 \left(\sum_{i=1}^n (1 - h_{ii})^2 \omega_i^2 g_i^4 + \sum_{i=1}^n \sum_{j \neq i} h_{ij}^2 \omega_i \omega_j g_i^2 g_j^2 \right)^{-1}.
+\nu_H = \frac{\displaystyle{\left(\sum_{i=1}^n (1 - h_{ii})\omega_i g_i^2 \right)^2}}{\displaystyle{\sum_{i=1}^n (1 - h_{ii})^2 \omega_i^2 g_i^4 + \sum_{i=1}^n \sum_{j \neq i} h_{ij}^2 \omega_i \omega_j g_i^2 g_j^2}}.
 \end{equation}
 In principle, these degrees of freedom could be used with any of the HC estimators; in practice, however, the HC2 estimator is a natural choice because it is exactly unbiased under homoskedasticity. 
 Using the HC2 correction factors, the degrees of freedom simplify further to
 \begin{equation}
 \label{eq:nu_hom_HC2}
-\nu_H = \left(\sum_{i=1}^n g_i^2\right)^2\left(\sum_{i=1}^n g_i^4 + \sum_{i=1}^n \sum_{j \neq i} \frac{g_i^2 g_j^2 h_{ij}^2}{(1 - h_{ii})(1 - h_{jj})}\right)^{-1}
+\nu_H = \frac{\displaystyle{\left(\sum_{i=1}^n g_i^2\right)^2}}{\displaystyle{\sum_{i=1}^n g_i^4 + \sum_{i=1}^n \sum_{j \neq i} \frac{g_i^2 g_j^2 h_{ij}^2}{(1 - h_{ii})(1 - h_{jj})}}}
 \end{equation}
 \citep[cf.][Eq. 5]{Kauermann2001note}. 
 
@@ -303,35 +300,31 @@ The simulation studies reported in the following section evaluate both approxima
 
 Prior to \citet{Kauermann2001note}, \citet{Rothenberg1988approximate} developed an Edgeworth approximation for the distribution of $T^{HC}$, calculated using the HC0 variance estimator. Rothenberg's approximation differs from Kauermann and Carroll's in two key ways. First, it allows for the possibility that $V^{HC}$ is a biased estimator of $\Var\left(\bm{c}'\bs{\hat\beta}\right)$; such will be the case for $V^{HC0}$ if the errors are homoskedastic, for instance. Second, it allows for the possibility of dependence between $\bm{c}'\bs{\hat\beta}$ and $V^{HC}$, which arises when the errors are \textit{not} homoskedastic.
 
-Let
+Although originally developed for the HC0 estimator, Rothenberg's approximation is readily applied to the other forms too; we give the general version here. Let
 \begin{align*}
-f_i &= n g_i \sigma_i^2 - n \sum_{j=1}^n g_j h_{ij} \sigma_j^2 \\ 
+f_i &= g_i \sigma_i^2 - \sum_{j=1}^n h_{ij} g_j \sigma_j^2 \\ 
 q_i &= \left(\sum_{j=1}^n h_{ij}^2 \sigma_j^2 \right) - 2 h_{ii} \sigma_i^2 \\
-a &= \left(\sum_{i=1}^n g_i^2 f_i^2\right) \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^{-2} \\
-b &= \left(\sum_{i=1}^n g_i^2  q_i\right) \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^{-1} \\
-\nu_R &= \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^2 \left(\sum_{i=1}^n g_i^4 \sigma_i^4\right)^{-1}
+a &= \left(\sum_{i=1}^n \omega_i g_i^2 f_i^2\right) \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^{-2} \\
+b &= \left(\sum_{i=1}^n \omega_i g_i^2 q_i\right) \left(\sum_{i=1}^n g_i^2 \sigma_i^2\right)^{-1}
 \end{align*}
 Rothenberg's Edgeworth approximation is then given by 
 \[
-\Pr\left(T^{HC} \leq t \right) \approx \Phi\left[t \left(1 - \frac{1 + t^2}{4 \nu_R} + \frac{a\left(t^2 - 1\right) + b}{2}\right)\right]. 
+\Pr\left(T^{HC} \leq t \right) \approx \Phi\left[t \left(1 - \frac{1 + t^2}{4 \nu} + \frac{a\left(t^2 - 1\right) + b}{2}\right)\right]. 
 \]
-Here, the $a$ term measures covariance between $\bm{c}'\bs{\hat\beta}$ and $V^{HC}$; the $b$ term measures the relative bias of $V^{HC}$; and $\nu_R$ is an approximate degrees of freedom measure.
+Here, the $a$ term measures covariance between $\bm{c}'\bs{\hat\beta}$ and $V^{HC}$; the $b$ term measures the relative bias of $V^{HC}$; and $\nu$ is a Satterthwaite degrees of freedom approximation. 
 
 Based on this Edgeworth approximation, \citet{Rothenberg1988approximate} proposed a test in which the null hypothesis is rejected if $\left|T^{HC}\right| > t_{\alpha}$, where the critical value $t_{\alpha}$ is defined by 
 \begin{equation}
 \label{eq:edge_Roth}
-t_\alpha = z_{\alpha} + \frac{z_{\alpha}^3 + z_{\alpha}}{4 \nu} - \frac{z_{\alpha}}{2}\left[a\left(z_{\alpha}^2 - 1\right) + b \right].
+t_\alpha = z_{\alpha}\left(1 + \frac{z_{\alpha}^2 + 1}{4 \nu} - \frac{a\left(z_{\alpha}^2 - 1\right) + b}{2}\right).
 \end{equation}
-It can be seen that this critical value is quite similar to Kauermann and Carroll's closed-form approximate critical value (Equation \ref{eq:Kauermann_approx}), the only differences being that the first term uses a standard normal quantile rather than a $t_{n - p}$ quantile and that the third terms differ. 
+It can be seen that this critical value is similar to Kauermann and Carroll's closed-form approximate critical value (Equation \ref{eq:Kauermann_approx}), the only differences being that the first term uses a standard normal quantile rather than a $t_{n - p}$ quantile and that the third terms differ. 
 
-In practice, the $a$ and $b$ terms and the degrees of freedom $\nu_R$ must be estimated because they depend on the unknown error variances.
-Rothenberg proposed to do so by replacing values of $\sigma_i^2$ with $e_i^2$ and values of $\sigma_i^4$ with $e_i^4 / 3$.
-An alternative---not considered by Rothenberg---is to calculate $a$, $b$, and $\nu$ based on the assumption that the errors are homoskedastic. In this case, $a = 0$, 
-\[
-b = \frac{\sum_{i=1}^n h_{ii} g_i^2}{\sum_{i=1}^n g_i^2}, \qquad \text{and} \qquad 
-\nu_R = \frac{\left(\sum_{i=1}^n g_i^2 \right)^2}{\sum_{i=1}^n g_i^4}.
-\]
-Using the "model-based" estimates of the adjustment quantities may be reasonable, considering that if the bias of $V^{HC}$ could be well-estimated empirically, one could simply correct the estimator itself. 
+In practice, the $a$ and $b$ terms and the degrees of freedom must be estimated because they depend on the unknown error variances.
+Rothenberg proposed to do so by replacing values of $\sigma_i^2$ with $e_i^2$ in the expressions for $a$ and $b$ and using $\nu_R = \left(\sum_{i=1}^n g_i^2 e_i^2\right)^2 \left(\sum_{i=1}^n g_i^4 e_i^4 / 3 \right)^{-1}$ as an empirical degrees of freedom approximation. 
+For purposes of simplicity, the simulation studies described in the next section use $\nu_E$ instead of $\nu_R$. 
+An alternative approach---not considered by Rothenberg---is to calculate $a$, $b$, and $\nu$ based on the assumption that the errors are homoskedastic. In this case, $a = 0$, $b = - \left(\sum_{i=1}^n h_{ii} \omega_i g_i^2\right) / \left(\sum_{i=1}^n g_i^2\right)$, and the degrees of freedom are equal to $\nu_H$. 
+Using the "model-based" estimates of the adjustment quantities may be quite reasonable, considering that if the bias of $V^{HC}$ could be well-estimated empirically, one could simply correct the estimator itself.
 
 \subsection{Saddlepoint approximation}
 
@@ -344,7 +337,7 @@ The cumulative distribution of $T^{HC}$ can be expressed as \[
 \Pr\left(\left|T^{HC}\right| \leq t\right) = \Pr\left(\frac{\left(\bm{c}\bs{\hat\beta} - k\right)^2}{\Var\left(\bm{c}\bs{\hat\beta}\right)} - t^2 \frac{V^{HC}}{\Var\left(\bm{c}\bs{\hat\beta}\right)} \leq 0\right). \]
 Observe that $\left(\bm{c}\bs{\hat\beta} - k\right)^2 / \Var\left(\bm{c}\bs{\hat\beta}\right) \sim \chi^2_1$ and that $V^{HC}$ is distributed as a weighted sum of $\chi^2_1$ random variables, as in Equation (\ref{eq:weighted_sum_chi_sq}). 
 \citet{McCaffrey2006improved} assume that $V^{HC}$ is unbiased, so that \[
-\E\left(V^{HC}\right) = \tr\left[\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)\right] = \sum_{j=1}^{n - p} \lambda_j, \]
+\E\left(V^{HC}\right) = \tr\left(\bm{B}\bs\Sigma\right) = \sum_{j=1}^{n - p} \lambda_j, \]
 and that $\bs{\hat\beta}$ is independent of $V^{HC}$. 
 It then follows that the $\Pr\left(\left|T^{HC}\right| \leq t\right)$ can be expressed as $\Pr(Z \leq 0)$, where $Z = \sum_{i=0}^{n-p} \gamma_i Z_i$,
 $\gamma_0 = 1$, $\gamma_i = -t^2 \lambda_i / \sum_{j=1}^{n - p} \lambda_j$ for $i = 1,...,n - p$, and $Z_0,...,Z_{n-p} \iid \chi^2_1$.
@@ -364,10 +357,10 @@ Then
 \citep{Lugannani1980saddlepoint}.
 Given an observed value for the $t$-statistic $t^{HC}$, a $p$-value for $H_0$ can be calculated by taking $\gamma_i = -\left(t^{HC}\right)^2 \lambda_i / \sum_{j=1}^n \lambda_j$ for $i = 1,...,n - p$, finding $s$, $r$, and $q$, and evaluating $1 - \Pr(Z \leq 0)$ using Equation (\ref{eq:saddlepoint_approx}). In order to avoid numerical inaccuracy, we evaluate the saddlepoint using the second line of Equation (\ref{eq:saddlepoint_approx}) if $|s| < .01$.
 
-In practice, the unknown error variances must be estimated in order to the eigenvalues of $\bm{A}\left(\bm{I} - \bm{H}\right)\bs\Sigma\left(\bm{I} - \bm{H}\right)$. 
+In practice, the unknown error variances must be estimated in order to the eigenvalues of $\bm{B}\bs\Sigma$. 
 \citet{McCaffrey2006improved} propose to do so based on a working model. 
-For instance, assuming that the errors are homoskedastic implies that the eigenvalues of the simpler matrix $\bm{A}\left(\bm{I} - \bm{H}\right)$ may be used in the saddlepoint calculations.\todo{Any closed form expression for these eigenvalues?} 
-An alternative, not considered by \citet{McCaffrey2006improved}, would be to use the eigenvalues of $\bm{A}\left(\bm{I} - \bm{H}\right)\bs{\hat\Sigma}\left(\bm{I} - \bm{H}\right)$, where $\bs{\hat\Sigma} = \diag\left(e_1^2,...,e_n^2\right)$.
+For instance, assuming that the errors are homoskedastic implies that the eigenvalues of $\bm{B}$ may be used in the saddlepoint calculations.\todo{Any closed form expression for these eigenvalues?} 
+An alternative, not considered by \citet{McCaffrey2006improved}, would be to use the eigenvalues of $\bm{B}\bs{\hat\Sigma}$, where $\bs{\hat\Sigma} = \diag\left(e_1^2,...,e_n^2\right)$.
 The simulation studies examine the performance of both the working model approach and the empirical approach to calculating the saddlepoint approximation, analogous to using either the empirical or model-based degrees of freedom in conjunction with the other approximations. 
 
 \subsection{Remarks}
