@@ -279,7 +279,7 @@ runSim <- function(dgm, iterations, n, B, whichX, HC, alpha_string, seed = NULL,
   # performance calculations
   reps %>% 
     select(-1) %>%
-    gather("test","pval", ends_with("_E"), ends_with("_H")) %>%
+    gather("test","pval", naive, ends_with("_E"), ends_with("_H")) %>%
     group_by(HC, coef, criterion, test) %>%
     do(reject_rates(.$pval, alphas = alphas))
 }
