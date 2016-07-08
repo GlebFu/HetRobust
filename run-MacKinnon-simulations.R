@@ -95,3 +95,5 @@ system.time(results <- plyr::mdply(params, .fun = runSim,
                                    .parallel = TRUE))
 
 stopCluster(cluster)
+
+save(results, file = "MacKinnon n = 1000 results.Rdata")
