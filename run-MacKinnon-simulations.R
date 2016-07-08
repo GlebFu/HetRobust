@@ -37,7 +37,7 @@ MacKinnon_dgm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), whichX = c(T, T ,T ,T
 #-----------------------------
 # Run MacKinnon Simulation
 #-----------------------------
-set.seed(20160707)
+set.seed(20160708)
 
 load("scale.rdata")
 design <- list(n = seq(20,100,20),
@@ -51,7 +51,7 @@ params <- expand.grid(design, stringsAsFactors = FALSE)
 
 params <- merge(params, scale)
 
-params$iterations <- 20000
+params$iterations <- 1000
 params$seed <- round(runif(1) * 2^30) + 1:nrow(params)
 
 source_obj <- ls()
@@ -63,7 +63,7 @@ system.time(results <- plyr::mdply(params, .fun = runSim,
 
 stopCluster(cluster)
 
-write.csv(results, file = "Results/MacKinnon/20160707.csv")
+write.csv(results, file = "Results/MacKinnon/20160708.csv")
 
 #-------------------------------
 # Large-n simulations
