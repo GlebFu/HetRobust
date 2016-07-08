@@ -11,12 +11,11 @@ t_test <- function(t_stats, df) {
 # Satterthwaite degrees of freedom 
 #-----------------------------------
 
-Satterthwaite_empirical <- function(sd, X_M, omega, e, H, n) {
+Satterthwaite_empirical <- function(sd, X_M, omega, e, H, I_H) {
   
   sigma_hat <- tcrossprod(omega * e^2) / (2 * tcrossprod(omega) * H^2 + 1)
   diag(sigma_hat) <- (omega^2) * (e^4) / 3
-  I_H <- diag(n) - H
-  
+
   A_vec <- omega * X_M^2
   
   V_V <- function(a) {
@@ -64,11 +63,10 @@ saddlepoint_pval <- function(t, Q, d) {
   return(p_val)
 }
 
-saddle <- function(t_stats, X_M, omega, e, H, n, p, approx = "model") {
+saddle <- function(t_stats, X_M, omega, e, H, I_H, n, p, approx = "model") {
   if (!all(is.finite(t_stats))) {
     return(rep(1,length(t_stats)))
   } else {
-    I_H <- diag(n) - H
     A_vec <- omega * X_M^2
     if (approx == "model") {
       Qs <- apply(A_vec, 2, function(x) I_H %*% (x * I_H))
@@ -106,7 +104,7 @@ KC_CI <- function(t_stats, df, M, n, p, alphas) {
 # Rothenberg Edgeworth approximations
 #-------------------------------------------
 
-Rothenberg_pvals <- function(t_stats, sd, X_M, n, H, h, omega, e, df, alphas, approx = "model") {
+Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, approx = "model") {
   
   X_M_sq <- X_M^2
   
@@ -114,7 +112,6 @@ Rothenberg_pvals <- function(t_stats, sd, X_M, n, H, h, omega, e, df, alphas, ap
     a_vec <- 0
     b_vec <- -colSums(omega * h * X_M_sq) / colSums(X_M_sq)
   } else {
-    I_H <- diag(n) - H
     sigma <- e^2
     q_ii <- colSums(I_H^2 * sigma) - sigma
     f_i <- I_H %*% (sigma * X_M)
@@ -165,8 +162,10 @@ estimate <- function(HC, model, alphas) {
   pValues$naive <- t_test(t_stats = t_stats, df = model$n - model$p)
   
   # Satterthwaite tests
-  df_E <- Satterthwaite_empirical(sd = sd, model$X_M, omega, model$e, model$H, model$n)
-  df_H <- Satterthwaite_model(model$X_M, omega, model$H, model$h)
+  df_E <- Satterthwaite_empirical(sd = sd, X_M = model$X_M, omega = omega, 
+                                  e = model$e, H = model$H, I_H = model$I_H)
+  df_H <- Satterthwaite_model(X_M = model$X_M, omega = omega, 
+                              H = model$H, h = model$h)
   
   pValues$Satt_E <- t_test(t_stats = t_stats, df = df_E)
   pValues$Satt_H <- t_test(t_stats = t_stats, df = df_H)
@@ -180,25 +179,28 @@ estimate <- function(HC, model, alphas) {
                           M = model$M, n = model$n, p = model$p, alphas = alphas)
   
   # Rothenberg's edgeworth approximations
-  Roth_E <- Rothenberg_pvals(t_stats, sd, model$X_M, model$n, 
-                                  model$H, model$h, omega, model$e, 
-                                  df = df_E, alphas = alphas, approx = "empirical")
+  Roth_E <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
+                             H = model$H, h = model$h, I_H = model$I_H, 
+                             omega = omega, e = model$e, 
+                             df = df_E, alphas = alphas, approx = "empirical")
   pValues$Rp_E <- Roth_E$p_val
   pValues$RCI_E <- Roth_E$CI
-  Roth_H <- Rothenberg_pvals(t_stats, sd, model$X_M, model$n, 
-                                  model$H, model$h, omega, model$e, 
-                                  df = df_H, alphas = alphas, approx = "model")
+  
+  Roth_H <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
+                             H = model$H, h = model$h, I_H = model$I_H, 
+                             omega = omega, e = model$e, 
+                             df = df_H, alphas = alphas, approx = "model")
   pValues$Rp_H <- Roth_H$p_val
   pValues$RCI_H <- Roth_H$CI
   
   # saddlepoint approximations
   pValues$saddle_E <- saddle(t_stats = t_stats, X_M = model$X_M, 
                              omega = omega, e = model$e,
-                             H = model$H, n = model$n, 
+                             H = model$H, I_H = model$I_H, n = model$n, 
                              p = model$p, approx = "empirical")
   pValues$saddle_H <- saddle(t_stats = t_stats, X_M = model$X_M, 
                              omega = omega, e = model$e, 
-                             H = model$H, n = model$n, 
+                             H = model$H, I_H = model$I_H, n = model$n, 
                              p = model$p, approx = "model")
 
   # round(pValues[1:5,-(1:3)],4)
@@ -225,9 +227,12 @@ estimate_model <- function(Y, X, trueB, whichX) {
   e <- Y - as.vector(X %*% coefs)
   
   H <- X_M %*% t(X)
+  I_H <- diag(n) - H
   h <- diag(H)
   
-  values <- list(X = X, Y = Y, B = B, X_M = X_M, H = H, h = h, e = e, coefs = coefs, n = n, p = p, M = M)
+  values <- list(X = X, Y = Y, B = B, X_M = X_M, 
+                 H = H, h = h, I_H = I_H, 
+                 e = e, coefs = coefs, n = n, p = p, M = M)
   
   return(values)
 }

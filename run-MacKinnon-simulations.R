@@ -26,12 +26,12 @@ MacKinnon_dgm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), whichX = c(T, T ,T ,T
 # alphas <- c(.005, .01, .05, .10)
 # estimate(HC, model, alphas)
 # 
-# test_sims <- runSim(dgm = MacKinnon_dgm, 
-#                      iterations = 100, n = 25, 
+# system.time(test_sims <- runSim(dgm = MacKinnon_dgm, 
+#                      iterations = 10, n = 500, 
 #                      B = "1 1 1 1 0", whichX = "T T T T T", 
-#                      HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5", 
+#                      HC = "HC0 HC2 HC3", 
 #                      alpha_string = ".005 .01 .05 .10", 
-#                      g = 0, zg = 1)
+#                      g = 0, zg = 1))
 # test_sims
 
 #-----------------------------
@@ -64,3 +64,34 @@ system.time(results <- plyr::mdply(params, .fun = runSim,
 stopCluster(cluster)
 
 write.csv(results, file = "Results/MacKinnon/20160707.csv")
+
+#-------------------------------
+# Large-n simulations
+#-------------------------------
+
+set.seed(20160707)
+
+load("scale.rdata")
+design <- list(n = 1000,
+               B = "1 1 1 1 0",
+               whichX = "T T T T T",
+               g = seq(0, 1, 0.5),
+               HC = "HC0 HC2 HC3",
+               alpha_string = ".005 .010 .050 .100",
+               rep = 1:7)
+
+params <- expand.grid(design, stringsAsFactors = FALSE)
+
+params <- merge(params, scale)
+
+params$iterations <- 1429
+params$seed <- round(runif(1) * 2^30) + 1:nrow(params)
+
+source_obj <- ls()
+cluster <- start_parallel(source_obj = source_obj)
+
+system.time(results <- plyr::mdply(params, .fun = runSim, 
+                                   dgm = MacKinnon_dgm,
+                                   .parallel = TRUE))
+
+stopCluster(cluster)
