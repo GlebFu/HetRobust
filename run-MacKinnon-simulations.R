@@ -2,11 +2,10 @@ library(Pusto)
 rm(list=ls())
 source("t-test-and-simulation-functions.R")
 
-MacKinnon_dgm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), whichX = c(T, T ,T ,T ,T ,F), g = 0, zg = 1) {
+MacKinnon_dgm <- function(n = 25, B = c(1, 1, 1, 1, 0), whichX = c(F, F, F, F, T), g = 0, zg = 1) {
 
   trueB <- B
-  B <- B[whichX]
-  p <- sum(whichX) - 1
+  p <- length(B) - 1
   # Distributions used in generating data
   X <- cbind(1, matrix(exp(rnorm(n * p)), n, p))
   colnames(X) <- paste("x", 0:p, sep = "")
@@ -42,7 +41,7 @@ set.seed(20160708)
 load("scale.rdata")
 design <- list(n = seq(20,100,20),
                B = "1 1 1 1 0",
-               whichX = "T T T T T",
+               whichX = "F F F F T",
                g = seq(0, 2, 0.2),
                HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
                alpha_string = ".005 .010 .050 .100")

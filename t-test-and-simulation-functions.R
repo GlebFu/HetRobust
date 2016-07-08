@@ -11,7 +11,7 @@ t_test <- function(t_stats, df) {
 # Satterthwaite degrees of freedom 
 #-----------------------------------
 
-Satterthwaite_empirical <- function(sd, X_M, omega, e, H, I_H) {
+Satterthwaite_empirical <- function(sd, X_M, omega, e, H, I_H, whichX) {
   
   sigma_hat <- tcrossprod(omega * e^2) / (2 * tcrossprod(omega) * H^2 + 1)
   diag(sigma_hat) <- (omega^2) * (e^4) / 3
@@ -22,12 +22,12 @@ Satterthwaite_empirical <- function(sd, X_M, omega, e, H, I_H) {
     B <- I_H %*% (a * I_H)
     sum(as.vector(t(B)) * as.vector(B * sigma_hat))
   }
-  den <- apply(A_vec, 2, V_V)
+  den <- apply(A_vec, 2, V_V)[whichX]
   
   return(sd^4 / den)
 }
 
-Satterthwaite_model <- function(X_M, omega, H, h) {
+Satterthwaite_model <- function(X_M, omega, H, h, whichX) {
   
   df_A <- function(g) {
     x <- (1 - h) * omega * g^2
@@ -36,7 +36,7 @@ Satterthwaite_model <- function(X_M, omega, H, h) {
     sum(x)^2 / sum(B)
   }
   
-  apply(X_M, 2, df_A)
+  apply(X_M, 2, df_A)[whichX]
 }
 
 #-----------------------------------
@@ -63,7 +63,7 @@ saddlepoint_pval <- function(t, Q, d) {
   return(p_val)
 }
 
-saddle <- function(t_stats, X_M, omega, e, H, I_H, n, p, approx = "model") {
+saddle <- function(t_stats, X_M, omega, e, H, I_H, n, p, approx = "model", whichX) {
   if (!all(is.finite(t_stats))) {
     return(rep(1,length(t_stats)))
   } else {
@@ -74,7 +74,7 @@ saddle <- function(t_stats, X_M, omega, e, H, I_H, n, p, approx = "model") {
       Qs <- apply(A_vec, 2, function(x) (e^2 * I_H) %*% (x * I_H))
     }
     Qs <- lapply(data.frame(Qs), matrix, nrow = n, ncol = n)
-    p_vals <- mapply(saddlepoint_pval, t = t_stats, Q = Qs, d = n - p)
+    p_vals <- mapply(saddlepoint_pval, t = t_stats, Q = Qs[whichX], d = n - p)
     return(p_vals)
   }
 }
@@ -88,7 +88,7 @@ KC_pval <- function(t_stats, df) {
   2 * (1 - pnorm(abs(t_stats))) + (abs(t_stats)^3 + abs(t_stats)) * dnorm(t_stats) / (2 * df)
 }
 
-KC_CI <- function(t_stats, df, M, n, p, alphas) {
+KC_CI <- function(t_stats, df, M, n, p, alphas, whichX) {
   z_crit <- qnorm(1 - alphas / 2)
   t_crit <- qt(1 - alphas / 2, df = n - p)
   
@@ -97,27 +97,28 @@ KC_CI <- function(t_stats, df, M, n, p, alphas) {
     min(c(alphas[abs(t) > z_alpha],1))
   }
   
-  mapply(test_t, t = t_stats, df = df, m = diag(M))
+  mapply(test_t, t = t_stats, df = df, m = diag(M)[whichX])
 }
 
 #-------------------------------------------
 # Rothenberg Edgeworth approximations
 #-------------------------------------------
 
-Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, approx = "model") {
+Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, approx = "model", whichX) {
   
-  X_M_sq <- X_M^2
+  X_M_sq <- X_M[,whichX]^2
   
   if (approx=="model") {
     a_vec <- 0
-    b_vec <- -colSums(omega * h * X_M_sq) / colSums(X_M_sq)
+    b_vec <- -(if(sum(whichX) == 1) sum(omega * h * X_M_sq) / sum(X_M_sq) else colSums(omega * h * X_M_sq) / colSums(X_M_sq))
   } else {
     sigma <- e^2
     q_ii <- colSums(I_H^2 * sigma) - sigma
-    f_i <- I_H %*% (sigma * X_M)
+    f_i <- I_H %*% (sigma * X_M)[,whichX]
     a_vec <- colSums(omega * f_i^2 * X_M_sq) / sd^4
-    b_vec <- colSums(omega * q_ii * X_M_sq) / sd^2
+    b_vec <- (if(sum(whichX) == 1) sum(omega * q_ii * X_M_sq) else colSums(omega * q_ii * X_M_sq)) / sd^2
   }
+  
   
   p_val <- 2 * (1 - pnorm(abs(t_stats) * pmax(0, 2 - (1 + t_stats^2) / (2 * df) + a_vec * (t_stats^2 - 1) + b_vec) / 2))
   p_val <- pmin(1, p_val)
@@ -136,6 +137,11 @@ Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, 
 # testing function
 #-----------------------------------
 
+# estimate("HC0", MacKinnon_dgm(whichX = c(T, T, T, F, T)), .05)
+# estimate("HC0", MacKinnon_dgm(), .05)
+# debug(estimate)
+# undebug(estimate)
+
 estimate <- function(HC, model, alphas) {
 
   omega <- with(model, switch(HC,
@@ -148,24 +154,24 @@ estimate <- function(HC, model, alphas) {
                   HC5 = (1 - h)^(-pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 2)
                   ))
   
-  sd <- with(model, sqrt(colSums(omega * (X_M * e)^2)))
+  sd <- with(model, sqrt(colSums(omega * (X_M * e)^2))[whichX])
   
-  coefs_to_test <- with(model, c(coefs - B, coefs))
+  coefs_to_test <- with(model, c(coefs[whichX] - B[whichX], coefs[whichX]))
   t_stats <- coefs_to_test / sd
   
   # testing 
   pValues <- data.frame(HC = HC, 
-                        coef = rep(colnames(model$X), 2), 
-                        criterion = rep(c("size","power"), each = model$p))
+                        coef = rep(colnames(model$X)[model$whichX], 2), 
+                        criterion = rep(c("size","power"), each = sum(model$whichX)))
   
   # naive t tests
   pValues$naive <- t_test(t_stats = t_stats, df = model$n - model$p)
   
   # Satterthwaite tests
   df_E <- Satterthwaite_empirical(sd = sd, X_M = model$X_M, omega = omega, 
-                                  e = model$e, H = model$H, I_H = model$I_H)
+                                  e = model$e, H = model$H, I_H = model$I_H, whichX = model$whichX)
   df_H <- Satterthwaite_model(X_M = model$X_M, omega = omega, 
-                              H = model$H, h = model$h)
+                              H = model$H, h = model$h, whichX = model$whichX)
   
   pValues$Satt_E <- t_test(t_stats = t_stats, df = df_E)
   pValues$Satt_H <- t_test(t_stats = t_stats, df = df_H)
@@ -174,22 +180,22 @@ estimate <- function(HC, model, alphas) {
   pValues$KCp_E <- KC_pval(t_stats = t_stats, df = df_E)
   pValues$KCp_H <- KC_pval(t_stats = t_stats, df = df_H)
   pValues$KCCI_E <- KC_CI(t_stats = t_stats, df = df_E, 
-                          M = model$M, n = model$n, p = model$p, alphas = alphas)
+                          M = model$M, n = model$n, p = model$p, alphas = alphas, whichX = model$whichX)
   pValues$KCCI_H <- KC_CI(t_stats = t_stats, df = df_H, 
-                          M = model$M, n = model$n, p = model$p, alphas = alphas)
+                          M = model$M, n = model$n, p = model$p, alphas = alphas, whichX = model$whichX)
   
   # Rothenberg's edgeworth approximations
   Roth_E <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
                              H = model$H, h = model$h, I_H = model$I_H, 
                              omega = omega, e = model$e, 
-                             df = df_E, alphas = alphas, approx = "empirical")
+                             df = df_E, alphas = alphas, approx = "empirical", whichX = model$whichX)
   pValues$Rp_E <- Roth_E$p_val
   pValues$RCI_E <- Roth_E$CI
   
   Roth_H <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
                              H = model$H, h = model$h, I_H = model$I_H, 
                              omega = omega, e = model$e, 
-                             df = df_H, alphas = alphas, approx = "model")
+                             df = df_H, alphas = alphas, approx = "model", whichX = model$whichX)
   pValues$Rp_H <- Roth_H$p_val
   pValues$RCI_H <- Roth_H$CI
   
@@ -197,11 +203,11 @@ estimate <- function(HC, model, alphas) {
   pValues$saddle_E <- saddle(t_stats = t_stats, X_M = model$X_M, 
                              omega = omega, e = model$e,
                              H = model$H, I_H = model$I_H, n = model$n, 
-                             p = model$p, approx = "empirical")
+                             p = model$p, approx = "empirical", whichX = model$whichX)
   pValues$saddle_H <- saddle(t_stats = t_stats, X_M = model$X_M, 
                              omega = omega, e = model$e, 
                              H = model$H, I_H = model$I_H, n = model$n, 
-                             p = model$p, approx = "model")
+                             p = model$p, approx = "model", whichX = model$whichX)
 
   # round(pValues[1:5,-(1:3)],4)
   # round(pValues[6:10,-(1:3)],4)
@@ -215,8 +221,8 @@ estimate <- function(HC, model, alphas) {
 
 estimate_model <- function(Y, X, trueB, whichX) {
   
-  #X <- X[, whichX]
-  B <- trueB[whichX]
+  
+  B <- trueB
   
   n <- nrow(X)
   p <- ncol(X)
@@ -232,7 +238,8 @@ estimate_model <- function(Y, X, trueB, whichX) {
   
   values <- list(X = X, Y = Y, B = B, X_M = X_M, 
                  H = H, h = h, I_H = I_H, 
-                 e = e, coefs = coefs, n = n, p = p, M = M)
+                 e = e, coefs = coefs, n = n, p = p, M = M,
+                 whichX = whichX)
   
   return(values)
 }
