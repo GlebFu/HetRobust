@@ -69,22 +69,22 @@ write.csv(results, file = "Results/MacKinnon/20161016.csv")
 # Large-n simulations
 #-------------------------------
 
-set.seed(20160707)
+set.seed(20160711)
 
 load("scale.rdata")
 design <- list(n = 1000,
                B = "1 1 1 1 0",
-               whichX = "T T T T T",
-               g = seq(0, 1, 0.5),
-               HC = "HC0 HC2 HC3",
+               whichX = "F F F F T",
+               g = seq(0, 2, 0.2),
+               HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
                alpha_string = ".005 .010 .050 .100",
-               rep = 1:7)
+               power = F)
 
 params <- expand.grid(design, stringsAsFactors = FALSE)
 
 params <- merge(params, scale)
 
-params$iterations <- 1429
+params$iterations <- 10
 params$seed <- round(runif(1) * 2^30) + 1:nrow(params)
 
 source_obj <- ls()
@@ -92,8 +92,9 @@ cluster <- start_parallel(source_obj = source_obj)
 
 system.time(results <- plyr::mdply(params, .fun = runSim, 
                                    dgm = MacKinnon_dgm,
-                                   .parallel = TRUE))
+                                   .parallel = T))
 
 stopCluster(cluster)
 
-save(results, file = "MacKinnon n = 1000 results.Rdata")
+write.csv(results, file = "Results/MacKinnon/20160711.csv")
+
