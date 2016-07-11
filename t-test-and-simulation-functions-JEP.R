@@ -137,11 +137,6 @@ Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, 
 # testing function
 #-----------------------------------
 
-# estimate("HC0", MacKinnon_dgm(whichX = c(T, T, T, F, T)), .05)
-# estimate("HC0", MacKinnon_dgm(), .05)
-# debug(estimate)
-# undebug(estimate)
-
 estimate <- function(HC, model, alphas, power) {
 
   omega <- with(model, switch(HC,
