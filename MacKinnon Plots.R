@@ -102,6 +102,8 @@ fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 ##############
 # n = 20
 ##############
+pv <- .050
+
 incl <- c("HC1 RCI_H", "HC2 saddle_E", "HC2 saddle_H", "HC2 KCp_H",
           "HC5 KCp_E", "HC5 RCI_E", "HC5 Rp_E")
 
@@ -116,10 +118,12 @@ filter(df, HC != "OLS", test != "naive", n == 20) %>%
   geom_smooth(method = "loess", size = .5, se = F) +
   geom_hline(yintercept = pv + MCSE(pv),
              linetype = "dashed") +
-  geom_smooth(data = filter(df, HC != "OLS" & test == "naive"),
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
               color = "black",
               size = .2, 
               se = F) -> fig1
+
+fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 
 
 ##############
@@ -138,7 +142,7 @@ filter(df, HC != "OLS", test != "naive", n == 40) %>%
   geom_smooth(method = "loess", size = .5, se = F) +
   geom_hline(yintercept = pv + MCSE(pv),
              linetype = "dashed") +
-  geom_smooth(data = filter(df, HC != "OLS" & test == "naive"),
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
               color = "black",
               size = .2, 
               se = F) -> fig1
@@ -163,7 +167,7 @@ filter(df, HC != "OLS", test != "naive", n == 60) %>%
   geom_smooth(method = "loess", size = .5, se = F) +
   geom_hline(yintercept = pv + MCSE(pv),
              linetype = "dashed") +
-  geom_smooth(data = filter(df, HC != "OLS" & test == "naive"),
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
               color = "black",
               size = .2, 
               se = F) -> fig1
@@ -187,7 +191,7 @@ filter(df, HC != "OLS", test != "naive", n == 80) %>%
   geom_smooth(method = "loess", size = .5, se = F) +
   geom_hline(yintercept = pv + MCSE(pv),
              linetype = "dashed") +
-  geom_smooth(data = filter(df, HC != "OLS" & test == "naive"),
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
               color = "black",
               size = .2, 
               se = F) -> fig1
@@ -211,7 +215,7 @@ filter(df, HC != "OLS", test != "naive", n == 100) %>%
   geom_smooth(method = "loess", size = .5, se = F) +
   geom_hline(yintercept = pv + MCSE(pv),
              linetype = "dashed") +
-  geom_smooth(data = filter(df, HC != "OLS" & test == "naive"),
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
               color = "black",
               size = .2, 
               se = F) -> fig1
