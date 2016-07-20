@@ -32,7 +32,7 @@ filter(df, test == "naive", criterion == "size", coef == "x4", HC == "HC3") %>%
 
 
 #-------------------------------
-# g by .005, HC ~ n, color = test
+# g by .050, HC ~ n, color = test
 #-------------------------------
 
 pv <- .050
@@ -51,13 +51,17 @@ filter(df, HC != "OLS", test != "naive") %>%
 #               linetype = "dashed",
 #               size = .2, 
 #               se = F) +
-  geom_smooth(data = filter(df, HC != "OLS" & test == "naive"),
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
               color = "black",
               size = .2, 
               se = F) -> fig1
 
 fig1 + coord_cartesian(ylim = c(0, 2*pv))
 
+
+#-------------------------------
+# remove all lines crossing or above p + MCSE
+#-------------------------------
 filter(df, HC != "OLS", test != "naive") %>%
   group_by(HC, test, n) %>%
   mutate(excl = prod(p.050 < pv + MCSE(pv))) %>%
@@ -69,12 +73,16 @@ filter(df, HC != "OLS", test != "naive") %>%
   geom_hline(yintercept = pv + MCSE(pv),
              linetype = "dashed") +
   facet_grid(n ~ HC) +
-  geom_smooth(data = filter(df, HC != "OLS" & test == "naive"),
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
               color = "black",
               size = .2, 
               se = F) -> fig1
 
 fig1 + coord_cartesian(ylim = c(0, 2*pv))
+
+#-------------------------------
+# Select top combinations
+#-------------------------------
 
 incl <- c("HC1 RCI_H", "HC2 saddle_E", "HC2 saddle_H", "HC2 KCp_H", "HC2 KCCI_E", "HC2 Satt_E",
           "HC4 KCp_H", "HC5 KCCI_H",
@@ -99,9 +107,9 @@ filter(df, HC != "OLS", test != "naive") %>%
 
 fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 
-##############
+#-------------------------------
 # n = 20
-##############
+#-------------------------------
 pv <- .050
 
 incl <- c("HC1 RCI_H", "HC2 saddle_E", "HC2 saddle_H", "HC2 KCp_H",
@@ -126,9 +134,9 @@ filter(df, HC != "OLS", test != "naive", n == 20) %>%
 fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 
 
-##############
+#-------------------------------
 # n = 40
-##############
+#-------------------------------
 incl <- c("HC1 RCI_H", "HC2 saddle_E", "HC2 KCp_H")
 
 filter(df, HC != "OLS", test != "naive", n == 40) %>%
@@ -150,9 +158,9 @@ filter(df, HC != "OLS", test != "naive", n == 40) %>%
 fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 
 
-##############
+#-------------------------------
 # n = 60
-##############
+#-------------------------------
 incl <- c("HC1 RCI_H", "HC2 saddle_E")
 
 
@@ -174,9 +182,9 @@ filter(df, HC != "OLS", test != "naive", n == 60) %>%
 
 fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 
-##############
+#-------------------------------
 # n = 80
-##############
+#-------------------------------
 incl <- c("HC1 RCI_H", "HC2 saddle_E", "HC2 KCCI_E")
 
 
@@ -198,9 +206,9 @@ filter(df, HC != "OLS", test != "naive", n == 80) %>%
 
 fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 
-##############
+#-------------------------------
 # n = 100
-##############
+#-------------------------------
 incl <- c("HC1 RCI_H", "HC2 KCCI_E")
 
 
@@ -211,6 +219,208 @@ filter(df, HC != "OLS", test != "naive", n == 100) %>%
   filter(excl == 1, (comb %in% incl)) %>%
   ggplot(aes(x = g,
              y = p.050,
+             color = comb)) +
+  geom_smooth(method = "loess", size = .5, se = F) +
+  geom_hline(yintercept = pv + MCSE(pv),
+             linetype = "dashed") +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
+              color = "black",
+              size = .2, 
+              se = F) -> fig1
+
+fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
+
+#-------------------------------
+# g by .005, HC ~ n, color = test
+#-------------------------------
+
+pv <- .005
+filter(df, HC != "OLS", test != "naive") %>%
+  ggplot(aes(x = g,
+             y = p.005,
+             color = test)) +
+  #geom_point() + 
+  geom_smooth(method = "loess", size = .5, se = F) +
+  geom_hline(yintercept = pv + MCSE(pv),
+             linetype = "dashed") +
+  # geom_hline(yintercept = pv) +
+  facet_grid(n ~ HC) +
+  #   geom_smooth(data = filter(df, HC == "OLS") %>% select(-HC),
+  #               color = "black",
+  #               linetype = "dashed",
+  #               size = .2, 
+  #               se = F) +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
+              color = "black",
+              size = .2, 
+              se = F) -> fig1
+
+fig1 + coord_cartesian(ylim = c(0, 2*pv))
+
+
+#-------------------------------
+# remove all lines crossing or above p + MCSE
+#-------------------------------
+filter(df, HC != "OLS", test != "naive") %>%
+  group_by(HC, test, n) %>%
+  mutate(excl = prod(p.005 < pv + MCSE(pv))) %>%
+  filter(excl == 1) %>%
+  ggplot(aes(x = g,
+             y = p.005,
+             color = test)) +
+  geom_smooth(method = "loess", size = 1, se = F) +
+  geom_hline(yintercept = pv + MCSE(pv),
+             linetype = "dashed") +
+  facet_grid(n ~ HC) +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
+              color = "black",
+              size = .2, 
+              se = F) -> fig1
+
+fig1 + coord_cartesian(ylim = c(0, 2*pv))
+
+#-------------------------------
+# Select top combinations
+#-------------------------------
+
+incl <- c("HC0 RCI_H", "HC0 Satt_H",
+          "HC1 RCI_H", "HC1 Satt_H",
+          "HC2 saddle_H", "HC2 saddle_E", "HC2 KCCI_E", "HC2 Satt_E",
+          "HC3 KCp_H", "HC3 KCp_E",
+          "HC4 KCp_H", "HC4 RCI_E", "HC4 Rp_E",
+          "HC4m KCp_H", "HC4m Rp_E",
+          "HC5 saddle_E", "HC5 KCp_E", "HC5 KCp_H")
+
+filter(df, HC != "OLS", test != "naive") %>%
+  mutate(comb = paste(HC, test)) %>%
+  group_by(HC, test, n) %>%
+  mutate(excl = prod(p.005 < pv + MCSE(pv))) %>%
+  filter(excl == 1, (comb %in% incl)) %>%
+  ggplot(aes(x = g,
+             y = p.005,
+             color = test)) +
+  geom_smooth(method = "loess", size = 1, se = F) +
+  geom_hline(yintercept = pv + MCSE(pv),
+             linetype = "dashed") +
+  facet_grid(n ~ HC) +
+  geom_smooth(data = filter(df, HC != "OLS" & test == "naive"),
+              color = "black",
+              size = .2, 
+              se = F) -> fig1
+
+fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
+
+#-------------------------------
+# n = 20
+#-------------------------------
+pv <- .005
+
+incl <- c("HC2 saddle_H", "HC2 saddle_E")
+
+filter(df, HC != "OLS", test != "naive", n == 20) %>%
+  mutate(comb = paste(HC, test)) %>%
+  group_by(HC, test, n) %>%
+  mutate(excl = prod(p.005 < pv + MCSE(pv))) %>%
+  filter(excl == 1, (comb %in% incl)) %>%
+  ggplot(aes(x = g,
+             y = p.005,
+             color = comb)) +
+  geom_smooth(method = "loess", size = .5, se = F) +
+  geom_hline(yintercept = pv + MCSE(pv),
+             linetype = "dashed") +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
+              color = "black",
+              size = .2, 
+              se = F) -> fig1
+
+fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
+
+
+#-------------------------------
+# n = 40
+#-------------------------------
+incl <- c("HC1 RCI_H", "HC5 KCp_H")
+
+filter(df, HC != "OLS", test != "naive", n == 40) %>%
+  mutate(comb = paste(HC, test)) %>%
+  group_by(HC, test, n) %>%
+  mutate(excl = prod(p.005 < pv + MCSE(pv))) %>%
+  filter(excl == 1, (comb %in% incl)) %>%
+  ggplot(aes(x = g,
+             y = p.005,
+             color = comb)) +
+  geom_smooth(method = "loess", size = .5, se = F) +
+  geom_hline(yintercept = pv + MCSE(pv),
+             linetype = "dashed") +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
+              color = "black",
+              size = .2, 
+              se = F) -> fig1
+
+fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
+
+
+#-------------------------------
+# n = 60
+#-------------------------------
+incl <- c("HC1 Satt_H")
+
+
+filter(df, HC != "OLS", test != "naive", n == 60) %>%
+  mutate(comb = paste(HC, test)) %>%
+  group_by(HC, test, n) %>%
+  mutate(excl = prod(p.005 < pv + MCSE(pv))) %>%
+  filter(excl == 1, (comb %in% incl)) %>%
+  ggplot(aes(x = g,
+             y = p.005,
+             color = comb)) +
+  geom_smooth(method = "loess", size = .5, se = F) +
+  geom_hline(yintercept = pv + MCSE(pv),
+             linetype = "dashed") +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
+              color = "black",
+              size = .2, 
+              se = F) -> fig1
+
+fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
+
+#-------------------------------
+# n = 80
+#-------------------------------
+incl <- c("HC0 RCI_H", "HC1 Satt_H")
+
+
+filter(df, HC != "OLS", test != "naive", n == 80) %>%
+  mutate(comb = paste(HC, test)) %>%
+  group_by(HC, test, n) %>%
+  mutate(excl = prod(p.005 < pv + MCSE(pv))) %>%
+  filter(excl == 1, (comb %in% incl)) %>%
+  ggplot(aes(x = g,
+             y = p.005,
+             color = comb)) +
+  geom_smooth(method = "loess", size = .5, se = F) +
+  geom_hline(yintercept = pv + MCSE(pv),
+             linetype = "dashed") +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive"),
+              color = "black",
+              size = .2, 
+              se = F) -> fig1
+
+fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
+
+#-------------------------------
+# n = 100
+#-------------------------------
+incl <- c("HC0 RCI_H", "HC0 Satt_H", "HC1 Satt_H", "HC2 KCCI_E", "HC2 Satt_E")
+
+
+filter(df, HC != "OLS", test != "naive", n == 100) %>%
+  mutate(comb = paste(HC, test)) %>%
+  group_by(HC, test, n) %>%
+  mutate(excl = prod(p.005 < pv + MCSE(pv))) %>%
+  filter(excl == 1, (comb %in% incl)) %>%
+  ggplot(aes(x = g,
+             y = p.005,
              color = comb)) +
   geom_smooth(method = "loess", size = .5, se = F) +
   geom_hline(yintercept = pv + MCSE(pv),
