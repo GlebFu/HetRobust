@@ -127,8 +127,6 @@ filter(df, HC != "OLS", test != "naive", n == 20) %>%
 ##############
 incl <- c("HC1 RCI_H", "HC2 saddle_E", "HC2 KCp_H")
 
-fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
-
 filter(df, HC != "OLS", test != "naive", n == 40) %>%
   mutate(comb = paste(HC, test)) %>%
   group_by(HC, test, n) %>%
@@ -153,7 +151,6 @@ fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 ##############
 incl <- c("HC1 RCI_H", "HC2 saddle_E")
 
-fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 
 filter(df, HC != "OLS", test != "naive", n == 60) %>%
   mutate(comb = paste(HC, test)) %>%
@@ -179,8 +176,6 @@ fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 incl <- c("HC1 RCI_H", "HC2 saddle_E", "HC2 KCCI_E")
 
 
-fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
-
 filter(df, HC != "OLS", test != "naive", n == 80) %>%
   mutate(comb = paste(HC, test)) %>%
   group_by(HC, test, n) %>%
@@ -204,8 +199,6 @@ fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 ##############
 incl <- c("HC1 RCI_H", "HC2 KCCI_E")
 
-
-fig1 + coord_cartesian(ylim = c(0, pv + MCSE(pv)))
 
 filter(df, HC != "OLS", test != "naive", n == 100) %>%
   mutate(comb = paste(HC, test)) %>%
