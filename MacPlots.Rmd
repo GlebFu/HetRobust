@@ -1,0 +1,190 @@
+---
+title: "MacPlots"
+author: "Gleb Furman"
+---
+
+
+
+```{r, echo = F, warning = F, message = F}
+rm(list = ls())
+
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(stringr)
+
+df <- read.csv("Results/MacKinnon/20161016.csv")
+
+df <- filter(df, !(HC == "OLS" & test %in% levels(df$test)[-5])) %>% 
+  select(-X, -(B:power), -(iterations:seed), -(coef:criterion), -percent_NA) %>%
+  gather(key = alpha, value = p, p.005:p.100)
+
+df$alpha <- as.numeric(sub(".", "", df$alpha))
+
+MCSE <- function(a, k = 20000) sqrt((a * (1-a))/k) * qnorm(.95)
+
+HC3 <- filter(df, test == "naive", HC == "HC3") %>% 
+  mutate(pHC3 = p) %>%
+  select(-p, -(HC:test))
+
+  
+df <- merge(df, HC3) %>% mutate(ULa = alpha + MCSE(alpha),
+                                LLa = alpha - MCSE(alpha))
+```
+
+```{r, echo = F, warning = F, message = F}
+test <- levels(df$test)[!(levels(df$test) %in% "naive")]
+HC <- levels(df$HC)[!(levels(df$HC) %in% "OLS")]
+
+df %>% 
+  mutate(comb = paste(HC, test)) %>%
+  group_by(HC, test, n, alpha) %>%
+  mutate(under = prod(p <= ULa),
+         hc3under = prod(pHC3 <= ULa),
+         beatHC3 = sum(p + MCSE(alpha) >= pHC3) > 1,    #set to show if beats naive HC3 for at least one value of g
+         #beatHC3 = mean(p + MCSE(alpha) >= pHC3) >= .75,  #set to show if beats naive HC3 for at least 75% of g values
+         beatHC3 = ifelse(hc3under == 0, under, under*beatHC3)) %>%
+  ungroup -> df
+
+
+# Uncomment to collapse across Ns
+# df %>%
+#   group_by(HC, test, alpha) %>%
+#   mutate(beatHC3 = prod(beatHC3)) %>%
+#   ungroup -> df
+
+```
+  
+The first objective was to identify which combination of HCCME and adjustment (where applicable) outperformed the naive HC3 estimator. Figures 1-4 show the performance each combination at $\alpha$ = .005, .010, .050, and .010 respectively. Lines which crossed or remained above nominal alpha plus MCSE (the dotted horizontal line) were ommited from the graphs as they represented tests which were too liberal. The exception to this is the black solid line which represents the naive HC3 estimator. Figure 1 shows that at the .005 level, the HC1 RCI_H, HC1 Rp_H, HC1 Satt_H, HC2 KCCI_E, HC2 KCCI_H, HC2 RCI_H, HC2 Rp_H, HC2 saddle_E, HC2 saddle_H, HC2 Satt_E, HC2 Satt_H, HC4m naive, and HC4 naive all outperform the naive HC3.
+  
+```{r, echo = F, warning = F, message = F}
+cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
+cmb <- paste(cmb$Var1, cmb$Var2)
+
+pv <- .005
+
+df %>%
+  filter(HC != "OLS", beatHC3 == 1, !(comb %in% cmb), alpha == pv) %>%
+  ggplot(aes(x = g,
+             y = p,
+             color = HC,
+             linetype = test)) +
+  geom_smooth(method = "loess", se = F) +
+  geom_hline(aes(yintercept = ULa),
+             linetype = "dashed") +
+  geom_hline(aes(yintercept = alpha)) +
+  facet_wrap(~n)  +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv) %>% select(-HC, -test),
+              color = "black",
+              linetype = "solid",
+              size = .2, 
+              se = F) + 
+  scale_color_brewer(palette="Set1") +
+  coord_cartesian(ylim = c(.000, 1.25*pv)) + 
+  labs(title = "Fig 1: .005 plots") -> fig1
+
+fig1
+
+data.frame(fig1$data %>% select(comb) %>% distinct(comb)) -> best1
+paste(best1[,1], collapse = ", ")
+
+```
+  
+```{r, echo = F, warning = F, message = F}
+cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
+cmb <- paste(cmb$Var1, cmb$Var2)
+
+pv <- .01
+
+df %>%
+  filter(HC != "OLS", beatHC3 == 1, !(comb %in% cmb), alpha == pv) %>%
+  ggplot(aes(x = g,
+             y = p,
+             color = HC,
+             linetype = test)) +
+  geom_smooth(method = "loess", se = F) +
+  geom_hline(aes(yintercept = ULa),
+             linetype = "dashed") +
+  geom_hline(aes(yintercept = alpha)) +
+  facet_wrap(~n)  +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv) %>% select(-HC, -test),
+              color = "black",
+              linetype = "solid",
+              size = .2, 
+              se = F) + 
+  scale_color_brewer(palette="Set1") +
+  coord_cartesian(ylim = c(.000, 1.25*pv)) + 
+  labs(title = "Fig 2: .010 plots") -> fig2
+
+fig2
+
+data.frame(fig2$data %>% select(comb) %>% distinct(comb)) -> best2
+paste(best2[,1], collapse = ", ")
+
+```
+  
+```{r, echo = F, warning = F, message = F}
+cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
+cmb <- paste(cmb$Var1, cmb$Var2)
+
+pv <- .05
+
+df %>%
+  filter(HC != "OLS", beatHC3 == 1, !(comb %in% cmb), alpha == pv) %>%
+  ggplot(aes(x = g,
+             y = p,
+             color = HC,
+             linetype = test)) +
+  geom_smooth(method = "loess", se = F) +
+  geom_hline(aes(yintercept = ULa),
+             linetype = "dashed") +
+  geom_hline(aes(yintercept = alpha)) +
+  facet_wrap(~n)  +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv) %>% select(-HC, -test),
+              color = "black",
+              linetype = "solid",
+              size = .2, 
+              se = F) + 
+  scale_color_brewer(palette="Set1") +
+  coord_cartesian(ylim = c(.000, 1.25*pv)) + 
+  labs(title = "Fig 2: .050 plots") -> fig3
+
+fig3
+
+data.frame(fig3$data %>% select(comb) %>% distinct(comb)) -> best3
+paste(best3[,1], collapse = ", ")
+
+```
+  
+```{r, echo = F, warning = F, message = F}
+cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
+cmb <- paste(cmb$Var1, cmb$Var2)
+
+pv <- .1
+
+df %>%
+  filter(HC != "OLS", beatHC3 == 1, !(comb %in% cmb), alpha == pv) %>%
+  ggplot(aes(x = g,
+             y = p,
+             color = HC,
+             linetype = test)) +
+  geom_smooth(method = "loess", se = F) +
+  geom_hline(aes(yintercept = ULa),
+             linetype = "dashed") +
+  geom_hline(aes(yintercept = alpha)) +
+  facet_wrap(~n)  +
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv) %>% select(-HC, -test),
+              color = "black",
+              linetype = "solid",
+              size = .2, 
+              se = F) + 
+  scale_color_brewer(palette="Set1") +
+  coord_cartesian(ylim = c(.000, 1.25*pv)) + 
+  labs(title = "Fig 4: .100 plots") -> fig4
+
+fig4
+
+data.frame(fig4$data %>% select(comb) %>% distinct(comb)) -> best4
+paste(best4[,1], collapse = ", ")
+
+```

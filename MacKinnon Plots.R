@@ -7,7 +7,7 @@ df <- read.csv("Results/MacKinnon/20161016.csv")
 
 df <- filter(df, !(HC == "OLS" & test %in% levels(df$test)[-5]))
 
-MCSE <- function(a, k = 20000) sqrt((a * (1-a))/k)
+MCSE <- function(a, k = 20000) sqrt((a * (1-a))/k) * qnorm(.95)
 
 #-------------------------------
 # MacKinnon Plots
