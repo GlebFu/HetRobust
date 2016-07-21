@@ -226,9 +226,9 @@ Their forms are as follows:
 \text{HC1:} \qquad \omega_i &= n / (n - p) \\
 \text{HC2:} \qquad \omega_i &= (1 - h_{ii})^{-1} \\
 \text{HC3:} \qquad \omega_i &= (1 - h_{ii})^{-2} \\
-\text{HC4:} \qquad \omega_i &= (1 - h_{ii})^{-\delta}, \qquad \delta_i = \min\{h_{ii} n / p, 4\} \\
-\text{HC4m:} \qquad \omega_i &= (1 - h_{ii})^{-\delta}, \qquad \delta_i = \min\left\{h_{ii} n / p, 1 \right\} + \min\left\{h_{ii} n / p, 1.5 \right\} \\
-\text{HC5:} \qquad \omega_i &= (1 - h_{ii})^{-\delta}, \qquad \delta_i = \frac{1}{2}\min\left\{h_{ii} n / p, \max \left\{4, 0.7 h_{(n)(n)} n / p\right\}\right\}
+\text{HC4:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \min\{h_{ii} n / p, 4\} \\
+\text{HC4m:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \min\left\{h_{ii} n / p, 1 \right\} + \min\left\{h_{ii} n / p, 1.5 \right\} \\
+\text{HC5:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \frac{1}{2}\min\left\{h_{ii} n / p, \max \left\{4, 0.7 h_{(n)(n)} n / p\right\}\right\}
 \end{align*}
 \citet{MacKinnon1985some} suggested HC1, which uses an ad hoc correction similar to the correction used for $\hat\sigma^2$, and HC2, which has the property that $V^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
 \citet{Davidson1993estimation} proposed HC3 as an approximation to the leave-on-out jackknife variance estimator. 
