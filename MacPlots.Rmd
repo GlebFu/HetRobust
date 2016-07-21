@@ -48,10 +48,10 @@ df %>%
 
 
 # Uncomment to collapse across Ns
-# df %>%
-#   group_by(HC, test, alpha) %>%
-#   mutate(beatHC3 = prod(beatHC3)) %>%
-#   ungroup -> df
+df %>%
+  group_by(HC, test, alpha) %>%
+  mutate(beatHC3 = prod(beatHC3)) %>%
+  ungroup -> df
 
 ```
   
@@ -69,7 +69,7 @@ df %>%
              y = p,
              color = HC,
              linetype = test)) +
-  geom_smooth(method = "loess", se = F) +
+  geom_smooth(method = "loess", se = F, size = .5) +
   geom_hline(aes(yintercept = ULa),
              linetype = "dashed") +
   geom_hline(aes(yintercept = alpha)) +
@@ -102,7 +102,7 @@ df %>%
              y = p,
              color = HC,
              linetype = test)) +
-  geom_smooth(method = "loess", se = F) +
+  geom_smooth(method = "loess", se = F, size = .5) +
   geom_hline(aes(yintercept = ULa),
              linetype = "dashed") +
   geom_hline(aes(yintercept = alpha)) +
@@ -135,7 +135,7 @@ df %>%
              y = p,
              color = HC,
              linetype = test)) +
-  geom_smooth(method = "loess", se = F) +
+  geom_smooth(method = "loess", se = F, size = .5) +
   geom_hline(aes(yintercept = ULa),
              linetype = "dashed") +
   geom_hline(aes(yintercept = alpha)) +
@@ -168,7 +168,7 @@ df %>%
              y = p,
              color = HC,
              linetype = test)) +
-  geom_smooth(method = "loess", se = F) +
+  geom_smooth(method = "loess", se = F, size = .5) +
   geom_hline(aes(yintercept = ULa),
              linetype = "dashed") +
   geom_hline(aes(yintercept = alpha)) +
