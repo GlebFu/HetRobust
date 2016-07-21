@@ -27,9 +27,16 @@ HC3 <- filter(df, test == "naive", HC == "HC3") %>%
   mutate(pHC3 = p) %>%
   select(-p, -(HC:test))
 
+tColors <- c("dark red", "red", "cadetblue", "light blue", "dodgerblue4", "dodgerblue", "purple", "violet", "brown", "orange", "darkgreen", "chartreuse3")
+names(tColors) <- levels(df$test)[!(levels(df$test) %in% "naive")]
+colScale <- scale_colour_manual(name = "test",values = tColors)
   
-df <- merge(df, HC3) %>% mutate(ULa = alpha + MCSE(alpha),
-                                LLa = alpha - MCSE(alpha))
+# df <- merge(df, HC3) %>% mutate(ULa = alpha + MCSE(alpha),
+#                                 LLa = alpha - MCSE(alpha))
+
+df <- merge(df, HC3) %>% mutate(ULa = alpha * 1.2,
+                                LLa = alpha * 1.2)
+
 ```
 
 ```{r, echo = F, warning = F, message = F}
@@ -39,7 +46,7 @@ HC <- levels(df$HC)[!(levels(df$HC) %in% "OLS")]
 df %>% 
   mutate(comb = paste(HC, test)) %>%
   group_by(HC, test, n, alpha) %>%
-  mutate(under = prod(p - MCSE(alpha) <= ULa),
+  mutate(under = prod(p <= ULa),
          hc3under = prod(pHC3 <= ULa),
          underHC3 = sum(p + MCSE(alpha) >= pHC3) > 1,    #set to show if beats naive HC3 for at least one value of g
          #underHC3 = mean(p + MCSE(alpha) >= pHC3) >= .75,  #set to show if beats naive HC3 for at least 75% of g values
@@ -64,15 +71,16 @@ cmb <- paste(cmb$Var1, cmb$Var2)
 pv <- .005
 
 df %>%
-  filter(HC != "OLS", test == "naive") %>%
+  filter(HC %in% c("HC0", "HC1"), test == "RCI_H") %>%
   ggplot(aes(x = g,
              y = p,
-             color = HC)) +
+             color = test,
+             linetype = HC)) +
   geom_smooth(method = "loess", se = F, size = 1) +
   geom_hline(aes(yintercept = ULa),
              linetype = "dashed") +
   geom_hline(aes(yintercept = alpha)) +
-  facet_grid(alpha~n, scale = "free")
+  facet_grid(alpha~n, scale = "free") + colScale
 
 # fig0
 # 
@@ -106,17 +114,11 @@ df %>%
               size = .2, 
               se = F) +
   coord_cartesian(ylim = c(.000, 1.25*pv)) + 
-  labs(title = "Fig 1: .005 plots") + 
-  scale_color_brewer(type = "qual", palette = 2) -> fig1
+  labs(title = expression(paste("Figure 1. Rejection rates when ", alpha, " = .005", sep = "")), 
+       y = "Rejection rate") +
+  colScale -> fig1
 
-fig1  +
-  geom_smooth(data = filter(df, HC == "HC1" & test == "RCI_H" & alpha == pv) %>% select(-HC, -test),
-              color = "black",
-              linetype = "solid",
-              size = .2, 
-              se = F) +
-  geom_point()
-
+fig1 + theme_minimal()
 
 data.frame(fig1$data %>% select(comb) %>% distinct(comb)) -> best1
 paste(best1[,1], collapse = ", ")
@@ -149,11 +151,12 @@ df %>%
               linetype = "solid",
               size = .2, 
               se = F) + 
-  scale_color_brewer(type = "qual", palette = 2) +
+  colScale +
   coord_cartesian(ylim = c(.000, 1.25*pv)) + 
-  labs(title = "Fig 2: .010 plots") -> fig2
+  labs(title = expression(paste("Figure 2. Rejection rates when ", alpha, " = .010", sep = "")), 
+       y = "Rejection rate") -> fig2
 
-fig2
+fig2 + theme_minimal()
 
 data.frame(fig2$data %>% select(comb) %>% distinct(comb)) -> best2
 paste(best2[,1], collapse = ", ")
@@ -183,11 +186,12 @@ df %>%
               linetype = "solid",
               size = .2, 
               se = F) + 
-  scale_color_brewer(type = "qual", palette = 2) +
+  colScale +
   coord_cartesian(ylim = c(.000, 1.25*pv)) + 
-  labs(title = "Fig 3: .050 plots") -> fig3
+  labs(title = expression(paste("Figure 3. Rejection rates when ", alpha, " = .050", sep = "")), 
+       y = "Rejection rate") -> fig3
 
-fig3
+fig3 + theme_minimal()
 
 data.frame(fig3$data %>% select(comb) %>% distinct(comb)) -> best3
 paste(best3[,1], collapse = ", ")
@@ -217,11 +221,12 @@ df %>%
               linetype = "solid",
               size = .2, 
               se = F) + 
-  scale_color_brewer(type = "qual", palette = 2) +
+  colScale +
   coord_cartesian(ylim = c(.000, 1.25*pv)) + 
-  labs(title = "Fig 4: .100 plots") -> fig4
+  labs(title = expression(paste("Figure 4. Rejection rates when ", alpha, " = .100", sep = "")), 
+       y = "Rejection rate") -> fig4
 
-fig4
+fig4 + theme_minimal()
 
 data.frame(fig4$data %>% select(comb) %>% distinct(comb)) -> best4
 paste(best4[,1], collapse = ", ")
