@@ -1,0 +1,113 @@
+---
+title: "MacPlots"
+author: "Gleb Furman"
+---
+
+
+
+```{r, echo = F, warning = F, message = F}
+rm(list = ls())
+
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(stringr)
+
+df <- read.csv("Results/MacKinnon/20161016.csv")
+
+df <- filter(df, !(HC == "OLS" & test %in% levels(df$test)[-5])) %>% 
+  select(-X, -(B:power), -(iterations:seed), -(coef:criterion), -percent_NA) %>%
+  gather(key = alpha, value = p, p.005:p.100)
+
+df$alpha <- as.numeric(sub(".", "", df$alpha))
+
+MCSE <- function(a, k = 20000) sqrt((a * (1-a))/k) * qnorm(.95)
+
+HC3 <- filter(df, test == "naive", HC == "HC3") %>% 
+  mutate(pHC3 = p) %>%
+  select(-p, -(HC:test))
+
+tColors <- c("dark red", "red", "cadetblue", "light blue", "dodgerblue4", "dodgerblue", "purple", "violet", "brown", "orange", "darkgreen", "chartreuse3")
+names(tColors) <- levels(df$test)[!(levels(df$test) %in% "naive")]
+colScale <- scale_colour_manual(name = "test",values = tColors)
+  
+# df <- merge(df, HC3) %>% mutate(ULa = alpha + MCSE(alpha),
+#                                 LLa = alpha - MCSE(alpha))
+
+df <- merge(df, HC3) %>% mutate(ULa = alpha * 1.2,
+                                LLa = alpha * 1.2)
+
+```
+
+```{r, echo = F, warning = F, message = F}
+test <- levels(df$test)[!(levels(df$test) %in% "naive")]
+HC <- levels(df$HC)[!(levels(df$HC) %in% "OLS")]
+
+df %>% 
+  mutate(comb = paste(HC, test)) %>%
+  group_by(HC, test, n, alpha) %>%
+  mutate(under = prod(p <= ULa),
+         hc3under = prod(pHC3 <= ULa),
+         underHC3 = sum(p + MCSE(alpha) >= pHC3) > 1,    #set to show if beats naive HC3 for at least one value of g
+         #underHC3 = mean(p + MCSE(alpha) >= pHC3) >= .75,  #set to show if beats naive HC3 for at least 75% of g values
+         beatHC3 = ifelse(hc3under == 0, under, under*underHC3)) %>%
+  ungroup -> df
+
+
+# Uncomment to collapse across Ns
+df %>%
+  group_by(HC, test, alpha) %>%
+  mutate(beatHC3 = prod(beatHC3)) %>%
+  ungroup -> df
+
+```
+  
+
+```{r, echo = F, warning = F, message = F}
+cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
+cmb <- paste(cmb$Var1, cmb$Var2)
+
+pv <- .005
+
+df %>%
+  filter(test == "naive") %>%
+  ggplot(aes(x = g,
+             y = p,
+             color = HC)) +
+  geom_smooth(method = "loess", se = F, size = 1) +
+  geom_hline(aes(yintercept = ULa),
+             linetype = "dashed") +
+  geom_hline(aes(yintercept = alpha)) +
+  facet_grid(alpha~n, scale = "free")
+# fig0
+# 
+# data.frame(fig0$data %>% select(comb) %>% distinct(comb)) -> best0
+# paste(best0[,1], collapse = ", ")
+
+```
+
+```{r}
+
+OLS <- function(model, power) {
+  if (power) {
+    coefs_to_test <- with(model, c(coefs - B, coefs))
+    pValues <- data.frame(HC = "OLS", 
+                          coef = names(coefs_to_test), 
+                          criterion = rep(c("size","power"), each = length(model$coefs)))
+  } else {
+    coefs_to_test <- with(model, coefs - B)
+    pValues <- data.frame(HC = "OLS",
+                          coef = names(coefs_to_test),
+                          criterion = "size")
+  }
+  
+  sd <- with(model, sqrt(as.vector((t(e) %*% e)/(n - p)) * M_diag))
+  
+  t_stats <- coefs_to_test / sd
+  pValues$naive <- t_test(t_stats, df = model$n - model$p)
+  
+  pValues
+}
+
+
+```
