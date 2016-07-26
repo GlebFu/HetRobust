@@ -280,7 +280,7 @@ OLS <- function(model, power) {
                           criterion = "size")
   }
   
-  sd <- with(model, sqrt(as.vector((t(e) %*% e)/(n - p)) * M_diag))
+  sd <- with(model, sqrt(sum(e^2) / (n - p) * M_diag))
   
   t_stats <- coefs_to_test / sd
   pValues$naive <- t_test(t_stats, df = model$n - model$p)

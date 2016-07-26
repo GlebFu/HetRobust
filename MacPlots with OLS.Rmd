@@ -79,35 +79,18 @@ df %>%
              linetype = "dashed") +
   geom_hline(aes(yintercept = alpha)) +
   facet_grid(alpha~n, scale = "free")
-# fig0
-# 
-# data.frame(fig0$data %>% select(comb) %>% distinct(comb)) -> best0
-# paste(best0[,1], collapse = ", ")
 
-```
-
-```{r}
-
-OLS <- function(model, power) {
-  if (power) {
-    coefs_to_test <- with(model, c(coefs - B, coefs))
-    pValues <- data.frame(HC = "OLS", 
-                          coef = names(coefs_to_test), 
-                          criterion = rep(c("size","power"), each = length(model$coefs)))
-  } else {
-    coefs_to_test <- with(model, coefs - B)
-    pValues <- data.frame(HC = "OLS",
-                          coef = names(coefs_to_test),
-                          criterion = "size")
-  }
-  
-  sd <- with(model, sqrt(as.vector((t(e) %*% e)/(n - p)) * M_diag))
-  
-  t_stats <- coefs_to_test / sd
-  pValues$naive <- t_test(t_stats, df = model$n - model$p)
-  
-  pValues
-}
+df %>%
+  filter(HC=="OLS" & test == "naive") %>%
+  ggplot(aes(x = g,
+             y = p,
+             color = factor(n))) +
+  geom_point() + 
+  geom_smooth(method = "loess", se = F, size = 1) +
+  geom_hline(aes(yintercept = ULa),
+             linetype = "dashed") +
+  geom_hline(aes(yintercept = alpha)) +
+  facet_wrap(~alpha, scale = "free")
 
 
 ```
