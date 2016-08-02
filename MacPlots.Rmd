@@ -14,9 +14,12 @@ library(tidyr)
 library(stringr)
 
 df <- read.csv("Results/MacKinnon/20161016.csv")
+df1 <- read.csv("Results/MacKinnon/20161016x3.csv")
+
+df <- rbind(df, df1)
 
 df <- filter(df, !(HC == "OLS" & test %in% levels(df$test)[-5])) %>% 
-  select(-X, -(B:power), -(iterations:seed), -(coef:criterion), -percent_NA) %>%
+  select(-X, -(B:power), -(iterations:seed), -criterion, -percent_NA) %>%
   gather(key = alpha, value = p, p.005:p.100)
 
 df$alpha <- as.numeric(sub(".", "", df$alpha))
@@ -45,7 +48,7 @@ HC <- levels(df$HC)[!(levels(df$HC) %in% "OLS")]
 
 df %>% 
   mutate(comb = paste(HC, test)) %>%
-  group_by(HC, test, n, alpha) %>%
+  group_by(HC, test, n, coef, alpha) %>%
   mutate(under = prod(p <= ULa),
          hc3under = prod(pHC3 <= ULa),
          underHC3 = sum(p + MCSE(alpha) >= pHC3) > 1,    #set to show if beats naive HC3 for at least one value of g
@@ -56,7 +59,7 @@ df %>%
 
 # Uncomment to collapse across Ns
 df %>%
-  group_by(HC, test, alpha) %>%
+  group_by(HC, test, alpha, coef) %>%
   mutate(beatHC3 = prod(beatHC3)) %>%
   ungroup -> df
 
@@ -71,17 +74,31 @@ cmb <- paste(cmb$Var1, cmb$Var2)
 pv <- .005
 
 df %>%
-  filter(HC %in% c("HC0", "HC1"), test == "RCI_H") %>%
+  filter(test == "naive", coef == "x3") %>%
   ggplot(aes(x = g,
              y = p,
-             color = test,
-             linetype = HC)) +
+             color = HC)) +
   geom_smooth(method = "loess", se = F, size = 1) +
   geom_hline(aes(yintercept = ULa),
              linetype = "dashed") +
   geom_hline(aes(yintercept = alpha)) +
-  facet_grid(alpha~n, scale = "free") + colScale
+  facet_grid(alpha~n, scale = "free") +
+  theme_minimal()
 
+
+df %>%
+  filter(test == "naive", coef == "x4") %>%
+  ggplot(aes(x = g,
+             y = p,
+             color = HC)) +
+  geom_smooth(method = "loess", se = F, size = 1) +
+  geom_hline(aes(yintercept = ULa),
+             linetype = "dashed") +
+  geom_hline(aes(yintercept = alpha)) +
+  facet_grid(alpha~n, scale = "free") +
+  theme_minimal()
+
+# ggsave(filename = "x4 005.jpg")
 # fig0
 # 
 # data.frame(fig0$data %>% select(comb) %>% distinct(comb)) -> best0
@@ -98,7 +115,7 @@ pv <- .005
 excl <- c("HC1 Rp_H", "HC2 Rp_H")
 
 df %>%
-  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% c(cmb, excl)), alpha == pv) %>%
+  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% c(cmb, excl)), alpha == pv, coef == "x3") %>%
   ggplot(aes(x = g,
              y = p,
              color = test,
@@ -108,9 +125,9 @@ df %>%
              linetype = "dashed") +
   geom_hline(aes(yintercept = alpha)) +
   facet_wrap(~n)  +
-  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv) %>% select(-HC, -test),
+  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv),
               color = "black",
-              linetype = "solid",
+              linetype = "solid", 
               size = .2, 
               se = F) +
   coord_cartesian(ylim = c(.000, 1.25*pv)) + 
@@ -136,7 +153,7 @@ pv <- .01
 excl <- c("HC1 Rp_H", "HC2 Rp_H")
 
 df %>%
-  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% c(cmb, excl)), alpha == pv) %>%
+  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% c(cmb, excl)), alpha == pv, coef == "x3") %>%
   ggplot(aes(x = g,
              y = p,
              color = test,
@@ -171,7 +188,7 @@ cmb <- paste(cmb$Var1, cmb$Var2)
 pv <- .05
 
 df %>%
-  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% cmb), alpha == pv) %>%
+  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% cmb), alpha == pv, coef == "x3") %>%
   ggplot(aes(x = g,
              y = p,
              color = test,
@@ -206,7 +223,7 @@ cmb <- paste(cmb$Var1, cmb$Var2)
 pv <- .1
 
 df %>%
-  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% cmb), alpha == pv) %>%
+  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% cmb), alpha == pv, coef == "x3") %>%
   ggplot(aes(x = g,
              y = p,
              color = test,
