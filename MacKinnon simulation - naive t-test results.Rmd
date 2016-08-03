@@ -19,18 +19,20 @@ df <- rbind(dfx4, dfx3) %>%
          HC = ifelse(HC=="OLS","Hom",HC))
 
 df %>%
-  filter(test == "naive" & coef == "x4" & 
+  filter(test == "naive" & coef %in% c("x3","x4") & 
            n %in% c(20,40,80) & 
-           alpha %in% c(.01, .05, .10)) %>%
+           alpha == .05) %>%
+  mutate(coef = ifelse(coef=="x3","x4","x5")) %>%
   ggplot(aes(x = g,
              y = p,
              color = HC)) +
   geom_point(size = 1) + 
   geom_smooth(method = "loess", se = F, size = 1) +
   geom_hline(aes(yintercept = alpha)) +
-  facet_grid(alpha ~ n, scale = "free", labeller = "label_both") +
+  facet_grid(coef ~ n, scale = "free", labeller = "label_both") +
   labs(x = "gamma", y = "Rejection rate", color = "") + 
   theme_bw()
 
+ggsave("MacKinnon simulation - naive t-test results - x4 vs x5.pdf", width = 12, height = 6)
 ```
 
