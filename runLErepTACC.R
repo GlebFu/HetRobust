@@ -141,7 +141,7 @@ design2 <- list(n = c(25, 50, 100, 250, 500),
 params <- rbind(expand.grid(design, stringsAsFactors = F), 
                 expand.grid(design2, stringsAsFactors = F))
 
-params$iterations <- 10000
+params$iterations <- 10
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
@@ -160,6 +160,7 @@ clusterExport(cluster, source_obj)
 
 clusterEvalQ(cluster, source("SSTP.R"))
 clusterEvalQ(cluster, library(plyr))
+clusterEvalQ(cluster, library(dplyr))
 clusterEvalQ(cluster, library(reshape2))
 #clusterEvalQ(cluster, library(compiler))
 #clusterEvalQ(cluster, enableJIT(3))
