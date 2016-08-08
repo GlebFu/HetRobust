@@ -70,7 +70,7 @@ Long_dgm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c
 # 
 
 
-set.seed(20160728)
+set.seed(20160804)
 
 design <- list(n = c(25, 50, 100, 250, 500),
                B = "1 1 1 1 0 ",
@@ -85,7 +85,7 @@ design <- list(n = c(25, 50, 100, 250, 500),
 
 params <- expand.grid(design, stringsAsFactors = F)
 
-params$iterations <- 10
+params$iterations <- 1
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
@@ -97,6 +97,6 @@ system.time(results <- plyr::mdply(params, .fun = runSim,
 
 stopCluster(cluster)
 
-write.csv(results, file = "Results/20160728.csv")
+write.csv(results, file = "Results/20160804.csv")
 
 

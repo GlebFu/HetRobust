@@ -69,12 +69,10 @@ design <- list(n = c(25, 50, 100, 250, 500),
 
 params <- expand.grid(design, stringsAsFactors = F)
 
-params$iterations <- 10
+params$iterations <- 1
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
-
-install.packages(c("Rmpi", "snow", "foreach", "iterators", "doSNOW", "plyr", "reshape2", "tidyr"))
 
 library(Rmpi)
 library(snow)
@@ -90,6 +88,7 @@ clusterExport(cluster, source_obj)
 
 clusterEvalQ(cluster, source("t-test-and-simulation-functions.R"))
 clusterEvalQ(cluster, library(plyr))
+clusterEvalQ(cluster, library(dplyr))
 clusterEvalQ(cluster, library(reshape2))
 
 

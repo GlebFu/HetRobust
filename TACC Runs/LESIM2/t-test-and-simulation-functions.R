@@ -292,17 +292,56 @@ OLS <- function(model, power) {
 # simulation driver
 #-----------------------------------
 
-# iterations <- 20
-# n <- 25
-# B <- "1 1 1 1 0"
-# whichX <- "T T T T T"
-# g <- 0
-# zg <- 1
-# HC <- "HC0 HC1 HC2 HC3 HC4 HC4m HC5"
-# alpha_string <- ".005 .01 .05 .10"
-# seed <- NULL
+iterations <- 2
+n <- 25
+B <- "1 1 1 1 0"
+whichX <- "T T T T T"
+g <- 0
+zg <- 1
+HC <- "HC0 HC1 HC2 HC3 HC4 HC4m HC5"
+alpha_string <- ".005 .01 .05 .10"
+seed <- NULL
+
+runSim2(dgm = Long_dgm,
+        iterations = iterations,
+        n = n,
+        B = B,
+        whichX = whichX,
+        HC = HC,
+        alpha_string = alpha_string,
+        seed = seed)
 
 runSim <- function(dgm, iterations, n, B, whichX, HC, alpha_string, 
+                   power = FALSE, seed = NULL,...) {
+  require(tidyr)
+  require(plyr)
+  if (!requireNamespace("plyr", quietly = TRUE)) {
+    stop("The plyr package must be installed")
+  }
+  
+  B <- as.numeric(unlist(strsplit(B, " ")))
+  whichX <- as.logical(unlist(strsplit(whichX, " ")))
+  HC <- as.character(unlist(strsplit(HC, " ")))
+  alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+  names(alphas) <- paste0("p",as.character(unlist(strsplit(alpha_string, " "))))
+  
+  if (!is.null(seed)) set.seed(seed)
+  
+  reps <- plyr::rdply(iterations, {
+    model <- dgm(n = n, B = B, whichX = whichX, ...)
+    results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, power = power)
+    oresults <- OLS(model, power = power)
+    merge(results, oresults, all = T)
+  })
+  
+
+  # performance calculations
+  repsL <- gather(reps[,-1], "test","pval", naive:saddle_H)
+  ddply(repsL, .(HC, coef, criterion, test), funciton(pval) reject_rates(pval, alphas))
+  #aggregate(pval ~ HC + coef + criterion + test, repsL, function(x) reject_rates(x, alphas))
+}
+
+runSim2 <- function(dgm, iterations, n, B, whichX, HC, alpha_string, 
                    power = FALSE, seed = NULL,...) {
   require(tidyr)
   require(dplyr)
