@@ -257,11 +257,16 @@ estimate_model <- function(Y, X, trueB, whichX) {
 # calculate rejection rates
 #-----------------------------------
 
-reject_rates <- function(p_vals, alphas) {
-  rejects <- lapply(alphas, function(a) ifelse(is.na(p_vals), FALSE, p_vals <= a))
-  data.frame(percent_NA = mean(is.na(p_vals)), 
-             lapply(rejects, mean))
+reject_rates <- function(p_vals, alpha) {
+  mean(ifelse(is.na(p_vals), FALSE, p_vals <= alpha))
 }
+# 
+# reject_rates1 <- function(p_vals, alphas) {
+#   rejects <- lapply(alphas, function(a) ifelse(is.na(p_vals), FALSE, p_vals <= a))
+#   data.frame(percent_NA = mean(is.na(p_vals)), 
+#              lapply(rejects, mean))
+# }
+
 
 #-----------------------------------
 # calculate rejection rates
@@ -292,28 +297,38 @@ OLS <- function(model, power) {
 # simulation driver
 #-----------------------------------
 
-iterations <- 2
-n <- 25
-B <- "1 1 1 1 0"
-whichX <- "T T T T T"
-g <- 0
-zg <- 1
-HC <- "HC0 HC1 HC2 HC3 HC4 HC4m HC5"
-alpha_string <- ".005 .01 .05 .10"
-seed <- NULL
+# iterations <- 40
+# n <- 25
+# B <- "1 1 1 1 0"
+# whichX <- "T T T T T"
+# g <- 0
+# zg <- 1
+# HC <- "HC0 HC1 HC2 HC3 HC4 HC4m HC5"
+# alpha_string <- ".005 .01 .05 .10"
+# seed <- 1234
+# 
+# t0 <- runSim(dgm = Long_dgm,
+#         iterations = iterations,
+#         n = n,
+#         B = B,
+#         whichX = whichX,
+#         HC = HC,
+#         alpha_string = alpha_string,
+#         seed = seed)
 
-runSim2(dgm = Long_dgm,
-        iterations = iterations,
-        n = n,
-        B = B,
-        whichX = whichX,
-        HC = HC,
-        alpha_string = alpha_string,
-        seed = seed)
+# t1 <- runSim2(dgm = Long_dgm,
+#         iterations = iterations,
+#         n = n,
+#         B = B,
+#         whichX = whichX,
+#         HC = HC,
+#         alpha_string = alpha_string,
+#         seed = seed)
+
 
 runSim <- function(dgm, iterations, n, B, whichX, HC, alpha_string, 
                    power = FALSE, seed = NULL,...) {
-  require(tidyr)
+  require(reshape2)
   require(plyr)
   if (!requireNamespace("plyr", quietly = TRUE)) {
     stop("The plyr package must be installed")
@@ -336,38 +351,43 @@ runSim <- function(dgm, iterations, n, B, whichX, HC, alpha_string,
   
 
   # performance calculations
-  repsL <- gather(reps[,-1], "test","pval", naive:saddle_H)
-  ddply(repsL, .(HC, coef, criterion, test), funciton(pval) reject_rates(pval, alphas))
+  repsL <- melt(reps[,-1], measure.vars = names(reps[5:ncol(reps)]), variable.name = "test", value.name = "pval")
+  ddply(repsL, .(HC, coef, criterion, test), summarize, 
+        percent_NA = mean(is.na(pval)),
+        p.005 = reject_rates(pval, .005), 
+        p.010 = reject_rates(pval, .010), 
+        p.050 = reject_rates(pval, .050), 
+        p.100 = reject_rates(pval, .100))
   #aggregate(pval ~ HC + coef + criterion + test, repsL, function(x) reject_rates(x, alphas))
 }
 
-runSim2 <- function(dgm, iterations, n, B, whichX, HC, alpha_string, 
-                   power = FALSE, seed = NULL,...) {
-  require(tidyr)
-  require(dplyr)
-  if (!requireNamespace("plyr", quietly = TRUE)) {
-    stop("The plyr package must be installed")
-  }
-  
-  B <- as.numeric(unlist(strsplit(B, " ")))
-  whichX <- as.logical(unlist(strsplit(whichX, " ")))
-  HC <- as.character(unlist(strsplit(HC, " ")))
-  alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
-  names(alphas) <- paste0("p",as.character(unlist(strsplit(alpha_string, " "))))
-  
-  if (!is.null(seed)) set.seed(seed)
-  
-  reps <- plyr::rdply(iterations, {
-    model <- dgm(n = n, B = B, whichX = whichX, ...)
-    results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, power = power)
-    oresults <- OLS(model, power = power)
-    merge(results, oresults, all = T)
-  })
-  
-  # performance calculations
-  reps %>% 
-    select(-1) %>%
-    gather("test","pval", naive, ends_with("_E"), ends_with("_H")) %>%
-    group_by(HC, coef, criterion, test) %>%
-    do(reject_rates(.$pval, alphas = alphas))
-}
+# runSim2 <- function(dgm, iterations, n, B, whichX, HC, alpha_string, 
+#                    power = FALSE, seed = NULL,...) {
+#   require(tidyr)
+#   require(dplyr)
+#   if (!requireNamespace("plyr", quietly = TRUE)) {
+#     stop("The plyr package must be installed")
+#   }
+#   
+#   B <- as.numeric(unlist(strsplit(B, " ")))
+#   whichX <- as.logical(unlist(strsplit(whichX, " ")))
+#   HC <- as.character(unlist(strsplit(HC, " ")))
+#   alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+#   names(alphas) <- paste0("p",as.character(unlist(strsplit(alpha_string, " "))))
+#   
+#   if (!is.null(seed)) set.seed(seed)
+#   
+#   reps <- plyr::rdply(iterations, {
+#     model <- dgm(n = n, B = B, whichX = whichX, ...)
+#     results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, power = power)
+#     oresults <- OLS(model, power = power)
+#     merge(results, oresults, all = T)
+#   })
+#   
+#   # performance calculations
+#   reps %>% 
+#     select(-1) %>%
+#     gather("test","pval", naive, ends_with("_E"), ends_with("_H")) %>%
+#     group_by(HC, coef, criterion, test) %>%
+#     do(reject_rates1(.$pval, alphas = alphas))
+# }

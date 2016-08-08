@@ -54,7 +54,7 @@ Long_dgm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c
 # Run Long & Ervin Simulation
 #-----------------------------
 
-set.seed(20160803)
+set.seed(20160808)
 
 design <- list(n = c(25, 50, 100, 250, 500),
                B = "1 1 1 1 0 ",
@@ -69,7 +69,7 @@ design <- list(n = c(25, 50, 100, 250, 500),
 
 params <- expand.grid(design, stringsAsFactors = F)
 
-params$iterations <- 1
+params$iterations <- 96
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
@@ -88,7 +88,6 @@ clusterExport(cluster, source_obj)
 
 clusterEvalQ(cluster, source("t-test-and-simulation-functions.R"))
 clusterEvalQ(cluster, library(plyr))
-clusterEvalQ(cluster, library(dplyr))
 clusterEvalQ(cluster, library(reshape2))
 
 
@@ -98,6 +97,6 @@ system.time(results <- plyr::mdply(params, .fun = runSim,
 
 stopCluster(cluster)
 
-write.csv(results, file = "20160803.csv")
+write.csv(results, file = "20160808.csv")
 
 
