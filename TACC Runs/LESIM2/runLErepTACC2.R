@@ -69,7 +69,7 @@ design <- list(n = c(25, 50, 100, 250, 500),
 
 params <- expand.grid(design, stringsAsFactors = F)
 
-params$iterations <- 96
+params$iterations <- 20000
 params$seed <- round(runif(nrow(params)) * 2^30)
 
 source_obj <- ls()
