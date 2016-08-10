@@ -57,6 +57,7 @@ Long_dgm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c
 set.seed(20160808)
 
 design <- list(n = c(25, 50, 100, 250, 500),
+               subset = 1:5,
                B = "1 1 1 1 0 ",
                whichX = "T T T T T ",
                Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
@@ -69,8 +70,10 @@ design <- list(n = c(25, 50, 100, 250, 500),
 
 params <- expand.grid(design, stringsAsFactors = F)
 
-params$iterations <- 20000
+params$iterations <- 10000
 params$seed <- round(runif(nrow(params)) * 2^30)
+nrow(params)
+head(params)
 
 source_obj <- ls()
 
