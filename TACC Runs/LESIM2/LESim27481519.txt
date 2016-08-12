@@ -1,0 +1,1678 @@
+TACC: Starting up job 7481519
+TACC: Setting up parallel environment for MVAPICH2+mpispawn.
+TACC: Starting parallel tasks...
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+
+R version 3.0.3 (2014-03-06) -- "Warm Puppy"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Warning message:
+Warning message:
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+'.find.package' is deprecated.
+Use 'find.package' instead.
+See help("Deprecated") 
+Loading required package: utils
+> #-----------------------------
+> # Data-generating model
+> #-----------------------------
+> 
+> Long_dgm <- function(n = 25, B = c(1, 1, 1, 1, 0, 0), Estruct = "E0", whichX = c(T, T ,T ,T ,T ,F), Edist = "En") {
++   
++   # Distributions used in generating data
++   b1 <- runif(n, 0, 1)
++   b2 <- rnorm(n, 0, 1)
++   b3 <- rchisq(n, 1)
++   b4 <- rnorm(n, 0, 1)
++   b5 <- runif(n, 0, 1)
++   
++   # Four independant variables based on distributions
++   x0 <- 1
++   x1 <- 1 + b1
++   x2 <- 3 * b1 + .6 * b2
++   x3 <- 2 * b1 + .6 * b3
++   x4 <- .1 * x1 + .9 * x3 - .8 * b4 + 4 * b5
++   x2[x2 < -2.5] <- -2.5
++   x4[x4 < -2.5] <- -2.5
++   
++   # One dummy variable created by splitting x2
++   xD <- ifelse(x2 > 1.6, 1, 0)
++   
++   # X matrix
++   X <- cbind(x0, x1, x2, x3, x4)
++   
++   # Three types of homoscedastistic error distributions:
++   Edist <- switch(Edist,
++                   En = rnorm(n, 0, 1),
++                   Ech = (rchisq(n, 5) - 5) / sqrt(10),
++                   Et = rt(n, 5))
++   
++   # Seven types of error structures
++   error <- switch(Estruct,
++                   E0 = Edist,
++                   E1 = sqrt(x1) * Edist,
++                   E2 = sqrt(x3 + 1.6) * Edist,
++                   E3 = sqrt(x3) * sqrt(x4 + 2.5) * Edist,
++                   E4 = sqrt(x1) * sqrt(x2 + 2.5) * sqrt(x3) * Edist,
++                   E5 = ifelse(xD == 1, 1.5 * Edist, Edist),
++                   E6 = ifelse(xD == 1, 4 * Edist, Edist)
++   )
++   
++   # Generate DV
++   Y <- as.vector(X %*% B) + error
++   
++   estimate_model(Y, X, B, whichX)
++ 
++ }
+> 
+> #-----------------------------
+> # Run Long & Ervin Simulation
+> #-----------------------------
+> 
+> set.seed(20160808)
+> 
+> design <- list(n = c(25, 50, 100, 250, 500),
++                subset = 1:5,
++                B = "1 1 1 1 0 ",
++                whichX = "T T T T T ",
++                Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
++                Edist = c("En", "Ech", "Et"),
++                HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
++                alpha_string = ".010 .050 .100",
++                power = T)
+> 
+> 
+> 
+> params <- expand.grid(design, stringsAsFactors = F)
+> 
+> params$iterations <- 10
+> params$seed <- round(runif(nrow(params)) * 2^30)
+> nrow(params)
+[1] 525
+> head(params)
+    n subset          B     whichX Estruct Edist                           HC
+1  25      1 1 1 1 1 0  T T T T T       E0    En HC0 HC1 HC2 HC3 HC4 HC4m HC5
+2  50      1 1 1 1 1 0  T T T T T       E0    En HC0 HC1 HC2 HC3 HC4 HC4m HC5
+3 100      1 1 1 1 1 0  T T T T T       E0    En HC0 HC1 HC2 HC3 HC4 HC4m HC5
+4 250      1 1 1 1 1 0  T T T T T       E0    En HC0 HC1 HC2 HC3 HC4 HC4m HC5
+5 500      1 1 1 1 1 0  T T T T T       E0    En HC0 HC1 HC2 HC3 HC4 HC4m HC5
+6  25      2 1 1 1 1 0  T T T T T       E0    En HC0 HC1 HC2 HC3 HC4 HC4m HC5
+    alpha_string power iterations       seed
+1 .010 .050 .100  TRUE         10  898686826
+2 .010 .050 .100  TRUE         10 1012446564
+3 .010 .050 .100  TRUE         10  203061120
+4 .010 .050 .100  TRUE         10  792316356
+5 .010 .050 .100  TRUE         10  473378518
+6 .010 .050 .100  TRUE         10  720605943
+> 
+> source_obj <- ls()
+> 
+> library(Rmpi)
+> library(snow)
+> library(foreach)
+> library(iterators)
+> library(doSNOW)
+> library(plyr)
+> 
+> cluster <- getMPIcluster()
+> registerDoSNOW(cluster)
+> 
+> clusterExport(cluster, source_obj)
+> 
+> clusterEvalQ(cluster, source("t-test-and-simulation-functions.R"))
+[[1]]
+[[1]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[1]]$visible
+[1] FALSE
+
+
+[[2]]
+[[2]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[2]]$visible
+[1] FALSE
+
+
+[[3]]
+[[3]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[3]]$visible
+[1] FALSE
+
+
+[[4]]
+[[4]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[4]]$visible
+[1] FALSE
+
+
+[[5]]
+[[5]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[5]]$visible
+[1] FALSE
+
+
+[[6]]
+[[6]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[6]]$visible
+[1] FALSE
+
+
+[[7]]
+[[7]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[7]]$visible
+[1] FALSE
+
+
+[[8]]
+[[8]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[8]]$visible
+[1] FALSE
+
+
+[[9]]
+[[9]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[9]]$visible
+[1] FALSE
+
+
+[[10]]
+[[10]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[10]]$visible
+[1] FALSE
+
+
+[[11]]
+[[11]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[11]]$visible
+[1] FALSE
+
+
+[[12]]
+[[12]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[12]]$visible
+[1] FALSE
+
+
+[[13]]
+[[13]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[13]]$visible
+[1] FALSE
+
+
+[[14]]
+[[14]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[14]]$visible
+[1] FALSE
+
+
+[[15]]
+[[15]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[15]]$visible
+[1] FALSE
+
+
+[[16]]
+[[16]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[16]]$visible
+[1] FALSE
+
+
+[[17]]
+[[17]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[17]]$visible
+[1] FALSE
+
+
+[[18]]
+[[18]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[18]]$visible
+[1] FALSE
+
+
+[[19]]
+[[19]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[19]]$visible
+[1] FALSE
+
+
+[[20]]
+[[20]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[20]]$visible
+[1] FALSE
+
+
+[[21]]
+[[21]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[21]]$visible
+[1] FALSE
+
+
+[[22]]
+[[22]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[22]]$visible
+[1] FALSE
+
+
+[[23]]
+[[23]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[23]]$visible
+[1] FALSE
+
+
+[[24]]
+[[24]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[24]]$visible
+[1] FALSE
+
+
+[[25]]
+[[25]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[25]]$visible
+[1] FALSE
+
+
+[[26]]
+[[26]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[26]]$visible
+[1] FALSE
+
+
+[[27]]
+[[27]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[27]]$visible
+[1] FALSE
+
+
+[[28]]
+[[28]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[28]]$visible
+[1] FALSE
+
+
+[[29]]
+[[29]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[29]]$visible
+[1] FALSE
+
+
+[[30]]
+[[30]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[30]]$visible
+[1] FALSE
+
+
+[[31]]
+[[31]]$value
+function (dgm, iterations, n, B, whichX, HC, alpha_string, power = FALSE, 
+    seed = NULL, ...) 
+{
+    require(reshape2)
+    require(plyr)
+    if (!requireNamespace("plyr", quietly = TRUE)) {
+        stop("The plyr package must be installed")
+    }
+    B <- as.numeric(unlist(strsplit(B, " ")))
+    whichX <- as.logical(unlist(strsplit(whichX, " ")))
+    HC <- as.character(unlist(strsplit(HC, " ")))
+    alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
+    names(alphas) <- paste0("p", as.character(unlist(strsplit(alpha_string, 
+        " "))))
+    if (!is.null(seed)) 
+        set.seed(seed)
+    reps <- plyr::rdply(iterations, {
+        model <- dgm(n = n, B = B, whichX = whichX, ...)
+        results <- plyr::ldply(HC, estimate, model = model, alphas = alphas, 
+            power = power)
+        oresults <- OLS(model, power = power)
+        merge(results, oresults, all = T)
+    })
+    repsL <- melt(reps[, -1], measure.vars = names(reps[5:ncol(reps)]), 
+        variable.name = "test", value.name = "pval")
+    ddply(repsL, .(HC, coef, criterion, test), summarize, percent_NA = mean(is.na(pval)), 
+        p.005 = reject_rates(pval, 0.005), p.010 = reject_rates(pval, 
+            0.01), p.050 = reject_rates(pval, 0.05), p.100 = reject_rates(pval, 
+            0.1))
+}
+
+[[31]]$visible
+[1] FALSE
+
+
+> clusterEvalQ(cluster, library(plyr))
+[[1]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[2]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[3]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[4]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[5]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[6]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[7]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[8]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[9]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[10]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[11]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[12]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[13]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[14]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[15]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[16]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[17]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[18]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[19]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[20]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[21]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[22]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[23]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[24]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[25]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[26]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[27]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[28]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[29]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[30]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+[[31]]
+ [1] "plyr"      "stats"     "graphics"  "grDevices" "datasets"  "snow"     
+ [7] "utils"     "Rmpi"      "methods"   "base"     
+
+> clusterEvalQ(cluster, library(reshape2))
+[[1]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[2]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[3]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[4]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[5]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[6]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[7]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[8]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[9]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[10]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[11]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[12]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[13]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[14]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[15]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[16]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[17]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[18]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[19]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[20]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[21]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[22]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[23]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[24]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[25]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[26]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[27]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[28]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[29]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[30]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+[[31]]
+ [1] "reshape2"  "plyr"      "stats"     "graphics"  "grDevices" "datasets" 
+ [7] "snow"      "utils"     "Rmpi"      "methods"   "base"     
+
+> 
+> 
+> system.time(results <- plyr::mdply(params, .fun = runSim, 
++                                    dgm = Long_dgm,
++                                    .parallel = T))
+Error in do.ply(i) : task 1 failed - "unused argument (subset = 1)"
+Calls: system.time ... <Anonymous> -> adply -> ldply -> llply -> %dopar% -> <Anonymous>
+In addition: Warning messages:
+1: <anonymous>: ... may be used in an incorrect context: ‘.fun(piece, ...)’
+ 
+2: <anonymous>: ... may be used in an incorrect context: ‘.fun(piece, ...)’
+ 
+Timing stopped at: 0.529 0.01 0.55 
+Execution halted
+[c559-804.stampede.tacc.utexas.edu:mpispawn_0][readline] Unexpected End-Of-File on file descriptor 13. MPI process died?
+[c559-804.stampede.tacc.utexas.edu:mpispawn_0][mtpmi_processops] Error while reading PMI socket. MPI process died?
+[c559-804.stampede.tacc.utexas.edu:mpispawn_0][child_handler] MPI process (rank: 0, pid: 101445) exited with status 1
+[c560-001.stampede.tacc.utexas.edu:mpispawn_1][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c560-001.stampede.tacc.utexas.edu:mpispawn_1][read_size] Unexpected End-Of-File on file descriptor 21. MPI process died?
+[c560-001.stampede.tacc.utexas.edu:mpispawn_1][handle_mt_peer] Error while reading PMI socket. MPI process died?
+TACC: MPI job exited with code: 1
+ 
+TACC: Shutdown complete. Exiting.

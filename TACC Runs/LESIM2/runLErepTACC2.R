@@ -70,7 +70,9 @@ design <- list(n = c(25, 50, 100, 250, 500),
 
 params <- expand.grid(design, stringsAsFactors = F)
 
-params$iterations <- 10000
+params <- params[,-2]
+
+params$iterations <- 4000
 params$seed <- round(runif(nrow(params)) * 2^30)
 nrow(params)
 head(params)
