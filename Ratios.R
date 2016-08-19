@@ -113,6 +113,8 @@ runRats <- function(dgm, n, B, whichX, seed = NULL,...) {
   apply(data$X[,2:5], 2, ratios, data$e)
 }
 
+set.seed(20160819)
+
 design <- list(n = 1000000,
                B = "1 1 1 1 0",
                whichX = "T T T T T",
@@ -133,4 +135,5 @@ stopCluster(cluster)
 
 results %>%
   select(Estruct:x4) %>%
-  mutate(ratio = (x1 + x2 + x3 + x4) / 4)
+  mutate(ratio = (x1 + x2 + x3 + x4) / 4) %>%
+  write.csv("LongRatios.csv")
