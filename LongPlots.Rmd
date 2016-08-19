@@ -13,29 +13,32 @@ library(ggplot2)
 library(tidyr)
 library(stringr)
 
-df <- read.csv("TACC Runs/LESIM2/20160808.csv")
-rat <- read.csv("LongRatios.csv")
+# df <- read.csv("TACC Runs/LESIM2/20160808.csv")
+# rat <- read.csv("LongRatios.csv")
+# 
+# df <- merge(df, rat[,c("Estruct", "Edist", "ratio")])
+# 
+# df <- filter(df, !(HC == "OLS" & test %in% levels(df$test)[-5])) %>% 
+#   select(-X, -(B:seed), -percent_NA) %>%
+#   gather(key = alpha, value = p, p.005:p.100)
+# 
+# df$alpha <- as.numeric(sub(".", "", df$alpha))
+# 
+# MCSE <- function(a, k = 20000) sqrt((a * (1-a))/k) * qnorm(.95)
+# 
+# HC3 <- filter(df, test == "naive", HC == "HC3") %>% 
+#   mutate(pHC3 = p) %>%
+#   select(-p, -(HC:test))
+# 
+# tColors <- c("dark red", "red", "cadetblue", "light blue", "black", "dodgerblue4", "dodgerblue", "purple", "violet", "brown", "orange", "darkgreen", "chartreuse3")
+# names(tColors) <- levels(df$test)
+# colScale <- scale_colour_manual(name = "test",values = tColors)
+# 
+# save.image(file = "LongPLots.Rdata")
+load(file = "LongPLots.Rdata")
 
-df <- merge(df, rat[,c("Estruct", "Edist", "ratio")])
-
-df <- filter(df, !(HC == "OLS" & test %in% levels(df$test)[-5])) %>% 
-  select(-X, -(B:seed), -percent_NA) %>%
-  gather(key = alpha, value = p, p.005:p.100)
-
-df$alpha <- as.numeric(sub(".", "", df$alpha))
-
-MCSE <- function(a, k = 20000) sqrt((a * (1-a))/k) * qnorm(.95)
-
-HC3 <- filter(df, test == "naive", HC == "HC3") %>% 
-  mutate(pHC3 = p) %>%
-  select(-p, -(HC:test))
-
-tColors <- c("dark red", "red", "cadetblue", "light blue", "dodgerblue4", "dodgerblue", "purple", "violet", "brown", "orange", "darkgreen", "chartreuse3")
-names(tColors) <- levels(df$test)[!(levels(df$test) %in% "naive")]
-colScale <- scale_colour_manual(name = "test",values = tColors)
-  
-df <- merge(df, HC3) %>% mutate(ULa = alpha + MCSE(alpha),
-                                LLa = alpha - MCSE(alpha))
+# df <- merge(df, HC3) %>% mutate(ULa = alpha + MCSE(alpha),
+#                                 LLa = alpha - MCSE(alpha))
 
 # df <- merge(df, HC3) %>% mutate(ULa = alpha * 1.2,
 #                                 LLa = alpha * 1.2)
@@ -74,35 +77,21 @@ The first objective was to identify which combination of HCCME and adjustment (w
 pv <- .005
 
 df %>%
-  filter(HC =) %>%
-  ggplot(aes(x = g,
+  filter(HC == "HC3", alpha == pv) %>%
+  ggplot(aes(x = ratio,
              y = p,
-             color = HC)) +
-  geom_smooth(method = "loess", se = F, size = 1) +
-  geom_hline(aes(yintercept = ULa),
+             color = test))  +
+  # geom_smooth(method = "loess", se = F, size = 1) +
+  geom_point() +
+  geom_hline(aes(yintercept = MCSE(pv) + pv),
              linetype = "dashed") +
   geom_hline(aes(yintercept = alpha)) +
-  facet_grid(alpha~n, scale = "free") +
-  theme_minimal()
+  facet_grid(coef~n) + 
+  labs(title = expression(paste("Figure 1. Rejection rates when ", alpha, " = .005", sep = "")), 
+       y = "Rejection rate") +
+  colScale +
+  coord_cartesian(ylim = c(.000, 1.25*pv))
 
-
-df %>%
-  filter(test == "naive", coef == "x4") %>%
-  ggplot(aes(x = g,
-             y = p,
-             color = HC)) +
-  geom_smooth(method = "loess", se = F, size = 1) +
-  geom_hline(aes(yintercept = ULa),
-             linetype = "dashed") +
-  geom_hline(aes(yintercept = alpha)) +
-  facet_grid(alpha~n, scale = "free") +
-  theme_minimal()
-
-# ggsave(filename = "x4 005.jpg")
-# fig0
-# 
-# data.frame(fig0$data %>% select(comb) %>% distinct(comb)) -> best0
-# paste(best0[,1], collapse = ", ")
 
 ```
   
