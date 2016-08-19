@@ -58,8 +58,8 @@ set.seed(20160808)
 
 design <- list(n = c(25, 50, 100, 250, 500),
                subset = 1:5,
-               B = "1 1 1 1 0 ",
-               whichX = "T T T T T ",
+               B = "1 1 1 1 0",
+               whichX = "T T T T T",
                Estruct = c("E0", "E1", "E2", "E3", "E4", "E5", "E6"),
                Edist = c("En", "Ech", "Et"),
                HC = "HC0 HC1 HC2 HC3 HC4 HC4m HC5",
