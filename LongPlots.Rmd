@@ -45,6 +45,49 @@ library(stringr)
 # save.image(file = "LongPLots.Rdata")
 load(file = "LongPLots.Rdata")
 
+nbygroup <- function(data, hc = "HC3", dist = "En", pv = .005, xs = c("x0", "x1", "x2", "x3", "x4", "x5"), excl = NA) {
+  ttl <- paste(hc, " rejection rates when ", expression(alpha), " = ", pv, sep = "")
+  
+  data %>%  
+    filter(HC == hc, criterion == "size", Edist == dist, alpha == pv, coef %in% xs, !(coef %in% excl)) %>%
+    ggplot(aes(y = p,
+               x = as.numeric(Estruct),
+               # x = ratio,
+               color = test))  +
+    geom_smooth(method = "loess", se = F, size = 1) +
+    geom_point() +
+    geom_hline(aes(yintercept = MCSE(pv) + pv),
+               linetype = "dashed") +
+    geom_hline(aes(yintercept = alpha)) +
+    facet_grid(testgroup~n) + 
+    labs(title = ttl, 
+         y = "Rejection rate",
+         x = "Error structures") +
+    colScale +
+    coord_cartesian(ylim = c(.000, 1.25*pv))
+}
+
+nbyHC <- function(data, group = "naive", dist = "En", pv = .005, xs = c("x0", "x1", "x2", "x3", "x4", "x5"), excl = NA) {
+  ttl <- paste(group, " rejection rates when ", expression(alpha), " = ", pv, sep = "")
+  
+  data %>%  
+    filter(testgroup == group, criterion == "size", Edist == dist, alpha == pv, coef %in% xs, !(coef %in% excl)) %>%
+    ggplot(aes(y = p,
+               x = as.numeric(Estruct),
+               # x = ratio,
+               color = test))  +
+    geom_smooth(method = "loess", se = F, size = 1) +
+    geom_point() +
+    geom_hline(aes(yintercept = MCSE(pv) + pv),
+               linetype = "dashed") +
+    geom_hline(aes(yintercept = alpha)) +
+    facet_grid(HC~n) + 
+    labs(title = ttl, 
+         y = "Rejection rate",
+         x = "Error structures") +
+    colScale +
+    coord_cartesian(ylim = c(.000, 1.25*pv))
+}
 # df <- merge(df, HC3) %>% mutate(ULa = alpha + MCSE(alpha),
 #                                 LLa = alpha - MCSE(alpha))
 
@@ -75,33 +118,30 @@ load(file = "LongPLots.Rdata")
 #   ungroup -> df
 
 ```
-  
+
+```{r, echo = F, warning = F, message = F}
+rat[,-1] %>% filter(Edist == "En") %>%
+  gather(key = coef, value = r, x1:x4) %>%
+  ggplot(aes(x = as.numeric(Estruct),
+             y = r,
+             color = coef)) +
+  geom_point() +
+  geom_line()
+
+rat[,-1] %>% filter(Edist == "En") %>%
+  gather(key = coef, value = r, x1:x4) %>%
+  ggplot(aes(x = ratio,
+             y = r,
+             color = coef)) +
+  geom_point() +
+  geom_line()
+
+```
 
 ```{r, echo = F, warning = F, message = F}
 # cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
 # cmb <- paste(cmb$Var1, cmb$Var2)
 
-nbygroup <- function(data, hc = "HC3", dist = "En", pv = .005, xs = c("x0", "x1", "x2", "x3", "x4", "x5")) {
-  ttl <- paste("Figure 1. ", hc, " rejection rates when ", expression(alpha), " = ", pv, sep = "")
-  
-  data %>%  
-    filter(HC == hc, criterion == "size", Edist == dist, alpha == pv, coef %in% xs) %>%
-    ggplot(aes(y = p,
-               x = as.numeric(Estruct),
-               # x = ratio,
-               color = test))  +
-    geom_smooth(method = "loess", se = F, size = 1) +
-    geom_point() +
-    geom_hline(aes(yintercept = MCSE(pv) + pv),
-               linetype = "dashed") +
-    geom_hline(aes(yintercept = alpha)) +
-    facet_grid(testgroup~n) + 
-    labs(title = ttl, 
-         y = "Rejection rate",
-         x = "Error structures") +
-    colScale +
-    coord_cartesian(ylim = c(.000, 1.25*pv))
-}
 
 
 nbygroup(df, hc = "HC0")
@@ -113,6 +153,93 @@ nbygroup(df, hc = "HC4m")
 nbygroup(df, hc = "HC5")
 nbygroup(df, hc = "OLS")
 
+best005C <- c("HC1 saddle_E", "HC1 Satt_H", 
+           "HC2 saddle_H", "HC2 Satt_E",
+           "HC3 naive",
+           "HC4m naive",
+           "HC5 saddle_H", "HC5 Satt_E")
+
+nbyHC(df, group = "KC")
+nbyHC(df, group = "naive")
+nbyHC(df, group = "R")
+nbyHC(df, group = "Sad")
+nbyHC(df, group = "Sat")
+
+best005G <- c("KCp_E", "KCp_H", "Rp_H", "saddle_H", "saddle_E", "Satt_E", "Satt_H")
 
 ```
-  
+
+```{r, echo = F, warning = F, message = F}
+# cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
+# cmb <- paste(cmb$Var1, cmb$Var2)
+
+
+nbygroup(df, hc = "HC0", pv = .010)
+nbygroup(df, hc = "HC1", pv = .010)
+nbygroup(df, hc = "HC2", pv = .010)
+nbygroup(df, hc = "HC3", pv = .010)
+nbygroup(df, hc = "HC4", pv = .010)
+nbygroup(df, hc = "HC4m", pv = .010)
+nbygroup(df, hc = "HC5", pv = .010)
+nbygroup(df, hc = "OLS", pv = .010)
+
+best010C <- c("HC1 RCI_H", "HC1 saddle_E", "HC1 Satt_H", 
+              "HC2 RCI_H", "HC2 saddle_H", "HC2 Satt_E",
+              "Hc3 naive",
+              "HC4 naive",
+              "HC4m naive",
+              "HC5 saddle_H", "HC5 Satt_H")
+
+best010G <- c("KCp_E", "KCp_H", "RCI_H", "saddle_H", "saddle_E", "Satt_E", "Satt_H")
+
+```
+
+```{r, echo = F, warning = F, message = F}
+# cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
+# cmb <- paste(cmb$Var1, cmb$Var2)
+
+
+nbygroup(df, hc = "HC0", pv = .050)
+nbygroup(df, hc = "HC1", pv = .050)
+nbygroup(df, hc = "HC2", pv = .050)
+nbygroup(df, hc = "HC3", pv = .050)
+nbygroup(df, hc = "HC4", pv = .050)
+nbygroup(df, hc = "HC4m", pv = .050)
+nbygroup(df, hc = "HC5", pv = .050)
+nbygroup(df, hc = "OLS", pv = .050)
+
+best050C <- c("HC1 RCI_H", "HC1 saddle_E", 
+              "HC2 saddle_E", "HC2 Satt_E",
+              "Hc3 naive",
+              "HC4 naive",
+              "HC4m naive",
+              "HC5 saddle_H", "HC5 Satt_H")
+
+best050G <- c("KCp_E", "KCp_H", "RCI_H", "RCI_E", "saddle_H", "saddle_E", "saddle_H", "Satt_E", "Satt_H")
+
+```
+
+```{r, echo = F, warning = F, message = F}
+# cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
+# cmb <- paste(cmb$Var1, cmb$Var2)
+
+
+nbygroup(df, hc = "HC0", pv = .100)
+nbygroup(df, hc = "HC1", pv = .100)
+nbygroup(df, hc = "HC2", pv = .100)
+nbygroup(df, hc = "HC3", pv = .100)
+nbygroup(df, hc = "HC4", pv = .100)
+nbygroup(df, hc = "HC4m", pv = .100)
+nbygroup(df, hc = "HC5", pv = .100)
+nbygroup(df, hc = "OLS", pv = .100)
+
+best100C <- c("HC1 RCI_H", "HC1 saddle_E", 
+              "HC2 KCp_H", "HC2 Rp_E", "HC2 saddle_H", "HC2 Satt_E", "HC2 Satt_H",
+              "Hc3 naive",
+              "HC4 naive",
+              "HC4m naive",
+              "HC5 saddle_H", "HC5 Satt_H")
+
+best100G <- c("KCp_E", "KCp_H", "RCI_H", "RCI_E", "saddle_H", "saddle_E", "saddle_H", "Satt_E", "Satt_H")
+
+```
