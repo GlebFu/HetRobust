@@ -16,11 +16,13 @@ library(stringr)
 # df <- read.csv("TACC Runs/LESIM2/20160808.csv")
 # rat <- read.csv("LongRatios.csv")
 # 
-# df <- merge(df, rat[,c("Estruct", "Edist", "ratio")])
-# 
 # df <- filter(df, !(HC == "OLS" & test %in% levels(df$test)[-5])) %>% 
-#   select(-X, -(B:seed), -percent_NA) %>%
-#   gather(key = alpha, value = p, p.005:p.100)
+#   select(n, Estruct, Edist, power, HC:p.100) %>%
+#   gather(key = alpha, value = p, p.005:p.100) %>%
+#   group_by(n, Estruct, Edist, HC, coef, criterion, test, alpha) %>%
+#   summarize(p = mean(p))
+# 
+# df <- merge(df, rat[,c("Estruct", "Edist", "ratio")])
 # 
 # df$alpha <- as.numeric(sub(".", "", df$alpha))
 # 
@@ -33,6 +35,12 @@ library(stringr)
 # tColors <- c("dark red", "red", "cadetblue", "light blue", "black", "dodgerblue4", "dodgerblue", "purple", "violet", "brown", "orange", "darkgreen", "chartreuse3")
 # names(tColors) <- levels(df$test)
 # colScale <- scale_colour_manual(name = "test",values = tColors)
+# 
+# tgroup <- data.frame(test = names(tColors), 
+#                      testgroup = c("KC", "KC", "KC", "KC", "naive", "R", "R", "R", "R", "Sad", "Sad", "Sat", "Sat"))
+# df <- merge(df, tgroup)
+# 
+# df$Estruct <- factor(df$Estruct, levels = as.character((arrange(rat, ratio) %>% filter(Edist == "En"))$Estruct), ordered = T)
 # 
 # save.image(file = "LongPLots.Rdata")
 load(file = "LongPLots.Rdata")
@@ -68,173 +76,43 @@ load(file = "LongPLots.Rdata")
 
 ```
   
-The first objective was to identify which combination of HCCME and adjustment (where applicable) outperformed the naive HC3 estimator. Figures 1-4 show the performance each combination at $\alpha$ = .005, .010, .050, and .010 respectively. Lines which crossed or remained above nominal alpha plus MCSE (the dotted horizontal line) for any n were ommited from the graphs as they represented tests which were too liberal. The exception to this is the black solid line which represents the naive HC3 estimator. Figure 1 shows that at the .005 level, the HC3 overly liberal until a large to extreme amount of heteroskedasticity is introduced (g > 1). At this point the adjusted HC2 is prefered, specifically the saddle_H across all values of N, as well as KCCI_E and Satt_E which performens at the level of or better than the saddle_H at n > 20. 
 
 ```{r, echo = F, warning = F, message = F}
 # cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
 # cmb <- paste(cmb$Var1, cmb$Var2)
 
-pv <- .005
+nbygroup <- function(data, hc = "HC3", dist = "En", pv = .005, xs = c("x0", "x1", "x2", "x3", "x4", "x5")) {
+  ttl <- paste("Figure 1. ", hc, " rejection rates when ", expression(alpha), " = ", pv, sep = "")
+  
+  data %>%  
+    filter(HC == hc, criterion == "size", Edist == dist, alpha == pv, coef %in% xs) %>%
+    ggplot(aes(y = p,
+               x = as.numeric(Estruct),
+               # x = ratio,
+               color = test))  +
+    geom_smooth(method = "loess", se = F, size = 1) +
+    geom_point() +
+    geom_hline(aes(yintercept = MCSE(pv) + pv),
+               linetype = "dashed") +
+    geom_hline(aes(yintercept = alpha)) +
+    facet_grid(testgroup~n) + 
+    labs(title = ttl, 
+         y = "Rejection rate",
+         x = "Error structures") +
+    colScale +
+    coord_cartesian(ylim = c(.000, 1.25*pv))
+}
 
-df %>%
-  filter(HC == "HC3", alpha == pv) %>%
-  ggplot(aes(x = ratio,
-             y = p,
-             color = test))  +
-  # geom_smooth(method = "loess", se = F, size = 1) +
-  geom_point() +
-  geom_hline(aes(yintercept = MCSE(pv) + pv),
-             linetype = "dashed") +
-  geom_hline(aes(yintercept = alpha)) +
-  facet_grid(coef~n) + 
-  labs(title = expression(paste("Figure 1. Rejection rates when ", alpha, " = .005", sep = "")), 
-       y = "Rejection rate") +
-  colScale +
-  coord_cartesian(ylim = c(.000, 1.25*pv))
+
+nbygroup(df, hc = "HC0")
+nbygroup(df, hc = "HC1")
+nbygroup(df, hc = "HC2")
+nbygroup(df, hc = "HC3")
+nbygroup(df, hc = "HC4")
+nbygroup(df, hc = "HC4m")
+nbygroup(df, hc = "HC5")
+nbygroup(df, hc = "OLS")
 
 
 ```
   
-```{r, echo = F, warning = F, message = F}
-cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
-cmb <- paste(cmb$Var1, cmb$Var2)
-
-pv <- .005
-
-excl <- c("HC1 Rp_H", "HC2 Rp_H")
-
-df %>%
-  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% c(cmb, excl)), alpha == pv, coef == "x3") %>%
-  ggplot(aes(x = g,
-             y = p,
-             color = test,
-             linetype = HC)) +
-  geom_smooth(method = "loess", se = F, size = 1) +
-  geom_hline(aes(yintercept = ULa),
-             linetype = "dashed") +
-  geom_hline(aes(yintercept = alpha)) +
-  facet_wrap(~n)  +
-  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv),
-              color = "black",
-              linetype = "solid", 
-              size = .2, 
-              se = F) +
-  coord_cartesian(ylim = c(.000, 1.25*pv)) + 
-  labs(title = expression(paste("Figure 1. Rejection rates when ", alpha, " = .005", sep = "")), 
-       y = "Rejection rate") +
-  colScale -> fig1
-
-fig1 + theme_minimal()
-
-data.frame(fig1$data %>% select(comb) %>% distinct(comb)) -> best1
-paste(best1[,1], collapse = ", ")
-
-```
-  
-  At $\alpha$ = .010 Figure 2 shows that HC1 with the RCI_H adjustment outperforms all other combinations at more extreme heteroskedasticity (g > 1) though the HC2 with saddle_H, saddle_E and Satt_E adjustments perform equally or better at larger ns with lower levels of heteroskedasticity. 
-  
-```{r, echo = F, warning = F, message = F}
-cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
-cmb <- paste(cmb$Var1, cmb$Var2)
-
-pv <- .01
-
-excl <- c("HC1 Rp_H", "HC2 Rp_H")
-
-df %>%
-  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% c(cmb, excl)), alpha == pv, coef == "x3") %>%
-  ggplot(aes(x = g,
-             y = p,
-             color = test,
-             linetype = HC)) +
-  geom_smooth(method = "loess", se = F, size = 1) +
-  geom_hline(aes(yintercept = ULa),
-             linetype = "dashed") +
-  geom_hline(aes(yintercept = alpha)) +
-  facet_wrap(~n)  +
-  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv) %>% select(-HC, -test),
-              color = "black",
-              linetype = "solid",
-              size = .2, 
-              se = F) + 
-  colScale +
-  coord_cartesian(ylim = c(.000, 1.25*pv)) + 
-  labs(title = expression(paste("Figure 2. Rejection rates when ", alpha, " = .010", sep = "")), 
-       y = "Rejection rate") -> fig2
-
-fig2 + theme_minimal()
-
-data.frame(fig2$data %>% select(comb) %>% distinct(comb)) -> best2
-paste(best2[,1], collapse = ", ")
-
-```
-  Figure 3 plots show that for the first time HC3 is at or below nominal $\alpha$ = .050 when n = 20. All HCCMEs and adjustments displayed appear to perform as well as or better than HC3, with the HC1 RCI_H adjustment begining to outperform all others as g increases.
-  
-```{r, echo = F, warning = F, message = F}
-cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
-cmb <- paste(cmb$Var1, cmb$Var2)
-
-pv <- .05
-
-df %>%
-  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% cmb), alpha == pv, coef == "x3") %>%
-  ggplot(aes(x = g,
-             y = p,
-             color = test,
-             linetype = HC)) +
-  geom_smooth(method = "loess", se = F, size = 1) +
-  geom_hline(aes(yintercept = ULa),
-             linetype = "dashed") +
-  geom_hline(aes(yintercept = alpha)) +
-  facet_wrap(~n)  +
-  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv) %>% select(-HC, -test),
-              color = "black",
-              linetype = "solid",
-              size = .2, 
-              se = F) + 
-  colScale +
-  coord_cartesian(ylim = c(.000, 1.25*pv)) + 
-  labs(title = expression(paste("Figure 3. Rejection rates when ", alpha, " = .050", sep = "")), 
-       y = "Rejection rate") -> fig3
-
-fig3 + theme_minimal()
-
-data.frame(fig3$data %>% select(comb) %>% distinct(comb)) -> best3
-paste(best3[,1], collapse = ", ")
-
-```
-    Figure 4 plots show that HC3 is at or below nominal $\alpha$ = .100 for all sample sizes. At n = 20 all HCCMEs and adjustments displayed appear to perform as well as or better than HC3, though as N increases, the naive HC3 becomes more accurate at while g is low. However, as g increases, the HC1 RCI_H adjustment once again outperforms all others.
-    
-```{r, echo = F, warning = F, message = F}
-cmb <- expand.grid(HC[-(2:3)], test, stringsAsFactors = F)
-cmb <- paste(cmb$Var1, cmb$Var2)
-
-pv <- .1
-
-df %>%
-  filter(HC != "OLS", test != "naive", beatHC3 == 1, !(comb %in% cmb), alpha == pv, coef == "x3") %>%
-  ggplot(aes(x = g,
-             y = p,
-             color = test,
-             linetype = HC)) +
-  geom_smooth(method = "loess", se = F, size = 1) +
-  geom_hline(aes(yintercept = ULa),
-             linetype = "dashed") +
-  geom_hline(aes(yintercept = alpha)) +
-  facet_wrap(~n)  +
-  geom_smooth(data = filter(df, HC == "HC3" & test == "naive" & alpha == pv) %>% select(-HC, -test),
-              color = "black",
-              linetype = "solid",
-              size = .2, 
-              se = F) + 
-  colScale +
-  coord_cartesian(ylim = c(.000, 1.25*pv)) + 
-  labs(title = expression(paste("Figure 4. Rejection rates when ", alpha, " = .100", sep = "")), 
-       y = "Rejection rate") -> fig4
-
-fig4 + theme_minimal()
-
-data.frame(fig4$data %>% select(comb) %>% distinct(comb)) -> best4
-paste(best4[,1], collapse = ", ")
-
-```
