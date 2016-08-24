@@ -110,7 +110,7 @@ runRats <- function(dgm, n, B, whichX, seed = NULL,...) {
   data <- dgm(n = n, B = B, whichX = whichX, ...)
   
   
-  apply(data$X[,2:5], 2, ratios, data$e)
+  apply(data$X[,1:5], 2, ratios, data$e)
 }
 
 set.seed(20160819)
