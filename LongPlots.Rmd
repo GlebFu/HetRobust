@@ -149,15 +149,26 @@ df %>%
 
 ```
 
+Percentage of conditions which perform within MCSE of alpha
 ```{r, echo = F, warning = F, message = F}
+# df %>%
+#   filter(criterion == "size") %>%
+#   group_by(n, alpha, HC, test) %>%
+#   summarize(withinMCSE = round(mean(MCSE(alpha) + alpha >= p & alpha - MCSE(alpha) <= p) *100 ,2)) %>%
+#   spread(key = test, value = withinMCSE) %>% write.csv("LongWithinMCSE.csv")
+
 df %>%
   filter(criterion == "size") %>%
-  group_by(HC, test, alpha) %>%
-  summarize(atBelNom = round(mean(MCSE(alpha) + alpha >= p & alpha - MCSE(alpha) <= p) *100 ,2)) %>%
-  spread(key = test, value = atBelNom) %>%
-  filter(alpha == .100)
+  group_by(n, alpha, HC, test) %>%
+  summarize(withinMCSE = round(mean(MCSE(alpha) + alpha >= p & alpha - MCSE(alpha) <= p) *100 ,2)) %>% 
+  ggplot(aes(x = n,
+             y = withinMCSE,
+             color = test)) +
+  geom_line() +
+  facet_grid(alpha ~ HC) +
+  colScale
 
-
+ggsave(filename = "LongWithinMCSE.jpg", width = 20, height = 10)
 ```
 
 ```{r, echo = F, warning = F, message = F}
@@ -185,22 +196,36 @@ df %>%
 
 ```
 
+Percentage of conditions which perform better than or equal to naive HC3
 ```{r, echo = F, warning = F, message = F}
 df2 <- merge(df, filter(df, HC == "HC3", test == "naive") %>% mutate(HC3 = p) %>% select(-HC, -p, -test, -testgroup), all = T)
+
+# df2 %>%
+#   filter(criterion == "size") %>%
+#   group_by(test, HC, n, alpha) %>%
+#   mutate(c1 = abs(p-alpha), c2 = abs(HC3 - alpha), l = abs(p - alpha) <= abs(HC3 - alpha)) %>% 
+#   summarize(beatHC3 = mean(abs(p - alpha) <= abs(HC3 - alpha), na.rm = T)) %>%
+#   spread(key = test, value = beatHC3)
 
 df2 %>%
   filter(criterion == "size") %>%
   group_by(test, HC, n, alpha) %>%
   mutate(c1 = abs(p-alpha), c2 = abs(HC3 - alpha), l = abs(p - alpha) <= abs(HC3 - alpha)) %>% 
-  summarize(beatHC3 = mean(abs(p - alpha) <= abs(HC3 - alpha), na.rm = T)) %>%
-  spread(key = test, value = beatHC3)
+  summarize(beatHC3 = mean(abs(p - alpha) <= abs(HC3 - alpha), na.rm = T)) %>% 
+  ggplot(aes(x = n,
+             y = beatHC3,
+             color = test)) +
+  geom_line() +
+  facet_grid(alpha ~ HC) +
+  colScale
+
+ggsave(filename = "LongBeatHC3.jpg", width = 20, height = 10)
 ```
 
 ```{r, echo = F, warning = F, message = F}
 
 lapply(levels(df$HC), nbygroup, data = df)
 
-lapply(levels(df$Edist), nbygroup, data = df, hc = "HC2")
 
 best005C <- c("HC1 saddle_E", "HC1 Satt_H", 
            "HC2 saddle_H", "HC2 Satt_E",
