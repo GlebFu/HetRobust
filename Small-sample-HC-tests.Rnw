@@ -374,30 +374,35 @@ Thus, it is not obvious on the basis of their derivations alone which approach i
 \section{Simulations}
 \label{sec:simulations}
 
-This section reports two simulation studies that investigate the performance the distributional approximations under a range of conditions.
-The first, smaller simulation examines a data-generating model described by \citet{MacKinnon2013thirty}, designed to be an extremely challenging case for HCCME-based tests.
-The second, larger simulation examines a model described by \citet{Long2000using}, which is designed to cover a range of conditions encountered in pratice.
-The second simulation also considers the robustness of the approximations when errors are not normally distributed.
+This section reports a large simulation study that investigate the performance the distributional approximations under a range of conditions, including conditions in which errors are non-normally distributed. The simulations are based on a model described by \citet{Long2000using}, which was designed to emulate the features of real empirical data in the social sciences.
 
-\subsection{\citet{MacKinnon2013thirty} design}
+\subsection{Simulation design}
 
-It is known that the performance of conventional tests based on HCCMEs is influenced not only by sample size, but by the distribution of the regressors \citep{Chesher1991finite, Cribari-Neto2004asymptotic, Kauermann2001note}. 
-Specifically, observations with high leverage tend to distort the size of the conventional tests. 
-In order to study the performance of HCCME-based tests under particularly challenging conditions, \citet{MacKinnon2013thirty} considered a regression with four log-normally distributed predictors, in which some observations have very high leverage. 
-Following the same model, we simulated data according to the model in which the predictors $X_1,...,X_4$ are drawn independently from a standard log-normal distribution and the outcome follows the model
+We simulated data from a model with four regressors. Following \citet{Long2000using}, we first simulated independent variates $\delta_1 \sim \text{Unif}(0, 1)$, $\delta_2 \sim N(0,1)$, $\delta_3 \sim \chi^2_1$, $\delta_4 \sim N(0,1)$, and $\delta_5 \sim \text{Unif}(0, 1)$. These were then combined as
+\begin{align*}
+x_1 &= 1 + \delta_1 \\
+x_2 &= 3 \delta_1 + 0.6 \delta_2 \\
+x_3 &= 2 \delta_1 + 0.6 \delta_3 \\
+x_4 &= 0.1 \delta_1 + 0.9 \delta_3 - 0.8 \delta_4 + 4 \delta_5,
+\end{align*}
+producing regressors with inter-correlations ranging from 0.27 to 0.82.\todo{Gleb, why do we truncate $x_2$ and $x_4$ at -2.5?} We then generated the outcome as
 \[
-Y_i = \beta_0 + \beta_1 X_{1i} + \cdots + \beta_4 X_{4i} + \sigma_i \epsilon_i,
+y = 1 + x_1 + x_2 + x_3 + 0 \times x_4 + f_j(\mathbf{x}) \zeta,
 \]
-where $\epsilon_i \iid N(0, 1)$ and \[
-\sigma_i = f(\zeta) \left(\beta_0 + \beta_1 X_{1i} + \cdots + \beta_4 X_{4i}\right)^\zeta.
-\] 
-The constant $\zeta$ controls the degree of heteroskedasticity, with $\zeta = 0$ corresponding to homoskedasticity and $\zeta = 2$ representing quite extreme heteroskedasticity. 
-The scaling factor $f(\zeta)$ is chosen so that the average variance is held constant (i.e., $\E\left(\sigma_i^2\right) = 1$).
-Following \citet{MacKinnon2013thirty}, we set $\beta_0 = \cdots = \beta_3 = 1$, $\beta_4 = 0$ and test $H_0: \beta_4 = 0$. 
+where $\zeta$ followed one of three possible distributions: $N(0,1)$, $\chi^2_5$, or $t_5$. The $f_j(\mathbf{x})$ was one of seven different error structures that created different patterns of heteroskedasticity:
+\begin{itemize}
+\item $f_0(\mathbf{x}) = 1$, which produced a model with homoskedastic errors;
+\item $f_1(\mathbf{x}) = \sqrt{x_1}$;
+\item $f_2(\mathbf{x}) = \sqrt{x_1}$;
+\item $f_3(\mathbf{x}) = \sqrt{x_1}$;
+\item $f_4(\mathbf{x}) = \sqrt{x_1}$;
+\item $f_5(\mathbf{x}) = \sqrt{x_1}$; or
+\item $f_6(\mathbf{x}) = \sqrt{x_1}$.
+\end{itemize}
 
-Based on this model, we simulated samples varying in size from 20 to 200, using $\gamma = 0,1,2$. For each simulated dataset, we calculated robust t-statistics using the HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 adjustment factors and corresponding critical values based on the Satterthwaite approximation, both Edgeworth approximations from \citet{Kauermann2001note}, the \citet{Rothenberg1988approximate} Edgeworth approximation, and the saddlepoint approximation, as well as the conventional $t(n - p)$ critical values. For all but the conventional approximation, we examined both empirical- and model-based versions of the correction. We considered nominal type-I error levels of $\alpha = .005$, $.010$, and $.050$. For each combination of parameters, empirical rejection rates are estimated from 10,000 replications.
+\subsection{Results: Type-I error}
 
-\subsection{\citet{Long2000using} design}
+\subsection{Results: Power}
 
 \section{Discussion}
 \label{sec:conc}
