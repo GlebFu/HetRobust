@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.2)  16 MAR 2017 20:59
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.2)  16 MAR 2017 22:34
 entering extended mode
 **Small-sample-HC-tests.tex
 (C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.tex
@@ -634,13 +634,17 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 446.
  [14] [15]
-(C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.bbl [16] [17])
+(C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.bbl [16] [17]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+)
 [18] (C:\Users\jep2963\Documents\R\HetRobust\Small-sample-HC-tests.aux) ) 
 Here is how much of TeX's memory you used:
- 13356 strings out of 493921
- 261095 string characters out of 3144871
- 306332 words of memory out of 3000000
- 16389 multiletter control sequences out of 15000+200000
+ 13360 strings out of 493921
+ 261190 string characters out of 3144871
+ 306360 words of memory out of 3000000
+ 16393 multiletter control sequences out of 15000+200000
  14980 words of font info for 53 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  62i,10n,76p,1092b,898s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -665,7 +669,7 @@ lic/amsfonts/cm/cmsy7.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public
 /amsfonts/cm/cmsy8.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/am
 sfonts/cm/cmti12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsf
 onts/cm/cmtt12.pfb>
-Output written on Small-sample-HC-tests.pdf (18 pages, 295085 bytes).
+Output written on Small-sample-HC-tests.pdf (18 pages, 295238 bytes).
 PDF statistics:
  143 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
