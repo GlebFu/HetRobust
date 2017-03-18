@@ -1,4 +1,6 @@
 
+# Updated 2017-03-17 by JEP
+
 #-----------------------------------
 # p-value from a two-sided t-test 
 #-----------------------------------
@@ -15,7 +17,7 @@ Satterthwaite_empirical <- function(sd, X_M, omega, e, H, I_H) {
   
   sigma_hat <- tcrossprod(omega * e^2) / (2 * tcrossprod(omega) * H^2 + 1)
   diag(sigma_hat) <- (omega^2) * (e^4) / 3
-
+  
   A_vec <- omega * X_M^2
   
   V_V <- function(a) {
@@ -134,87 +136,136 @@ Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, 
 }
 
 #-----------------------------------
-# testing function
+# testing functions
 #-----------------------------------
 
-estimate <- function(HC, model, alphas, power) {
-
+test_HC <- function(HC, model, tests, alphas) {
+  
   omega <- with(model, switch(HC,
-                  HC0 = rep(1,n),
-                  HC1 = rep(n / (n - p), n),
-                  HC2 = 1 / (1 - h),
-                  HC3 = (1 - h)^(-2),
-                  HC4 = (1 - h)^(-pmin(h * n / p, 4)),
-                  HC4m = (1 - h)^(-(pmin(h * n / p, 1) + pmin(h * n / p, 1.5))),
-                  HC5 = (1 - h)^(-pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 2)
-                  ))
+                              HC0 = rep(1, n),
+                              HC1 = rep(n / (n - p), n),
+                              HC2 = 1 / (1 - h),
+                              HC3 = (1 - h)^(-2),
+                              HC4 = (1 - h)^(-pmin(h * n / p, 4)),
+                              HC4m = (1 - h)^(-(pmin(h * n / p, 1) + pmin(h * n / p, 1.5))),
+                              HC5 = (1 - h)^(-pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 2)
+  ))
   
   sd <- with(model, sqrt(colSums(omega * (X_M * e)^2)))
   
-  if (power) {
-    coefs_to_test <- with(model, c(coefs - B, coefs))
-    pValues <- data.frame(HC = HC, 
-                          coef = names(coefs_to_test), 
-                          criterion = rep(c("size","power"), each = length(model$coefs)))
-  } else {
-    coefs_to_test <- with(model, coefs - B)
-    pValues <- data.frame(HC = HC,
-                          coef = names(coefs_to_test),
-                          criterion = "size")
-  }
+  pValues <- data.frame(coef = names(model$coefs))
   
-  t_stats <- coefs_to_test / sd
+  t_stats <- model$coefs / sd
   
   # naive t tests
-  pValues$naive <- t_test(t_stats = t_stats, df = model$n - model$p)
+  
+  if ("naive" %in% tests) {
+    pValues$naive <- t_test(t_stats = t_stats, df = model$n - model$p)
+  }
+
+  # degrees of freedom
+  
+  if (any(c("Satt_E","KCp_E","KCCI_E","Rp_E","RCI_E") %in% tests)) {
+    df_E <- Satterthwaite_empirical(sd = sd, X_M = model$X_M, 
+                                    omega = omega, e = model$e, 
+                                    H = model$H, I_H = model$I_H)
+  }
+  
+  if (any(c("Satt_H","KCp_H","KCCI_H","Rp_H","RCI_H") %in% tests)) {
+    df_H <- Satterthwaite_model(X_M = model$X_M, omega = omega, 
+                                H = model$H, h = model$h)
+  }
   
   # Satterthwaite tests
-  df_E <- Satterthwaite_empirical(sd = sd, X_M = model$X_M, 
-                                  omega = omega, e = model$e, 
-                                  H = model$H, I_H = model$I_H)
-  df_H <- Satterthwaite_model(X_M = model$X_M, omega = omega, 
-                              H = model$H, h = model$h)
-  
-  pValues$Satt_E <- t_test(t_stats = t_stats, df = df_E)
-  pValues$Satt_H <- t_test(t_stats = t_stats, df = df_H)
+
+  if ("Satt_E" %in% tests) pValues$Satt_E <- t_test(t_stats = t_stats, df = df_E)
+  if ("Satt_H" %in% tests) pValues$Satt_H <- t_test(t_stats = t_stats, df = df_H)
 
   # Kauermann-Carroll edgeworth approximations
-  pValues$KCp_E <- KC_pval(t_stats = t_stats, df = df_E)
-  pValues$KCp_H <- KC_pval(t_stats = t_stats, df = df_H)
-  pValues$KCCI_E <- KC_CI(t_stats = t_stats, df = df_E, 
-                          m = model$M_diag, n = model$n, p = model$p, alphas = alphas)
-  pValues$KCCI_H <- KC_CI(t_stats = t_stats, df = df_H, 
-                          m = model$M_diag, n = model$n, p = model$p, alphas = alphas)
+  if ("KCp_E" %in% tests) pValues$KCp_E <- KC_pval(t_stats = t_stats, df = df_E)
+  if ("KCp_H" %in% tests) pValues$KCp_H <- KC_pval(t_stats = t_stats, df = df_H)
+  if ("KCCI_E" %in% tests) {
+    pValues$KCCI_E <- KC_CI(t_stats = t_stats, df = df_E, m = model$M_diag, 
+                            n = model$n, p = model$p, alphas = alphas)
+  }
+  if ("KCCI_H" %in% tests) {
+    pValues$KCCI_H <- KC_CI(t_stats = t_stats, df = df_H, m = model$M_diag, 
+                            n = model$n, p = model$p, alphas = alphas)
+  }
   
   # Rothenberg's edgeworth approximations
-  Roth_E <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
-                             H = model$H, h = model$h, I_H = model$I_H, 
-                             omega = omega, e = model$e, 
-                             df = df_E, alphas = alphas, approx = "empirical")
-  pValues$Rp_E <- Roth_E$p_val
-  pValues$RCI_E <- Roth_E$CI
   
-  Roth_H <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
-                             H = model$H, h = model$h, I_H = model$I_H, 
-                             omega = omega, e = model$e, 
-                             df = df_H, alphas = alphas, approx = "model")
-  pValues$Rp_H <- Roth_H$p_val
-  pValues$RCI_H <- Roth_H$CI
+  if ("Rp_E" %in% tests | "RCI_E" %in% tests) {
+    Roth_E <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
+                               H = model$H, h = model$h, I_H = model$I_H, 
+                               omega = omega, e = model$e, 
+                               df = df_E, alphas = alphas, approx = "empirical")
+    if ("Rp_E" %in% tests) pValues$Rp_E <- Roth_E$p_val
+    if ("RCI_E" %in% tests) pValues$RCI_E <- Roth_E$CI
+  }
+  if ("Rp_H" %in% tests | "RCI_H" %in% tests) {
+    Roth_H <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
+                               H = model$H, h = model$h, I_H = model$I_H, 
+                               omega = omega, e = model$e, 
+                               df = df_H, alphas = alphas, approx = "model")
+    if ("Rp_H" %in% tests) pValues$Rp_H <- Roth_H$p_val
+    if ("RCI_H" %in% tests) pValues$RCI_H <- Roth_H$CI
+  }
   
   # saddlepoint approximations
-  pValues$saddle_E <- saddle(t_stats = t_stats, X_M = model$X_M, 
-                             omega = omega, e = model$e,
-                             H = model$H, I_H = model$I_H, n = model$n, 
-                             p = model$p, approx = "empirical")
-  pValues$saddle_H <- saddle(t_stats = t_stats, X_M = model$X_M, 
+  
+  if ("saddle_E" %in% tests) {
+    pValues$saddle_E <- saddle(t_stats = t_stats, X_M = model$X_M, 
+                               omega = omega, e = model$e,
+                               H = model$H, I_H = model$I_H, n = model$n, 
+                               p = model$p, approx = "empirical")
+  }
+  if ("saddle_H" %in% tests) {
+    pValues$saddle_H <- saddle(t_stats = t_stats, X_M = model$X_M, 
                              omega = omega, e = model$e, 
                              H = model$H, I_H = model$I_H, n = model$n, 
                              p = model$p, approx = "model")
-
-  # round(pValues[1:5,-(1:3)],4)
-  # round(pValues[6:10,-(1:3)],4)
+  }
+  
   return(pValues)
   
+}
+
+
+test_hom <- function(model) {
+  
+  sd <- with(model, sqrt(sum(e^2) / (n - p) * M_diag))
+  t_stats <- model$coefs / sd
+  data.frame(
+    coef = names(model$coefs),
+    naive = t_test(t_stats, df = model$n - model$p)
+  )
+  
+}
+
+run_tests <- function(HC, model, tests, alphas) {
+  if (HC == "hom") {
+    test_hom(model)
+  } else {
+    test_HC(HC, model, tests, alphas)
+  }
+}
+
+#-----------------------------------
+# calculate rejection rates
+#-----------------------------------
+
+reject_rates <- function(p_vals, alphas) {
+  rejects <- lapply(alphas, function(a) ifelse(is.na(p_vals), FALSE, p_vals <= a))
+  data.frame(percent_NA = mean(is.na(p_vals)), 
+             lapply(rejects, mean))
+}
+
+calculate_rejections <- function(x, alphas) {
+  bind_rows(x) %>%
+    gather("test", "p_val", -1) %>%
+    group_by_(.dots = c("coef", "test")) %>%
+    do(reject_rates(p_vals = .$p_val, alphas = alphas))
 }
 
 #-----------------------------
@@ -234,8 +285,9 @@ estimate_model <- function(Y, X, trueB, whichX) {
   e <- Y - as.vector(X %*% coefs)
   
   H <- X_M %*% t(X)
-  I_H <- diag(n) - H
   h <- diag(H)
+  I_H <- - H
+  diag(I_H) <- 1 - h
   
   values <- list(X = X, 
                  Y = Y, 
@@ -254,54 +306,41 @@ estimate_model <- function(Y, X, trueB, whichX) {
 }
 
 #-----------------------------------
-# calculate rejection rates
-#-----------------------------------
-
-reject_rates <- function(p_vals, alphas) {
-  rejects <- lapply(alphas, function(a) ifelse(is.na(p_vals), FALSE, p_vals <= a))
-  data.frame(percent_NA = mean(is.na(p_vals)), 
-             lapply(rejects, mean))
-}
-
-#-----------------------------------
 # simulation driver
 #-----------------------------------
 
+# library(tibble)
+# 
 # iterations <- 20
 # n <- 25
 # B <- "1 1 1 1 0"
 # whichX <- "T T T T T"
-# g <- 0
-# zg <- 1
-# HC <- "HC0 HC1 HC2 HC3 HC4 HC4m HC5"
+# HCtests <- 
+#   tribble(~ HC, ~ tests,
+#           "HC0", list("Rp_E", "Rp_H"),
+#           "HC2", list("Satt_E", "Satt_H", "saddle_E", "saddle_H"),
+#           "hom", list()
+#           )
+# 
 # alpha_string <- ".005 .01 .05 .10"
 # seed <- NULL
 
-runSim <- function(dgm, iterations, n, B, whichX, HC, alpha_string, 
-                   power = FALSE, seed = NULL,...) {
+run_sim <- function(dgm, iterations, n, alphas, HCtests, seed = NULL, ...) {
+  
+  require(purrr)
   require(tidyr)
   require(dplyr)
-  if (!requireNamespace("plyr", quietly = TRUE)) {
-    stop("The plyr package must be installed")
-  }
-  
-  B <- as.numeric(unlist(strsplit(B, " ")))
-  whichX <- as.logical(unlist(strsplit(whichX, " ")))
-  HC <- as.character(unlist(strsplit(HC, " ")))
-  alphas <- as.numeric(unlist(strsplit(alpha_string, " ")))
-  names(alphas) <- paste0("p",as.character(unlist(strsplit(alpha_string, " "))))
   
   if (!is.null(seed)) set.seed(seed)
   
-  reps <- plyr::rdply(iterations, {
-    model <- dgm(n = n, B = B, whichX = whichX, ...)
-    plyr::ldply(HC, estimate, model = model, alphas = alphas, power = power)
-  })
+  rerun(.n = iterations, {
+      model <- dgm(n = n, ...)
+      invoke_rows(.f = run_tests, .d = HCtests, 
+                  model = model, alphas = alphas,
+                  .to = "res")
+  }) %>%
+  bind_rows() %>%
+  group_by_(.dots = "HC") %>%
+  do(calculate_rejections(.$res, alphas = alphas))
   
-  # performance calculations
-  reps %>% 
-    select(-1) %>%
-    gather("test","pval", naive, ends_with("_E"), ends_with("_H")) %>%
-    group_by(HC, coef, criterion, test) %>%
-    do(reject_rates(.$pval, alphas = alphas))
 }
