@@ -7,7 +7,8 @@ rm(list=ls())
 
 source("New simulations/t-test-and-simulation-functions.R")
 
-one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T), x_skew = 0.1, z = 0, e_dist = "norm") {
+one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T), 
+                        x_skew = 0.1, z = 0, e_dist = "norm", ...) {
   
   v <- 64 / x_skew^2
   x <- (rchisq(n, df = v) - v ) / sqrt(2 * v)
@@ -64,7 +65,7 @@ set.seed(20170317)
 
 size_design <- 
   list(
-    subset = 1:5,
+    subset = 1:1,
     n = c(25, 50),
     x_skew = seq(0.5, 6, 0.5),
     z = c(0, 0.1, 0.2),
@@ -84,7 +85,6 @@ names(alphas) <- paste0("p", alphas)
 HCtests <-
   tribble(~ HC, ~ tests,
           "HC0", list("naive","Rp_E", "Rp_H"),
-          "HC1", list("naive"),
           "HC2", list("Satt_E", "Satt_H", "saddle_E", "saddle_H"),
           "HC3", list("naive"),
           "HC4", list("naive"),
@@ -98,6 +98,9 @@ HCtests <-
 # Run simulation
 #-----------------------------
 
+library(Pusto)
+
+
 source_obj <- ls()
 cluster <- start_parallel(source_obj = source_obj)
 
@@ -110,5 +113,28 @@ system.time(
 
 stopCluster(cluster)
 
-save(design, HCtests, alphas, results, file = "one-dim-sim-20170317.Rdata")
+save(size_design, HCtests, alphas, results, file = "New simulations/one-dim-sim-20170317.Rdata")
 
+
+
+
+library(multidplyr)
+
+# cluster <- start_parallel(source_obj = source_obj, libraries = c("tidyr","dplyr","purrr"))
+# set_default_cluster(cluster)
+
+# cluster <- create_cluster(parallel::detectCores() - 1)
+# set_default_cluster(cluster)
+# cluster_library(cluster, "tidyr")
+# cluster_library(cluster, "dplyr")
+# cluster_library(cluster, "purrr")
+# clusterExport(cluster, source_obj)
+# 
+# results <-
+#   size_design %>%
+#   group_by(subset, n, x_skew, z, e_dist) %>%
+#   partition() %>%
+#   do(invoke(run_sim, .x = ., dgm = one_dim_dgm, alphas = alphas, HCtests = HCtests)) %>%
+#   collect()
+# 
+# stopCluster(cluster)
