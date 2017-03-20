@@ -1,7 +1,7 @@
 library(tibble)
 library(tidyr)
-library(dplyr)
 library(purrr)
+library(dplyr)
 
 rm(list=ls())
 
@@ -61,19 +61,24 @@ test_sims
 # Simulation design
 #-----------------------------
 
-set.seed(20170317)
+set.seed(20170320)
+
+size_factors <- list(
+  n = c(25, 50, 100),
+  z = seq(-0.1, 0.2, 0.025),
+  x_skew = c(1, 3, 5),
+  e_dist = c("norm", "chisq", "t5"),
+  subset = 1:1
+)
+
+lengths(size_factors)
+prod(lengths(size_factors))
 
 size_design <- 
-  list(
-    subset = 1:1,
-    n = c(25, 50),
-    x_skew = seq(0.5, 6, 0.5),
-    z = c(0, 0.1, 0.2),
-    e_dist = c("norm", "chisq", "t5")
-  ) %>%
-  crossing_() %>%
+  size_factors %>%
+  cross_d() %>%
   mutate(
-    iterations = 4000,
+    iterations = 20000,
     seed = round(runif(1) * 2^30) + row_number()
   )
 
@@ -84,8 +89,8 @@ names(alphas) <- paste0("p", alphas)
 
 HCtests <-
   tribble(~ HC, ~ tests,
-          "HC0", list("naive","Rp_E", "Rp_H"),
-          "HC2", list("Satt_E", "Satt_H", "saddle_E", "saddle_H"),
+          "HC0", list("naive", "Rp_E", "Rp_H", "RCI_E", "RCI_H"),
+          "HC2", list("Satt_E", "Satt_H", "saddle_E", "saddle_H", "KCp_E", "KCp_H", "KCCI_E", "KCCI_H"),
           "HC3", list("naive"),
           "HC4", list("naive"),
           "HC4m", list("naive"),
@@ -118,23 +123,3 @@ save(size_design, HCtests, alphas, results, file = "New simulations/one-dim-sim-
 
 
 
-library(multidplyr)
-
-# cluster <- start_parallel(source_obj = source_obj, libraries = c("tidyr","dplyr","purrr"))
-# set_default_cluster(cluster)
-
-# cluster <- create_cluster(parallel::detectCores() - 1)
-# set_default_cluster(cluster)
-# cluster_library(cluster, "tidyr")
-# cluster_library(cluster, "dplyr")
-# cluster_library(cluster, "purrr")
-# clusterExport(cluster, source_obj)
-# 
-# results <-
-#   size_design %>%
-#   group_by(subset, n, x_skew, z, e_dist) %>%
-#   partition() %>%
-#   do(invoke(run_sim, .x = ., dgm = one_dim_dgm, alphas = alphas, HCtests = HCtests)) %>%
-#   collect()
-# 
-# stopCluster(cluster)
