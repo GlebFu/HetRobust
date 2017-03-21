@@ -87,7 +87,7 @@ size_design
 alphas <- c(.005, .010, .050, .100)
 names(alphas) <- paste0("p", alphas)
 
-HCtests <-
+size_HCtests <-
   tribble(~ HC, ~ tests,
           "HC0", list("naive", "Rp_E", "Rp_H", "RCI_E", "RCI_H"),
           "HC2", list("Satt_E", "Satt_H", "saddle_E", "saddle_H", "KCp_E", "KCp_H", "KCCI_E", "KCCI_H"),
@@ -110,7 +110,7 @@ source_obj <- ls()
 cluster <- start_parallel(source_obj = source_obj)
 
 system.time(
-  results <- plyr::mdply(size_design, .fun = run_sim, 
+  size_results <- plyr::mdply(size_design, .fun = run_sim, 
                          dgm = one_dim_dgm, alphas = alphas,
                          HCtests = HCtests, 
                          .parallel = TRUE)
@@ -118,7 +118,7 @@ system.time(
 
 stopCluster(cluster)
 
-save(size_design, HCtests, alphas, results, file = "New simulations/one-dim-sim-20170317.Rdata")
+save(size_design, size_HCtests, alphas, size_results, file = "New simulations/one-dim-sim-20170317.Rdata")
 
 
 
