@@ -13,10 +13,10 @@ t_test <- function(t_stats, df) {
 # Satterthwaite degrees of freedom 
 #-----------------------------------
 
-Satterthwaite_empirical <- function(sd, X_M, omega, e, H, I_H) {
+Satterthwaite_empirical <- function(sd, X_M, omega, e_sq, H, I_H) {
   
-  sigma_hat <- tcrossprod(omega * e^2) / (2 * tcrossprod(omega) * H^2 + 1)
-  diag(sigma_hat) <- (omega^2) * (e^4) / 3
+  sigma_hat <- tcrossprod(omega * e_sq) / (2 * tcrossprod(omega) * H^2 + 1)
+  diag(sigma_hat) <- (omega * e_sq)^2 / 3
   
   A_vec <- omega * X_M^2
   
@@ -65,7 +65,7 @@ saddlepoint_pval <- function(t, Q, d) {
   return(p_val)
 }
 
-saddle <- function(t_stats, X_M, omega, e, H, I_H, n, p, approx = "model") {
+saddle <- function(t_stats, X_M, omega, e_sq, H, I_H, n, p, approx = "model") {
   if (!all(is.finite(t_stats))) {
     return(rep(1,length(t_stats)))
   } else {
@@ -73,7 +73,7 @@ saddle <- function(t_stats, X_M, omega, e, H, I_H, n, p, approx = "model") {
     if (approx == "model") {
       Qs <- apply(A_vec, 2, function(x) I_H %*% (x * I_H))
     } else {
-      Qs <- apply(A_vec, 2, function(x) (e^2 * I_H) %*% (x * I_H))
+      Qs <- apply(A_vec, 2, function(x) (e_sq * I_H) %*% (x * I_H))
     }
     Qs <- lapply(data.frame(Qs), matrix, nrow = n, ncol = n)
     p_vals <- mapply(saddlepoint_pval, t = t_stats, Q = Qs, d = n - p)
@@ -163,13 +163,19 @@ test_HC <- function(HC, model, tests, alphas) {
     pValues$naive <- t_test(t_stats = t_stats, df = model$n - model$p)
   }
 
+  # smoothed errors
+  if (any(c("Satt_S","KCp_S","KCCI_S","Rp_S","RCI_S","saddle_S") %in% tests)) {
+    e_sq_S <- predict(loess(model$e^2 ~ model$X[,"x1"], span = 0.75, statistics = "none"))
+  }
+  
   # degrees of freedom
   
   if (any(c("Satt_E","KCp_E","KCCI_E","Rp_E","RCI_E") %in% tests)) {
     df_E <- Satterthwaite_empirical(sd = sd, X_M = model$X_M, 
-                                    omega = omega, e = model$e, 
+                                    omega = omega, e_sq = model$e^2, 
                                     H = model$H, I_H = model$I_H)
   }
+  
   
   if (any(c("Satt_H","KCp_H","KCCI_H","Rp_H","RCI_H") %in% tests)) {
     df_H <- Satterthwaite_model(X_M = model$X_M, omega = omega, 
@@ -180,6 +186,12 @@ test_HC <- function(HC, model, tests, alphas) {
 
   if ("Satt_E" %in% tests) pValues$Satt_E <- t_test(t_stats = t_stats, df = df_E)
   if ("Satt_H" %in% tests) pValues$Satt_H <- t_test(t_stats = t_stats, df = df_H)
+  if ("Satt_S" %in% tests) {
+    df_S <- Satterthwaite_empirical(sd = sd, X_M = model$X_M, 
+                                    omega = omega, e_sq = e_sq_S, 
+                                    H = model$H, I_H = model$I_H)
+    pValues$Satt_S <- t_test(t_stats = t_stats, df = df_S)
+  }
 
   # Kauermann-Carroll edgeworth approximations
   if ("KCp_E" %in% tests) pValues$KCp_E <- KC_pval(t_stats = t_stats, df = df_E)
@@ -216,13 +228,19 @@ test_HC <- function(HC, model, tests, alphas) {
   
   if ("saddle_E" %in% tests) {
     pValues$saddle_E <- saddle(t_stats = t_stats, X_M = model$X_M, 
-                               omega = omega, e = model$e,
+                               omega = omega, e_sq = model$e^2,
+                               H = model$H, I_H = model$I_H, n = model$n, 
+                               p = model$p, approx = "empirical")
+  }
+  if ("saddle_S" %in% tests) {
+    pValues$saddle_S <- saddle(t_stats = t_stats, X_M = model$X_M, 
+                               omega = omega, e_sq = e_sq_S,
                                H = model$H, I_H = model$I_H, n = model$n, 
                                p = model$p, approx = "empirical")
   }
   if ("saddle_H" %in% tests) {
     pValues$saddle_H <- saddle(t_stats = t_stats, X_M = model$X_M, 
-                             omega = omega, e = model$e, 
+                             omega = omega, e_sq = model$e^2, 
                              H = model$H, I_H = model$I_H, n = model$n, 
                              p = model$p, approx = "model")
   }
@@ -281,8 +299,8 @@ estimate_model <- function(Y, X, trueB, whichX) {
   X_M <- X %*% M
   coefs <- colSums(Y * X_M)
   names(coefs) <- colnames(X)
-  
-  e <- Y - as.vector(X %*% coefs)
+  fit_vals <- as.vector(X %*% coefs)
+  e <- Y - fit_vals
   
   H <- X_M %*% t(X)
   h <- diag(H)
@@ -298,6 +316,7 @@ estimate_model <- function(Y, X, trueB, whichX) {
                  H = H, 
                  h = h, 
                  I_H = I_H, 
+                 fit_vals = fit_vals,
                  e = e, 
                  n = n, 
                  p = p)

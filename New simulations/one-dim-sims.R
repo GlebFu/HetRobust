@@ -30,9 +30,18 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
 }
 
 HC <- "HC2"
-tests <- c("Satt_E","Satt_H","saddle_E","saddle_H")
+tests <- c("Satt_E","Satt_H","saddle_E","saddle_H", "saddle_S")
 alphas <- c(.005, .01, .05, .10)
-model <- one_dim_dgm()
+model <- one_dim_dgm(n = 50, z = 0.1)
+dat <- with(model, data.frame(Y, X))
+dat <- dat[order(dat$x1),]
+lm_fit <- lm(Y ~ x1, data = dat)
+dat$e <- residuals(lm_fit)
+dat$e_sq_S <- predict(loess(e^2 ~ x1, data = dat, span = 0.75, statistics = "none"))
+plot(Y ~ x1, data = dat)
+plot(e^2 ~ x1, data = dat)
+lines(e_sq_S ~ x1, data = dat, col = "red")
+
 run_tests(HC, model, tests, alphas)
 
 HCtests <- 
@@ -40,7 +49,7 @@ HCtests <-
     ~HC, ~tests,
     "hom", list(),
     "HC0", list("Rp_E", "Rp_H"),
-    "HC2", list("Satt_E","Satt_H","saddle_E","saddle_H")
+    "HC2", list("Satt_E","Satt_H","Satt_S","saddle_E","saddle_H","saddle_S")
   )
 
 alphas <- c(.005, .010, .050, .100)
@@ -61,11 +70,11 @@ test_sims
 # Simulation design
 #-----------------------------
 
-set.seed(20170320)
+set.seed(20170327)
 
 size_factors <- list(
   n = c(25, 50, 100),
-  z = seq(-0.1, 0.2, 0.025),
+  z = seq(-0.1, 0.2, 0.02),
   x_skew = c(1, 3, 5),
   e_dist = c("norm", "chisq", "t5"),
   subset = 1:1
@@ -78,7 +87,7 @@ size_design <-
   size_factors %>%
   cross_d() %>%
   mutate(
-    iterations = 20000,
+    iterations = 40000,
     seed = round(runif(1) * 2^30) + row_number()
   )
 
@@ -90,7 +99,10 @@ names(alphas) <- paste0("p", alphas)
 size_HCtests <-
   tribble(~ HC, ~ tests,
           "HC0", list("naive", "Rp_E", "Rp_H", "RCI_E", "RCI_H"),
-          "HC2", list("Satt_E", "Satt_H", "saddle_E", "saddle_H", "KCp_E", "KCp_H", "KCCI_E", "KCCI_H"),
+          "HC1", list("naive"),
+          "HC2", list("naive","Satt_E", "Satt_H","Satt_S", 
+                      "saddle_E", "saddle_H", "saddle_S",
+                      "KCp_E", "KCp_H", "KCCI_E", "KCCI_H"),
           "HC3", list("naive"),
           "HC4", list("naive"),
           "HC4m", list("naive"),
@@ -112,13 +124,13 @@ cluster <- start_parallel(source_obj = source_obj)
 system.time(
   size_results <- plyr::mdply(size_design, .fun = run_sim, 
                          dgm = one_dim_dgm, alphas = alphas,
-                         HCtests = HCtests, 
+                         HCtests = size_HCtests, 
                          .parallel = TRUE)
 )
 
 stopCluster(cluster)
 
-save(size_design, size_HCtests, alphas, size_results, file = "New simulations/one-dim-sim-20170317.Rdata")
+save(size_design, size_HCtests, alphas, size_results, file = "New simulations/one-dim-sim-20170327.Rdata")
 
 
 
