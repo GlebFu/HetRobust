@@ -139,7 +139,7 @@ Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, 
 # testing functions
 #-----------------------------------
 
-test_HC <- function(HC, model, tests, alphas) {
+test_HC <- function(HC, model, tests, alphas, span = 0.75) {
   
   omega <- with(model, switch(HC,
                               HC0 = rep(1, n),
@@ -164,8 +164,8 @@ test_HC <- function(HC, model, tests, alphas) {
   }
 
   # smoothed errors
-  if (any(c("Satt_S","KCp_S","KCCI_S","Rp_S","RCI_S","saddle_S") %in% tests)) {
-    e_sq_S <- predict(loess(model$e^2 ~ model$X[,"x1"], span = 0.75, statistics = "none"))
+  if (any(c("Satt_S","saddle_S") %in% tests)) {
+    e_sq_S <- predict(loess(model$e^2 ~ model$X[,"x1"], span = span, statistics = "none"))
   }
   
   # degrees of freedom
@@ -232,17 +232,23 @@ test_HC <- function(HC, model, tests, alphas) {
                                H = model$H, I_H = model$I_H, n = model$n, 
                                p = model$p, approx = "empirical")
   }
+  if ("saddle_H" %in% tests) {
+    pValues$saddle_H <- saddle(t_stats = t_stats, X_M = model$X_M, 
+                             omega = omega, e_sq = model$e^2, 
+                             H = model$H, I_H = model$I_H, n = model$n, 
+                             p = model$p, approx = "model")
+  }
   if ("saddle_S" %in% tests) {
     pValues$saddle_S <- saddle(t_stats = t_stats, X_M = model$X_M, 
                                omega = omega, e_sq = e_sq_S,
                                H = model$H, I_H = model$I_H, n = model$n, 
                                p = model$p, approx = "empirical")
   }
-  if ("saddle_H" %in% tests) {
-    pValues$saddle_H <- saddle(t_stats = t_stats, X_M = model$X_M, 
-                             omega = omega, e_sq = model$e^2, 
-                             H = model$H, I_H = model$I_H, n = model$n, 
-                             p = model$p, approx = "model")
+  if ("saddle_T" %in% tests) {
+    pValues$saddle_T <- saddle(t_stats = t_stats, X_M = model$X_M, 
+                               omega = omega, e_sq = model$sigma^2,
+                               H = model$H, I_H = model$I_H, n = model$n, 
+                               p = model$p, approx = "empirical")
   }
   
   return(pValues)
@@ -261,11 +267,11 @@ test_hom <- function(model) {
   
 }
 
-run_tests <- function(HC, model, tests, alphas) {
+run_tests <- function(HC, model, tests, alphas, span = 0.75) {
   if (HC == "hom") {
     test_hom(model)
   } else {
-    test_HC(HC, model, tests, alphas)
+    test_HC(HC, model, tests, alphas, span)
   }
 }
 
@@ -273,17 +279,24 @@ run_tests <- function(HC, model, tests, alphas) {
 # calculate rejection rates
 #-----------------------------------
 
-reject_rates <- function(p_vals, alphas) {
+reject_rates <- function(p_vals, alphas, adjusted_alpha = FALSE) {
   rejects <- lapply(alphas, function(a) ifelse(is.na(p_vals), FALSE, p_vals <= a))
-  data.frame(percent_NA = mean(is.na(p_vals)), 
-             lapply(rejects, mean))
+  rejection_rates <- data.frame(percent_NA = mean(is.na(p_vals)), lapply(rejects, mean))
+  
+  if (adjusted_alpha) {
+    adjusted_alphas <- quantile(p_vals, alphas)
+    rejection_rates <- rbind(rejection_rates, c(NA, adjusted_alphas))
+    rejection_rates$stat <- c("rejection rate", "adjusted alpha")
+  }
+  
+  rejection_rates
 }
 
-calculate_rejections <- function(x, alphas) {
+calculate_rejections <- function(x, alphas, adjusted_alpha = FALSE) {
   bind_rows(x) %>%
     gather("test", "p_val", -1) %>%
     group_by_(.dots = c("coef", "test")) %>%
-    do(reject_rates(p_vals = .$p_val, alphas = alphas))
+    do(reject_rates(p_vals = .$p_val, alphas = alphas, adjusted_alpha = adjusted_alpha))
 }
 
 #-----------------------------
@@ -299,8 +312,8 @@ estimate_model <- function(Y, X, trueB, whichX) {
   X_M <- X %*% M
   coefs <- colSums(Y * X_M)
   names(coefs) <- colnames(X)
-  fit_vals <- as.vector(X %*% coefs)
-  e <- Y - fit_vals
+  
+  e <- Y - as.vector(X %*% coefs)
   
   H <- X_M %*% t(X)
   h <- diag(H)
@@ -316,7 +329,6 @@ estimate_model <- function(Y, X, trueB, whichX) {
                  H = H, 
                  h = h, 
                  I_H = I_H, 
-                 fit_vals = fit_vals,
                  e = e, 
                  n = n, 
                  p = p)
@@ -344,7 +356,7 @@ estimate_model <- function(Y, X, trueB, whichX) {
 # alpha_string <- ".005 .01 .05 .10"
 # seed <- NULL
 
-run_sim <- function(dgm, iterations, n, alphas, HCtests, seed = NULL, ...) {
+run_sim <- function(dgm, iterations, n, alphas, HCtests, span = 0.75, adjusted_alpha = FALSE, seed = NULL, ...) {
   
   require(purrr)
   require(tidyr)
@@ -355,11 +367,11 @@ run_sim <- function(dgm, iterations, n, alphas, HCtests, seed = NULL, ...) {
   rerun(.n = iterations, {
       model <- dgm(n = n, ...)
       invoke_rows(.f = run_tests, .d = HCtests, 
-                  model = model, alphas = alphas,
+                  model = model, alphas = alphas, span = span,
                   .to = "res")
   }) %>%
   bind_rows() %>%
   group_by_(.dots = "HC") %>%
-  do(calculate_rejections(.$res, alphas = alphas))
+  do(calculate_rejections(.$res, alphas = alphas, adjusted_alpha = adjusted_alpha))
   
 }

@@ -5,12 +5,31 @@ library(dplyr)
 
 rm(list=ls())
 
+# x_skew <- c(0.5, 1, 2)
+# 8 / x_skew^2
+# f <- function(x, v) dchisq(v + x * sqrt(2 * v), df = v) * sqrt(2 * v)
+# curve(f(x, 2) , from = -4, to = 4)
+# curve(f(x, 8) , add = TRUE, col = "blue")
+# curve(f(x, 32) , add = TRUE, col = "red")
+# 
+# curve(exp(0 * x), from = -4, to = 4, ylim = c(0,2))
+# curve(exp(0.1 * x), add = TRUE)
+# curve(exp(0.2 * x), add = TRUE)
+# curve(exp(-0.1 * x), add = TRUE)
+# curve(exp(-0.2 * x), add = TRUE)
+# df <- c(2, 8, 32, 64)
+# cols <- c("red","green","blue","purple")
+# for(i in seq_along(df)) {
+#   abline(v = (qchisq(p = 0.1, df = df[i]) - df[i]) / sqrt(2 * df[i]), col = cols[i])
+#   abline(v = (qchisq(p = 0.9, df = df[i]) - df[i]) / sqrt(2 * df[i]), col = cols[i])
+# }
+  
 source("New simulations/t-test-and-simulation-functions.R")
 
 one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T), 
                         x_skew = 0.1, z = 0, e_dist = "norm", ...) {
   
-  v <- 64 / x_skew^2
+  v <- 8 / x_skew^2
   x <- (rchisq(n, df = v) - v ) / sqrt(2 * v)
   
   e <- switch(e_dist,
@@ -19,52 +38,73 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
               t5 = rt(n, 5) * sqrt(3 / 5)
               )
   
-  sigma <- (1 - 4 * z)^z * exp(2 * z * x)
+  sigma <- exp(z * x)
   
   Y <- B[1] + B[2] * x + sigma * e
   
-  estimate_model(Y = Y, 
-                 X = cbind(x0 = 1, x1 = x), 
-                 trueB = B, 
-                 whichX = whichX)
+  fitted_model <- estimate_model(Y = Y, X = cbind(x0 = 1, x1 = x), 
+                                 trueB = B, whichX = whichX)
+  
+  fitted_model$sigma <- sigma
+  
+  fitted_model
 }
 
-HC <- "HC2"
-tests <- c("Satt_E","Satt_H","saddle_E","saddle_H", "saddle_S")
-alphas <- c(.005, .01, .05, .10)
-model <- one_dim_dgm(n = 50, z = 0.1)
-dat <- with(model, data.frame(Y, X))
-dat <- dat[order(dat$x1),]
-lm_fit <- lm(Y ~ x1, data = dat)
-dat$e <- residuals(lm_fit)
-dat$e_sq_S <- predict(loess(e^2 ~ x1, data = dat, span = 0.75, statistics = "none"))
-plot(Y ~ x1, data = dat)
-plot(e^2 ~ x1, data = dat)
-lines(e_sq_S ~ x1, data = dat, col = "red")
-
-run_tests(HC, model, tests, alphas)
-
-HCtests <- 
-  tribble(
-    ~HC, ~tests,
-    "hom", list(),
-    "HC0", list("Rp_E", "Rp_H"),
-    "HC2", list("Satt_E","Satt_H","Satt_S","saddle_E","saddle_H","saddle_S")
-  )
-
-alphas <- c(.005, .010, .050, .100)
-names(alphas) <- paste0("p", alphas)
-
-system.time(
-  test_sims <- run_sim(dgm = one_dim_dgm,
-                       iterations = 100, n = 25,
-                       alphas = alphas,
-                       HCtests = HCtests,
-                       B = c(0, 0), whichX = c(T, T), 
-                       x_skew = 4, z = 0, e_dist = "norm")
-)
-
-test_sims
+# HC <- "HC2"
+# tests <- c("Satt_E","Satt_H","saddle_E","saddle_H","saddle_S","saddle_T")
+# alphas <- c(.005, .01, .05, .10)
+# z <- -0.1
+# 
+# model <- one_dim_dgm(n = 100, x_skew = 3, z = z)
+# dat <- with(model, data.frame(Y, X))
+# dat <- dat[order(dat$x1),]
+# lm_fit <- lm(Y ~ x1, data = dat)
+# dat$e <- residuals(lm_fit)
+# dat$y_hat <- fitted.values(lm_fit)
+# dat$sigma <- (1 - 4 * z)^z * exp(2 * z * dat$x1)
+# dat$e_sq_S <- predict(loess(e^2 ~ y_hat, data = dat, span = 0.25, statistics = "none"))
+# plot(density(dat$x1))
+# plot(Y ~ x1, data = dat)
+# 
+# spans <- seq(0.1, 0.5, 0.1)
+# names(spans) <- c("red","orange","yellow","green","blue")
+# plot(e^2 ~ x1, data = dat)
+# lines(sigma^2 ~ x1, data = dat, col = "green")
+# for (i in seq_along(spans)) {
+#   lines(predict(loess(e^2 ~ y_hat, data = dat, span = spans[i], statistics = "none")) ~ dat$x1,
+#         col = names(spans)[i])
+# }
+# 
+# 
+# run_tests(HC, model, tests, alphas)
+# test_hom(model)
+# 
+# HCtests <-
+#   tribble(
+#     ~HC, ~tests,
+#     "hom", list(),
+#     "HC2", list("Satt_E","Satt_H","saddle_E","saddle_H","saddle_S","saddle_T"),
+#     "HC4", list("naive")
+#   )
+# 
+# alphas <- c(.005, .010, .050, .100)
+# names(alphas) <- paste0("p", alphas)
+# 
+# 
+# system.time(
+#   test_sims <- run_sim(dgm = one_dim_dgm,
+#                        iterations = 100, n = 50,
+#                        alphas = alphas,
+#                        HCtests = HCtests,
+#                        B = c(0, 0), whichX = c(F, T),
+#                        x_skew = 1, z = 0.1, e_dist = "norm",
+#                        span = 0.2, adjusted_alpha = TRUE)
+# )
+# 
+# test_sims %>%
+#   filter(stat=="rejection rate") %>% select(-stat)
+# test_sims %>%
+#   filter(stat=="adjusted alpha") %>% select(-stat)
 
 #-----------------------------
 # Simulation design
@@ -74,8 +114,8 @@ set.seed(20170327)
 
 size_factors <- list(
   n = c(25, 50, 100),
-  z = seq(-0.1, 0.2, 0.02),
-  x_skew = c(1, 3, 5),
+  z = seq(0, 0.2, 0.02),
+  x_skew = c(0.5, 1, 2),
   e_dist = c("norm", "chisq", "t5"),
   subset = 1:1
 )
@@ -83,11 +123,14 @@ size_factors <- list(
 lengths(size_factors)
 prod(lengths(size_factors))
 
+iterations <- 50000
+
 size_design <- 
   size_factors %>%
   cross_d() %>%
   mutate(
-    iterations = 40000,
+    iterations = iterations,
+    span = 0.2,
     seed = round(runif(1) * 2^30) + row_number()
   )
 
@@ -95,13 +138,15 @@ size_design
 
 alphas <- c(.005, .010, .050, .100)
 names(alphas) <- paste0("p", alphas)
+sqrt(alphas * (1 - alphas) / iterations)
+sqrt(alphas * (1 - alphas) / iterations) / alphas
 
 size_HCtests <-
   tribble(~ HC, ~ tests,
           "HC0", list("naive", "Rp_E", "Rp_H", "RCI_E", "RCI_H"),
           "HC1", list("naive"),
-          "HC2", list("naive","Satt_E", "Satt_H","Satt_S", 
-                      "saddle_E", "saddle_H", "saddle_S",
+          "HC2", list("naive","Satt_E", "Satt_H",
+                      "saddle_E", "saddle_H", "saddle_S", "saddle_T",
                       "KCp_E", "KCp_H", "KCCI_E", "KCCI_H"),
           "HC3", list("naive"),
           "HC4", list("naive"),
@@ -115,10 +160,10 @@ size_HCtests <-
 # Run simulation
 #-----------------------------
 
-library(Pusto)
-
 
 source_obj <- ls()
+
+library(Pusto)
 cluster <- start_parallel(source_obj = source_obj)
 
 system.time(
@@ -129,6 +174,8 @@ system.time(
 )
 
 stopCluster(cluster)
+
+table(size_results$test)
 
 save(size_design, size_HCtests, alphas, size_results, file = "New simulations/one-dim-sim-20170327.Rdata")
 
