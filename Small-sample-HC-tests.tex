@@ -131,12 +131,12 @@ Using simulations, we investigate the relative performance of Satterthwaite, Edg
 \label{sec:intro}
 
 Linear regression models, estimated by ordinary least squares (OLS), are one of the most important and ubiquitous tools in applied statistical work.
-Classically, hypothesis tests and confidence intervals for linear regression coefficients rely on the assumption that the model errors are homoskedastic, or have constant variance for all values of the covariates. 
+Classical hypothesis tests and confidence intervals for linear regression coefficients rely on the assumption that the model errors are homoskedastic, or have constant variance for all values of the covariates. 
 In practice though, it can be difficult to diagnose violations of this assumption, and similarly difficult to construct and defend other assumptions about how the error variances relate to the covariates. 
 Thus, it is often desirable to use methods of inference that remain valid for models with heteroskedasticity of an unknown form.
 
 A well-known approach to inference in this setting is based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs), which yield asymptotically consistent estimates of the sampling variance of OLS coefficient estimates under quite general conditions \citep{Huber1967behavior, Eicker1967limit, White1980heteroskedasticity}. 
-They are an attractive tool because they rely on weaker assumptions than classical methods. 
+HCCMEs are an attractive tool because they rely on weaker assumptions than classical methods. 
 However, they also have the drawback that it is not always clear whether a given sample is sufficently large to trust the asymptotic approximations by which they are warranted. 
 Furthermore, when the sample size is small, it is known that some of the HCCMEs tend to be too liberal, producing variance estimates that are biased towards zero and hypothesis tests with greater than nominal size \citep{Long2000using}. 
 
@@ -155,20 +155,20 @@ In contrast to the various HC corrections, none of the distributional approximat
 
 In this paper, we review the various small-sample approximations for hypothesis tests based on HCCMEs, using a common notation in order to facilitate comparisons among them. 
 In so doing, we identify several further variations on the approximations that have not previously been considered. 
-We then evaluate the performance of these approximations, along with the standard methods, in a large simulation study. 
-The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.
+We then evaluate the performance of these approximations, along with the standard methods, in a simulation study. 
+% The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.
 
 Yet another approach to approximating the distribution of test statistics based on HCCMEs is via bootstrap resampling. 
 Recent attention has focused on a wild bootstrap technique proposed by \citet{Liu1988bootstrap}, which is valid under heteroskedasticity and provides substantially more accurate rejection rates than standard approaches in small samples \citep{Flachaire2005boostrapping, Davidson2008wild}. 
 However, there are several nuances involved in implementing accurate wild bootstrap tests, including how to adjust the residuals, the choice of auxilliary distributions, and whether to bootstrap under a restricted model \citep{MacKinnon2013thirty}. 
 In light of these additional considerations, as well as the computational intensity of simulations that involve resampling methods, the present investigation is limited to hypothesis testing procedures that do not involve resampling. 
-In further work, we will investigate the performance of the best-performing methods identified in this paper compared to resampling tests such as wild bootstrapping and other recent proposals \citep[e.g.][]{Richard2016hetero}.\todo{Adequate?}
+In further work, we will investigate the performance of the best-performing methods identified in this paper compared to resampling tests such as wild bootstrapping and other recent proposals \citep[e.g.][]{Richard2016hetero}.
 
 HCCMEs are a special case of the general class of cluster-robust covariance matrix estimators (CRCMEs), also known as sandwich estimators or linearization estimators, which are commonly used in regression analysis of multi-stage survey data \citep{Fuller1975regression, Skinner1989domain}, econometric panel data models \citep{white1984asymptotic, Arellano1987computing}, and generalized estimating equations for longitudinal data \citep{Liang1986longitudinal}. 
 CRCMEs are useful for variance estimation in settings where the error structure is both heteroskedastic and dependent within clusters of observations.
-Some of the small-sample tests considered in this paper were developed for CRCMEs \citep[i.e.,]{Bell2002bias, McCaffrey2006improved}, while the others are readily extended to this more general case.
+Some of the small-sample tests considered in this paper were developed for CRCMEs \citep[i.e.,][]{Bell2002bias, McCaffrey2006improved}, while the others are readily extended to this more general case.
 We focus on the case of heteroskedastic (but not clustered) linear regression for sake of clarity and in order to keep the simulation studies tractable. 
-Furthermore, the similarity of HCCMEs and CRCMEs suggests that our findings will provide direction for which small-sample methods will perform well in the more general case.
+Furthermore, the similarity of HCCMEs and CRCMEs suggests that our findings will provide direction regarding which small-sample methods will perform well in the more general case.
 
 \todo{Outline paper}
 
@@ -186,7 +186,7 @@ y_i = \bm{x}_i\bs\beta + \epsilon_i,
 \end{equation}
 for $i = 1,...,n$, where $y_i$ is the outcome, $\bm{x}_i$ is a $1 \times p$ row-vector of covariates (including an intercept) for observation $i$, $\bs\beta$ is a $p \times 1$ vector of regression coefficients, and $\epsilon_i$ is a mean-zero error term with variance $\sigma_i^2$. 
 We shall assume that the errors are mutually independent. 
-For ease of notation, let $\bm{y} = \left(y_1,...,y_n\right)'$ denote the $n \times 1$ vector of outcomes, $\bm{X} = \left(\bm{x}_1',...,\bm{x}_n'\right)'$ be the $n \times p$ design matrix, and $\bs\epsilon$ be the $n \times 1$ vector of errors with $\E\left(\bs\epsilon\right) = \bm{0}$ and $\Var\left(\bs\epsilon\right) = \bs\Sigma = \diag\left(\sigma_1^2,...,\sigma_n^2\right)$. 
+Let $\bm{y} = \left(y_1,...,y_n\right)'$ denote the $n \times 1$ vector of outcomes, $\bm{X} = \left(\bm{x}_1',...,\bm{x}_n'\right)'$ be the $n \times p$ design matrix, and $\bs\epsilon$ be the $n \times 1$ vector of errors with $\E\left(\bs\epsilon\right) = \bm{0}$ and $\Var\left(\bs\epsilon\right) = \bs\Sigma = \diag\left(\sigma_1^2,...,\sigma_n^2\right)$. 
 Let $\bm{M} = \left(\bm{X}'\bm{X} / n\right)^{-1}$. 
 Let $\bs{\hat\beta} = \bm{M}\bm{X}'\bm{y} / n$ denote the vector of OLS estimates and $e_i = y_i - \bm{x}_i \bs{\hat\beta}$, $i = 1,...,n$ denote the residuals. 
 Let $\bm{I}$ denote an $n \times n$ identity matrix and $\bm{H} = \bm{X}\bm{M}\bm{X}' / n$ denote the hat matrix, which has entries $h_{ij} = \bm{x}_i \bm{M}\bm{x}_j' / n$.
@@ -198,7 +198,7 @@ T = \frac{\bm{c}'\bs{\hat\beta} - k}{\sqrt{V}},
 \end{equation}
 where $V$ is some estimator for $\Var\left(\bm{c}'\bs{\hat\beta}\right)$. In what follows, we shall use superscripts on $T$ that correspond to the superscript for the variance estimator used to calculate it.
 
-If the errors are homoskedastic, so that $\sigma_i^2 = \sigma^2$ for $i = 1,...,n$, then the hypothesis can be evaluated using a standard t test. 
+If the errors are homoskedastic, so that $\sigma_i^2 = \sigma^2$ for $i = 1,...,n$, then the hypothesis can be evaluated using the standard t test. 
 The variance of $\bm{c}'\bs\beta$ is then estimated by $V^{hom} = \hat\sigma^2 \bm{c}'\bm{M}\bm{c} / n$, where $\hat\sigma^2 = \sum_{i=1}^n e_i^2 / (n - p)$. 
 Under $H_0$ and assuming that the errors are normally distributed, the test statistic follows a $t$ distribution with $n - p$ degrees of freedom. 
 Thus, $H_0$ is rejected if $\left|T^{hom}\right| > F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right)$, where $F_t^{-1}(x; \nu)$ is the quantile function for a $t$ distribution with $\nu$ degrees of freedom. 
@@ -211,7 +211,7 @@ Allowing for heteroskedasticity, the true variance of the OLS estimator is
 \label{eq:var_beta}
 \Var\left(\bm{c}'\bs{\hat\beta}\right) = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}'\right) \bm{M}\bm{c}
 \end{equation}
-The HCCCMEs estimate $\Var\left(\bm{c}'\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates involving the squared residuals. All of the HCCMEs have the same general form  
+The HCCCMEs estimate $\Var\left(\bm{c}'\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates based on the squared residuals. All of the HCCMEs have the same general form  
 \begin{equation}
 \label{eq:sandwich}
 V^{HC} = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \omega_i e_i^2 \bm{x}_i\bm{x}'\right)\bm{M} \bm{c}
@@ -219,7 +219,7 @@ V^{HC} = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \omega_i e_i^2 
 where $\omega_{1},...,\omega_{n}$ are weighting terms that differ for the various HC estimators. 
 Under general assumptions, the weak law of large numbers ensures that the middle term in Equation (\ref{eq:sandwich}) converges to the corresponding term in (\ref{eq:var_beta}) as the sample size increases, so that $V^{HC}$ is asymptotically consistent \citep{White1980heteroskedasticity}.
 
-\citet{White1980heteroskedasticity} originally described the HCCME without any correction factor, equivalent to taking $\omega_i = 1$ for $i = 1,...,n$. 
+\citet{White1980heteroskedasticity} originally described the HCCME without any correction factor, which is equivalent to taking $\omega_i = 1$ for $i = 1,...,n$. 
 This form has come to be known as HC0. 
 Subsequently, various correction factors have been proposed that aim to improve on the finite-sample behavior of HC0. 
 Following common convention, we refer to these correction factors by number.
@@ -235,7 +235,7 @@ Their forms are as follows:
 \citet{MacKinnon1985some} suggested HC1, which uses an ad hoc correction similar to the correction used for $\hat\sigma^2$, and HC2, which has the property that $V^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
 \citet{Davidson1993estimation} proposed HC3 as an approximation to the leave-on-out jackknife variance estimator. 
 
-Cribari-Neto and colleagues subsequently proposed three further variations, HC4 \citep{Cribari-Neto2004asymptotic}, HC4m \citep{Cribari-Neto2011new}, and HC5 \citep{Cribari-Neto2007inference}, all of which aim to improve upon HC3 for design matrices where some observations are very influential. 
+Cribari-Neto and colleagues subsequently proposed three further variations, HC4 \citep{Cribari-Neto2004asymptotic}, HC4m \citep{Cribari-Neto2011new}, and HC5 \citep{Cribari-Neto2007inference}, all of which aim to improve upon HC3 for design matrices where some observations have high leverage. 
 All of these correction factors inflate the squared residual term to a greater extent when an observation has a higher degree of leverage. 
 HC4 truncates the degree of inflation at 4 times the average leverage. 
 Compared to HC4, HC4m inflates observations with lower leverage more strongly, while truncating the maximum degree of inflation at 2.5 times the average. 
@@ -268,7 +268,8 @@ Furthermore, assuming that the model errors are normally distributed, the varian
 where $\circ$ denotes the element-wise (Hadamard) product and $\bm{S}$ has entries $S_{ij} = \sigma_i^2 \sigma_j^2$ \citep{Lipsitz1999degrees}. 
 
 Again assuming that the model errors are normally distributed, the sampling distribution of $V^{HC}$ can be expressed as a weighted sum of $\chi^2_1$ random variables. 
-Note that the matrix $\bm{B}\bs\Sigma$ has rank $n - p$, and let $\lambda_1,...,\lambda_{n - p}$ denote its non-zero eigenvalues, arranged in descending order. 
+Note that the matrix $\bm{B}\bs\Sigma$ has rank $n - p$. 
+Let $\lambda_1,...,\lambda_{n - p}$ denote its non-zero eigenvalues, arranged in descending order. 
 Let $Z_1,...,Z_{n-p}$ denote independent $\chi^2_1$ random variates. 
 Then 
 \begin{equation}
@@ -297,7 +298,7 @@ With these degrees of freedom, the null hypothesis is rejected if $|T^{HC}| > F_
 Readers may be familiar with Satterthwaite approximation because it is the basis of the degrees of freedom commonly used in the two-sample t-test assuming unequal variances \citep{Welch1947generalization}. 
 
 The mean and variance of $V^{HC}$ involve the unknown error variances $\bs\Sigma$, and so  must be estimated in order to calculate the Satterthwaite approximation. 
-Lipsitz and colleagues propose to use $V^{HC}$ as an estimate of its own expectation and to estimate $\Var\left(V^{HC}\right)$ based on the model residuals. 
+Lipsitz and colleagues proposed to use $V^{HC}$ as an estimate of its own expectation and to estimate $\Var\left(V^{HC}\right)$ based on the model residuals. 
 Specifically, let $\bm{\hat{S}}$ be the matrix with entries \[
 \hat{S}_{ii} = \frac{1}{3}\omega_i^2 e_i^4 \quad \text{for } i = 1,...,n \quad \text{and} \quad \hat{S}_{ij} = \frac{\omega_i \omega_j e_i^2 e_j^2}{2\omega_i \omega_j h_{ij}^2 + 1} \quad \text{for } i \neq j, \]
 to be used as an estimate of $\bm{S}$ in Equation (\ref{eq:V_variance}).
@@ -346,7 +347,7 @@ Kauermann and Carroll focus on the HC2 variance estimator and calculate its degr
 z_{\tilde\alpha} = F_t^{-1}\left(1 - \frac{\alpha}{2}; n - p\right) + \frac{z_\alpha^3 + z_\alpha}{4 \nu} - \frac{\left(z_\alpha^3 + z_\alpha\right)\left(\sum_{i=1}^n g_i^2\right)^2}{4 (n - p)}.
 \end{equation}
 This further approximation is convenient for calculating a confidence interval for $\bm{c}'\bs{\hat\beta}$ because it avoids the need to numerically solve Equation (\ref{eq:Kauermann_crit}). 
-The simulation studies reported in the following section evaluate both approximations.\todo{Names for each approximation?}
+The simulation studies reported in the following section evaluate both the p-value approximation and the CI approximation.
 
 \subsection{Rothenberg's Edgeworth approximation}
 
@@ -363,7 +364,7 @@ Rothenberg's Edgeworth approximation is then given by
 \[
 \Pr\left(T^{HC} \leq t \right) \approx \Phi\left[t \left(1 - \frac{1 + t^2}{4 \nu} + \frac{a\left(t^2 - 1\right) + b}{2}\right)\right]. 
 \]
-Here, the $a$ term measures covariance between $\bm{c}'\bs{\hat\beta}$ and $V^{HC}$; the $b$ term measures the relative bias of $V^{HC}$; and $\nu$ is a Satterthwaite degrees of freedom approximation. 
+Here, the $a$ term measures covariance between $\bm{c}'\bs{\hat\beta}$ and $V^{HC}$; the $b$ term measures the relative bias of $V^{HC}$; and $\nu$ is the Satterthwaite degrees of freedom. 
 
 Based on this Edgeworth approximation, \citet{Rothenberg1988approximate} proposed a test in which the null hypothesis is rejected if $\left|T^{HC}\right| > t_{\alpha}$, where the critical value $t_{\alpha}$ is defined by 
 \begin{equation}
@@ -376,7 +377,7 @@ In practice, the $a$ and $b$ terms and the degrees of freedom must be estimated 
 Rothenberg proposed to do so by replacing values of $\sigma_i^2$ with $e_i^2$ in the expressions for $a$ and $b$ and using $\nu_R = \left(\sum_{i=1}^n g_i^2 e_i^2\right)^2 \left(\sum_{i=1}^n g_i^4 e_i^4 / 3 \right)^{-1}$ as an empirical degrees of freedom approximation. 
 For purposes of simplicity, the simulation studies described in the next section use $\nu_E$ instead of $\nu_R$. 
 An alternative approach---not considered by Rothenberg---is to calculate $a$, $b$, and $\nu$ based on the assumption that the errors are homoskedastic. In this case, $a = 0$, $b = - \left(\sum_{i=1}^n h_{ii} \omega_i g_i^2\right) / \left(\sum_{i=1}^n g_i^2\right)$, and the degrees of freedom are equal to $\nu_M$. 
-Using the "model-based" estimates of the adjustment quantities may be quite reasonable, considering that if the bias of $V^{HC}$ could be well-estimated empirically, one could simply correct the estimator itself.
+Using the ``model-based'' estimates of the adjustment quantities may be quite reasonable, considering that if the bias of $V^{HC}$ could be well-estimated empirically, one could simply correct the estimator itself.
 
 \subsection{Saddlepoint approximation}
 
@@ -384,7 +385,7 @@ Using the "model-based" estimates of the adjustment quantities may be quite reas
 They considered both a Satterthwaite approximation (similar to Lipsitz et al.) and a saddlepoint approximation for the distribution of the test statistic, finding that the latter produced tests with more accurate size. 
 
 The saddlepoint technique is a tool for approximating the density or distribution of a random variable based on its cumulant generating function \citep{Goutis1999explaining, Huzurbazar1999practical}.
-The test proposed by \citet{McCaffrey2006improved} is derived by first representing $\left|T^{HC}\right|$ as a weighted sum of independent $\chi^2_1$ variates, then approximating its cumulative distribution using a saddlepoint formula due to \citet{Lugannani1980saddlepoint}. 
+The test proposed by \citet{McCaffrey2006improved} is derived by first representing $\left|T^{HC}\right|$ as a ratio of weighted sums of independent $\chi^2_1$ variates, then approximating its cumulative distribution using a saddlepoint formula due to \citet{Lugannani1980saddlepoint}. 
 The cumulative distribution of $T^{HC}$ can be expressed as \[
 \Pr\left(\left|T^{HC}\right| \leq t\right) = \Pr\left(\frac{\left(\bm{c}\bs{\hat\beta} - k\right)^2}{\Var\left(\bm{c}\bs{\hat\beta}\right)} - t^2 \frac{V^{HC}}{\Var\left(\bm{c}\bs{\hat\beta}\right)} \leq 0\right). \]
 Observe that $\left(\bm{c}\bs{\hat\beta} - k\right)^2 / \Var\left(\bm{c}\bs{\hat\beta}\right) \sim \chi^2_1$ and that $V^{HC}$ is distributed as a weighted sum of $\chi^2_1$ random variables, as in Equation (\ref{eq:weighted_sum_chi_sq}). 
@@ -398,8 +399,7 @@ The saddlepoint approximation for $\Pr(Z \leq 0)$ is obtained as follows. Let $s
 \sum_{i=0}^{n-p} \frac{\gamma_i}{1 - 2 \gamma_i s} = 0. \]
 The saddlepoint must be calculated numerically (e.g., via a grid search).\footnote{For programming, it is helpful to note that $(2 \gamma_1)^{-1} < s < 0$ if $|T^{HC}| < 1$; $0 < s < 1/2$ if $|T^{HC}| > 1$; and $s = 0$ if $|T^{HC}| = 1$.} 
 Define the quantities $r$ and $q$ as \[
-r = \text{sign}(s)\sqrt{\sum_{i=0}^{n-p} \log\left(1 - 2\gamma_i s\right)}, \qquad q = s \sqrt{2 \sum_{i=0}^{n-p} \frac{\gamma_i^2}{\left(1 - 2 \gamma_i s\right)^2}} \]
-for a constant $z$. 
+r = \text{sign}(s)\sqrt{\sum_{i=0}^{n-p} \log\left(1 - 2\gamma_i s\right)}, \qquad q = s \sqrt{2 \sum_{i=0}^{n-p} \frac{\gamma_i^2}{\left(1 - 2 \gamma_i s\right)^2}}. \]
 Then 
 \begin{equation}
 \label{eq:saddlepoint_approx}
@@ -411,7 +411,7 @@ Given an observed value for the $t$-statistic $t^{HC}$, a $p$-value for $H_0$ ca
 
 In practice, the unknown error variances must be estimated in order to find the eigenvalues of $\bm{B}\bs\Sigma$. 
 \citet{McCaffrey2006improved} propose to do so based on a working model. 
-For instance, assuming that the errors are homoskedastic implies that the eigenvalues of $\bm{B}$ may be used in the saddlepoint calculations.\todo{Any closed form expression for these eigenvalues?} 
+For instance, assuming that the errors are homoskedastic implies that the eigenvalues of $\bm{B}$ may be used in the saddlepoint calculations. 
 An alternative, not considered by \citet{McCaffrey2006improved}, would be to use the eigenvalues of $\bm{B}\bs{\hat\Sigma}$, where $\bs{\hat\Sigma} = \diag\left(e_1^2,...,e_n^2\right)$.
 The simulation studies examine the performance of both the working model approach and the empirical approach to calculating the saddlepoint approximation, analogous to using either the empirical or model-based degrees of freedom in conjunction with the other approximations. 
 
@@ -430,28 +430,37 @@ This section reports a large simulation study that investigate the performance t
 
 \subsection{Simulation design}
 
-We simulated data from a model with four regressors. Following \citet{Long2000using}, we first simulated independent variates $\delta_1 \sim \text{Unif}(0, 1)$, $\delta_2 \sim N(0,1)$, $\delta_3 \sim \chi^2_1$, $\delta_4 \sim N(0,1)$, and $\delta_5 \sim \text{Unif}(0, 1)$. These were then combined as
-\begin{align*}
-x_1 &= 1 + \delta_1 \\
-x_2 &= 3 \delta_1 + 0.6 \delta_2 \\
-x_3 &= 2 \delta_1 + 0.6 \delta_3 \\
-x_4 &= 0.1 \delta_1 + 0.9 \delta_3 - 0.8 \delta_4 + 4 \delta_5,
-\end{align*}
-producing regressors with inter-correlations ranging from 0.27 to 0.82.\todo{Gleb, why do we truncate $x_2$ and $x_4$ at -2.5?} We then generated the outcome as
+To keep the dimension of the simulation manageable, these simulations examine test performance under a model with a single regressor. 
+It is known that the performance of conventional tests based on HCCMEs are influenced not only by sample size, but by the distribution of the regressors \citep{Chesher1991finite, Cribari-Neto2004asymptotic, Kauermann2001note}. 
+Specifically, observations with high leverage tend to distort the size of the conventional tests. 
+In order to study the performance of HCCME-based tests under varying degrees of leverage, we simulated the regressor from a $\chi^2$ distribution with degrees of freedom selected to control the skewness:
 \[
-y = 1 + x_1 + x_2 + x_3 + 0 \times x_4 + f_j(\mathbf{x}) \zeta,
+X_1,...,X_n \iid \frac{\gamma^2 \chi^2_{8 / \gamma^2} - 8 }{4 \gamma}.
 \]
-where $\zeta$ followed one of three possible distributions: $N(0,1)$, $\chi^2_5$, or $t_5$. The $f_j(\mathbf{x})$ was one of seven different error structures that created different patterns of heteroskedasticity:
-\begin{itemize}
-\item $f_0(\mathbf{x}) = 1$, which produced a model with homoskedastic errors;
-\item $f_1(\mathbf{x}) = \sqrt{x_1}$;
-\item $f_2(\mathbf{x}) = \sqrt{x_3 + 1.6}$;
-\item $f_3(\mathbf{x}) = \sqrt{x_3(x_4 + 2.5)}$;
-\item $f_4(\mathbf{x}) = \sqrt{x_1 x_3 (x_2 + 2.5)}$;
-\item $f_5(\mathbf{x}) = 1 + 0.5 I(x_2 > 1.6)$; or
-\item $f_6(\mathbf{x}) = 1 + 3 I(x_2 > 1.6)$.
-\end{itemize}
-We simulated samples of size $n = 25$, 50, 100, 250, and 500. 
+The distribution of $X$ therefore has mean zero, unit variance, and skewness $\gamma$. We then simulated the outcome as 
+\[
+Y_i = \beta X_i + \exp(\zeta X_i) \epsilon_i, \quad i = 1,...,n.
+\]
+where the errors $\epsilon_1,...,\epsilon_n$ were simulated from one of three different error distributions, including the standard normal, $t_5$ (scaled to have unit variance), or $\chi^2_5$ (centered and scaled) distribution. We used the skedasticity function 
+\[
+\sigma(\zeta, X_i) = (1 - 4 \zeta)^\zeta \exp(2 \zeta X_i),
+\]
+so that $\E\left[\sigma^2(\zeta, X_i)\right] = 1$.
+
+\citet{MacKinnon2013thirty} considered a regression with four log-normally distributed predictors, in which some observations have very high leverage. 
+Following the same model, we simulated data according to the model in which the predictors $X_1,...,X_4$ are drawn independently from a standard log-normal distribution and the outcome follows the model
+\[
+Y_i = \beta_0 + \beta_1 X_{1i} + \cdots + \beta_4 X_{4i} + \sigma_i \epsilon_i,
+\]
+where $\epsilon_i \iid N(0, 1)$ and \[
+\sigma_i = f(\zeta) \left(\beta_0 + \beta_1 X_{1i} + \cdots + \beta_4 X_{4i}\right)^\zeta.
+\] 
+The constant $\zeta$ controls the degree of heteroskedasticity, with $\zeta = 0$ corresponding to homoskedasticity and $\zeta = 2$ representing quite extreme heteroskedasticity. 
+The scaling factor $f(\zeta)$ is chosen so that the average variance is held constant (i.e., $\E\left(\sigma_i^2\right) = 1$).
+Following \citet{MacKinnon2013thirty}, we set $\beta_0 = \cdots = \beta_3 = 1$, $\beta_4 = 0$ and test $H_0: \beta_4 = 0$. 
+
+Based on this model, we simulated samples varying in size from 20 to 200, using $\gamma = 0,1,2$. For each simulated dataset, we calculated robust t-statistics using the HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 adjustment factors and corresponding critical values based on the Satterthwaite approximation, both Edgeworth approximations from \citet{Kauermann2001note}, the \citet{Rothenberg1988approximate} Edgeworth approximation, and the saddlepoint approximation, as well as the conventional $t(n - p)$ critical values. For all but the conventional approximation, we examined both empirical- and model-based versions of the correction. We considered nominal type-I error levels of $\alpha = .005$, $.010$, and $.050$. For each combination of parameters, empirical rejection rates are estimated from 10,000 replications.
+
 
 For each simulated dataset, we estimated model (\ref{eq:regression_model}). In order to estimate true Type-I error rates, we tested the hypotheses that $\beta_j = 1$ for $j = 0,...,3$ and $\beta_4 = 0$. To estimate power, we tested the hypotheses that $\beta_j = 0$ for $j = 0,...,3$. We considered nominal type-I error levels of $\alpha = .01$, $.05$, and $.10$. We tested each hypothesis using 17 different procedures. First, we calculated tests based on the HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 adjustment factors compared to conventional $t(n - p)$ critical values. Second, we calculated tests using the Satterthwaite approximation (with HC2), both Edgeworth approximations from \citet[][also using HC2]{Kauermann2001note}, the \citet{Rothenberg1988approximate} Edgeworth approximation (with HC0), and the saddlepoint approximation (with HC2). For each of the distributional approximations, we examined both empirical- and model-based versions of the correction. Empirical rejection rates were estimated from 20,000 replications.
 
