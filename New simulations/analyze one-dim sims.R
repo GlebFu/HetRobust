@@ -5,9 +5,11 @@ library(ggplot2)
 
 rm(list=ls())
 
-load("New simulations/one-dim-sim-20170317.Rdata")
+load("New simulations/one-dim-sim-20170327.Rdata")
 
 summary(size_results$percent_NA)
+table(size_results$test)
+table(size_results$iterations)
 
 size_results <- 
   size_results %>%
@@ -15,53 +17,58 @@ size_results <-
   gather("level","rejection", starts_with("p")) %>%
   mutate(
     level = as.numeric(str_sub(level, 2,-1)),
-    alpha = paste("alpha =", level),
+    alpha = paste("\alpha =", str_sub(level, 2, -1)),
     by_val = ifelse(test=="naive", HC, test),
     reject_rel = rejection / level,
     error_dist = factor(e_dist, 
                         levels = c("norm","t5","chisq"), 
                         labels = paste(c("Normal","t(5)","Chi-squared"), "errors")),
-    skew = paste("X skewness =", x_skew)
+    skew = paste("Skewness (gamma) =", x_skew)
   )
 
 size_results_select <- 
   size_results %>%
   filter(
     e_dist %in% c("norm","chisq"), 
-    level %in% c(.005, .01, .05), 
-    x_skew %in% c(1, 3, 5)    
+    level %in% c(.005, .01, .05)
   )
 
 
 size_plot <- function(dat) {
   iterations <- unique(dat$iterations)
-  alphas <- unique(dat$level)
-  MC <- qbinom(p = 0.95, size = iterations, prob = alphas) / iterations / alphas
-  MC_bound <- data.frame(alpha = paste("alpha =",alphas), MC = MC)
+  alphas <- unique(dat$alpha)
+  alpha_levels <- unique(dat$level)
+  MC <- qbinom(p = 0.95, size = iterations, prob = alpha_levels) / iterations
+  MC_bound <- data.frame(alpha = alphas, 
+                         level = alpha_levels, 
+                         MC = MC)
   
   p <- 
-    ggplot(dat, aes(z, reject_rel, color = by_val, shape = by_val)) +
-      geom_point() + geom_line() +
-      geom_hline(yintercept = 1) + 
-      geom_hline(data = MC_bound, aes(yintercept = MC), linetype = "dashed") + 
-      facet_grid(alpha ~ error_dist + skew, scales = "free_y") + 
-      coord_cartesian(ylim = c(0,3)) + 
-      theme_bw() + 
-      theme(legend.position = "bottom") + 
-      labs(x = "zeta (heteroskedasticity)", y = "Relative rejection rate", 
+    ggplot(dat, aes(z, rejection, color = by_val, shape = by_val)) +
+    geom_point() + geom_line() +
+    geom_hline(data = MC_bound, aes(yintercept = level), linetype = "solid") + 
+    geom_hline(data = MC_bound, aes(yintercept = MC), linetype = "dashed") + 
+    facet_grid(alpha + error_dist ~ skew, scales = "free_y") + 
+    expand_limits(y = 0) + 
+    theme_light() + 
+    theme(legend.position = "bottom", 
+          strip.text.x = element_text(color = "black"), 
+          strip.text.y = element_text(color = 'black')) + 
+    labs(x = quote(Heteroskedasticity (zeta)), y = "Rejection rate", 
          color = "", linetype = "", shape = "") + 
-      guides(color = guide_legend(nrow = 1))
+    guides(color = guide_legend(nrow = 1))
   p
 }
 
+
 # naive tests
 size_results_select %>%
-  filter(test=="naive" & HC!="hom", n == 50) %>%
+  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), n == 50) %>%
   size_plot()
 
 # Edgeworth approximations
 size_results_select %>%
-  filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H", "RCI_E","RCI_H"), n == 50) %>%
+  filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H","RCI_H"), n == 50) %>%
   size_plot() 
 
 # Satterthwaite and saddlepoint approximations
@@ -81,6 +88,20 @@ size_results %>%
   filter(test=="saddle_S", HC == "HC2") %>%
   ggplot(aes(z, rejection, color = e_dist, linetype = factor(x_skew))) +
   geom_point() + geom_line() +
+  geom_hline(aes(yintercept = level)) + 
+  expand_limits(y = 0) + 
+  facet_grid(level ~ n, scales = "free_y", labeller = label_both) + 
+  theme_bw() + 
+  theme(legend.position = "bottom") + 
+  labs(x = "zeta (heteroskedasticity)", y = "Rejection rate", 
+       color = "")
+
+size_results %>%
+  filter(test=="saddle_T") %>%
+  ggplot(aes(z, rejection, color = e_dist, linetype = factor(x_skew))) +
+  geom_point() + geom_line() +
+  geom_hline(aes(yintercept = level)) + 
+  expand_limits(y = 0) + 
   facet_grid(level ~ n, scales = "free_y", labeller = label_both) + 
   theme_bw() + 
   theme(legend.position = "bottom") + 
@@ -92,7 +113,6 @@ size_results %>%
 
 size_results_wide <-
   size_results %>%
-  filter((test=="naive" & HC %in% c("HC3", "HC4")) | test %in% c("saddle_E","saddle_S","Satt_H","KCCI_E", "KCCI_H")) %>%
   mutate(
     test = ifelse(test=="naive", paste(test, HC, sep = "_"), test),
     n_level = paste("n =", n, ", alpha =", level)
@@ -109,7 +129,7 @@ alpha_levels <-
 
 head_to_head <- function(x, y, data = size_results_wide) {
   p <- 
-    ggplot(data, aes_(x = as.name(x), y = as.name(y), color = ~ e_dist)) +
+    ggplot(data, aes_(x = as.name(x), y = as.name(y), color = ~ e_dist, shape = ~ as.factor(x_skew))) +
       geom_point() +
       geom_abline(slope = 1, intercept = 0) +
       geom_blank(data = alpha_levels, aes(x, y)) +
@@ -118,7 +138,7 @@ head_to_head <- function(x, y, data = size_results_wide) {
       facet_wrap(~ level + n, scales = "free", labeller = "label_both", ncol = 3) + 
       theme_bw() + 
       theme(legend.position = "bottom") + 
-      labs(color = "")  
+      labs(color = "", shape = "skew")  
   p
 }
 
@@ -130,7 +150,11 @@ head_to_head("naive_HC3", "saddle_E")
 head_to_head("naive_HC4", "KCCI_E")
 head_to_head("naive_HC4", "Satt_H")
 head_to_head("naive_HC4", "saddle_E")
+head_to_head("naive_HC4", "saddle_S")
+head_to_head("naive_HC4", "saddle_T")
 
 head_to_head("KCCI_E", "Satt_H")
 head_to_head("KCCI_E", "saddle_E")
 head_to_head("Satt_H", "saddle_E")
+head_to_head("Satt_H", "saddle_S")
+head_to_head("Satt_H", "saddle_T")

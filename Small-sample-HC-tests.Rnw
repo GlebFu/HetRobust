@@ -402,15 +402,13 @@ library(ggplot2)
 
 load("New simulations/one-dim-sim-20170327.Rdata")
 
-summary(size_results$percent_NA)
-
 size_results <- 
   size_results %>%
   select(-subset, -seed, -percent_NA) %>%
   gather("level","rejection", starts_with("p")) %>%
   mutate(
     level = as.numeric(str_sub(level, 2,-1)),
-    alpha = paste("alpha =", level),
+    alpha = paste("alpha =", str_sub(level, 2, -1)),
     by_val = ifelse(test=="naive", HC, test),
     reject_rel = rejection / level,
     error_dist = factor(e_dist, 
@@ -429,10 +427,11 @@ size_results_select <-
 
 size_plot <- function(dat) {
   iterations <- unique(dat$iterations)
-  alphas <- unique(dat$level)
-  MC <- qbinom(p = 0.95, size = iterations, prob = alphas) / iterations
-  MC_bound <- data.frame(alpha = paste("alpha =",alphas), 
-                         level = alphas, 
+  alphas <- unique(dat$alpha)
+  alpha_levels <- unique(dat$level)
+  MC <- qbinom(p = 0.95, size = iterations, prob = alpha_levels) / iterations
+  MC_bound <- data.frame(alpha = alphas, 
+                         level = alpha_levels, 
                          MC = MC)
   
   p <- 
@@ -446,7 +445,7 @@ size_plot <- function(dat) {
       theme(legend.position = "bottom", 
             strip.text.x = element_text(color = "black"), 
             strip.text.y = element_text(color = 'black')) + 
-      labs(x = "zeta (heteroskedasticity)", y = "Rejection rate", 
+      labs(x = quote(Heteroskedasticity (zeta)), y = "Rejection rate", 
          color = "", linetype = "", shape = "") + 
       guides(color = guide_legend(nrow = 1))
   p
@@ -473,9 +472,7 @@ Based on this model, we simulated samples of 25, 50, or 100, using $\gamma = \fr
 
 Due to space constraints, we present only selected results, focusing initially on the sample size of $n = 50$. We also omit results for the $t_5$ error distribution, which were largely very similar to the results for normal errors. The supplementary materials provide complete numerical results for all conditions, as well as R code for replicating all calculations.
 
-We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_size} depicts the rejection rates of the conventional tests based on the HC3, HC4, HC4m, and HC5 estimators. 
-
-<<HC_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of conventional tests based on HC3, HC4, HC4m, and HC5 for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
+<<HC_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of conventional tests based on HC3, HC4, HC4m, and HC5 for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.pos = "p">>=
 
 size_results_select %>%
   filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), n == 50) %>%
@@ -484,7 +481,11 @@ size_results_select %>%
 
 @
 
-<<Edgeworth_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of Edgeworth approximation tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
+We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_size} depicts the rejection rates of the conventional t-tests based on the HC3, HC4, HC4m, and HC5 estimators, at a sample size of $n = 50$, as a function of the degree of heteroskedasticity. Each plot is repeated for varying degrees of skewness (columns) and nominal level (rows), and with either normal of $\chi^2_5$ errors (rows). Tests based on HC0, HC1, and HC2 have strictly higher rejection rates than HC3, and so we omit them from the figure. It can be seen that the test with HC3 does not maintain the nominal level except when the degree of heteroskedascity is small and skewness is mild. Its performance also degrades at smaller values of $\alpha$. The test with HC5 behaves similarly to that with HC3, but has even higher rejection rates when skewness is less severe. 
+
+Of the conventional tests, using HC4 produces rejection rates that are closest to nominal across the conditions examined. At $\alpha = .05$, its rejection rates remain very close to nominal when errors are normal, although they are slightly larger than nominal when errors are $\chi^2_5$ and more strongly heteroskedastic. At lower values of $\alpha$, however, even HC4 has higher-than-nominal rejection rates, and these are more strongly affected by the degree of heteroskedasticity. Finally, rejection rates of the conventional test with HC4m are intermediate between those of HC4 and those of HC5. In further analysis, we focus only on the test with HC4 because its rejection rates are consistently closer to the nominal level across all conditions. 
+
+<<Edgeworth_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of Edgeworth approximation tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.pos = "p">>=
 
 size_results_select %>%
   filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H","RCI_H"), n == 50) %>%
@@ -492,7 +493,7 @@ size_results_select %>%
 
 @
 
-<<Satterthwaite_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of Satterthwaite and saddlepoint approximation tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
+<<Satterthwaite_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of Satterthwaite and saddlepoint approximation tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.pos = "p">>=
 
 size_results_select %>%
   filter(test %in% c("saddle_H","saddle_E","Satt_H","Satt_E") & n == 50) %>%
@@ -500,7 +501,7 @@ size_results_select %>%
 
 @
 
-<<selected_size_25, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 25$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
+<<selected_size_25, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 25$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.pos = "p">>=
 
 selected_tests <- c("saddle_E","Satt_H","KCCI_E","KCCI_H")
 
@@ -510,7 +511,7 @@ size_results_select %>%
 
 @
 
-<<selected_size_50, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
+<<selected_size_50, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.pos = "p">>=
 
 size_results_select %>%
   filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 50) %>%
@@ -518,7 +519,7 @@ size_results_select %>%
 
 @
 
-<<selected_size_100, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 100$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
+<<selected_size_100, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 100$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.pos = "p">>=
 
 size_results_select %>%
   filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 100) %>%

@@ -458,10 +458,8 @@ Based on this model, we simulated samples of 25, 50, or 100, using $\gamma = \fr
 
 Due to space constraints, we present only selected results, focusing initially on the sample size of $n = 50$. We also omit results for the $t_5$ error distribution, which were largely very similar to the results for normal errors. The supplementary materials provide complete numerical results for all conditions, as well as R code for replicating all calculations.
 
-We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_size} depicts the rejection rates of the conventional tests based on the HC3, HC4, HC4m, and HC5 estimators. 
-
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[p]
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/HC_size-1} 
 
@@ -473,8 +471,12 @@ We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_
 
 \end{knitrout}
 
+We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_size} depicts the rejection rates of the conventional t-tests based on the HC3, HC4, HC4m, and HC5 estimators, at a sample size of $n = 50$, as a function of the degree of heteroskedasticity. Each plot is repeated for varying degrees of skewness (columns) and nominal level (rows), and with either normal of $\chi^2_5$ errors (rows). Tests based on HC0, HC1, and HC2 have strictly higher rejection rates than HC3, and so we omit them from the figure. It can be seen that the test with HC3 does not maintain the nominal level except when the degree of heteroskedascity is small and skewness is mild. Its performance also degrades at smaller values of $\alpha$. The test with HC5 behaves similarly to that with HC3, but has even higher rejection rates when skewness is less severe. 
+
+Of the conventional tests, using HC4 produces rejection rates that are closest to nominal across the conditions examined. At $\alpha = .05$, its rejection rates remain very close to nominal when errors are normal, although they are slightly larger than nominal when errors are $\chi^2_5$ and more strongly heteroskedastic. At lower values of $\alpha$, however, even HC4 has higher-than-nominal rejection rates, and these are more strongly affected by the degree of heteroskedasticity. Finally, rejection rates of the conventional test with HC4m are intermediate between those of HC4 and those of HC5. In further analysis, we focus only on the test with HC4 because its rejection rates are consistently closer to the nominal level across all conditions. 
+
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[p]
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/Edgeworth_size-1} 
 
@@ -487,7 +489,7 @@ We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[p]
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/Satterthwaite_size-1} 
 
@@ -500,7 +502,7 @@ We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[p]
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/selected_size_25-1} 
 
@@ -513,7 +515,7 @@ We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[p]
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/selected_size_50-1} 
 
@@ -526,7 +528,7 @@ We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[p]
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/selected_size_100-1} 
 
@@ -541,7 +543,9 @@ We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_
 \section{Discussion}
 \label{sec:conc}
 
-Cite \citet{Cai2008new} on heteroskedasticity-robust F-tests.
+Further research. 
+Wild bootstrap tests.
+Heteroskedasticity-robust F-tests Cite \citet{Cai2008new}.
 
 \bibliographystyle{agsm}
 \bibliography{Bibliography}
