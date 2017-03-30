@@ -452,87 +452,88 @@ Y_i = \beta X_i + \sigma_i \epsilon_i, \quad i = 1,...,n.
 \]
 where the errors $\epsilon_1,...,\epsilon_n$ were simulated from one of three different error distributions, including the standard normal, $t_5$ (scaled to have unit variance), or $\chi^2_5$ (centered and scaled) distribution, and the skedasticity function was taken to be $\sigma_i = \exp(\zeta X_i)$. The constant $\zeta$ controls the degree of heteroskedasticity, with $\zeta = 0$ corresponding to homoskedasticity and $\zeta = 0.2$ corresponding to substantial heteroskedasticity. 
 
-Based on this model, we simulated samples of 25, 50, or 100, using $\gamma = \frac{1}{2},1,2$, and $\zeta = 0,...,0.2$ in steps of 0.02. For each simulated dataset, we calculated robust t-statistics using the HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 adjustment factors and corresponding critical values based on the Satterthwaite approximation, both Edgeworth approximations from \citet{Kauermann2001note}, the \citet{Rothenberg1988approximate} Edgeworth approximation, and the saddlepoint approximation, as well as the conventional $t(n - p)$ critical values. For all but the conventional approximation, we examined both empirical- and model-based versions of the correction. We considered nominal type-I error levels of $\alpha = .005$, $.010$, and $.050$. For each combination of parameters, empirical rejection rates are estimated from \ensuremath{2\times 10^{4}} replications.
-
-
-For each simulated dataset, we estimated model (\ref{eq:regression_model}) and tested the hypotheses that $\beta_1 = 0$. We considered nominal type-I error levels of $\alpha = .005$, $.01$, $.05$, and $.10$. We tested each hypothesis using 17 different procedures. First, we calculated tests based on the HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 adjustment factors compared to conventional $t(n - p)$ critical values. Second, we calculated tests using the Satterthwaite approximation (with HC2), both Edgeworth approximations from \citet[][also using HC2]{Kauermann2001note}, the \citet{Rothenberg1988approximate} Edgeworth approximation (with HC0), and the saddlepoint approximation (with HC2). For each of the distributional approximations, we examined both empirical- and model-based versions of the correction. Empirical rejection rates were estimated from 50,000 replications.
+Based on this model, we simulated samples of 25, 50, or 100, using $\gamma = \frac{1}{2},1,2$, and $\zeta = 0,...,0.2$ in steps of 0.02. For each simulated dataset, we tested the hypothesis $\beta = 0$ using 17 different procedures. First, we calculated tests based on the HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 adjustment factors compared to conventional $t(n - p)$ critical values. Second, we calculated tests using the Satterthwaite approximation (with HC2), both Edgeworth approximations from \citet[][also using HC2]{Kauermann2001note}, the \citet{Rothenberg1988approximate} Edgeworth approximation (with HC0), and the saddlepoint approximation (with HC2). For each of the distributional approximations, we examined both empirical- and model-based versions of the correction. We considered nominal type-I error levels of $\alpha = .005$, $.010$, and $.050$. Empirical rejection rates are estimated from \ensuremath{5\times 10^{4}} replications.
 
 \subsection{Results: Size}
 
+Due to space constraints, we present only selected results, focusing initially on the sample size of $n = 50$. We also omit results for the $t_5$ error distribution, which were largely very similar to the results for normal errors. The supplementary materials provide complete numerical results for all conditions, as well as R code for replicating all calculations.
+
+We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_size} depicts the rejection rates of the conventional tests based on the HC3, HC4, HC4m, and HC5 estimators. 
+
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{sidewaysfigure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/HC_size-1} 
 
 }
 
-\caption[Rejection rates of conventional tests based on HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 for $n = 50$]{Rejection rates of conventional tests based on HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 for $n = 50$. The solid horizontal line indicates the stated $\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.}\label{fig:HC_size}
-\end{sidewaysfigure}
+\caption[Rejection rates of conventional tests based on HC3, HC4, HC4m, and HC5 for $n = 50$]{Rejection rates of conventional tests based on HC3, HC4, HC4m, and HC5 for $n = 50$. The solid horizontal line indicates the stated $\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.}\label{fig:HC_size}
+\end{figure}
 
 
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{sidewaysfigure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/Edgeworth_size-1} 
 
 }
 
 \caption[Rejection rates of Edgeworth approximation tests for $n = 50$]{Rejection rates of Edgeworth approximation tests for $n = 50$. The solid horizontal line indicates the stated $\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.}\label{fig:Edgeworth_size}
-\end{sidewaysfigure}
+\end{figure}
 
 
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{sidewaysfigure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/Satterthwaite_size-1} 
 
 }
 
 \caption[Rejection rates of Satterthwaite and saddlepoint approximation tests for $n = 50$]{Rejection rates of Satterthwaite and saddlepoint approximation tests for $n = 50$. The solid horizontal line indicates the stated $\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.}\label{fig:Satterthwaite_size}
-\end{sidewaysfigure}
+\end{figure}
 
 
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{sidewaysfigure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/selected_size_25-1} 
 
 }
 
 \caption[Rejection rates of selected tests for $n = 25$]{Rejection rates of selected tests for $n = 25$. The solid horizontal line indicates the stated $\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.}\label{fig:selected_size_25}
-\end{sidewaysfigure}
+\end{figure}
 
 
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{sidewaysfigure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/selected_size_50-1} 
 
 }
 
 \caption[Rejection rates of selected tests for $n = 50$]{Rejection rates of selected tests for $n = 50$. The solid horizontal line indicates the stated $\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.}\label{fig:selected_size_50}
-\end{sidewaysfigure}
+\end{figure}
 
 
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{sidewaysfigure}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
 
 {\centering \includegraphics[width=\linewidth]{HC_fig/selected_size_100-1} 
 
 }
 
 \caption[Rejection rates of selected tests for $n = 100$]{Rejection rates of selected tests for $n = 100$. The solid horizontal line indicates the stated $\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.}\label{fig:selected_size_100}
-\end{sidewaysfigure}
+\end{figure}
 
 
 \end{knitrout}

@@ -400,7 +400,7 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 
-load("New simulations/one-dim-sim-20170317.Rdata")
+load("New simulations/one-dim-sim-20170327.Rdata")
 
 summary(size_results$percent_NA)
 
@@ -423,29 +423,32 @@ size_results_select <-
   size_results %>%
   filter(
     e_dist %in% c("norm","chisq"), 
-    level %in% c(.005, .01, .05), 
-    x_skew %in% c(1, 3, 5)    
+    level %in% c(.005, .01, .05)
   )
 
 
 size_plot <- function(dat) {
   iterations <- unique(dat$iterations)
   alphas <- unique(dat$level)
-  MC <- qbinom(p = 0.95, size = iterations, prob = alphas) / iterations / alphas
-  MC_bound <- data.frame(alpha = paste("alpha =",alphas), MC = MC)
+  MC <- qbinom(p = 0.95, size = iterations, prob = alphas) / iterations
+  MC_bound <- data.frame(alpha = paste("alpha =",alphas), 
+                         level = alphas, 
+                         MC = MC)
   
   p <- 
-    ggplot(dat, aes(z, reject_rel, color = by_val, shape = by_val)) +
-      geom_line() + geom_point() + 
-      geom_hline(yintercept = 1) + 
+    ggplot(dat, aes(z, rejection, color = by_val, shape = by_val)) +
+      geom_point() + geom_line() +
+      geom_hline(data = MC_bound, aes(yintercept = level), linetype = "solid") + 
       geom_hline(data = MC_bound, aes(yintercept = MC), linetype = "dashed") + 
-      facet_grid(alpha ~ error_dist + skew, scales = "free_y") + 
-      coord_cartesian(ylim = c(0,3)) + 
-      theme_bw() + 
-      theme(legend.position = "bottom") + 
-      guides(color = guide_legend(nrow = 1)) +
-      labs(x = "zeta (heteroskedasticity)", y = "Relative rejection rate", 
-         color = "", linetype = "", shape = "")
+      facet_grid(alpha + error_dist ~ skew, scales = "free_y") + 
+      expand_limits(y = 0) + 
+      theme_light() + 
+      theme(legend.position = "bottom", 
+            strip.text.x = element_text(color = "black"), 
+            strip.text.y = element_text(color = 'black')) + 
+      labs(x = "zeta (heteroskedasticity)", y = "Rejection rate", 
+         color = "", linetype = "", shape = "") + 
+      guides(color = guide_legend(nrow = 1))
   p
 }
 
@@ -464,63 +467,61 @@ Y_i = \beta X_i + \sigma_i \epsilon_i, \quad i = 1,...,n.
 \]
 where the errors $\epsilon_1,...,\epsilon_n$ were simulated from one of three different error distributions, including the standard normal, $t_5$ (scaled to have unit variance), or $\chi^2_5$ (centered and scaled) distribution, and the skedasticity function was taken to be $\sigma_i = \exp(\zeta X_i)$. The constant $\zeta$ controls the degree of heteroskedasticity, with $\zeta = 0$ corresponding to homoskedasticity and $\zeta = 0.2$ corresponding to substantial heteroskedasticity. 
 
-Based on this model, we simulated samples of 25, 50, or 100, using $\gamma = \frac{1}{2},1,2$, and $\zeta = 0,...,0.2$ in steps of 0.02. For each simulated dataset, we calculated robust t-statistics using the HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 adjustment factors and corresponding critical values based on the Satterthwaite approximation, both Edgeworth approximations from \citet{Kauermann2001note}, the \citet{Rothenberg1988approximate} Edgeworth approximation, and the saddlepoint approximation, as well as the conventional $t(n - p)$ critical values. For all but the conventional approximation, we examined both empirical- and model-based versions of the correction. We considered nominal type-I error levels of $\alpha = .005$, $.010$, and $.050$. For each combination of parameters, empirical rejection rates are estimated from \Sexpr{unique(size_results$iterations)} replications.
-
-
-For each simulated dataset, we estimated model (\ref{eq:regression_model}) and tested the hypotheses that $\beta_1 = 0$. We considered nominal type-I error levels of $\alpha = .005$, $.01$, $.05$, and $.10$. We tested each hypothesis using 17 different procedures. First, we calculated tests based on the HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 adjustment factors compared to conventional $t(n - p)$ critical values. Second, we calculated tests using the Satterthwaite approximation (with HC2), both Edgeworth approximations from \citet[][also using HC2]{Kauermann2001note}, the \citet{Rothenberg1988approximate} Edgeworth approximation (with HC0), and the saddlepoint approximation (with HC2). For each of the distributional approximations, we examined both empirical- and model-based versions of the correction. Empirical rejection rates were estimated from 50,000 replications.
+Based on this model, we simulated samples of 25, 50, or 100, using $\gamma = \frac{1}{2},1,2$, and $\zeta = 0,...,0.2$ in steps of 0.02. For each simulated dataset, we tested the hypothesis $\beta = 0$ using 17 different procedures. First, we calculated tests based on the HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 adjustment factors compared to conventional $t(n - p)$ critical values. Second, we calculated tests using the Satterthwaite approximation (with HC2), both Edgeworth approximations from \citet[][also using HC2]{Kauermann2001note}, the \citet{Rothenberg1988approximate} Edgeworth approximation (with HC0), and the saddlepoint approximation (with HC2). For each of the distributional approximations, we examined both empirical- and model-based versions of the correction. We considered nominal type-I error levels of $\alpha = .005$, $.010$, and $.050$. Empirical rejection rates are estimated from \Sexpr{unique(size_results$iterations)} replications.
 
 \subsection{Results: Size}
 
-<<HC_size, fig.width = 11, fig.height = 6.5, out.width = "\\linewidth", fig.cap = "Rejection rates of conventional tests based on HC0, HC1, HC2, HC3, HC4, HC4m, and HC5 for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.env = "sidewaysfigure">>=
+Due to space constraints, we present only selected results, focusing initially on the sample size of $n = 50$. We also omit results for the $t_5$ error distribution, which were largely very similar to the results for normal errors. The supplementary materials provide complete numerical results for all conditions, as well as R code for replicating all calculations.
+
+We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_size} depicts the rejection rates of the conventional tests based on the HC3, HC4, HC4m, and HC5 estimators. 
+
+<<HC_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of conventional tests based on HC3, HC4, HC4m, and HC5 for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
 
 size_results_select %>%
-  filter(test=="naive" & HC!="hom", n == 50) %>%
+  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), n == 50) %>%
   size_plot()
+
 
 @
 
-<<Edgeworth_size, fig.width = 11, fig.height = 6.5, out.width = "\\linewidth", fig.cap = "Rejection rates of Edgeworth approximation tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.env = "sidewaysfigure">>=
+<<Edgeworth_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of Edgeworth approximation tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
 
 size_results_select %>%
-  filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H", "RCI_E","RCI_H"), n == 50) %>%
+  filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H","RCI_H"), n == 50) %>%
   size_plot() 
 
 @
 
-<<Satterthwaite_size, fig.width = 11, fig.height = 6.5, out.width = "\\linewidth", fig.cap = "Rejection rates of Satterthwaite and saddlepoint approximation tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.env = "sidewaysfigure">>=
+<<Satterthwaite_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of Satterthwaite and saddlepoint approximation tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
 
 size_results_select %>%
-  filter(test %in% c("saddle_H","saddle_E","saddle_S","Satt_H","Satt_E") & n == 50) %>%
+  filter(test %in% c("saddle_H","saddle_E","Satt_H","Satt_E") & n == 50) %>%
   size_plot() 
 
 @
 
-<<selected_size_25, fig.width = 11, fig.height = 6.5, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 25$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.env = "sidewaysfigure">>=
+<<selected_size_25, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 25$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
+
+selected_tests <- c("saddle_E","Satt_H","KCCI_E","KCCI_H")
 
 size_results_select %>%
-  filter((test=="naive" & HC %in% c("HC4")) | 
-           test %in% c("saddle_E","saddle_S","Satt_H","KCCI_E"), 
-         n == 25) %>%
+  filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 25) %>%
   size_plot()
 
 @
 
-<<selected_size_50, fig.width = 11, fig.height = 6.5, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.env = "sidewaysfigure">>=
+<<selected_size_50, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
 
 size_results_select %>%
-  filter((test=="naive" & HC %in% c("HC4")) | 
-           test %in% c("saddle_E","saddle_S","Satt_H","KCCI_E"), 
-         n == 50) %>%
+  filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 50) %>%
   size_plot()
 
 @
 
-<<selected_size_100, fig.width = 11, fig.height = 6.5, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 100$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.env = "sidewaysfigure">>=
+<<selected_size_100, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 100$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.">>=
 
 size_results_select %>%
-  filter((test=="naive" & HC %in% c("HC4")) | 
-           test %in% c("saddle_E","saddle_S","Satt_H","KCCI_E"), 
-         n == 100) %>%
+  filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 100) %>%
   size_plot()
 
 @
@@ -528,7 +529,9 @@ size_results_select %>%
 \section{Discussion}
 \label{sec:conc}
 
-Cite \citet{Cai2008new} on heteroskedasticity-robust F-tests.
+Further research. 
+Wild bootstrap tests.
+Heteroskedasticity-robust F-tests Cite \citet{Cai2008new}.
 
 \bibliographystyle{agsm}
 \bibliography{Bibliography}
