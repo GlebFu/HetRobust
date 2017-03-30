@@ -342,18 +342,18 @@ estimate_model <- function(Y, X, trueB, whichX) {
 
 # library(tibble)
 # 
+# dgm <- one_dim_dgm
 # iterations <- 20
 # n <- 25
-# B <- "1 1 1 1 0"
-# whichX <- "T T T T T"
-# HCtests <- 
-#   tribble(~ HC, ~ tests,
-#           "HC0", list("Rp_E", "Rp_H"),
-#           "HC2", list("Satt_E", "Satt_H", "saddle_E", "saddle_H"),
-#           "hom", list()
-#           )
+# span <- 0.75
+# alphas <- adjusted_alphas$alphas[[1]]
 # 
-# alpha_string <- ".005 .01 .05 .10"
+# HCtests <-
+#   tribble(~ HC, ~ tests,
+#           "HC2", list("Satt_H", "saddle_E", "KCCI_H"),
+#           "HC4", list("naive")
+#   )
+# 
 # seed <- NULL
 
 run_sim <- function(dgm, iterations, n, alphas, HCtests, span = 0.75, adjusted_alpha = FALSE, seed = NULL, ...) {

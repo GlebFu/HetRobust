@@ -107,7 +107,7 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
 #   filter(stat=="adjusted alpha") %>% select(-stat)
 
 #-----------------------------
-# Simulation design
+# Simulation design - size
 #-----------------------------
 
 set.seed(20170327)
@@ -157,7 +157,7 @@ size_HCtests <-
 
 
 #-----------------------------
-# Run simulation
+# Run size simulations
 #-----------------------------
 
 
@@ -177,8 +177,117 @@ stopCluster(cluster)
 
 table(size_results$test)
 
-save(size_design, size_HCtests, alphas, size_results, file = "New simulations/one-dim-sim-20170327.Rdata")
+save(size_design, size_HCtests, alphas, size_results, file = "New simulations/one-dim-sim-size-results.Rdata")
 
 
+#-----------------------------
+# Simulation design - power
+#-----------------------------
 
+iterations <- 50
 
+focal_design <- 
+  size_design %>%
+  select(-iterations) %>%
+  filter(z %in% c(0, 0.1, 0.2)) %>%
+  mutate(iterations = iterations)
+
+focal_design
+
+power_factors <- list(
+  beta = seq(-2, 2, 0.4),
+  subset = 1:1
+)
+
+c(nrow(focal_design), lengths(power_factors))
+prod(c(nrow(focal_design), lengths(power_factors)))
+
+power_design <- 
+  focal_design %>%
+  select(-seed) %>%
+  full_join(cross_d(power_factors)) %>%
+  mutate(
+    seed = round(runif(1) * 2^30) + row_number()
+  )
+
+power_design
+nrow(size_design)
+nrow(focal_design)
+nrow(power_design)
+
+focal_HCtests <-
+  tribble(~ HC, ~ tests,
+          "HC2", list("Satt_H", "saddle_E", "KCCI_H"),
+          "HC4", list("naive")
+  )
+
+#---------------------------------
+# size adjustment calculations
+#---------------------------------
+
+source_obj <- ls()
+
+library(Pusto)
+cluster <- start_parallel(source_obj = source_obj)
+
+system.time(
+  focal_size_results <- plyr::mdply(focal_design, .fun = run_sim, 
+                              dgm = one_dim_dgm, alphas = alphas,
+                              HCtests = focal_HCtests, adjusted_alpha = TRUE,
+                              .parallel = TRUE)
+)
+
+stopCluster(cluster)
+
+table(focal_size_results$test)
+
+to_vector <- function(x) {
+  y <- unlist(x)
+  names(y) <- names(x)
+}
+
+x <- 
+  focal_size_results %>%
+  filter(stat == "adjusted alpha") %>%
+  select(starts_with("p0")) %>%
+  filter(row_number()==1)
+
+adjusted_alphas <- 
+  focal_size_results %>%
+  filter(stat == "adjusted alpha") %>%
+  select(n, z, x_skew, e_dist, span, HC, coef, test, starts_with("p0")) %>%
+  rowwise() %>%
+  nest(starts_with("p0"), .key = "alphas") %>%
+  rowwise() %>%
+  mutate(alphas = list(unlist(alphas))) %>%
+  ungroup() %>%
+  group_by(n, z, x_skew, e_dist, span) %>%
+  nest(HC:alphas, .key = "alphas")
+
+#-----------------------------
+# Run power simulations
+#-----------------------------
+
+power_design_full  <- 
+  power_design %>%
+  inner_join(adjusted_alphas)
+power_design_full
+
+source_obj <- ls()
+
+library(Pusto)
+cluster <- start_parallel(source_obj = source_obj)
+
+system.time(
+  power_results <- plyr::mdply(power_design_full, .fun = run_sim, 
+                              dgm = one_dim_dgm,
+                              HCtests = focal_HCtests, 
+                              .parallel = TRUE)
+)
+
+stopCluster(cluster)
+
+table(power_results$test)
+
+save(power_design, focal_HCtests, alphas, adjusted_alphas, power_results, 
+     file = "New simulations/one-dim-sim-power-results.Rdata")
