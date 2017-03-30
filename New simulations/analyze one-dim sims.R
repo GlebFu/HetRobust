@@ -5,7 +5,7 @@ library(ggplot2)
 
 rm(list=ls())
 
-load("New simulations/one-dim-sim-20170327.Rdata")
+load("New simulations/one-dim-sim-20170317.Rdata")
 
 summary(size_results$percent_NA)
 
@@ -15,61 +15,66 @@ size_results <-
   gather("level","rejection", starts_with("p")) %>%
   mutate(
     level = as.numeric(str_sub(level, 2,-1)),
+    alpha = paste("alpha =", level),
     by_val = ifelse(test=="naive", HC, test),
-    reject_rel = rejection / level
+    reject_rel = rejection / level,
+    error_dist = factor(e_dist, 
+                        levels = c("norm","t5","chisq"), 
+                        labels = paste(c("Normal","t(5)","Chi-squared"), "errors")),
+    skew = paste("X skewness =", x_skew)
+  )
+
+size_results_select <- 
+  size_results %>%
+  filter(
+    e_dist %in% c("norm","chisq"), 
+    level %in% c(.005, .01, .05), 
+    x_skew %in% c(1, 3, 5)    
   )
 
 
 size_plot <- function(dat) {
   iterations <- unique(dat$iterations)
-  level_select <- unique(dat$level)
-  MC_CI <- qbinom(0.95, size = iterations, prob = level_select) / iterations
+  alphas <- unique(dat$level)
+  MC <- qbinom(p = 0.95, size = iterations, prob = alphas) / iterations / alphas
+  MC_bound <- data.frame(alpha = paste("alpha =",alphas), MC = MC)
+  
   p <- 
-    ggplot(dat, aes(z, rejection, color = by_val)) +
-      coord_cartesian(ylim = c(0, 3 * level_select)) + 
-      geom_hline(yintercept = level_select) + 
-      geom_hline(yintercept = MC_CI, linetype = "dashed") + 
+    ggplot(dat, aes(z, reject_rel, color = by_val, shape = by_val)) +
       geom_point() + geom_line() +
-      facet_grid(x_skew ~ n, scales = "free_y", labeller = label_both) + 
+      geom_hline(yintercept = 1) + 
+      geom_hline(data = MC_bound, aes(yintercept = MC), linetype = "dashed") + 
+      facet_grid(alpha ~ error_dist + skew, scales = "free_y") + 
+      coord_cartesian(ylim = c(0,3)) + 
       theme_bw() + 
       theme(legend.position = "bottom") + 
-      labs(x = "zeta (heteroskedasticity)", y = "Rejection rate", 
-         color = "")
+      labs(x = "zeta (heteroskedasticity)", y = "Relative rejection rate", 
+         color = "", linetype = "", shape = "") + 
+      guides(color = guide_legend(nrow = 1))
   p
 }
 
-e_dist_select <- "norm"
-level_select <- .01
-
 # naive tests
-
-size_results %>%
-  filter(test=="naive" & HC!="hom" & level==level_select & e_dist==e_dist_select) %>%
+size_results_select %>%
+  filter(test=="naive" & HC!="hom", n == 50) %>%
   size_plot()
 
-# distributional tests
-
-size_results %>%
-  filter(test!="naive" & level==level_select & e_dist==e_dist_select) %>%
+# Edgeworth approximations
+size_results_select %>%
+  filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H", "RCI_E","RCI_H"), n == 50) %>%
   size_plot() 
 
-size_results %>%
-  filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H") & level==level_select & e_dist==e_dist_select) %>%
-  size_plot() 
-
-size_results %>%
-  filter(test %in% c("RCI_E","RCI_H","Rp_E","Rp_H") & level==level_select & e_dist==e_dist_select) %>%
-  size_plot() 
-
-size_results %>%
-  filter(test %in% c("saddle_H","saddle_E","saddle_S","Satt_H","Satt_E") & level==level_select & e_dist==e_dist_select) %>%
+# Satterthwaite and saddlepoint approximations
+size_results_select %>%
+  filter(test %in% c("saddle_H","saddle_E","saddle_S","Satt_H","Satt_E") & n == 50) %>%
   size_plot() 
 
 # selected tests
  
-size_results %>%
-  filter((test=="naive" & HC %in% c("HC3", "HC4")) | test %in% c("saddle_E","saddle_S","Satt_H","KCCI_E", "KCCI_H"), 
-         level==level_select, e_dist==e_dist_select) %>%
+size_results_select %>%
+  filter((test=="naive" & HC %in% c("HC4")) | 
+           test %in% c("saddle_E","saddle_S","Satt_H","KCCI_E"), 
+         n == 50) %>%
   size_plot()
 
 size_results %>%
