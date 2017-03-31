@@ -26,6 +26,52 @@ size_results <-
     skew = paste("Skewness =", x_skew)
   )
 
+#----------------------------
+# summary plots 
+#----------------------------
+
+summary_measures <- 
+  size_results %>%
+  group_by(level, n, HC, test, by_val) %>%
+  summarize(
+    pct_below = mean(rejection <= level),
+    MAE = median(abs(rejection - level)),
+    RMSE = sqrt(mean((rejection - level)^2))
+  ) %>%
+  mutate(
+    MARE = MAE / level,
+    RRMSE = RMSE / level
+  )
+
+summary_measures %>%
+  # filter(pct_below > 0.0, RRMSE < 0.5) %>%
+  filter(test %in% c("saddle_H","Satt_H","KCCI_H")) %>%
+  ggplot(aes(pct_below, RMSE, color = by_val)) + 
+    geom_point() + 
+    geom_text(aes(label = by_val), size = 3) + 
+    expand_limits(y = 0) + 
+    facet_grid(level ~ n, scales = "free_y") + 
+    theme_light() +
+    theme(legend.position = "none", 
+        strip.text.x = element_text(color = "black"), 
+        strip.text.y = element_text(color = 'black')) 
+
+summary_measures %>%
+  filter(pct_below > 0.0, MARE < 0.5) %>%
+  ggplot(aes(pct_below, MAE, color = by_val)) + 
+  geom_point() + 
+  geom_text(aes(label = by_val), size = 3) + 
+  expand_limits(y = 0) + 
+  facet_grid(level ~ n, scales = "free_y") + 
+  theme_light() +
+  theme(legend.position = "none", 
+        strip.text.x = element_text(color = "black"), 
+        strip.text.y = element_text(color = 'black')) 
+
+#----------------------------
+# Detailed plots
+#----------------------------
+
 size_results_select <- 
   size_results %>%
   filter(
@@ -60,16 +106,34 @@ size_plot <- function(dat) {
   p
 }
 
+# homoskedasticity results
+size_results_select %>%
+  filter(HC=="hom") %>%
+  mutate(by_val = factor(n)) %>%
+  size_plot()
+
+
+# all naive tests
+size_results_select %>%
+  filter(test=="naive", HC %in% c("hom","HC2","HC3","HC4","HC5"), n == 25) %>%
+  size_plot()
+size_results_select %>%
+  filter(test=="naive", HC %in% c("hom","HC2","HC3","HC4","HC5"), n == 50) %>%
+  size_plot()
+size_results_select %>%
+  filter(test=="naive", HC %in% c("hom","HC2","HC3","HC4","HC5"), n == 100) %>%
+  size_plot()
+
 
 # naive tests
 size_results_select %>%
-  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), n == 25) %>%
+  filter(test=="naive" & HC %in% c("HC2","HC3","HC4","HC4m","HC5"), n == 25) %>%
   size_plot()
 size_results_select %>%
-  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), n == 50) %>%
+  filter(test=="naive" & HC %in% c("HC2","HC3","HC4","HC4m","HC5"), n == 50) %>%
   size_plot()
 size_results_select %>%
-  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), n == 100) %>%
+  filter(test=="naive" & HC %in% c("HC2","HC3","HC4","HC4m","HC5"), n == 100) %>%
   size_plot()
 
 # Edgeworth approximations
@@ -100,7 +164,7 @@ size_results_select %>%
 
 # selected tests
  
-selected_tests <- c("saddle_H","Satt_H","KCCI_E","KCCI_H")
+selected_tests <- c("saddle_E","saddle_H","saddle_S")
 
 size_results_select %>%
   filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 25) %>%

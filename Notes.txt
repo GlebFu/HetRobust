@@ -1,0 +1,3 @@
+- HC5 with distributional approximations?
+- use omega-adjusted squared errors for smoothed version of saddlepoint
+- consider smoothed version of Satterthwaite

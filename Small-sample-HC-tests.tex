@@ -505,7 +505,9 @@ All of the Edgeworth approximations perform well at the $\alpha = .05$ level und
 
 \end{knitrout}
 
-Following the same layout as in previous figures, Figure \ref{fig:Satterthwaite_size} depicts the rejection rates of the empirical and homoskedastic versions of the saddlepoint and Satterthwaite approximations. 
+Following the same layout as in previous figures, Figure \ref{fig:Satterthwaite_size} depicts the rejection rates of the empirical and homoskedastic versions of the saddlepoint and Satterthwaite approximation tests. It can be seen that the empirical saddlepoint test tends to have lower-than-nominal rejection rates when the covariate skewness is small or moderate, and this holds across nominal $\alpha$ levels and error distributions. However, under high skewness its rejection rates exceed nominal under some condition---particularly for strong heteroskedasticity and lower values of $\alpha$. With small or moderate covariate skew, the homoskedastic saddlepoint test has very accurate rejection rates when the degree of heteroskedasticity is low---that is, when the working model under which it is derived is not too discrepant from the true data-generating model. Just as with the empirical version, the rejection rates of the homoskedastic saddlepoint exceed the nominal level under high skewness, and to an extent that grows with the degree of heteroskedasticity. 
+
+In contrast to the saddlepoint tests, the empirical Satterthwaite test has above-nominal rejection rates under most conditions. Like the homoskedastic saddlepoint, the rejection rates of the homoskedastic Satterthwaite test are very accurate when skewness is small or moderate. With moderate or high skewness and strong heteroskedasticity, its rejection rates remain even closer to nominal than those of the homoskedastic saddlepoint test. Of the four tests depicted in this figure, we focus further analysis on the homoskedastic saddlepoint and Satterthwaite approximations.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[p]
@@ -545,6 +547,14 @@ Following the same layout as in previous figures, Figure \ref{fig:Satterthwaite_
 
 
 \end{knitrout}
+
+Figures \ref{fig:selected_size_25}, \ref{fig:selected_size_50}, and \ref{fig:selected_size_100} depict the rejection rates of selected tests at sample sizes of $n = 25$, 50, and 100, respectively, so as to allow for direct comparisons. Three trends are apparent. First, the most widely known test, which uses conventional t critical values and HC3, has above-nominal rejection rates under nearly all conditions. The other tests, including the conventional test with HC4 and the homoskedastic versions of Kauermann and Carroll's Edgeworth approximation, the saddlepoint approximation, and the Satterthwaite approximation, all have more accurate rejection rates across the conditions and sample sizes considered. 
+
+Second, the conventional test with HC4 has the most accurate rejection rates at the nominal $\alpha = .05$ level. However, for $\alpha = .005$ and $\alpha = .01$, the conventional HC4 test rejects at above-nominal levels. For these smaller values of $\alpha$, the Edgeworth, saddlepoint, and Satterthwaite tests are closer to (or below) nominal levels across nearly all conditions. 
+
+Third, the rejection rates of the three distributional approximation tests are largely very similar when the covariate is mildly or moderately skewed, although some differences appear when the covariate is strongly skewed. In particular, the Edgeworth and Satterthwaite tests maintain rejection rates that are closer to the nominal level than those of the saddlepoint test when the covariate is strongly skewed, and as the degree of heteroskedasticity increases. 
+
+Overall, Kauermann and Carroll's Edgeworth approximation and the Satterthwaite approximation (both based on a homoskedastic working model) provide more accurate rejection rates than the conventional test with HC4 for nominal $\alpha$ levels of .005 and .01. For $\alpha = .05$, the conventional test with HC4 provides the most accurate rejection rates, although the Edgeworth and Satterthwaite approximations are quite close when the covariate has minor or moderate skewness. 
 
 \section{Discussion}
 \label{sec:conc}
