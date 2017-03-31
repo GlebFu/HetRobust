@@ -414,7 +414,7 @@ size_results <-
     error_dist = factor(e_dist, 
                         levels = c("norm","t5","chisq"), 
                         labels = paste(c("Normal","t(5)","Chi-squared"), "errors")),
-    skew = paste("X skewness =", x_skew)
+    skew = paste("Skewness =", x_skew)
   )
 
 size_results_select <- 
@@ -470,7 +470,7 @@ Based on this model, we simulated samples of 25, 50, or 100, using $\gamma = \fr
 
 \subsection{Results: Size}
 
-Due to space constraints, we present only selected results, focusing initially on the sample size of $n = 50$. We also omit results for the $t_5$ error distribution, which were largely very similar to the results for normal errors. The supplementary materials provide complete numerical results for all conditions, as well as R code for replicating all calculations.
+Due to space constraints, we present only selected results, focusing initially on the sample size of $n = 50$. We omit results for the $t_5$ error distribution, which ares very similar to the results for normal errors. The supplementary materials provide complete numerical results for all conditions, as well as R code for replicating all calculations.
 
 <<HC_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of conventional tests based on HC3, HC4, HC4m, and HC5 for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.pos = "p">>=
 
@@ -493,6 +493,10 @@ size_results_select %>%
 
 @
 
+Figure \ref{fig:Edgeworth_size} depicts the rejection rates of the tests involving Edgeworth approximations, again at a sample size of $n = 50$; its construction follows that of Figure \ref{fig:HC_size}. The tests include Kauermann and Carroll's \citeyearpar{Kauermann2001note} confidence interval approximations (denoted as KCCI\_E for the empirical version and KCCI\_H for the version derived under homoskedasticity) and p-value approximations (denoted as KCp\_E for the empirical version and KCp\_H for the version derived under homoskedasticity), as well as Rothenberg's \citeyearpar{Rothenberg1988approximate} approximation derived under homoskedasticity (denoted as RCI\_H). The empirical version of Rothenberg's approximation is omitted because its rejection rates were far in excess of nominal, even at the largest sample size of $n = 100$. 
+
+All of the Edgeworth approximations perform well at the $\alpha = .05$ level under the model with normal errors and small skewness. As with the conventional tests, the rejection rates of all of the Edgeworth approximations increase when the covariate is strongly skewed and as the degree of heteroskedasticity grows. Rejection rates of the empirical and homoskedastic p-value approximations generally tend to exceed the rates of the confidence interval approximations. They also exceed the nominal $\alpha$, particularly under models with a highly skewed covariate and the smaller values of $\alpha$. The rejection rates of Kauermann and Carroll's homoskedastic confidence interval approximation are closest to maintaining the nominal level. We therefore focus on it in subsequent analysis. 
+
 <<Satterthwaite_size, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of Satterthwaite and saddlepoint approximation tests for $n = 50$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.pos = "p">>=
 
 size_results_select %>%
@@ -500,6 +504,8 @@ size_results_select %>%
   size_plot() 
 
 @
+
+Following the same layout as in previous figures, Figure \ref{fig:Satterthwaite_size} depicts the rejection rates of the empirical and homoskedastic versions of the saddlepoint and Satterthwaite approximations. 
 
 <<selected_size_25, fig.width = 8, fig.height = 10, out.width = "\\linewidth", fig.cap = "Rejection rates of selected tests for $n = 25$. The solid horizontal line indicates the stated $\\alpha$ level and the dashed line indicates an upper confidence bound on simulation error.", fig.pos = "p">>=
 
@@ -530,9 +536,15 @@ size_results_select %>%
 \section{Discussion}
 \label{sec:conc}
 
-Further research. 
+Our simulation results demonstrate that several tests based on different distributional approximations have better size properties than even the best-performing conventional test, based on HC4. Consequently, these distributional approximations warrant greater use in application, as well as greater consideration in methodological research on heteroskedasticity robust inference. 
+
+The Satterthwaite, saddlepoint, and Kauermann and Carroll's Edgeworth approximation can all readily be extended to linear regression models estimated by weighed least squares. \citet{McCaffrey2006improved} developed the Satterthwaite and saddlepoint approximations under the even more general framework of generalized estimating equations and cluster-robust covariance matrix estimators; the Edgeworth approximation also appears to apply directly in this case.
+
+Our review of HCCME-based hypothesis-testing procedures was limited to methods for testing a single linear contrast. A small amount of work exists on methods for joint tests of multiple parameter constraints in linear regression. \citet{Cai2008new} proposed a test for joint hypotheses in linear regressions with HCCMEs, which directly extends the empirical Satterthwaite approximation of \citet{Lipsitz1999degrees}. Zhang (\citeyear{Zhang2012twowayANOVA, Zhang2013tests}) proposed a different generalization of the empirical Satterthwaite approximation for analysis of variance, as well as extensions to multivariate analysis of variance \citep{Zhang2012MANOVA}. \citet{Tipton2015small-F} examined the performance of these tests, as well as several novel variations, in the context of meta-regression models with dependent effect sizes. It would be useful to further evaluate the performance of these methods for the simpler case of linear regression models.
+
 Wild bootstrap tests.
-Heteroskedasticity-robust F-tests Cite \citet{Cai2008new}.
+
+Guidance, researcher degrees of freedom.
 
 \bibliographystyle{agsm}
 \bibliography{Bibliography}

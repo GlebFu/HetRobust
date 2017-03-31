@@ -163,6 +163,12 @@ Skinner, C.~J.  \harvardyearleft 1989\harvardyearright , {Domain means,
   \harvardand\ T.~F. Smith, eds, `Analysis of complex surveys', John Wiley \&
   Sons, New York, NY, pp.~59--88.
 
+\harvarditem{Tipton \harvardand\ Pustejovsky}{2015}{Tipton2015small-F}
+Tipton, E. \harvardand\ Pustejovsky, J.~E.  \harvardyearleft
+  2015\harvardyearright , `{Small-sample adjustments for tests of moderators
+  and model fit using robust variance estimation in meta-regression}', {\em
+  Journal of Educational and Behavioral Statistics} {\bf 40}(6),~604--634.
+
 \harvarditem{Welch}{1947}{Welch1947generalization}
 Welch, B.  \harvardyearleft 1947\harvardyearright , `{The generalization of
   Student's' problem when several different population variances are
@@ -181,5 +187,20 @@ White, H.  \harvardyearleft 1984\harvardyearright , {\em Asymptotic theory for
 Zeileis, A.  \harvardyearleft 2004\harvardyearright , `{Econometric computing
   with HC and HAC covariance matrix estimators}', {\em Journal of Statistical
   Software} {\bf 11}(10),~1--17.
+
+\harvarditem{Zhang}{2012{\em a}}{Zhang2012twowayANOVA}
+Zhang, J.-T.  \harvardyearleft 2012{\em a}\harvardyearright , `{An approximate
+  degrees of freedom test for heteroscedastic two-way ANOVA}', {\em Journal of
+  Statistical Planning and Inference} {\bf 142}(1),~336--346.
+
+\harvarditem{Zhang}{2012{\em b}}{Zhang2012MANOVA}
+Zhang, J.-T.  \harvardyearleft 2012{\em b}\harvardyearright , `{An approximate
+  Hotelling T2 -test for heteroscedastic one-way MANOVA}', {\em Open Journal of
+  Statistics} {\bf 2},~1--11.
+
+\harvarditem{Zhang}{2013}{Zhang2013tests}
+Zhang, J.-T.  \harvardyearleft 2013\harvardyearright , `{Tests of linear
+  hypotheses in the ANOVA under heteroscedasticity}', {\em International
+  Journal of Advanced Statistics and Probability} {\bf 1}(2),~9--24.
 
 \end{thebibliography}
