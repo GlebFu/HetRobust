@@ -70,6 +70,11 @@ Goutis, C. \harvardand\ Casella, G.  \harvardyearleft 1999\harvardyearright ,
   `{Explaining the saddlepoint approximation}', {\em The American Statistician}
   {\bf 53}(3),~216--224.
 
+\harvarditem{Hartigan}{2016}{Hartigan2016alternative}
+Hartigan, L.  \harvardyearleft 2016\harvardyearright , {Alternative HAC
+  Covariance Matrix Estimators with Improved Finite Sample Properties}.
+\newline\harvardurl{http://ssrn.com/abstract=2783612}
+
 \harvarditem{Huber}{1967}{Huber1967behavior}
 Huber, P.~J.  \harvardyearleft 1967\harvardyearright , {The behavior of maximum
   likelihood estimates under nonstandard conditions}, {\em in} `Proceedings of
@@ -91,6 +96,12 @@ Kauermann, G. \harvardand\ Carroll, R.~J.  \harvardyearleft
   2001\harvardyearright , `{A note on the efficiency of sandwich covariance
   matrix estimation}', {\em Journal of the American Statistical Association}
   {\bf 96}(456),~1387--1396.
+
+\harvarditem[Li et~al.]{Li, Zhang, Zhang \harvardand\ Wang}{2016}{Li2016new}
+Li, S., Zhang, N., Zhang, X. \harvardand\ Wang, G.  \harvardyearleft
+  2016\harvardyearright , `{A new heteroskedasticity-consistent covariance
+  matrix estimator and inference under heteroskedasticity}', {\em Journal of
+  Statistical Computation and Simulation} {\bf 9655}(July),~1--13.
 
 \harvarditem{Liang \harvardand\ Zeger}{1986}{Liang1986longitudinal}
 Liang, K.-Y. \harvardand\ Zeger, S.~L.  \harvardyearleft 1986\harvardyearright

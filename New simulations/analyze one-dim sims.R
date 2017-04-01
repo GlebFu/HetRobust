@@ -44,8 +44,7 @@ summary_measures <-
   )
 
 summary_measures %>%
-  # filter(pct_below > 0.0, RRMSE < 0.5) %>%
-  filter(test %in% c("saddle_H","Satt_H","KCCI_H")) %>%
+  filter(test %in% c("saddle_H","Satt_H","KCCI_H") | HC == "HC4") %>%
   ggplot(aes(pct_below, RMSE, color = by_val)) + 
     geom_point() + 
     geom_text(aes(label = by_val), size = 3) + 
@@ -57,7 +56,7 @@ summary_measures %>%
         strip.text.y = element_text(color = 'black')) 
 
 summary_measures %>%
-  filter(pct_below > 0.0, MARE < 0.5) %>%
+  filter(test %in% c("saddle_H","Satt_H","KCCI_H") | HC == "HC4") %>%
   ggplot(aes(pct_below, MAE, color = by_val)) + 
   geom_point() + 
   geom_text(aes(label = by_val), size = 3) + 
@@ -127,13 +126,16 @@ size_results_select %>%
 
 # naive tests
 size_results_select %>%
-  filter(test=="naive" & HC %in% c("HC2","HC3","HC4","HC4m","HC5"), n == 25) %>%
+  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), n == 25) %>%
+  filter(reject_rel <= 3) %>%
   size_plot()
 size_results_select %>%
-  filter(test=="naive" & HC %in% c("HC2","HC3","HC4","HC4m","HC5"), n == 50) %>%
+  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), n == 50) %>%
+  filter(reject_rel <= 3) %>%
   size_plot()
 size_results_select %>%
-  filter(test=="naive" & HC %in% c("HC2","HC3","HC4","HC4m","HC5"), n == 100) %>%
+  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), n == 100) %>%
+  filter(reject_rel <= 3) %>%
   size_plot()
 
 # Edgeworth approximations
@@ -143,23 +145,29 @@ size_results_select %>%
 
 size_results_select %>%
   filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H","RCI_H"), n == 25) %>%
+  filter(reject_rel <= 3) %>%
   size_plot() 
 size_results_select %>%
   filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H","RCI_H"), n == 50) %>%
+  filter(reject_rel <= 3) %>%
   size_plot() 
 size_results_select %>%
   filter(test %in% c("KCCI_E","KCCI_H","KCp_E","KCp_H","RCI_H"), n == 100) %>%
+  filter(reject_rel <= 3) %>%
   size_plot() 
 
 # Satterthwaite and saddlepoint approximations
 size_results_select %>%
   filter(test %in% c("saddle_H","saddle_E","saddle_S","Satt_H","Satt_E") & n == 25) %>%
+  filter(reject_rel <= 3) %>%
   size_plot() 
 size_results_select %>%
   filter(test %in% c("saddle_H","saddle_E","saddle_S","Satt_H","Satt_E") & n == 50) %>%
+  filter(reject_rel <= 3) %>%
   size_plot() 
 size_results_select %>%
   filter(test %in% c("saddle_H","saddle_E","saddle_S","Satt_H","Satt_E") & n == 100) %>%
+  filter(reject_rel <= 3) %>%
   size_plot() 
 
 # selected tests
@@ -168,12 +176,15 @@ selected_tests <- c("saddle_E","saddle_H","saddle_S")
 
 size_results_select %>%
   filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 25) %>%
+  filter(reject_rel <= 3) %>%
   size_plot()
 size_results_select %>%
   filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 50) %>%
+  filter(reject_rel <= 3) %>%
   size_plot()
 size_results_select %>%
   filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 100) %>%
+  filter(reject_rel <= 3) %>%
   size_plot()
 
 

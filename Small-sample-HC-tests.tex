@@ -124,7 +124,8 @@ In linear regression models estimated by ordinary least squares, it is often des
 Wald tests based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs, also known as sandwich estimators or simply "robust" standard errors) are a well known and widely applied method that remains asymptotically valid under heteroskedasticity of an unspecified form.
 Wald-type t-tests based on HCCMEs maintain nominal rejection rates when the sample size is large, but they are not always accurate with small samples; moreover, it can be difficult to determine whether a given sample is large enough to trust the asymptotic approximation.
 This paper reviews several approaches to approximating the null sampling distribution of HCCME t-tests and thereby improving the accuracy of rejection rates in small samples.
-Using simulations, we investigate the relative performance of Satterthwaite, Edgeworth, and saddlepoint approximations under a wide range of data generating processes.\todo{Explain results} 
+Using simulations, we investigate the relative performance of Satterthwaite, Edgeworth, and saddlepoint approximations under a wide range of data generating processes.
+Results indicate that certain distributional approximations perform similarly to conventional tests based on HCCMEs, and can improve upon them when the nominal Type-I error rate is less than .05. 
 \end{abstract}
 
 \noindent%
@@ -165,20 +166,13 @@ In so doing, we identify several further variations on the approximations that h
 We then evaluate the performance of these approximations, along with the standard methods, in a simulation study. 
 % The design of the simulation study is modeled on the earlier study of \citet{Long2000using}.
 
-Yet another approach to approximating the distribution of test statistics based on HCCMEs is via bootstrap resampling. 
-Recent attention has focused on a wild bootstrap technique proposed by \citet{Liu1988bootstrap}, which is valid under heteroskedasticity and provides substantially more accurate rejection rates than standard approaches in small samples \citep{Flachaire2005boostrapping, Davidson2008wild}. 
-However, there are several nuances involved in implementing accurate wild bootstrap tests, including how to adjust the residuals, the choice of auxilliary distributions, and whether to bootstrap under a restricted model \citep{MacKinnon2013thirty}. 
-In light of these additional considerations, as well as the computational intensity of simulations that involve resampling methods, the present investigation is limited to hypothesis testing procedures that do not involve resampling. 
-In further work, we will investigate the performance of the best-performing methods identified in this paper compared to resampling tests such as wild bootstrapping and other recent proposals \citep[e.g.][]{Richard2016hetero}.
-
 HCCMEs are a special case of the general class of cluster-robust covariance matrix estimators (CRCMEs), also known as sandwich estimators or linearization estimators, which are commonly used in regression analysis of multi-stage survey data \citep{Fuller1975regression, Skinner1989domain}, econometric panel data models \citep{white1984asymptotic, Arellano1987computing}, and generalized estimating equations for longitudinal data \citep{Liang1986longitudinal}. 
 CRCMEs are useful for variance estimation in settings where the error structure is both heteroskedastic and dependent within clusters of observations.
 Some of the small-sample tests considered in this paper were developed for CRCMEs \citep[i.e.,][]{Bell2002bias, McCaffrey2006improved}, while the others are readily extended to this more general case.
 We focus on the case of heteroskedastic (but not clustered) linear regression for sake of clarity and in order to keep the simulation studies tractable. 
 Furthermore, the similarity of HCCMEs and CRCMEs suggests that our findings will provide direction regarding which small-sample methods will perform well in the more general case.
 
-\todo{Outline paper}
-
+The remainder of the paper proceeds as follows. In Section \ref{sec:context}, we lay out the model, define the HCCMEs, and outline relevant distribution theory. Section \ref{sec:approximations} reviews several small-sample corrections for hypothesis tests based on HCCMEs. Section \ref{sec:simulations} reports simulation evidence on the size properties of these tests. Section \ref{sec:discussion} discusses limitations and future research directions.
 
 \section{Theoretical context}
 \label{sec:context}
@@ -439,7 +433,7 @@ This section reports a large simulation study that investigate the performance t
 
 
 
-To keep the dimension of the simulation manageable, these simulations examine test performance under a model with a single regressor. 
+To keep the dimension of the simulation manageable, we examine test performance under a model with a single regressor. 
 It is known that the performance of conventional tests based on HCCMEs are influenced not only by sample size, but by the distribution of the regressors \citep{Chesher1991finite, Cribari-Neto2004asymptotic, Kauermann2001note}. 
 Specifically, observations with high leverage tend to distort the size of the conventional tests. 
 In order to study the performance of HCCME-based tests under varying degrees of leverage, we simulated the regressor from a $\chi^2$ distribution with degrees of freedom selected to control the skewness:
@@ -471,7 +465,9 @@ Due to space constraints, we present only selected results, focusing initially o
 
 \end{knitrout}
 
-We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_size} depicts the rejection rates of the conventional t-tests based on the HC3, HC4, HC4m, and HC5 estimators, at a sample size of $n = 50$, as a function of the degree of heteroskedasticity. Each plot is repeated for varying degrees of skewness (columns) and nominal level (rows), and with either normal of $\chi^2_5$ errors (rows). Tests based on HC0, HC1, and HC2 have strictly higher rejection rates than HC3, and so we omit them from the figure. It can be seen that the test with HC3 does not maintain the nominal level except when the degree of heteroskedascity is small and skewness is mild. Its performance also degrades at smaller values of $\alpha$. The test with HC5 behaves similarly to that with HC3, but has even higher rejection rates when skewness is less severe. 
+We first consider the empirical size of all seventeen tests. Figure \ref{fig:HC_size} depicts the rejection rates of the conventional t-tests based on the HC3, HC4, HC4m, and HC5 estimators, at a sample size of $n = 50$, as a function of the degree of heteroskedasticity. Each plot is repeated for varying degrees of skewness (columns) and nominal level (rows), and with either normal of $\chi^2_5$ errors (rows). In order to preserve detail, rejection rates higher than $3\alpha$ are omitted from this and the following figures. Tests based on HC0, HC1, and HC2 have strictly higher rejection rates than HC3, and so we omit them from Figure \ref{fig:HC_size}. 
+
+It can be seen that the test with HC3 does not maintain the nominal level except when the degree of heteroskedascity is small and skewness is mild. Its performance also degrades at smaller values of $\alpha$. The test with HC5 behaves similarly to that with HC3, but has even higher rejection rates when skewness is less severe. 
 
 Of the conventional tests, using HC4 produces rejection rates that are closest to nominal across the conditions examined. At $\alpha = .05$, its rejection rates remain very close to nominal when errors are normal, although they are slightly larger than nominal when errors are $\chi^2_5$ and more strongly heteroskedastic. At lower values of $\alpha$, however, even HC4 has higher-than-nominal rejection rates, and these are more strongly affected by the degree of heteroskedasticity. Finally, rejection rates of the conventional test with HC4m are intermediate between those of HC4 and those of HC5. In further analysis, we focus only on the test with HC4 because its rejection rates are consistently closer to the nominal level across all conditions. 
 
@@ -557,17 +553,22 @@ Third, the rejection rates of the three distributional approximation tests are l
 Overall, Kauermann and Carroll's Edgeworth approximation and the Satterthwaite approximation (both based on a homoskedastic working model) provide more accurate rejection rates than the conventional test with HC4 for nominal $\alpha$ levels of .005 and .01. For $\alpha = .05$, the conventional test with HC4 provides the most accurate rejection rates, although the Edgeworth and Satterthwaite approximations are quite close when the covariate has minor or moderate skewness. 
 
 \section{Discussion}
-\label{sec:conc}
+\label{sec:discussion}
 
-Our simulation results demonstrate that several tests based on different distributional approximations have better size properties than even the best-performing conventional test, based on HC4. Consequently, these distributional approximations warrant greater use in application, as well as greater consideration in methodological research on heteroskedasticity robust inference. 
+Since \citet{Long2000using} demonstrated its superiority over the then-current standard HC0 estimator, the conventional t-test with HC3 has become likely the most widely known small-sample correction for hypothesis tests based on HCCMEs. However, results of our simulation exercises demonstrate that this test has inadequate size properties, often rejecting the null more often than the nominal $\alpha$. At the $\alpha = .05$ level, the conventional test with HC4 maintains the most accurate rejection rates of all of the tests considered here. However, at the $\alpha = .01$ and $\alpha = .005$ levels, several less widely studied tests, which involve different approximation techniques for the reference distribution of the t statistic, have better size properties than even the best-performing conventional test based on HC4. These smaller $\alpha$ levels are relevant in applied work in many situations. For example, in an analysis that uses a multiple comparisons technique to control the family-wise error rate at the .05 level, the per-test $\alpha$ will necessarily be lower than .05. 
 
-The Satterthwaite, saddlepoint, and Kauermann and Carroll's Edgeworth approximation can all readily be extended to linear regression models estimated by weighed least squares. \citet{McCaffrey2006improved} developed the Satterthwaite and saddlepoint approximations under the even more general framework of generalized estimating equations and cluster-robust covariance matrix estimators; the Edgeworth approximation also appears to apply directly in this case.
+We must emphasize that the extent to which the findings generalize to other conditions remains unknown. The simulation exercises were limited to a very simple data-generating model with a single covariate and a certain skedasticity function. Moreover, we examined only a limited set of covariate distributions, of varying degrees of skewness. Further investigation is required to understand the relative and absolute performance of these tests under a broader array of data-generating processes.
 
-Our review of HCCME-based hypothesis-testing procedures was limited to methods for testing a single linear contrast. A small amount of work exists on methods for joint tests of multiple parameter constraints in linear regression. \citet{Cai2008new} proposed a test for joint hypotheses in linear regressions with HCCMEs, which directly extends the empirical Satterthwaite approximation of \citet{Lipsitz1999degrees}. Zhang (\citeyear{Zhang2012twowayANOVA, Zhang2013tests}) proposed a different generalization of the empirical Satterthwaite approximation for analysis of variance, as well as extensions to multivariate analysis of variance \citep{Zhang2012MANOVA}. \citet{Tipton2015small-F} examined the performance of these tests, as well as several novel variations, in the context of meta-regression models with dependent effect sizes. It would be useful to further evaluate the performance of these methods for the simpler case of linear regression models.
+Our review of HCCME-based hypothesis-testing procedures was also limited in scope. An important class of techniques for approximating the distribution of test statistics based on HCCMEs, not considered here, is via bootstrap resampling. 
+Recent attention has focused on a wild bootstrap technique proposed by \citet{Liu1988bootstrap}, which is valid under heteroskedasticity and provides substantially more accurate rejection rates than standard approaches in small samples \citep{Flachaire2005boostrapping, Davidson2008wild}. 
+There are several nuances involved in implementing accurate wild bootstrap tests, including how to adjust the residuals, the choice of auxilliary distributions, and whether to bootstrap under a restricted model \citep{MacKinnon2013thirty}. 
+In further work, we plan to investigate the performance of the best-performing methods identified in this paper compared to resampling tests such as wild bootstrapping and other recently proposed re-sampling methods \citep[e.g.][]{Richard2016hetero}.
 
-Wild bootstrap tests.
+This review was also limited to methods for testing a single linear contrast. A small amount of work exists on methods for joint tests of multiple parameter constraints in linear regression. \citet{Cai2008new} proposed a test for joint hypotheses in linear regressions with HCCMEs, which directly extends the empirical Satterthwaite approximation of \citet{Lipsitz1999degrees}. Zhang (\citeyear{Zhang2012twowayANOVA, Zhang2013tests}) proposed a different generalization of the empirical Satterthwaite approximation for analysis of variance, as well as extensions to multivariate analysis of variance \citep{Zhang2012MANOVA}. \citet{Tipton2015small-F} examined the performance of these tests, as well as several novel variations, in the context of meta-regression models with dependent effect sizes. It would be useful to further evaluate the performance of these methods for the simpler case of linear regression models.
 
-Guidance, researcher degrees of freedom.
+Recent work on robust testing has focused largely on adjustments to the HCCMEs themselves \citep[e.g.,][]{Li2016new, Hartigan2016alternative} rather than to the reference distribution. 
+Despite the limitations we have noted, we would argue that the distributional approximations that we have reviewed---including Satterthwaite, saddlepoint, and Edgeworth approximation---warrant greater consideration for applications and further attention in methodological research on robust inference. 
+A further reason for focusing on reference distribution approximations is that they are extensible to more general forms of sandwich estimation, whereas the HC4 and HC5 adjustments do not have such clear extensions. The Satterthwaite, saddlepoint, and Edgeworth approximation can all readily be extended to more general models, such as linear regression models estimated by weighed least squares. In fact, \citet{McCaffrey2006improved} developed the Satterthwaite and saddlepoint approximations under the even more general framework of generalized estimating equations and cluster-robust covariance matrix estimators; the \citet{Kauermann2001note} Edgeworth approximation can also be applied directly in this case. 
 
 \bibliographystyle{agsm}
 \bibliography{Bibliography}

@@ -1,5 +1,10 @@
 Generalizations of HCCME are also available that provide asymptotically consistent variance estimates for auto-correlated errors \citep{Newey1987simple,Newey1994automatic} or errors that have an unknown dependence structure within clusters of observations \citep{Liang1986longitudinal}.
 
+Yet another approach to approximating the distribution of test statistics based on HCCMEs is via bootstrap resampling. 
+Recent attention has focused on a wild bootstrap technique proposed by \citet{Liu1988bootstrap}, which is valid under heteroskedasticity and provides substantially more accurate rejection rates than standard approaches in small samples \citep{Flachaire2005boostrapping, Davidson2008wild}. 
+However, there are several nuances involved in implementing accurate wild bootstrap tests, including how to adjust the residuals, the choice of auxilliary distributions, and whether to bootstrap under a restricted model \citep{MacKinnon2013thirty}. 
+In light of these additional considerations, as well as the computational intensity of simulations that involve resampling methods, the present investigation is limited to hypothesis testing procedures that do not involve resampling. 
+In further work, we will investigate the performance of the best-performing methods identified in this paper compared to resampling tests such as wild bootstrapping and other recent proposals \citep[e.g.][]{Richard2016hetero}.
 
 Although the squared residual $e_i^2$ is a poor estimate of $\sigma_i^2$ when considered in isolation, together the squared residuals provide an adequate means of estimating the middle term of Equation (\ref{eq:var_beta}). 
 
