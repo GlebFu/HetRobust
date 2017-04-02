@@ -1,5 +1,5 @@
 
-# Updated 2017-03-17 by JEP
+# Updated 2017-04-02 by JEP
 
 #-----------------------------------
 # p-value from a two-sided t-test 
@@ -197,17 +197,20 @@ test_HC <- function(HC, model, tests, alphas, span = 0.75) {
   if ("KCp_E" %in% tests) pValues$KCp_E <- KC_pval(t_stats = t_stats, df = df_E)
   if ("KCp_H" %in% tests) pValues$KCp_H <- KC_pval(t_stats = t_stats, df = df_H)
   if ("KCCI_E" %in% tests) {
+    a <- if (is.vector(alphas)) alphas else alphas$alphas[[which(alphas$test=="KCCI_E")]]
     pValues$KCCI_E <- KC_CI(t_stats = t_stats, df = df_E, m = model$M_diag, 
-                            n = model$n, p = model$p, alphas = alphas)
+                            n = model$n, p = model$p, alphas = a)
   }
   if ("KCCI_H" %in% tests) {
+    a <- if (is.vector(alphas)) alphas else alphas$alphas[[which(alphas$test=="KCCI_H")]]
     pValues$KCCI_H <- KC_CI(t_stats = t_stats, df = df_H, m = model$M_diag, 
-                            n = model$n, p = model$p, alphas = alphas)
+                            n = model$n, p = model$p, alphas = a)
   }
   
   # Rothenberg's edgeworth approximations
   
   if ("Rp_E" %in% tests | "RCI_E" %in% tests) {
+    a <- if (is.vector(alphas)) alphas else alphas$alphas[[which(alphas$test=="Rp_E")]]
     Roth_E <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
                                H = model$H, h = model$h, I_H = model$I_H, 
                                omega = omega, e = model$e, 
@@ -216,6 +219,7 @@ test_HC <- function(HC, model, tests, alphas, span = 0.75) {
     if ("RCI_E" %in% tests) pValues$RCI_E <- Roth_E$CI
   }
   if ("Rp_H" %in% tests | "RCI_H" %in% tests) {
+    a <- if (is.vector(alphas)) alphas else alphas$alphas[[which(alphas$test=="Rp_H")]]
     Roth_H <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
                                H = model$H, h = model$h, I_H = model$I_H, 
                                omega = omega, e = model$e, 
@@ -340,21 +344,23 @@ estimate_model <- function(Y, X, trueB, whichX) {
 # simulation driver
 #-----------------------------------
 
-# library(tibble)
-# 
-# dgm <- one_dim_dgm
-# iterations <- 20
-# n <- 25
-# span <- 0.75
-# alphas <- adjusted_alphas$alphas[[1]]
-# 
-# HCtests <-
-#   tribble(~ HC, ~ tests,
-#           "HC2", list("Satt_H", "saddle_E", "KCCI_H"),
-#           "HC4", list("naive")
-#   )
-# 
-# seed <- NULL
+library(tibble)
+
+dgm <- one_dim_dgm
+iterations <- 20
+n <- 25
+span <- 0.75
+
+HCtests <-
+  tribble(~ HC, ~ tests,
+          "HC2", list("Satt_H", "saddle_E", "KCCI_H"),
+          "HC4", list("naive")
+  )
+
+seed <- NULL
+
+alphas <- adjusted_alphas$alphas[[1]]
+adjusted_alpha <- FALSE
 
 run_sim <- function(dgm, iterations, n, alphas, HCtests, span = 0.75, adjusted_alpha = FALSE, seed = NULL, ...) {
   
@@ -364,14 +370,32 @@ run_sim <- function(dgm, iterations, n, alphas, HCtests, span = 0.75, adjusted_a
   
   if (!is.null(seed)) set.seed(seed)
   
-  rerun(.n = iterations, {
+  # handle alphas as vector vs. as tibble
+  
+  if (is.vector(alphas)) {
+    test_alphas <- HCtests
+    test_alphas$alphas <- rep(list(alphas), nrow(test_alphas))
+  } else {
+    test_alphas <- 
+      alphas %>%
+      group_by_(.dots = "HC") %>%
+      nest(.key = "alphas") %>%
+      right_join(HCtests, by = "HC")
+  }
+  
+  # simulate
+  
+  res <- 
+    rerun(.n = iterations, {
       model <- dgm(n = n, ...)
-      invoke_rows(.f = run_tests, .d = HCtests, 
-                  model = model, alphas = alphas, span = span,
+      invoke_rows(.f = run_tests, .d = test_alphas, 
+                  model = model, span = span,
                   .to = "res")
-  }) %>%
-  bind_rows() %>%
-  group_by_(.dots = "HC") %>%
-  do(calculate_rejections(.$res, alphas = alphas, adjusted_alpha = adjusted_alpha))
+    }) %>%
+    bind_rows() 
+  
+  res %>%
+    group_by_(.dots = "HC") %>%
+    do(calculate_rejections(.$res, alphas = alphas, adjusted_alpha = adjusted_alpha))
   
 }
