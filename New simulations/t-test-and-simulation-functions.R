@@ -148,7 +148,7 @@ test_HC <- function(HC, model, tests, alphas, span = 0.75) {
                               HC3 = (1 - h)^(-2),
                               HC4 = (1 - h)^(-pmin(h * n / p, 4)),
                               HC4m = (1 - h)^(-(pmin(h * n / p, 1) + pmin(h * n / p, 1.5))),
-                              HC5 = (1 - h)^(-pmin(h * n / p, pmax(4, .7 * n * max(h) / p)) / 2)
+                              HC5 = (1 - h)^(-pmin(h * n / p, pmax(4, .7 * n * max(h) / p)))
   ))
   
   sd <- with(model, sqrt(colSums(omega * (X_M * e)^2)))
