@@ -168,13 +168,6 @@ library(multidplyr)
 cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
 
 system.time(
-  size_results <- plyr::mdply(size_design, .fun = run_sim, 
-                         dgm = one_dim_dgm, alphas = alphas,
-                         HCtests = size_HCtests, 
-                         .parallel = TRUE)
-)
-
-system.time(
   size_results <- 
     size_design %>%
     partition(cluster = cluster) %>%
@@ -256,12 +249,10 @@ system.time(
     arrange(seed)
 )
 
-to_vector <- function(x) {
-  y <- unlist(x)
-  names(y) <- names(x)
-}
 
-
+alphas_nominal <- alphas
+names(alphas_nominal) <- paste0("n", alphas)
+  
 adjusted_alphas <- 
   focal_size_results %>%
   unnest() %>%
@@ -270,10 +261,12 @@ adjusted_alphas <-
   rowwise() %>%
   nest(starts_with("p0"), .key = "alphas") %>%
   rowwise() %>%
-  mutate(alphas = list(unlist(alphas))) %>%
+  mutate(alphas = list(c(unlist(alphas), alphas_nominal))) %>%
   ungroup() %>%
   group_by(n, z, x_skew, e_dist, span) %>%
   nest(HC:alphas, .key = "alphas")
+
+save(adjusted_alphas, file = "New simulations/one-dim-sim-adjusted_alphas.Rdata")
 
 #-----------------------------
 # Run power simulations

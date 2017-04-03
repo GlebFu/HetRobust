@@ -283,7 +283,8 @@ run_tests <- function(HC, model, tests, alphas, span = 0.75) {
 # calculate rejection rates
 #-----------------------------------
 
-reject_rates <- function(p_vals, alphas, adjusted_alpha = FALSE) {
+reject_rates <- function(p_vals, alphas, ..., adjusted_alpha = FALSE) {
+  p_vals <- p_vals$p_val
   rejects <- lapply(alphas, function(a) ifelse(is.na(p_vals), FALSE, p_vals <= a))
   rejection_rates <- data.frame(percent_NA = mean(is.na(p_vals)), lapply(rejects, mean))
   
@@ -296,11 +297,24 @@ reject_rates <- function(p_vals, alphas, adjusted_alpha = FALSE) {
   rejection_rates
 }
 
-calculate_rejections <- function(x, alphas, adjusted_alpha = FALSE) {
-  bind_rows(x) %>%
+calculate_rejections <- function(x, alphas, ..., adjusted_alpha = FALSE) {
+  
+  y <- 
+    unnest(x) %>%
     gather("test", "p_val", -1) %>%
     group_by_(.dots = c("coef", "test")) %>%
-    do(reject_rates(p_vals = .$p_val, alphas = alphas, adjusted_alpha = adjusted_alpha))
+    nest(.key = "p_vals") 
+  
+  if (is.vector(alphas)) {
+    y$alphas <- rep(list(alphas), nrow(y))
+  } else {
+    y <- left_join(y, alphas, by = c("coef","test"))
+  }
+  
+  y %>%
+    invoke_rows(.f = reject_rates, adjusted_alpha = adjusted_alpha) %>%
+    select_(.dots = c("coef","test",".out")) %>%
+    unnest()
 }
 
 #-----------------------------
@@ -344,24 +358,6 @@ estimate_model <- function(Y, X, trueB, whichX) {
 # simulation driver
 #-----------------------------------
 
-library(tibble)
-
-dgm <- one_dim_dgm
-iterations <- 20
-n <- 25
-span <- 0.75
-
-HCtests <-
-  tribble(~ HC, ~ tests,
-          "HC2", list("Satt_H", "saddle_E", "KCCI_H"),
-          "HC4", list("naive")
-  )
-
-seed <- NULL
-
-alphas <- adjusted_alphas$alphas[[1]]
-adjusted_alpha <- FALSE
-
 run_sim <- function(dgm, iterations, n, alphas, HCtests, span = 0.75, adjusted_alpha = FALSE, seed = NULL, ...) {
   
   require(purrr)
@@ -387,15 +383,21 @@ run_sim <- function(dgm, iterations, n, alphas, HCtests, span = 0.75, adjusted_a
   
   res <- 
     rerun(.n = iterations, {
-      model <- dgm(n = n, ...)
+      model <- dgm(n = n)
+      # model <- dgm(n = n, ...)
       invoke_rows(.f = run_tests, .d = test_alphas, 
                   model = model, span = span,
                   .to = "res")
     }) %>%
-    bind_rows() 
+    bind_rows() %>%
+    select_(.dots = c("HC", "res"))
   
   res %>%
     group_by_(.dots = "HC") %>%
-    do(calculate_rejections(.$res, alphas = alphas, adjusted_alpha = adjusted_alpha))
+    nest(.key = "x") %>%
+    left_join(test_alphas, by = "HC") %>%
+    invoke_rows(.f = calculate_rejections, adjusted_alpha = adjusted_alpha, .to = "reject_rates") %>%
+    select_(.dots = c("HC", "reject_rates")) %>%
+    unnest()
   
 }

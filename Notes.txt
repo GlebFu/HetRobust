@@ -1,3 +1,3 @@
-- HC5 with distributional approximations?
-- use omega-adjusted squared errors for smoothed version of saddlepoint
-- consider smoothed version of Satterthwaite
+- Re-run size results with correct version of HC5.
+- Use omega-adjusted squared errors for smoothed version of saddlepoint.
+- Consider smoothed version of Satterthwaite.
