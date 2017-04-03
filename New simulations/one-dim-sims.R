@@ -112,24 +112,27 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
 
 set.seed(20170327)
 
+
+iterations <- 50000
+subsets <- 4
+
 size_factors <- list(
   n = c(25, 50, 100),
   z = seq(0, 0.2, 0.02),
   x_skew = c(0.5, 1, 2),
   e_dist = c("norm", "chisq", "t5"),
-  subset = 1:1
+  subset = 1:subsets
 )
 
 lengths(size_factors)
 prod(lengths(size_factors))
 
-iterations <- 10
 
 size_design <- 
   size_factors %>%
   cross_d() %>%
   mutate(
-    iterations = iterations,
+    iterations = iterations / subsets,
     span = 0.2,
     seed = round(runif(1) * 2^30) + row_number()
   )
@@ -180,8 +183,9 @@ system.time(
 )
 
 session_info <- sessionInfo()
+run_date <- date()
 
-save(size_design, size_HCtests, alphas, size_results, session_info, 
+save(size_design, size_HCtests, alphas, size_results, session_info, run_date, 
      file = "New simulations/one-dim-sim-size-results.Rdata")
 
 
@@ -189,19 +193,19 @@ save(size_design, size_HCtests, alphas, size_results, session_info,
 # Simulation design - power
 #-----------------------------
 
-iterations <- 50
+iterations <- 50000
 
 focal_design <- 
   size_design %>%
+  filter(subset == 1, z %in% c(0, 0.1, 0.2)) %>%
   select(-iterations) %>%
-  filter(z %in% c(0, 0.1, 0.2)) %>%
   mutate(iterations = iterations)
 
 focal_design
 
 power_factors <- list(
   beta = seq(-2, 2, 0.4),
-  subset = 1:1
+  subset = 1
 )
 
 c(nrow(focal_design), lengths(power_factors))
@@ -209,8 +213,9 @@ prod(c(nrow(focal_design), lengths(power_factors)))
 
 power_design <- 
   focal_design %>%
-  select(-seed) %>%
+  select(-seed, -iterations) %>%
   full_join(cross_d(power_factors)) %>%
+  select(-subset) %>%
   mutate(
     seed = round(runif(1) * 2^30) + row_number()
   )
@@ -219,6 +224,9 @@ power_design
 nrow(size_design)
 nrow(focal_design)
 nrow(power_design)
+nrow(size_design) / 68 / 2
+nrow(focal_design) / 68 / 2
+nrow(power_design) / 68 / 2
 
 focal_HCtests <-
   tribble(~ HC, ~ tests,
@@ -296,6 +304,7 @@ system.time(
 )
 
 session_info <- sessionInfo()
+run_date <- date()
 
-save(power_design, focal_HCtests, alphas, adjusted_alphas, power_results, session_info,
+save(power_design, focal_HCtests, alphas, adjusted_alphas, power_results, session_info, run_date,
      file = "New simulations/one-dim-sim-power-results.Rdata")
