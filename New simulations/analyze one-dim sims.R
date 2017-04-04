@@ -172,7 +172,7 @@ size_results_select %>%
 
 # selected tests
  
-selected_tests <- c("saddle_E","saddle_H","saddle_S")
+selected_tests <- c("saddle_E","saddle_H","Satt_H")
 
 size_results_select %>%
   filter((test=="naive" & HC %in% c("HC4")) | test %in% selected_tests, n == 25) %>%

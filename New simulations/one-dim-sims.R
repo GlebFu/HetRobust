@@ -230,7 +230,7 @@ nrow(power_design) / 68 / 2
 
 focal_HCtests <-
   tribble(~ HC, ~ tests,
-          "HC2", list("Satt_H", "saddle_E","saddle_H", "KCCI_H"),
+          "HC2", list("Satt_H", "saddle_E","saddle_H", "KCCI_H", "KCCI_E"),
           "HC4", list("naive")
   )
 
