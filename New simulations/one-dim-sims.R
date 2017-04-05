@@ -110,7 +110,7 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
 # Simulation design - size
 #-----------------------------
 
-set.seed(20170327)
+set.seed(20170404)
 
 
 iterations <- 50000
@@ -195,7 +195,7 @@ save(size_design, size_HCtests, alphas, size_results, session_info, run_date,
 
 iterations <- 50000
 
-focal_design <- 
+focal_design <-
   size_design %>%
   filter(subset == 1, z %in% c(0, 0.1, 0.2)) %>%
   select(-iterations) %>%
@@ -211,13 +211,14 @@ power_factors <- list(
 c(nrow(focal_design), lengths(power_factors))
 prod(c(nrow(focal_design), lengths(power_factors)))
 
-power_design <- 
+power_design <-
   focal_design %>%
   select(-seed, -iterations) %>%
   full_join(cross_d(power_factors)) %>%
   select(-subset) %>%
   mutate(
-    seed = round(runif(1) * 2^30) + row_number()
+    seed = round(runif(1) * 2^30) + row_number(),
+    iterations = iterations
   )
 
 power_design
@@ -238,17 +239,17 @@ focal_HCtests <-
 # size adjustment calculations
 #---------------------------------
 
-source_obj <- ls()
+source_obj <- c(source_obj, "focal_HCtests")
 
 library(Pusto)
 library(multidplyr)
 cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
 
 system.time(
-  focal_size_results <- 
+  focal_size_results <-
     focal_design %>%
     partition(cluster = cluster) %>%
-    do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm, 
+    do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm,
                    alphas = alphas, HCtests = focal_HCtests,
                    adjusted_alpha = TRUE,
                    .to = "res")) %>%
@@ -260,8 +261,8 @@ system.time(
 
 alphas_nominal <- alphas
 names(alphas_nominal) <- paste0("n", alphas)
-  
-adjusted_alphas <- 
+
+adjusted_alphas <-
   focal_size_results %>%
   unnest() %>%
   filter(stat == "adjusted alpha") %>%
@@ -280,22 +281,22 @@ save(adjusted_alphas, file = "New simulations/one-dim-sim-adjusted_alphas.Rdata"
 # Run power simulations
 #-----------------------------
 
-power_design_full  <- 
+power_design_full  <-
   power_design %>%
   inner_join(adjusted_alphas)
 power_design_full
 
-source_obj <- ls()
-
-library(Pusto)
-library(multidplyr)
-cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
+# source_obj <- ls()
+# 
+# library(Pusto)
+# library(multidplyr)
+# cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
 
 system.time(
-  power_results <- 
+  power_results <-
     power_design_full %>%
     partition(cluster = cluster) %>%
-    do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm, 
+    do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm,
                    HCtests = focal_HCtests,
                    .to = "res")) %>%
     collect() %>% ungroup() %>%
@@ -308,3 +309,5 @@ run_date <- date()
 
 save(power_design, focal_HCtests, alphas, adjusted_alphas, power_results, session_info, run_date,
      file = "New simulations/one-dim-sim-power-results.Rdata")
+
+stopCluster(cluster)

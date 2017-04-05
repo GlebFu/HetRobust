@@ -165,7 +165,8 @@ test_HC <- function(HC, model, tests, alphas, span = 0.75) {
 
   # smoothed errors
   if (any(c("Satt_S","saddle_S") %in% tests)) {
-    e_sq_S <- predict(loess(model$e^2 ~ model$X[,"x1"], span = span, statistics = "none"))
+    e_sq_S <- predict(loess(model$e^2 ~ model$X[,"x1"], span = span, 
+                            loess.control = loess.control(statistics = "none")))
   }
   
   # degrees of freedom
@@ -360,9 +361,9 @@ estimate_model <- function(Y, X, trueB, whichX) {
 
 run_sim <- function(dgm, iterations, n, alphas, HCtests, span = 0.75, adjusted_alpha = FALSE, seed = NULL, ...) {
   
-  require(purrr)
-  require(tidyr)
-  require(dplyr)
+  require(purrr, quietly = TRUE, warn.conflicts = FALSE)
+  require(tidyr, quietly = TRUE, warn.conflicts = FALSE)
+  require(dplyr, quietly = TRUE, warn.conflicts = FALSE)
   
   if (!is.null(seed)) set.seed(seed)
   
