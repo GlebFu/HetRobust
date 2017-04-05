@@ -113,7 +113,7 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
 set.seed(20170404)
 
 
-iterations <- 50000
+iterations <- 500
 subsets <- 4
 
 size_factors <- list(
@@ -193,7 +193,7 @@ save(size_design, size_HCtests, alphas, size_results, session_info, run_date,
 # Simulation design - power
 #-----------------------------
 
-iterations <- 50000
+iterations <- 500
 
 focal_design <-
   size_design %>%
