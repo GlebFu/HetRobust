@@ -13,20 +13,6 @@ t_test <- function(t_stats, df) {
 # Satterthwaite degrees of freedom 
 #-----------------------------------
 
-Satterthwaite_true <- function(X_M, omega, sigma_sq, H, I_H) {
-  
-  A_vec <- omega * X_M^2
-  
-  V_V <- function(a) {
-    B <- I_H %*% (a * I_H)
-    sum(as.vector(t(B)) * as.vector(B * sigma_hat))
-  }
-  num 
-  den <- apply(A_vec, 2, V_V)
-  
-  return(num / den)
-}
-
 Satterthwaite_empirical <- function(sd, X_M, omega, e_sq, H, I_H) {
   
   sigma_hat <- tcrossprod(omega * e_sq) / (2 * tcrossprod(omega) * H^2 + 1)
@@ -53,6 +39,18 @@ Satterthwaite_model <- function(X_M, omega, H, h) {
   }
   
   apply(X_M, 2, df_A)
+}
+
+Satterthwaite_true <- function(X_M, omega, sigma_sq, I_H) {
+  
+  A_vec <- omega * X_M^2
+  
+  df_A <- function(a) {
+    BSigma <- (sigma_sq * I_H) %*% (a * I_H)
+    sum(diag(BSigma))^2 / sum(BSigma^2)
+  }
+  
+  apply(A_vec, 2, df_A)
 }
 
 #-----------------------------------
@@ -178,8 +176,8 @@ test_HC <- function(HC, model, tests, alphas, span = 0.75) {
   }
 
   # smoothed errors
-  if (any(c("Satt_S","saddle_S") %in% tests)) {
-    e_sq_S <- predict(loess(model$e^2 ~ model$X[,"x1"], span = span, 
+  if (any(c("Satt_S","KCp_S","KCCI_S","Rp_S","RCI_S","saddle_S") %in% tests)) {
+    e_sq_S <- predict(loess(omega * model$e^2 ~ model$X[,"x1"], span = span, 
                             loess.control = loess.control(statistics = "none")))
   }
   
@@ -197,16 +195,20 @@ test_HC <- function(HC, model, tests, alphas, span = 0.75) {
                                 H = model$H, h = model$h)
   }
   
+  if (any(c("Satt_S","KCp_S","KCCI_S","Rp_S","RCI_S") %in% tests)) {
+    df_S <- Satterthwaite_true(X_M = model$X_M, omega = omega, sigma_sq = e_sq_S, I_H = model$I_H)
+  }
+  
+  if (any(c("Satt_T","KCp_T","KCCI_T","Rp_T","RCI_T") %in% tests)) {
+    df_T <- Satterthwaite_true(X_M = model$X_M, omega = omega, sigma_sq = model$sigma^2, I_H = model$I_H)
+  }
+  
   # Satterthwaite tests
 
   if ("Satt_E" %in% tests) pValues$Satt_E <- t_test(t_stats = t_stats, df = df_E)
   if ("Satt_H" %in% tests) pValues$Satt_H <- t_test(t_stats = t_stats, df = df_H)
-  if ("Satt_S" %in% tests) {
-    df_S <- Satterthwaite_empirical(sd = sd, X_M = model$X_M, 
-                                    omega = omega, e_sq = e_sq_S, 
-                                    H = model$H, I_H = model$I_H)
-    pValues$Satt_S <- t_test(t_stats = t_stats, df = df_S)
-  }
+  if ("Satt_S" %in% tests) pValues$Satt_S <- t_test(t_stats = t_stats, df = df_S)
+  if ("Satt_T" %in% tests) pValues$Satt_T <- t_test(t_stats = t_stats, df = df_T)
 
   # Kauermann-Carroll edgeworth approximations
   if ("KCp_E" %in% tests) pValues$KCp_E <- KC_pval(t_stats = t_stats, df = df_E)
