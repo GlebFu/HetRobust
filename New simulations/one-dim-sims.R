@@ -5,25 +5,6 @@ library(dplyr)
 
 rm(list=ls())
 
-# x_skew <- c(0.5, 1, 2)
-# 8 / x_skew^2
-# f <- function(x, v) dchisq(v + x * sqrt(2 * v), df = v) * sqrt(2 * v)
-# curve(f(x, 2) , from = -4, to = 4)
-# curve(f(x, 8) , add = TRUE, col = "blue")
-# curve(f(x, 32) , add = TRUE, col = "red")
-# 
-# curve(exp(0 * x), from = -4, to = 4, ylim = c(0,2))
-# curve(exp(0.1 * x), add = TRUE)
-# curve(exp(0.2 * x), add = TRUE)
-# curve(exp(-0.1 * x), add = TRUE)
-# curve(exp(-0.2 * x), add = TRUE)
-# df <- c(2, 8, 32, 64)
-# cols <- c("red","green","blue","purple")
-# for(i in seq_along(df)) {
-#   abline(v = (qchisq(p = 0.1, df = df[i]) - df[i]) / sqrt(2 * df[i]), col = cols[i])
-#   abline(v = (qchisq(p = 0.9, df = df[i]) - df[i]) / sqrt(2 * df[i]), col = cols[i])
-# }
-  
 source("New simulations/t-test-and-simulation-functions.R")
 
 one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T), 
@@ -51,27 +32,31 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
 }
 
 # HC <- "HC2"
-# tests <- c("Satt_E","Satt_H","saddle_E","saddle_H","saddle_S","saddle_T")
+# tests <- c("Satt_E","Satt_H","Satt_S","Satt_T","saddle_E","saddle_H","saddle_S","saddle_T")
 # alphas <- c(.005, .01, .05, .10)
-# z <- -0.1
+# z <- 0
 # 
-# model <- one_dim_dgm(n = 100, x_skew = 3, z = z)
+# model <- one_dim_dgm(n = 100, x_skew = 1, z = z)
+# 
 # dat <- with(model, data.frame(Y, X))
 # dat <- dat[order(dat$x1),]
 # lm_fit <- lm(Y ~ x1, data = dat)
 # dat$e <- residuals(lm_fit)
+# dat$e_sq <- dat$e^2 / (1 - model$h)
 # dat$y_hat <- fitted.values(lm_fit)
 # dat$sigma <- (1 - 4 * z)^z * exp(2 * z * dat$x1)
 # dat$e_sq_S <- predict(loess(e^2 ~ y_hat, data = dat, span = 0.25, statistics = "none"))
 # plot(density(dat$x1))
 # plot(Y ~ x1, data = dat)
+# plot(e_sq_S ~ sigma^2, data = dat)
+# abline(a = 0, b = 1)
 # 
 # spans <- seq(0.1, 0.5, 0.1)
 # names(spans) <- c("red","orange","yellow","green","blue")
-# plot(e^2 ~ x1, data = dat)
+# plot(e_sq ~ x1, data = dat)
 # lines(sigma^2 ~ x1, data = dat, col = "green")
 # for (i in seq_along(spans)) {
-#   lines(predict(loess(e^2 ~ y_hat, data = dat, span = spans[i], statistics = "none")) ~ dat$x1,
+#   lines(predict(loess(e_sq ~ x1, data = dat, span = spans[i], statistics = "none")) ~ dat$x1,
 #         col = names(spans)[i])
 # }
 # 
@@ -83,7 +68,7 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
 #   tribble(
 #     ~HC, ~tests,
 #     "hom", list(),
-#     "HC2", list("Satt_E","Satt_H","saddle_E","saddle_H","saddle_S","saddle_T"),
+#     "HC2", list("Satt_E","Satt_H","Satt_S","Satt_T","saddle_E","saddle_H","saddle_S","saddle_T"),
 #     "HC4", list("naive")
 #   )
 # 
@@ -113,7 +98,7 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
 set.seed(20170404)
 
 
-iterations <- 500
+iterations <- 50000
 subsets <- 4
 
 size_factors <- list(
@@ -148,7 +133,7 @@ size_HCtests <-
   tribble(~ HC, ~ tests,
           "HC0", list("naive", "Rp_E", "Rp_H", "RCI_E", "RCI_H"),
           "HC1", list("naive"),
-          "HC2", list("naive","Satt_E", "Satt_H",
+          "HC2", list("naive","Satt_E", "Satt_H", "Satt_S", "Satt_T",
                       "saddle_E", "saddle_H", "saddle_S", "saddle_T",
                       "KCp_E", "KCp_H", "KCCI_E", "KCCI_H"),
           "HC3", list("naive"),
@@ -193,7 +178,7 @@ save(size_design, size_HCtests, alphas, size_results, session_info, run_date,
 # Simulation design - power
 #-----------------------------
 
-iterations <- 500
+iterations <- 50000
 
 focal_design <-
   size_design %>%
@@ -244,6 +229,7 @@ focal_HCtests <-
 # library(Pusto)
 # library(multidplyr)
 # cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
+
 clusterExport(cluster, "focal_HCtests")
 
 system.time(
