@@ -15,4 +15,4 @@
 module load Rstats           
  
 # call R code from RMPISNOW
-ibrun RMPISNOW < one-dim-sims.R
+ibrun RMPISNOW < ./one-dim-sims.R

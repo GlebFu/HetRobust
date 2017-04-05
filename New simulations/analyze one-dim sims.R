@@ -4,6 +4,27 @@ library(dplyr)
 library(ggplot2)
 
 rm(list=ls())
+load("New simulations/one-dim-sim-size-results.Rdata")
+ls()
+size_results <- unnest(size_results)
+summary(size_results$percent_NA)
+table(size_results$test)
+table(size_results$iterations)
+table(size_results$subset)
+
+rm(list=ls())
+load("New simulations/one-dim-sim-power-results.Rdata")
+ls()
+power_results <- 
+  power_results %>%
+  select(-alphas) %>%
+  unnest()
+summary(power_results$percent_NA)
+table(power_results$test)
+table(power_results$iterations)
+power_results %>%
+  select(starts_with("p0."), starts_with("n0.")) %>%
+  summary()
 
 load("New simulations/one-dim-sim-20170327.Rdata")
 

@@ -13,6 +13,20 @@ t_test <- function(t_stats, df) {
 # Satterthwaite degrees of freedom 
 #-----------------------------------
 
+Satterthwaite_true <- function(X_M, omega, sigma_sq, H, I_H) {
+  
+  A_vec <- omega * X_M^2
+  
+  V_V <- function(a) {
+    B <- I_H %*% (a * I_H)
+    sum(as.vector(t(B)) * as.vector(B * sigma_hat))
+  }
+  num 
+  den <- apply(A_vec, 2, V_V)
+  
+  return(num / den)
+}
+
 Satterthwaite_empirical <- function(sd, X_M, omega, e_sq, H, I_H) {
   
   sigma_hat <- tcrossprod(omega * e_sq) / (2 * tcrossprod(omega) * H^2 + 1)

@@ -239,11 +239,12 @@ focal_HCtests <-
 # size adjustment calculations
 #---------------------------------
 
-source_obj <- c(source_obj, "focal_HCtests")
-
-library(Pusto)
-library(multidplyr)
-cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
+# source_obj <- ls()
+# 
+# library(Pusto)
+# library(multidplyr)
+# cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
+clusterExport(cluster, "focal_HCtests")
 
 system.time(
   focal_size_results <-
@@ -310,4 +311,4 @@ run_date <- date()
 save(power_design, focal_HCtests, alphas, adjusted_alphas, power_results, session_info, run_date,
      file = "New simulations/one-dim-sim-power-results.Rdata")
 
-stopCluster(cluster)
+snow::stopCluster(cluster)
