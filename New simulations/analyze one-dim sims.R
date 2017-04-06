@@ -4,15 +4,6 @@ library(dplyr)
 library(ggplot2)
 
 rm(list=ls())
-load("New simulations/one-dim-sim-size-results.Rdata")
-ls()
-size_results <- unnest(size_results)
-summary(size_results$percent_NA)
-table(size_results$test)
-table(size_results$iterations)
-table(size_results$subset)
-
-rm(list=ls())
 load("New simulations/one-dim-sim-power-results.Rdata")
 ls()
 power_results <- 
@@ -26,16 +17,42 @@ power_results %>%
   select(starts_with("p0."), starts_with("n0.")) %>%
   summary()
 
-load("New simulations/one-dim-sim-20170327.Rdata")
+power_results %>%
+  filter(n == 100, e_dist == "norm") %>%
+  ggplot(aes(beta, p0.05, color = test)) + 
+  geom_point() + geom_line() + 
+  facet_grid(z ~ x_skew, scales = "free_y") + 
+  expand_limits(y = 0) + 
+  theme_light() + 
+  theme(legend.position = "bottom", 
+        strip.text.x = element_text(color = "black"), 
+        strip.text.y = element_text(color = 'black')) + 
+  labs(x = quote(beta), y = "Rejection rate", 
+       color = "", linetype = "", shape = "") + 
+  guides(color = guide_legend(nrow = 1))
 
-summary(size_results$percent_NA)
-table(size_results$test)
-table(size_results$iterations)
+
+rm(list=ls())
+load("New simulations/one-dim-sim-size-results.Rdata")
+ls()
+
+table(size_results$subset)
+summary(size_results$iterations)
+
+size_results %>% unnest() %>%
+  with(summary(percent_NA))
 
 size_results <- 
   size_results %>%
-  select(-subset, -seed, -percent_NA) %>%
+  unnest() %>%
+  select(-seed, -percent_NA) %>%
   gather("level","rejection", starts_with("p")) %>%
+  group_by(n, z, x_skew, e_dist, span, HC, coef, test, level) %>%
+  summarise(
+    iterations = sum(iterations), 
+    rejection = mean(rejection)
+  ) %>%
+  ungroup() %>%
   mutate(
     level = as.numeric(str_sub(level, 2,-1)),
     alpha = paste("\alpha =", str_sub(level, 2, -1)),
@@ -46,6 +63,9 @@ size_results <-
                         labels = paste(c("Normal","t(5)","Chi-squared"), "errors")),
     skew = paste("Skewness =", x_skew)
   )
+
+
+table(size_results$test)
 
 #----------------------------
 # summary plots 
@@ -65,7 +85,8 @@ summary_measures <-
   )
 
 summary_measures %>%
-  filter(test %in% c("saddle_H","Satt_H","KCCI_H") | HC == "HC4") %>%
+  # filter(test %in% c("saddle_H","Satt_H","KCCI_H") | HC == "HC4") %>%
+  filter(test %in% c("saddle_H","saddle_S","saddle_T","Satt_H","Satt_S","Satt_T") | HC == "HC4") %>%
   ggplot(aes(pct_below, RMSE, color = by_val)) + 
     geom_point() + 
     geom_text(aes(label = by_val), size = 3) + 
@@ -77,7 +98,8 @@ summary_measures %>%
         strip.text.y = element_text(color = 'black')) 
 
 summary_measures %>%
-  filter(test %in% c("saddle_H","Satt_H","KCCI_H") | HC == "HC4") %>%
+  # filter(test %in% c("saddle_H","Satt_H","KCCI_H") | HC == "HC4") %>%
+  filter(test %in% c("saddle_H","saddle_S","saddle_T","Satt_H","Satt_S","Satt_T") | HC == "HC4") %>%
   ggplot(aes(pct_below, MAE, color = by_val)) + 
   geom_point() + 
   geom_text(aes(label = by_val), size = 3) + 

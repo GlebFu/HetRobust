@@ -400,8 +400,7 @@ run_sim <- function(dgm, iterations, n, alphas, HCtests, span = 0.75, adjusted_a
   
   res <- 
     rerun(.n = iterations, {
-      model <- dgm(n = n)
-      # model <- dgm(n = n, ...)
+      model <- dgm(n = n, ...)
       invoke_rows(.f = run_tests, .d = test_alphas, 
                   model = model, span = span,
                   .to = "res")

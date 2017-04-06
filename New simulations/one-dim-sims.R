@@ -7,7 +7,7 @@ rm(list=ls())
 
 source("New simulations/t-test-and-simulation-functions.R")
 
-one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T), 
+one_dim_dgm <- function(n = 25, beta = 0, whichX = c(F, T), 
                         x_skew = 0.1, z = 0, e_dist = "norm", ...) {
   
   v <- 8 / x_skew^2
@@ -21,7 +21,7 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
   
   sigma <- exp(z * x)
   
-  Y <- B[1] + B[2] * x + sigma * e
+  Y <- beta * x + sigma * e
   
   fitted_model <- estimate_model(Y = Y, X = cbind(x0 = 1, x1 = x), 
                                  trueB = B, whichX = whichX)
@@ -98,7 +98,7 @@ one_dim_dgm <- function(n = 25, B = c(0, 0), whichX = c(F, T),
 set.seed(20170404)
 
 
-iterations <- 50000
+size_iterations <- 50000
 subsets <- 4
 
 size_factors <- list(
@@ -117,7 +117,7 @@ size_design <-
   size_factors %>%
   cross_d() %>%
   mutate(
-    iterations = iterations / subsets,
+    iterations = size_iterations / subsets,
     span = 0.2,
     seed = round(runif(1) * 2^30) + row_number()
   )
@@ -178,18 +178,18 @@ save(size_design, size_HCtests, alphas, size_results, session_info, run_date,
 # Simulation design - power
 #-----------------------------
 
-iterations <- 50000
-
 focal_design <-
   size_design %>%
   filter(subset == 1, z %in% c(0, 0.1, 0.2)) %>%
   select(-iterations) %>%
-  mutate(iterations = iterations)
+  mutate(iterations = size_iterations)
 
 focal_design
 
+power_iterations <- 20000
+
 power_factors <- list(
-  beta = seq(-2, 2, 0.4),
+  beta = seq(-3, 3, 0.2),
   subset = 1
 )
 
@@ -203,7 +203,7 @@ power_design <-
   select(-subset) %>%
   mutate(
     seed = round(runif(1) * 2^30) + row_number(),
-    iterations = iterations
+    iterations = power_iterations
   )
 
 power_design
@@ -230,7 +230,7 @@ focal_HCtests <-
 # library(multidplyr)
 # cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
 
-clusterExport(cluster, "focal_HCtests")
+parallel::clusterExport(cluster, "focal_HCtests")
 
 system.time(
   focal_size_results <-
@@ -263,6 +263,7 @@ adjusted_alphas <-
   nest(HC:alphas, .key = "alphas")
 
 save(adjusted_alphas, file = "New simulations/one-dim-sim-adjusted_alphas.Rdata")
+load("New simulations/one-dim-sim-adjusted_alphas.Rdata")
 
 #-----------------------------
 # Run power simulations
