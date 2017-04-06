@@ -1,11 +1,36 @@
+#---------------------------------------------------------
+# get command-line arguments for number of replications
+#---------------------------------------------------------
+
+args <- commandArgs(TRUE)
+print(args)
+
+if (length(args) == 0) {
+  print("No arguments supplied.")
+  size_iterations = 50
+  power_iterations = 20
+} else {
+  for (i in 1:length(args)) {
+    eval(parse(text=args[[i]]))
+  }
+}
+print(size_iterations)
+print(power_iterations)
+
+#---------------------------------------------------------
+# setup
+#---------------------------------------------------------
+
 library(tibble)
 library(tidyr)
 library(purrr)
 library(dplyr)
 
-rm(list=ls())
-
 source("New simulations/t-test-and-simulation-functions.R")
+
+#---------------------------------------------------------
+# data-generating model
+#---------------------------------------------------------
 
 one_dim_dgm <- function(n = 25, beta = 0, whichX = c(F, T), 
                         x_skew = 0.1, z = 0, e_dist = "norm", ...) {
@@ -23,8 +48,7 @@ one_dim_dgm <- function(n = 25, beta = 0, whichX = c(F, T),
   
   Y <- beta * x + sigma * e
   
-  fitted_model <- estimate_model(Y = Y, X = cbind(x0 = 1, x1 = x), 
-                                 trueB = B, whichX = whichX)
+  fitted_model <- estimate_model(Y = Y, X = cbind(x0 = 1, x1 = x), whichX = whichX)
   
   fitted_model$sigma <- sigma
   
@@ -97,8 +121,6 @@ one_dim_dgm <- function(n = 25, beta = 0, whichX = c(F, T),
 
 set.seed(20170404)
 
-
-size_iterations <- 50000
 subsets <- 4
 
 size_factors <- list(
@@ -126,8 +148,8 @@ size_design
 
 alphas <- c(.005, .010, .050, .100)
 names(alphas) <- paste0("p", alphas)
-sqrt(alphas * (1 - alphas) / iterations)
-sqrt(alphas * (1 - alphas) / iterations) / alphas
+sqrt(alphas * (1 - alphas) / size_iterations)
+sqrt(alphas * (1 - alphas) / size_iterations) / alphas
 
 size_HCtests <-
   tribble(~ HC, ~ tests,
@@ -185,8 +207,6 @@ focal_design <-
   mutate(iterations = size_iterations)
 
 focal_design
-
-power_iterations <- 20000
 
 power_factors <- list(
   beta = seq(-3, 3, 0.2),

@@ -338,7 +338,7 @@ calculate_rejections <- function(x, alphas, ..., adjusted_alpha = FALSE) {
 # Fit regression model
 #-----------------------------
 
-estimate_model <- function(Y, X, trueB, whichX) {
+estimate_model <- function(Y, X, whichX) {
   
   n <- nrow(X)
   p <- ncol(X)
@@ -357,7 +357,6 @@ estimate_model <- function(Y, X, trueB, whichX) {
   
   values <- list(X = X, 
                  Y = Y, 
-                 B = trueB[whichX], 
                  coefs = coefs[whichX], 
                  M_diag = diag(M)[whichX], 
                  X_M = X_M[, whichX, drop=FALSE], 

@@ -15,4 +15,4 @@
 module load Rstats           
  
 # call R code from RMPISNOW
-ibrun RMPISNOW < ./one-dim-sims.R
+ibrun RMPISNOW < ./one-dim-sims.R '--args size_iterations=50 power_iterations=20'
