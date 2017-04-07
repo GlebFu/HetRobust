@@ -5,7 +5,7 @@
 #SBATCH -p development	       	  		    # Submit to the 'normal' or 'development' queue
 #SBATCH -N 1                   			    # Total number of nodes
 #SBATCH -n 34                 			    # Total number of mpi tasks requested
-#SBATCH -t 00:10:00          		      	# Run time (hh:mm:ss)
+#SBATCH -t 00:20:00          		      	# Run time (hh:mm:ss)
 #SBATCH -A Parallel-demonstrati      		# Allocation name to charge job against
 #SBATCH --mail-user=jepusto@gmail.com 		# specify email address for notifications
 #SBATCH --mail-type=begin   		      	# email when job begins
@@ -15,4 +15,4 @@
 module load Rstats           
  
 # call R code from RMPISNOW
-ibrun RMPISNOW < ./one-dim-sim-tests.R '--args size_iterations=10 power_iterations=10'
+ibrun RMPISNOW < ./one-dim-sim-tests.R '--args size_iterations=5 power_iterations=2'

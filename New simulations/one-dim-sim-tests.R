@@ -42,7 +42,7 @@ one_dim_dgm <- function(n = 25, beta = 0, whichX = c(F, T),
               norm = rnorm(n, 0, 1),
               chisq = (rchisq(n, 5) - 5) / sqrt(10),
               t5 = rt(n, 5) * sqrt(3 / 5)
-              )
+  )
   
   sigma <- exp(z * x)
   
@@ -55,14 +55,13 @@ one_dim_dgm <- function(n = 25, beta = 0, whichX = c(F, T),
   fitted_model
 }
 
-
 #-----------------------------
 # Simulation design - size
 #-----------------------------
 
 set.seed(20170404)
 
-subsets <- 4
+subsets <- 1
 
 size_factors <- list(
   n = c(25, 50, 100),
@@ -104,7 +103,7 @@ size_HCtests <-
           "HC4m", list("naive"),
           "HC5", list("naive"),
           "hom", list()
-          )
+  )
 
 
 #-----------------------------
@@ -115,30 +114,149 @@ size_HCtests <-
 source_obj <- ls()
 
 library(Pusto)
-cluster <- start_parallel(source_obj = source_obj, packages = "purrr", register = TRUE)
-
-# packages <- "purrr"
-# cluster <- snow::getMPIcluster()
-# snow::clusterExport(cluster, source_obj)
-# library_calls <- lapply(packages, function(lib) call("library", lib))
-# snow::clusterExport(cluster, "library_calls", envir = environment())
-# snow::clusterEvalQ(cluster, lapply(library_calls, eval))
-
+# library(parallel)
 library(multidplyr)
+cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
 
-size_results <-
+system.time(
+  size_results <- 
+    size_design %>%
+    partition(cluster = cluster) %>%
+    do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm, 
+                   alphas = alphas, HCtests = size_HCtests, 
+                   .to = "res")) %>%
+    collect() %>% ungroup() %>%
+    select(-PARTITION_ID) %>%
+    arrange(seed)
+)
+
+session_info <- sessionInfo()
+run_date <- date()
+
+# save(size_design, size_HCtests, alphas, size_results, session_info, run_date, 
+#      file = "New simulations/one-dim-sim-size-results.Rdata")
+
+
+#-----------------------------
+# Simulation design - power
+#-----------------------------
+
+focal_design <-
   size_design %>%
-  partition(cluster = cluster) %>%
-  do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm,
-                 alphas = alphas, HCtests = size_HCtests,
-                 .to = "res")) %>%
-  collect() %>% ungroup() %>%
-  select(-PARTITION_ID) %>%
-  arrange(seed)
+  filter(subset == 1, z %in% c(0, 0.1, 0.2)) %>%
+  select(-iterations) %>%
+  mutate(iterations = size_iterations)
 
-(session_info <- sessionInfo())
-(run_date <- date())
+focal_design
 
-# stopCluster(cluster)
-rm(cluster, size_design, size_results)
+power_factors <- list(
+  beta = seq(-3, 3, 0.2),
+  subset = 1
+)
 
+c(nrow(focal_design), lengths(power_factors))
+prod(c(nrow(focal_design), lengths(power_factors)))
+
+power_design <-
+  focal_design %>%
+  select(-seed, -iterations) %>%
+  full_join(cross_d(power_factors)) %>%
+  select(-subset) %>%
+  mutate(
+    seed = round(runif(1) * 2^30) + row_number(),
+    iterations = power_iterations
+  )
+
+power_design
+nrow(size_design)
+nrow(focal_design)
+nrow(power_design)
+nrow(size_design) / 68 / 2
+nrow(focal_design) / 68 / 2
+nrow(power_design) / 68 / 2
+
+focal_HCtests <-
+  tribble(~ HC, ~ tests,
+          "HC2", list("Satt_H", "saddle_E","saddle_H", "KCCI_H", "KCCI_E"),
+          "HC4", list("naive")
+  )
+
+#---------------------------------
+# size adjustment calculations
+#---------------------------------
+
+# source_obj <- ls()
+# 
+# library(Pusto)
+# library(multidplyr)
+# cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
+
+parallel::clusterExport(cluster, "focal_HCtests")
+
+system.time(
+  focal_size_results <-
+    focal_design %>%
+    partition(cluster = cluster) %>%
+    do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm,
+                   alphas = alphas, HCtests = focal_HCtests,
+                   adjusted_alpha = TRUE,
+                   .to = "res")) %>%
+    collect() %>% ungroup() %>%
+    select(-PARTITION_ID) %>%
+    arrange(seed)
+)
+
+
+alphas_nominal <- alphas
+names(alphas_nominal) <- paste0("n", alphas)
+
+adjusted_alphas <-
+  focal_size_results %>%
+  unnest() %>%
+  filter(stat == "adjusted alpha") %>%
+  select(n, z, x_skew, e_dist, span, HC, coef, test, starts_with("p0")) %>%
+  rowwise() %>%
+  nest(starts_with("p0"), .key = "alphas") %>%
+  rowwise() %>%
+  mutate(alphas = list(c(unlist(alphas), alphas_nominal))) %>%
+  ungroup() %>%
+  group_by(n, z, x_skew, e_dist, span) %>%
+  nest(HC:alphas, .key = "alphas")
+
+# save(adjusted_alphas, file = "New simulations/one-dim-sim-adjusted_alphas.Rdata")
+# load("New simulations/one-dim-sim-adjusted_alphas.Rdata")
+
+#-----------------------------
+# Run power simulations
+#-----------------------------
+
+power_design_full  <-
+  power_design %>%
+  inner_join(adjusted_alphas)
+power_design_full
+
+# source_obj <- ls()
+# 
+# library(Pusto)
+# library(multidplyr)
+# cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
+
+system.time(
+  power_results <-
+    power_design_full %>%
+    partition(cluster = cluster) %>%
+    do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm,
+                   HCtests = focal_HCtests,
+                   .to = "res")) %>%
+    collect() %>% ungroup() %>%
+    select(-PARTITION_ID) %>%
+    arrange(seed)
+)
+
+session_info <- sessionInfo()
+run_date <- date()
+
+# save(power_design, focal_HCtests, alphas, adjusted_alphas, power_results, session_info, run_date,
+#      file = "New simulations/one-dim-sim-power-results.Rdata")
+
+gc(verbose = TRUE)

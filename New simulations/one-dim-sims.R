@@ -318,4 +318,4 @@ run_date <- date()
 save(power_design, focal_HCtests, alphas, adjusted_alphas, power_results, session_info, run_date,
      file = "New simulations/one-dim-sim-power-results.Rdata")
 
-snow::stopCluster(cluster)
+gc()
