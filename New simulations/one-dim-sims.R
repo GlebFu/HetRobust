@@ -56,34 +56,36 @@ one_dim_dgm <- function(n = 25, beta = 0, whichX = c(F, T),
 }
 
 # HC <- "HC2"
-# tests <- c("Satt_E","Satt_H","Satt_S","Satt_T","saddle_E","saddle_H","saddle_S","saddle_T")
+# tests <- c("KCCI_E","KCCI_H","Satt_E","Satt_H","Satt_S","Satt_T",
+#            "saddle_E","saddle_H","saddle_S","saddle_T")
 # alphas <- c(.005, .01, .05, .10)
 # z <- 0
 # 
-# model <- one_dim_dgm(n = 100, x_skew = 1, z = z)
+# model <- one_dim_dgm(n = 100, beta = -0.5, x_skew = 1, z = z, whichX = c(T, T))
 # 
-# dat <- with(model, data.frame(Y, X))
-# dat <- dat[order(dat$x1),]
-# lm_fit <- lm(Y ~ x1, data = dat)
-# dat$e <- residuals(lm_fit)
-# dat$e_sq <- dat$e^2 / (1 - model$h)
-# dat$y_hat <- fitted.values(lm_fit)
-# dat$sigma <- (1 - 4 * z)^z * exp(2 * z * dat$x1)
-# dat$e_sq_S <- predict(loess(e^2 ~ y_hat, data = dat, span = 0.25, statistics = "none"))
-# plot(density(dat$x1))
-# plot(Y ~ x1, data = dat)
-# plot(e_sq_S ~ sigma^2, data = dat)
-# abline(a = 0, b = 1)
+# omega <- with(model, switch(HC,
+#                             HC0 = rep(1, n),
+#                             HC1 = rep(n / (n - p), n),
+#                             HC2 = 1 / (1 - h),
+#                             HC3 = (1 - h)^(-2),
+#                             HC4 = (1 - h)^(-pmin(h * n / p, 4)),
+#                             HC4m = (1 - h)^(-(pmin(h * n / p, 1) + pmin(h * n / p, 1.5))),
+#                             HC5 = (1 - h)^(-pmin(h * n / p, pmax(4, .7 * n * max(h) / p)))
+# ))
 # 
-# spans <- seq(0.1, 0.5, 0.1)
-# names(spans) <- c("red","orange","yellow","green","blue")
-# plot(e_sq ~ x1, data = dat)
-# lines(sigma^2 ~ x1, data = dat, col = "green")
-# for (i in seq_along(spans)) {
-#   lines(predict(loess(e_sq ~ x1, data = dat, span = spans[i], statistics = "none")) ~ dat$x1,
-#         col = names(spans)[i])
-# }
+# sd <- with(model, sqrt(colSums(omega * (X_M * e)^2)))
 # 
+# pValues <- data.frame(coef = names(model$coefs))
+# 
+# t_stats <- model$coefs / sd
+# df <- Satterthwaite_empirical(sd = sd, X_M = model$X_M,
+#                                 omega = omega, e_sq = model$e^2,
+#                                 H = model$H, I_H = model$I_H)
+# m <- model$M_diag
+# n <- model$n
+# p <- model$p
+# KC_CI(t_stats, df, m = model$M_diag, n = model$n, p = model$p, alphas)
+# KC_CI_exact(t_stats, df, m = model$M_diag, n = model$n, p = model$p)
 # 
 # run_tests(HC, model, tests, alphas)
 # test_hom(model)
@@ -177,23 +179,23 @@ library(Pusto)
 library(multidplyr)
 cluster <- start_parallel(source_obj = source_obj, packages = "purrr")
 
-system.time(
-  size_results <- 
-    size_design %>%
-    partition(cluster = cluster) %>%
-    do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm, 
-                   alphas = alphas, HCtests = size_HCtests, 
-                   .to = "res")) %>%
-    collect() %>% ungroup() %>%
-    select(-PARTITION_ID) %>%
-    arrange(seed)
-)
-
-session_info <- sessionInfo()
-run_date <- date()
-
-save(size_design, size_HCtests, alphas, size_results, session_info, run_date, 
-     file = "New simulations/one-dim-sim-size-results.Rdata")
+# system.time(
+#   size_results <- 
+#     size_design %>%
+#     partition(cluster = cluster) %>%
+#     do(invoke_rows(.d = ., .f = run_sim, dgm = one_dim_dgm, 
+#                    alphas = alphas, HCtests = size_HCtests, 
+#                    .to = "res")) %>%
+#     collect() %>% ungroup() %>%
+#     select(-PARTITION_ID) %>%
+#     arrange(seed)
+# )
+# 
+# session_info <- sessionInfo()
+# run_date <- date()
+# 
+# save(size_design, size_HCtests, alphas, size_results, session_info, run_date, 
+#      file = "New simulations/one-dim-sim-size-results.Rdata")
 
 
 #-----------------------------
@@ -209,7 +211,7 @@ focal_design <-
 focal_design
 
 power_factors <- list(
-  beta = seq(-3, 3, 0.2),
+  beta = seq(-1, 1, 0.05),
   subset = 1
 )
 
@@ -227,17 +229,23 @@ power_design <-
   )
 
 power_design
-nrow(size_design)
-nrow(focal_design)
-nrow(power_design)
-nrow(size_design) / 68 / 2
-nrow(focal_design) / 68 / 2
-nrow(power_design) / 68 / 2
+cells <- c(nrow(size_design), nrow(focal_design), nrow(power_design))
+ceiling(cells / 68)
+ceiling(cells / 68 / 4)
+test_iterations <- c(0, 50, 20) * 10
+run_iterations <- test_iterations * 100
+times <- c(0, 52.526, 370.037)
+sum(times) / 60
+run_times <- (times / ceiling(cells / 68) / test_iterations) * 
+  ceiling(cells / 68 / 4) * run_iterations / 60^2
+run_times
+sum(run_times, na.rm = TRUE)
 
 focal_HCtests <-
   tribble(~ HC, ~ tests,
-          "HC2", list("Satt_H", "saddle_E","saddle_H", "KCCI_H", "KCCI_E"),
-          "HC4", list("naive")
+          "HC2", list("Satt_H","saddle_E","saddle_H", "KCCI_H", "KCCI_E"),
+          "HC4", list("naive"),
+          "HC5", list("naive")
   )
 
 #---------------------------------

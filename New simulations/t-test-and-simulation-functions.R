@@ -1,4 +1,5 @@
 
+# Updated 2017-04-10 by JEP
 # Updated 2017-04-02 by JEP
 
 #-----------------------------------
@@ -114,11 +115,49 @@ KC_CI <- function(t_stats, df, m, n, p, alphas) {
   mapply(test_t, t = t_stats, df = df, m = m)
 }
 
+
+z_alpha_HC <- function(alpha, t_stat, df, m, n, p) { 
+  z_crit <- qnorm(1 - alpha / 2)
+  t_crit <- qt(1 - alpha / 2, df = n - p)
+  abs(t_stat) - t_crit - (z_crit^3 + z_crit) * (1 / df - m^2 / (n - p)) / 4
+}
+
+find_p_HC <- function(t_stat, df, m, n, p, LB = 10^-6) {
+  z_init <- z_alpha_HC(LB, t_stat = t_stat, df = df, m = m, n = n, p = p)
+  if (z_init < 0) {
+    p <- uniroot(z_alpha_HC, interval = c(LB, 1 - LB), 
+                 t_stat = t_stat, df = df, m = m, n = n, p = p)$root  
+  } else {
+    p <- LB
+  }
+  p
+}
+
+KC_CI_exact <- function(t_stats, df, m, n, p) {
+  mapply(find_p_HC, t_stat = t_stats, df = df, m = m, MoreArgs = list(n = n, p = p))
+}
+
 #-------------------------------------------
 # Rothenberg Edgeworth approximations
 #-------------------------------------------
 
-Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, approx = "model") {
+z_alpha_Roth <- function(alpha, t_stat, df, a, b) { 
+  z_crit <- qnorm(1 - alpha / 2)
+  abs(t_stat) - (z_crit + (z_crit^3 + z_crit) / (4 * df) - z_crit * (a * (z_crit^2 - 1) + b) / 2)
+}
+
+find_p_Roth <- function(t_stat, df, a, b, LB = 10^-6) {
+  z_init <- z_alpha_Roth(LB, t_stat = t_stat, df = df, a = a, b = b)
+  if (z_init < 0) {
+    p <- uniroot(z_alpha_Roth, interval = c(LB, 1 - LB), 
+                 t_stat = t_stat, df = df, a = a, b = b)$root  
+  } else {
+    p <- LB
+  }
+  p
+}
+
+Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, approx = "model", exact = FALSE) {
   
   X_M_sq <- X_M^2
   
@@ -133,16 +172,20 @@ Rothenberg_pvals <- function(t_stats, sd, X_M, H, h, I_H, omega, e, df, alphas, 
     b_vec <- colSums(omega * q_ii * X_M_sq) / sd^2
   }
   
-  
   p_val <- 2 * (1 - pnorm(abs(t_stats) * pmax(0, 2 - (1 + t_stats^2) / (2 * df) + a_vec * (t_stats^2 - 1) + b_vec) / 2))
   p_val <- pmin(1, p_val)
-  
-  z_crit <- qnorm(1 - alphas / 2)
-  test_t <- function(t, df, a, b) {
-    z_alpha <- z_crit + (z_crit^3 + z_crit) / (4 * df) - z_crit * (a * (z_crit^2 - 1) + b) / 2
-    min(c(alphas[abs(t) > z_alpha],1))
+
+  if (exact) {
+    CI <- mapply(find_p_Roth, t_stat = t_stats, df = df, a = a_vec, b = b_vec)
+  } else {
+    z_crit <- qnorm(1 - alphas / 2)
+    test_t <- function(t, df, a, b) {
+      z_alpha <- z_crit + (z_crit^3 + z_crit) / (4 * df) - z_crit * (a * (z_crit^2 - 1) + b) / 2
+      min(c(alphas[abs(t) > z_alpha],1))
+    }
+    CI <- mapply(test_t, t = t_stats, df = df, a = a_vec, b = b_vec)  
   }
-  CI <- mapply(test_t, t = t_stats, df = df, a = a_vec, b = b_vec)
+  
   
   data.frame(p_val, CI)
 }
@@ -214,14 +257,12 @@ test_HC <- function(HC, model, tests, alphas, span = 0.75) {
   if ("KCp_E" %in% tests) pValues$KCp_E <- KC_pval(t_stats = t_stats, df = df_E)
   if ("KCp_H" %in% tests) pValues$KCp_H <- KC_pval(t_stats = t_stats, df = df_H)
   if ("KCCI_E" %in% tests) {
-    a <- if (is.vector(alphas)) alphas else alphas$alphas[[which(alphas$test=="KCCI_E")]]
-    pValues$KCCI_E <- KC_CI(t_stats = t_stats, df = df_E, m = model$M_diag, 
-                            n = model$n, p = model$p, alphas = a)
+    pValues$KCCI_E <- KC_CI_exact(t_stats = t_stats, df = df_E, 
+                                  m = model$M_diag, n = model$n, p = model$p)
   }
   if ("KCCI_H" %in% tests) {
-    a <- if (is.vector(alphas)) alphas else alphas$alphas[[which(alphas$test=="KCCI_H")]]
-    pValues$KCCI_H <- KC_CI(t_stats = t_stats, df = df_H, m = model$M_diag, 
-                            n = model$n, p = model$p, alphas = a)
+    pValues$KCCI_H <- KC_CI_exact(t_stats = t_stats, df = df_H, 
+                                  m = model$M_diag, n = model$n, p = model$p)
   }
   
   # Rothenberg's edgeworth approximations
@@ -231,7 +272,7 @@ test_HC <- function(HC, model, tests, alphas, span = 0.75) {
     Roth_E <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
                                H = model$H, h = model$h, I_H = model$I_H, 
                                omega = omega, e = model$e, 
-                               df = df_E, alphas = alphas, approx = "empirical")
+                               df = df_E, alphas = alphas, approx = "empirical", exact = TRUE)
     if ("Rp_E" %in% tests) pValues$Rp_E <- Roth_E$p_val
     if ("RCI_E" %in% tests) pValues$RCI_E <- Roth_E$CI
   }
@@ -240,7 +281,7 @@ test_HC <- function(HC, model, tests, alphas, span = 0.75) {
     Roth_H <- Rothenberg_pvals(t_stats, sd = sd, X_M = model$X_M, 
                                H = model$H, h = model$h, I_H = model$I_H, 
                                omega = omega, e = model$e, 
-                               df = df_H, alphas = alphas, approx = "model")
+                               df = df_H, alphas = alphas, approx = "model", exact = TRUE)
     if ("Rp_H" %in% tests) pValues$Rp_H <- Roth_H$p_val
     if ("RCI_H" %in% tests) pValues$RCI_H <- Roth_H$CI
   }

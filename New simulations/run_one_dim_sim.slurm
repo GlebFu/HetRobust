@@ -5,7 +5,7 @@
 #SBATCH -p normal		       	  		    # Submit to the 'normal' or 'development' queue
 #SBATCH -N 4                   			    # Total number of nodes
 #SBATCH -n 272                 			    # Total number of mpi tasks requested
-#SBATCH -t 06:00:00          		      	# Run time (hh:mm:ss)
+#SBATCH -t 6:00:00          		      	# Run time (hh:mm:ss)
 #SBATCH -A Parallel-demonstrati      		# Allocation name to charge job against
 #SBATCH --mail-user=jepusto@gmail.com 		# specify email address for notifications
 #SBATCH --mail-type=begin   		      	# email when job begins
