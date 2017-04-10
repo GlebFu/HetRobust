@@ -123,12 +123,14 @@ z_alpha_HC <- function(alpha, t_stat, df, m, n, p) {
 }
 
 find_p_HC <- function(t_stat, df, m, n, p, LB = 10^-6) {
-  z_init <- z_alpha_HC(LB, t_stat = t_stat, df = df, m = m, n = n, p = p)
-  if (z_init < 0) {
+  z_bounds <- z_alpha_HC(c(LB,1 - LB), t_stat = t_stat, df = df, m = m, n = n, p = p)
+  if (prod(sign(z_bounds)) < 0) {
     p <- uniroot(z_alpha_HC, interval = c(LB, 1 - LB), 
                  t_stat = t_stat, df = df, m = m, n = n, p = p)$root  
-  } else {
+  } else if (all(z_bounds > 0)) {
     p <- LB
+  } else {
+    p <- 1 - LB
   }
   p
 }
