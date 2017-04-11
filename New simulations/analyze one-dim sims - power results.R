@@ -9,7 +9,10 @@ ls()
 power_results <- 
   power_results %>%
   select(-alphas) %>%
-  unnest()
+  unnest() %>%
+  mutate(test = ifelse(test == "naive", paste(test, HC), test))
+
+
 summary(power_results$percent_NA)
 table(power_results$test)
 table(power_results$iterations)
@@ -18,9 +21,9 @@ power_results %>%
   summary()
 
 power_results %>%
-  filter(n == 25, e_dist == "t5", -1 <= beta, beta <= 1) %>%
+  filter(n == 25, e_dist == "norm") %>%
   ggplot(aes(beta, p0.01, color = test)) + 
-  geom_point() + geom_line() + 
+  geom_line() + 
   facet_grid(z ~ x_skew, scales = "free_y", labeller = "label_both") + 
   expand_limits(y = 0) + 
   theme_light() + 
