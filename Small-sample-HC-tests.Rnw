@@ -159,7 +159,7 @@ If the errors are instead heteroskedastic, the variance estimator $V^{hom}$ will
 Allowing for heteroskedasticity, the true variance of the OLS estimator is 
 \begin{equation}
 \label{eq:var_beta}
-\Var\left(\bm{c}'\bs{\hat\beta}\right) = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}'\right) \bm{M}\bm{c}
+\Var\left(\bm{c}'\bs{\hat\beta}\right) = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}_i'\right) \bm{M}\bm{c}
 \end{equation}
 The HCCCMEs estimate $\Var\left(\bm{c}'\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates based on the squared residuals. All of the HCCMEs have the same general form  
 \begin{equation}
@@ -394,15 +394,22 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 
-load("New simulations/one-dim-sim-20170327.Rdata")
+load("New simulations/one-dim-sim-size-results.Rdata")
 
 size_results <- 
   size_results %>%
-  select(-subset, -seed, -percent_NA) %>%
+  unnest() %>%
+  select(-seed, -percent_NA) %>%
   gather("level","rejection", starts_with("p")) %>%
+  group_by(n, z, x_skew, e_dist, span, HC, coef, test, level) %>%
+  summarise(
+    iterations = sum(iterations), 
+    rejection = mean(rejection)
+  ) %>%
+  ungroup() %>%
   mutate(
     level = as.numeric(str_sub(level, 2,-1)),
-    alpha = paste("alpha =", str_sub(level, 2, -1)),
+    alpha = paste("\alpha =", str_sub(level, 2, -1)),
     by_val = ifelse(test=="naive", HC, test),
     reject_rel = rejection / level,
     error_dist = factor(e_dist, 

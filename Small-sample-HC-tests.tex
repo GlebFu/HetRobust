@@ -210,7 +210,7 @@ If the errors are instead heteroskedastic, the variance estimator $V^{hom}$ will
 Allowing for heteroskedasticity, the true variance of the OLS estimator is 
 \begin{equation}
 \label{eq:var_beta}
-\Var\left(\bm{c}'\bs{\hat\beta}\right) = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}'\right) \bm{M}\bm{c}
+\Var\left(\bm{c}'\bs{\hat\beta}\right) = \frac{1}{n} \bm{c}'\bm{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \bm{x}_i\bm{x}_i'\right) \bm{M}\bm{c}
 \end{equation}
 The HCCCMEs estimate $\Var\left(\bm{c}'\bs{\hat\beta}\right)$ by replacing the $\sigma_i^2$ with estimates based on the squared residuals. All of the HCCMEs have the same general form  
 \begin{equation}

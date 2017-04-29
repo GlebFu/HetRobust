@@ -1,0 +1,377 @@
+---
+title: "Heteroskedasticity-robust tests in linear regression: A review and evaluation of small-sample corrections"
+author: "James E. Pustejovsky and Gleb Furman"
+date: "4/30/2017"
+output:
+  slidy_presentation: 
+    fig_width: 8
+    fig_height: 5
+---
+
+# Linear regression
+
+Let's talk about a basic regression model:
+
+$$
+\begin{aligned}
+y_i &= \beta_0 + \beta_1 x_{1i} + \cdots + \beta_{p-1} x_{p-1,i} + e_i \\
+\mathbf{y} &= \mathbf{X} \boldsymbol\beta + \mathbf{e}
+\end{aligned}
+$$
+estimated by ordinary least squares: 
+
+$$
+\boldsymbol{\hat\beta} = \left(\mathbf{X}'\mathbf{X}\right)^{-1} \mathbf{X}'\mathbf{y}.
+$$
+
+>* Classical inference methods assume homoskedasticity: $\text{Var}(e_i) = \sigma^2$
+>* But there are many settings where the we would rather allow for __*heteroskedasticity of an unknown form*__: $\text{Var}(e_i) = \sigma_i^2$
+>* One way to do inference in this setting is by using __*heteroskedasticity-consistent covariance matrix estimators*__ (HCCMEs; Eicker, 1967; Huber, 1967; White, 1980).
+
+---
+
+# HCCMEs
+
+>* Variance of the OLS estimator: 
+$$
+\text{Var}\left(\mathbf{c}'\boldsymbol{\hat\beta}\right) = \frac{1}{n} \mathbf{c}'\mathbf{M} \left(\frac{1}{n}\sum_{i=1}^n \sigma_i^2 \mathbf{x}_i\mathbf{x}_i'\right) \mathbf{M}\mathbf{c}, \qquad \mathbf{M} = \left(\frac{1}{n}\mathbf{X}'\mathbf{X}\right)^{-1}
+$$
+
+>* The original HCCME (sandwich) estimator:
+$$
+\mathbf{V}^{HC0} = \frac{1}{n} \mathbf{c}'\mathbf{M} \left(\frac{1}{n}\sum_{i=1}^n \hat{e}_i^2 \mathbf{x}_i\mathbf{x}_i'\right) \mathbf{M}\mathbf{c}
+$$
+
+>* HC0 is asymptotically consistent, but __*biased*__ in small samples; hypothesis tests based on HC0 can have poor coverage in small samples.
+>* Features of design matrix (especially __*leverage*__) influence bias and coverage.
+
+---
+
+# Potential small-sample improvements
+
+>* Modified sandwich estimators (MacKinnon & White, 1985; Davidson & MacKinnon, 1993):
+$$
+\mathbf{V}^{HC0} = \frac{1}{n} \mathbf{c}'\mathbf{M} \left(\frac{1}{n}\sum_{i=1}^n \color{red}{\omega_i} \hat{e}_i^2 \mathbf{x}_i\mathbf{x}_i'\right) \mathbf{M}\mathbf{c}
+$$
+where 
+$$
+\small
+\begin{aligned}
+\text{HC1:} \qquad \omega_i &= n / (n - p) \\
+\text{HC2:} \qquad \omega_i &= (1 - h_{ii})^{-1} \\
+\text{HC3:} \qquad \omega_i &= (1 - h_{ii})^{-2}
+\end{aligned}
+$$
+
+>* Long and Ervin (2000) conducted a comprehensive simulation study on hypothesis test coverage with HCCMEs, recommended HC3 as default. 
+
+>* Subsequently (Cribari-Neto et al., 2004, 2007, 2011): 
+$$
+\small
+\begin{aligned}
+\text{HC4:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \min\{h_{ii} n / p, 4\} \\
+\text{HC4m:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \min\left\{h_{ii} n / p, 1 \right\} + \min\left\{h_{ii} n / p, 1.5 \right\} \\
+\text{HC5:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \min\left\{h_{ii} n / p, \max \left\{4, 0.7 h_{(n)(n)} n / p\right\}\right\}
+\end{aligned}
+$$
+
+---
+
+# Other potential small-sample improvements
+
+Approximations for the reference distribution of test statistic:
+
+>* Satterthwaite approximation (Lipsitz, Ibrahim, & Parzen, 1999)
+>* Edgeworth approximation (Kauermann & Carroll, 2001) 
+>* Saddlepoint approximation (McCaffrey & Bell, 2006)
+
+>* All three approximations developed assuming a homoskedastic "working model" for the error structure.
+
+>* These approaches have been largely ignored. Never compared to HC\* variants or to each other.
+
+---
+
+# Simulations
+
+>* Simple regression with one predictor:
+$$
+y_i = \beta_0 + \beta_1 x_i + \sigma_i e_i
+$$
+>* Predictor variable $x_i \sim \chi^2$ with varying degrees of skewness
+>* Errors $e_i \sim N(0, 1)$, $t_5$, or $\chi^2_5$
+>* Skedasticity function $\sigma_i = \exp(\zeta x_i)$, $\zeta = 0.00,0.02,0.04,...,0.20$ 
+>* sample sizes of $n = 25, 50, 100$
+>* Target Type-I error rates of $\alpha = .05, .01, .005$
+>* Rejection rates estimated from 50000 replications
+
+---
+
+# Size of HC* variants, $\alpha = .05$
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(stringr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+
+load("../New simulations/one-dim-sim-size-results.Rdata")
+
+size_results <- 
+  size_results %>%
+  unnest() %>%
+  select(-seed, -percent_NA) %>%
+  gather("level","rejection", starts_with("p")) %>%
+  group_by(n, z, x_skew, e_dist, span, HC, coef, test, level) %>%
+  summarise(
+    iterations = sum(iterations), 
+    rejection = mean(rejection)
+  ) %>%
+  ungroup() %>%
+  mutate(
+    level = as.numeric(str_sub(level, 2,-1)),
+    alpha = paste("\alpha =", str_sub(level, 2, -1)),
+    reject_rel = rejection / level,
+    sample_size = factor(n, levels = c(25, 50, 100), labels = paste("n =", c(25, 50, 100))),
+    error_dist = factor(e_dist, 
+                        levels = c("norm","t5","chisq"), 
+                        labels = paste(c("Normal","t(5)","Chi-squared"), "errors")),
+    skew = paste("Skewness =", x_skew)
+  )
+  
+tests <- data_frame(
+  test = unique(size_results$test),
+  test_lab = c("naive",rep("Edgeworth",8), rep("saddlepoint",4), rep("Satterthwaite",4))
+)
+
+size_results <- 
+  size_results %>%
+  left_join(tests, by = "test") %>%
+  mutate(
+    by_val = ifelse(test=="naive", HC, test_lab),
+    by_val = factor(by_val, levels = c(paste0("HC",1:4), "HC4m","HC5", unique(tests$test_lab)))
+  )
+```
+
+```{r, echo = FALSE, out.width = "100%"}
+size_results %>%
+  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), 
+         e_dist=="norm", x_skew %in% c(.5, 2), reject_rel <= 3,
+         level==0.05 
+         ) %>%
+ggplot(aes(z, rejection, color = by_val, shape = by_val)) +
+      geom_point() + geom_line() +
+      geom_hline(aes(yintercept = level), linetype = "solid") + 
+      facet_grid(skew ~ sample_size) + 
+      expand_limits(y = 0) + 
+      theme_light() + 
+      theme(legend.position = "top", 
+            strip.text.x = element_text(color = "black"), 
+            strip.text.y = element_text(color = 'black')) + 
+      labs(x = quote(Heteroskedasticity (zeta)), y = "Rejection rate", 
+           color = "", linetype = "", shape = "")
+```
+
+---
+
+# Size of HC* variants, $\alpha = .01$
+
+```{r, echo = FALSE, out.width = "100%"}
+size_results %>%
+  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), 
+         e_dist=="norm", x_skew %in% c(.5, 2), reject_rel <= 3,
+         level==0.01 
+         ) %>%
+ggplot(aes(z, rejection, color = by_val, shape = by_val)) +
+      geom_point() + geom_line() +
+      geom_hline(aes(yintercept = level), linetype = "solid") + 
+      facet_grid(skew ~ sample_size) + 
+      expand_limits(y = 0) + 
+      theme_light() + 
+      theme(legend.position = "top", 
+            strip.text.x = element_text(color = "black"), 
+            strip.text.y = element_text(color = 'black')) + 
+      labs(x = quote(Heteroskedasticity (zeta)), y = "Rejection rate", 
+           color = "", linetype = "", shape = "")
+```
+
+---
+
+# Size of HC* variants, $\alpha = .005$
+
+```{r, echo = FALSE, out.width = "100%"}
+size_results %>%
+  filter(test=="naive" & HC %in% c("HC3","HC4","HC4m","HC5"), 
+         e_dist=="norm", x_skew %in% c(.5, 2), reject_rel <= 3,
+         level==0.005 
+         ) %>%
+ggplot(aes(z, rejection, color = by_val, shape = by_val)) +
+      geom_point() + geom_line() +
+      geom_hline(aes(yintercept = level), linetype = "solid") + 
+      facet_grid(skew ~ sample_size) + 
+      expand_limits(y = 0) + 
+      theme_light() + 
+      theme(legend.position = "top", 
+            strip.text.x = element_text(color = "black"), 
+            strip.text.y = element_text(color = 'black')) + 
+      labs(x = quote(Heteroskedasticity (zeta)), y = "Rejection rate", 
+           color = "", linetype = "", shape = "")
+```
+
+---
+
+# Size of selected tests, $\alpha = .05$
+
+```{r, echo = FALSE, out.width = "100%"}
+
+selected_HCs <- c("HC3","HC4")
+selected_tests <- c("saddle_H","Satt_H","KCCI_H")
+
+size_results %>%
+  filter((test=="naive" & HC %in% selected_HCs) | test %in% selected_tests,
+         e_dist=="norm", x_skew %in% c(.5, 2), reject_rel <= 3,
+         level==0.05 
+         ) %>%
+ggplot(aes(z, rejection, color = by_val, shape = by_val)) +
+      geom_point() + geom_line() +
+      geom_hline(aes(yintercept = level), linetype = "solid") + 
+      facet_grid(skew ~ sample_size) + 
+      expand_limits(y = 0) + 
+      theme_light() + 
+      theme(legend.position = "top", 
+            strip.text.x = element_text(color = "black"), 
+            strip.text.y = element_text(color = 'black')) + 
+      labs(x = quote(Heteroskedasticity (zeta)), y = "Rejection rate", 
+           color = "", linetype = "", shape = "")
+```
+
+---
+
+# Size of selected tests, $\alpha = .01$
+
+```{r, echo = FALSE, out.width = "100%"}
+
+size_results %>%
+  filter((test=="naive" & HC %in% selected_HCs) | test %in% selected_tests,
+         e_dist=="norm", x_skew %in% c(.5, 2), reject_rel <= 3,
+         level==0.01 
+         ) %>%
+ggplot(aes(z, rejection, color = by_val, shape = by_val)) +
+      geom_point() + geom_line() +
+      geom_hline(aes(yintercept = level), linetype = "solid") + 
+      facet_grid(skew ~ sample_size) + 
+      expand_limits(y = 0) + 
+      theme_light() + 
+      theme(legend.position = "top", 
+            strip.text.x = element_text(color = "black"), 
+            strip.text.y = element_text(color = 'black')) + 
+      labs(x = quote(Heteroskedasticity (zeta)), y = "Rejection rate", 
+           color = "", linetype = "", shape = "")
+```
+
+---
+
+# Size of selected tests, $\alpha = .005$
+
+```{r, echo = FALSE, out.width = "100%"}
+
+size_results %>%
+  filter((test=="naive" & HC %in% selected_HCs) | test %in% selected_tests,
+         e_dist=="norm", x_skew %in% c(.5, 2), reject_rel <= 3,
+         level==0.005 
+         ) %>%
+ggplot(aes(z, rejection, color = by_val, shape = by_val)) +
+      geom_point() + geom_line() +
+      geom_hline(aes(yintercept = level), linetype = "solid") + 
+      facet_grid(skew ~ sample_size) + 
+      expand_limits(y = 0) + 
+      theme_light() + 
+      theme(legend.position = "top", 
+            strip.text.x = element_text(color = "black"), 
+            strip.text.y = element_text(color = 'black')) + 
+      labs(x = quote(Heteroskedasticity (zeta)), y = "Rejection rate", 
+           color = "", linetype = "", shape = "")
+```
+
+---
+
+# Findings
+
+>1. Currently recommended test HC3 does not adequately control type-I error rate.
+>2. At the $\alpha = .05$ level, HC4 maintains most accurate rejection rates of all tests considered.
+>3. At smaller $\alpha$ levels, Satterthwaite and Edgeworth approximations out-perform HC3 and HC4. 
+
+---
+
+# Discussion
+
+>* In ongoing work, we are examining the relative power of tests (after size adjustment)
+>* Generality of findings requires further investigation (covariate distribution, skedasticity function, number of predictors)
+>* Distributional approximations warrant wider consideration because they can be generalized to more complex models.
+
+---
+
+# References {.smaller}
+
+Cribari-Neto, F. (2004). Asymptotic inference under heteroskedasticity of unknown form. Computational Statistics and Data Analysis, 45(2), 215-233.
+
+Cribari-Neto, F., Souza, T. C., & Vasconcellos, K. L. P. (2007). Inference under heteroskedasticity and leveraged data. Communications in Statistics - Theory and Methods, 36(10), 1877-1888. 
+
+Cribari-Neto, F., & da Silva, W. B. (2011). A new heteroskedasticity-consistent covariance matrix estimator for the linear regression model. Advances in Statistical Analysis, 95(2), 129-146.
+
+Davidson, R., & MacKinnon, J. G. (1993). Estimation and Inference in Econometrics. New York, NY: Oxford University Press.
+
+Eicker, F. (1967). Limit theorems for regressions with unequal and dependent errors. In Proceedings of the Berkeley Symposium on Mathematical Statistics and Probability (Vol. 1, pp. 59-82). Berkeley, CA: University of California Press.
+
+Huber, P. J. (1967). The behavior of maximum likelihood estimates under nonstandard conditions. In Proceedings of the fifth Berkeley symposium on Mathematical Statistics and Probability (pp. 221-233). Berkeley, CA: University of California Press.
+
+Kauermann, G., & Carroll, R. J. (2001). A note on the efficiency of sandwich covariance matrix estimation. Journal of the American Statistical Association, 96(456), 1387-1396.
+
+Lipsitz, S. R., Ibrahim, J. G., & Parzen, M. (1999). A degrees-of-freedom approximation for a t-statistic with heterogeneous variance. Journal of the Royal Statistical Society: Series D (The Statistician), 48(4), 495-506. 
+
+Long, J. S., & Ervin, L. H. (2000). Using heteroscedasticity consistent standard errors in the linear regression model. The American Statistician, 54(3), 217-224. 
+
+MacKinnon, J. G., & White, H. (1985). Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties. Journal of Econometrics, 29, 305-325.
+
+McCaffrey, D. F., & Bell, R. M. (2006). Improved hypothesis testing for coefficients in generalized estimating equations with small samples of clusters. Statistics in Medicine, 25(23), 4081-98. 
+
+White, H. (1980). A heteroskedasticity-consistent covariance matrix estimator and a direct test for heteroskedasticity. Econometrica, 48(4), 817-838.
+
+---
+
+# Degree of heteroskedasticity
+
+```{r, echo = FALSE, warning = FALSE, out.width = "45%", fig.width = 5, fig.height = 4}
+library(ggplot2)
+set.seed(20170429)
+n <- 2000
+x_skew <- 0.1
+e_dist <- "norm"
+
+v <- 8 / x_skew^2
+x <- (rchisq(n, df = v) - v ) / sqrt(2 * v)
+e <- switch(e_dist,
+            norm = rnorm(n, 0, 1),
+            chisq = (rchisq(n, 5) - 5) / sqrt(10),
+            t5 = rt(n, 5) * sqrt(3 / 5)
+            )
+
+sigma_hom <- exp(0 * x)
+sigma_het <- exp(0.2 * x)
+dat <- data.frame(x = x, y_hom = sigma_hom * e, y_het = sigma_het * e)
+
+ggplot(dat, aes(x, abs(y_hom))) + 
+  geom_blank(aes(x, abs(y_het))) +
+  geom_point(alpha = 0.2) + 
+  geom_hline(yintercept = 0) + 
+  geom_smooth(method = "loess", color = "red") + 
+  theme_light() + 
+  labs(title = "Homoskedastic (z = 0)", y = "|e|")
+
+ggplot(dat, aes(x, abs(y_het))) + 
+  geom_point(alpha = 0.2) + 
+  geom_hline(yintercept = 0) + 
+  geom_smooth(method = "loess", color = "red") + 
+  theme_light() + 
+  labs(title = "Heteroskedastic (z = 0.2)", y = "|e|")
+
+```
