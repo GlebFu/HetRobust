@@ -124,7 +124,7 @@ In linear regression models estimated by ordinary least squares, it is often des
 Wald tests based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs, also known as sandwich estimators or simply "robust" standard errors) are a well known and widely applied method that remains asymptotically valid under heteroskedasticity of an unspecified form.
 Wald-type t-tests based on HCCMEs maintain nominal rejection rates when the sample size is large, but they are not always accurate with small samples; moreover, it can be difficult to determine whether a given sample is large enough to trust the asymptotic approximation.
 This paper reviews several approaches to approximating the null sampling distribution of HCCME t-tests and thereby improving the accuracy of rejection rates in small samples.
-Using simulations, we investigate the relative performance of Satterthwaite, Edgeworth, and saddlepoint approximations under a wide range of data generating processes.
+Using simulations, we investigate the relative performance of Satterthwaite, Edgeworth, and saddlepoint approximations under a range of data generating processes.
 Results indicate that certain distributional approximations perform similarly to conventional tests based on HCCMEs, and can improve upon them when the nominal Type-I error rate is less than .05. 
 \end{abstract}
 
@@ -141,7 +141,7 @@ Results indicate that certain distributional approximations perform similarly to
 Linear regression models, estimated by ordinary least squares (OLS), are one of the most important and ubiquitous tools in applied statistical work.
 Classical hypothesis tests and confidence intervals for linear regression coefficients rely on the assumption that the model errors are homoskedastic, or have constant variance for all values of the covariates. 
 In practice though, it can be difficult to diagnose violations of this assumption, and similarly difficult to construct and defend other assumptions about how the error variances relate to the covariates. 
-Thus, it is often desirable to use methods of inference that remain valid for models with heteroskedasticity of an unknown form.
+Thus, it is often desirable to use methods that remain valid under models with heteroskedasticity of an unknown form.
 
 A well-known approach to inference in this setting is based on heteroskedasticity-consistent covariance matrix estimators (HCCMEs), which yield asymptotically consistent estimates of the sampling variance of OLS coefficient estimates under quite general conditions \citep{Huber1967behavior, Eicker1967limit, White1980heteroskedasticity}. 
 HCCMEs are an attractive tool because they rely on weaker assumptions than classical methods. 
@@ -156,9 +156,9 @@ More recently, several further variations on the HCCMEs have been proposed \cite
 For hypothesis testing, HCCMEs are typically used to calculate t-statistics, which are compared to standard normal or $t(n - p)$ reference distributions, where $n$ is the sample size and $p$ is the dimension of the coefficient vector.
 
 An alternative approach to improving the small-sample properties of hypothesis tests based on HCCMEs is to find a better approximation to the null sampling distribution of the test statistic. 
-Several such approximations have been proposed, including Satterthwaite approximations \citep{Lipsitz1999degrees}, Edgeworth approximations \citep{Rothenberg1988approximate, Kauermann2001note}, and saddlepoint approximations \citep{McCaffrey2006improved}. 
-Although there is evidence that each of these approximations improves upon the standard, large-sample tests, their performance has been examined only under a limited range of conditions. 
-Moreover, it appears that these approximations have been developed in isolation, without reference to previous work, and they have received little subsequent attention \citep[e.g., none are discussed in a recent review by][]{MacKinnon2013thirty}. 
+Several such approximations have been proposed, including Satterthwaite \citep{Lipsitz1999degrees}, Edgeworth \citep{Rothenberg1988approximate, Kauermann2001note}, and saddlepoint approximations \citep{McCaffrey2006improved}. 
+Although there is evidence that each of these approximations improves upon the standard, large-sample tests, their finite-sample performance has been studied only under a very limited range of data-generating processes. 
+Moreover, it appears that these approximations have been developed in isolation, without reference to previous work, and they have received little subsequent attention \citep[e.g., none are discussed in a recent review of heteroskedasticity-robust inference by][]{MacKinnon2013thirty}. 
 In contrast to the various HC corrections, none of the distributional approximations are implemented in standard software packages for data analysis.\todo{Add more on gaps in literature.} 
 
 In this paper, we review the various small-sample approximations for hypothesis tests based on HCCMEs, using a common notation in order to facilitate comparisons among them. 
@@ -231,7 +231,7 @@ Their forms are as follows:
 \text{HC3:} \qquad \omega_i &= (1 - h_{ii})^{-2} \\
 \text{HC4:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \min\{h_{ii} n / p, 4\} \\
 \text{HC4m:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \min\left\{h_{ii} n / p, 1 \right\} + \min\left\{h_{ii} n / p, 1.5 \right\} \\
-\text{HC5:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \frac{1}{2}\min\left\{h_{ii} n / p, \max \left\{4, 0.7 h_{(n)(n)} n / p\right\}\right\}
+\text{HC5:} \qquad \omega_i &= (1 - h_{ii})^{-\delta_i}, \qquad \delta_i = \min\left\{h_{ii} n / p, \max \left\{4, 0.7 h_{(n)(n)} n / p\right\}\right\}
 \end{align*}
 \citet{MacKinnon1985some} suggested HC1, which uses an ad hoc correction similar to the correction used for $\hat\sigma^2$, and HC2, which has the property that $V^{HC2}$ is exactly unbiased when the errors are homoskedastic. 
 \citet{Davidson1993estimation} proposed HC3 as an approximation to the leave-on-out jackknife variance estimator. 
@@ -240,12 +240,12 @@ Cribari-Neto and colleagues subsequently proposed three further variations, HC4 
 All of these correction factors inflate the squared residual term to a greater extent when an observation has a higher degree of leverage. 
 HC4 truncates the degree of inflation at 4 times the average leverage. 
 Compared to HC4, HC4m inflates observations with lower leverage more strongly, while truncating the maximum degree of inflation at 2.5 times the average. 
-In HC5, the truncation point depends on the maximum leverage value but the degree of inflation will tend to be smaller than HC4. 
+In HC5, the truncation point depends on the maximum leverage value and will exceed 4 if the maximum leverage value is more than 5.71 times the average. 
 
-For any of the HCCMEs, the robust Wald statistic $T^{HC} = \left(\bm{c}'\bs{\hat\beta} - k\right) / \sqrt{V^{HC}}$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. 
+For any of the HCCMEs and under weak conditions on the error and covariate distributions, the robust Wald statistic $T^{HC} = \left(\bm{c}'\bs{\hat\beta} - k\right) / \sqrt{V^{HC}}$ converges in distribution to $N(0,1)$ as $n$ increases to infinity. 
 Thus, an asymptotically correct test can be constructed by rejecting $H_0$ when $\left|T^{HC}\right|$ is greater than the $1 - \alpha / 2$ critical value from a standard normal distribution. 
 In practice, it is common to instead use the critical value from a $t$ distribution with $n - p$ degrees of freedom. 
-However, use of the $t_{n-p}$ reference distribution is only an ad hoc approximation. In Section \ref{sec:approximations}, we review several distinct, better-grounded approximations to the null sampling distribution of $T^{HC}$. 
+However, use of the $t_{n-p}$ reference distribution is only an ad hoc approximation. In Section \ref{sec:approximations}, we review several distinct, more theoretically grounded approximations to the null sampling distribution of $T^{HC}$. 
 
 \subsection{Distribution of $V^{HC}$}
 \label{subsec:distribution_theory}
@@ -272,7 +272,7 @@ Again assuming that the model errors are normally distributed, the sampling dist
 Note that the matrix $\bm{B}\bs\Sigma$ has rank $n - p$. 
 Let $\lambda_1,...,\lambda_{n - p}$ denote its non-zero eigenvalues, arranged in descending order. 
 Let $Z_1,...,Z_{n-p}$ denote independent $\chi^2_1$ random variates. 
-Then 
+Then the distribution 
 \begin{equation}
 \label{eq:weighted_sum_chi_sq}
 V^{HC} \stackrel{d}{=} \sum_{i=1}^{n-p} \lambda_i Z_i,
@@ -284,7 +284,7 @@ where $\stackrel{d}{=}$ means that two quantities have identical distributions \
 
 This section reviews four approximations to the null sampling distribution of $T^{HC}$, including a Satterthwaite approximation, two different Edgeworth-type approximations, and a saddlepoint approximation. 
 As will be seen, all of the approximations involve quantities that depend on the unknown error variances. 
-A key consideration in developing these approximations is how to estimate the error variances. 
+Thus, a key consideration in developing feasible versions of these approximations is how to estimate the error variances. 
 Past proposals have each considered different strategies, including estimating the errors empirically (as in the HCCME itself) or by assuming that they follow a known structure. 
 
 \subsection{Satterthwaite approximation} 
@@ -372,7 +372,7 @@ Based on this Edgeworth approximation, \citet{Rothenberg1988approximate} propose
 \label{eq:edge_Roth}
 t_\alpha = z_{\alpha}\left(1 + \frac{z_{\alpha}^2 + 1}{4 \nu} - \frac{a\left(z_{\alpha}^2 - 1\right) + b}{2}\right).
 \end{equation}
-It can be seen that this critical value is similar to Kauermann and Carroll's closed-form approximate critical value (Equation \ref{eq:Kauermann_approx}), the only differences being that the first term uses a standard normal quantile rather than a $t_{n - p}$ quantile and that the third terms differ. 
+It can be seen that this critical value is similar to Kauermann and Carroll's closed-form approximate critical value from Equation (\ref{eq:Kauermann_approx}), the only differences being that the first term uses a standard normal quantile rather than a $t_{n - p}$ quantile and that the third terms differ. 
 
 In practice, the $a$ and $b$ terms and the degrees of freedom must be estimated because they depend on the unknown error variances.
 Rothenberg proposed to do so by replacing values of $\sigma_i^2$ with $e_i^2$ in the expressions for $a$ and $b$ and using $\nu_R = \left(\sum_{i=1}^n g_i^2 e_i^2\right)^2 \left(\sum_{i=1}^n g_i^4 e_i^4 / 3 \right)^{-1}$ as an empirical degrees of freedom approximation. 
@@ -421,8 +421,8 @@ The simulation studies examine the performance of both the working model approac
 We have reviewed several approximations for the null sampling distribution of $T^{HC}$ and have also noted that any of the approximations could be applied using either empirical estimates of the model errors or estimates based on an assumed working model, such as homoskedasticity.
 All of the approximations are derived under the assumption that the model errors are normally distributed, and several of them invoke the additional assumption that $V^{HC}$ is independent of the OLS coefficient estimator, which will not hold precisely unless the errors are homoskedastic. 
 The approximations may differ in the extent to which their performance suffers under data-generating models with non-normal or heteroskedastic errors.
-Furthermore, some versions of the approximations involve a working model, and it is unclear how discrepancies between the working model and the true data generating model will affect their performance. 
-Thus, it is not obvious on the basis of their derivations alone which approach is most accurate with small samples, nor whether any of the approaches represents an improvement on conventional practice.
+Furthermore, some versions of the approximations involve a working model, and it is not immediately apparent how discrepancies between the working model and the true data generating model will affect their performance. 
+Thus, it is not obvious on the basis of their derivations alone which approach is most accurate with small samples, nor whether any of the approaches represents an improvement on more conventional practice (i.e., using $T^{HC3}$ with a $t(n - p)$ reference distribution).
 
 \section{Simulations}
 \label{sec:simulations}
@@ -568,7 +568,7 @@ This review was also limited to methods for testing a single linear contrast. A 
 
 Recent work on robust testing has focused largely on adjustments to the HCCMEs themselves \citep[e.g.,][]{Li2016new, Hartigan2016alternative} rather than to the reference distribution. 
 Despite the limitations we have noted, we would argue that the distributional approximations that we have reviewed---including Satterthwaite, saddlepoint, and Edgeworth approximation---warrant greater consideration for applications and further attention in methodological research on robust inference. 
-A further reason for focusing on reference distribution approximations is that they are extensible to more general forms of sandwich estimation, whereas the HC4 and HC5 adjustments do not have such clear extensions. The Satterthwaite, saddlepoint, and Edgeworth approximation can all readily be extended to more general models, such as linear regression models estimated by weighed least squares. In fact, \citet{McCaffrey2006improved} developed the Satterthwaite and saddlepoint approximations under the even more general framework of generalized estimating equations and cluster-robust covariance matrix estimators; the \citet{Kauermann2001note} Edgeworth approximation can also be applied directly in this case. 
+A further reason for focusing on reference distribution approximations is that they are extensible to more general forms of sandwich estimation, whereas the HC4 and HC5 adjustments do not have such clear extensions. The Satterthwaite, saddlepoint, and Edgeworth approximation can all readily be extended to more general models, such as linear regression models estimated by weighted least squares. In fact, \citet{McCaffrey2006improved} developed the Satterthwaite and saddlepoint approximations under the even more general framework of generalized estimating equations and cluster-robust covariance matrix estimators; the \citet{Kauermann2001note} Edgeworth approximation can also be applied directly in this case. 
 
 \bibliographystyle{agsm}
 \bibliography{Bibliography}
