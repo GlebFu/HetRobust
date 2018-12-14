@@ -1,217 +1,1145 @@
-\begin{thebibliography}{xx}
+\begin{thebibliography}{}
 
-\harvarditem{Arellano}{1987}{Arellano1987computing}
-Arellano, M.  \harvardyearleft 1987\harvardyearright , `{Computing robust
-  standard errors for within-groups estimators}', {\em Oxford Bulletin of
-  Economics and Statistics} {\bf 49}(4),~431--434.
+\bibitem [\protect \citeauthoryear {%
+Arellano%
+}{%
+Arellano%
+}{%
+{\protect \APACyear {1987}}%
+}]{%
+Arellano1987computing}
+\APACinsertmetastar {%
+Arellano1987computing}%
+\begin{APACrefauthors}%
+Arellano, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1987}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Computing robust standard errors for within-groups
+  estimators}} {{Computing robust standard errors for within-groups
+  estimators}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Oxford Bulletin of Economics and
+  Statistics}{49}{4}{431--434}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Bell \harvardand\ McCaffrey}{2002}{Bell2002bias}
-Bell, R.~M. \harvardand\ McCaffrey, D.~F.  \harvardyearleft
-  2002\harvardyearright , `{Bias reduction in standard errors for linear
-  regression with multi-stage samples}', {\em Survey Methodology} {\bf
-  28}(2),~169--181.
+\bibitem [\protect \citeauthoryear {%
+Bell%
+\ \BBA {} McCaffrey%
+}{%
+Bell%
+\ \BBA {} McCaffrey%
+}{%
+{\protect \APACyear {2002}}%
+}]{%
+Bell2002bias}
+\APACinsertmetastar {%
+Bell2002bias}%
+\begin{APACrefauthors}%
+Bell, R\BPBI M.%
+\BCBT {}\ \BBA {} McCaffrey, D\BPBI F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2002}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Bias reduction in standard errors for linear regression
+  with multi-stage samples}} {{Bias reduction in standard errors for linear
+  regression with multi-stage samples}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Survey Methodology}{28}{2}{169--181}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Cai \harvardand\ Hayes}{2008}{Cai2008new}
-Cai, L. \harvardand\ Hayes, A.~F.  \harvardyearleft 2008\harvardyearright , `{A
-  new test of linear hypotheses in OLS regression under heteroscedasticity of
-  unknown form}', {\em Journal of Educational and Behavioral Statistics} {\bf
-  33}(1),~21--40.
+\bibitem [\protect \citeauthoryear {%
+Benjamin%
+\ \protect \BOthers {.}}{%
+Benjamin%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+benjamin2018redefine}
+\APACinsertmetastar {%
+benjamin2018redefine}%
+\begin{APACrefauthors}%
+Benjamin, D\BPBI J.%
+, Berger, J\BPBI O.%
+, Johannesson, M.%
+, Nosek, B\BPBI A.%
+, Wagenmakers, E\BHBI J.%
+, Berk, R.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Redefine statistical significance} {Redefine statistical
+  significance}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Human Behaviour}{2}{1}{6}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Chesher \harvardand\ Austin}{1991}{Chesher1991finite}
-Chesher, A. \harvardand\ Austin, G.  \harvardyearleft 1991\harvardyearright ,
-  `{The finite-sample distributions of heteroskedasticity robust Wald
-  statistics}', {\em Journal of Econometrics} {\bf 47}(1),~153--173.
+\bibitem [\protect \citeauthoryear {%
+Cai%
+\ \BBA {} Hayes%
+}{%
+Cai%
+\ \BBA {} Hayes%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+Cai2008new}
+\APACinsertmetastar {%
+Cai2008new}%
+\begin{APACrefauthors}%
+Cai, L.%
+\BCBT {}\ \BBA {} Hayes, A\BPBI F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{A new test of linear hypotheses in OLS regression under
+  heteroscedasticity of unknown form}} {{A new test of linear hypotheses in OLS
+  regression under heteroscedasticity of unknown form}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Educational and Behavioral
+  Statistics}{33}{1}{21--40}.
+\newblock
+\begin{APACrefDOI} \doi{10.3102/1076998607302628} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Cribari-Neto}{2004}{Cribari-Neto2004asymptotic}
-Cribari-Neto, F.  \harvardyearleft 2004\harvardyearright , `{Asymptotic
-  inference under heteroskedasticity of unknown form}', {\em Computational
-  Statistics and Data Analysis} {\bf 45}(2),~215--233.
+\bibitem [\protect \citeauthoryear {%
+Cattaneo%
+, Jansson%
+\BCBL {}\ \BBA {} Newey%
+}{%
+Cattaneo%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+cattaneo2018inference}
+\APACinsertmetastar {%
+cattaneo2018inference}%
+\begin{APACrefauthors}%
+Cattaneo, M\BPBI D.%
+, Jansson, M.%
+\BCBL {}\ \BBA {} Newey, W\BPBI K.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Inference in linear regression models with many
+  covariates and heteroscedasticity} {Inference in linear regression models
+  with many covariates and heteroscedasticity}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of the American Statistical
+  Association}{113}{523}{1350--1361}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Cribari-Neto \harvardand\ da~Silva}{2011}{Cribari-Neto2011new}
-Cribari-Neto, F. \harvardand\ da~Silva, W.~B.  \harvardyearleft
-  2011\harvardyearright , `{A new heteroskedasticity-consistent covariance
-  matrix estimator for the linear regression model}', {\em Advances in
-  Statistical Analysis} {\bf 95}(2),~129--146.
+\bibitem [\protect \citeauthoryear {%
+Chesher%
+\ \BBA {} Austin%
+}{%
+Chesher%
+\ \BBA {} Austin%
+}{%
+{\protect \APACyear {1991}}%
+}]{%
+Chesher1991finite}
+\APACinsertmetastar {%
+Chesher1991finite}%
+\begin{APACrefauthors}%
+Chesher, A.%
+\BCBT {}\ \BBA {} Austin, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1991}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{The finite-sample distributions of heteroskedasticity
+  robust Wald statistics}} {{The finite-sample distributions of
+  heteroskedasticity robust Wald statistics}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Econometrics}{47}{1}{153--173}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/0304-4076(91)90082-O} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem[Cribari-Neto et~al.]{Cribari-Neto, Souza \harvardand\
-  Vasconcellos}{2007}{Cribari-Neto2007inference}
-Cribari-Neto, F., Souza, T.~C. \harvardand\ Vasconcellos, K. L.~P.
-  \harvardyearleft 2007\harvardyearright , `{Inference under heteroskedasticity
-  and leveraged data}', {\em Communications in Statistics - Theory and Methods}
-  {\bf 36}(10),~1877--1888.
+\bibitem [\protect \citeauthoryear {%
+Cribari-Neto%
+}{%
+Cribari-Neto%
+}{%
+{\protect \APACyear {2004}}%
+}]{%
+Cribari-Neto2004asymptotic}
+\APACinsertmetastar {%
+Cribari-Neto2004asymptotic}%
+\begin{APACrefauthors}%
+Cribari-Neto, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2004}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Asymptotic inference under heteroskedasticity of
+  unknown form}} {{Asymptotic inference under heteroskedasticity of unknown
+  form}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Computational Statistics and Data
+  Analysis}{45}{2}{215--233}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/S0167-9473(02)00366-3} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Davidson \harvardand\ Flachaire}{2008}{Davidson2008wild}
-Davidson, R. \harvardand\ Flachaire, E.  \harvardyearleft 2008\harvardyearright
-  , `{The wild bootstrap, tamed at last}', {\em Journal of Econometrics} {\bf
-  146}(1),~162--169.
+\bibitem [\protect \citeauthoryear {%
+Cribari-Neto%
+\ \BBA {} da Silva%
+}{%
+Cribari-Neto%
+\ \BBA {} da Silva%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+Cribari-Neto2011new}
+\APACinsertmetastar {%
+Cribari-Neto2011new}%
+\begin{APACrefauthors}%
+Cribari-Neto, F.%
+\BCBT {}\ \BBA {} da Silva, W\BPBI B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{A new heteroskedasticity-consistent covariance matrix
+  estimator for the linear regression model}} {{A new
+  heteroskedasticity-consistent covariance matrix estimator for the linear
+  regression model}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Advances in Statistical Analysis}{95}{2}{129--146}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/s10182-010-0141-2} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Davidson \harvardand\ MacKinnon}{1993}{Davidson1993estimation}
-Davidson, R. \harvardand\ MacKinnon, J.~G.  \harvardyearleft
-  1993\harvardyearright , {\em {Estimation and Inference in Econometrics}},
-  Oxford University Press, New York, NY.
+\bibitem [\protect \citeauthoryear {%
+Cribari-Neto%
+, Souza%
+\BCBL {}\ \BBA {} Vasconcellos%
+}{%
+Cribari-Neto%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2007}}%
+}]{%
+Cribari-Neto2007inference}
+\APACinsertmetastar {%
+Cribari-Neto2007inference}%
+\begin{APACrefauthors}%
+Cribari-Neto, F.%
+, Souza, T\BPBI C.%
+\BCBL {}\ \BBA {} Vasconcellos, K\BPBI L\BPBI P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Inference under heteroskedasticity and leveraged data}}
+  {{Inference under heteroskedasticity and leveraged data}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Communications in Statistics - Theory and
+  Methods}{36}{10}{1877--1888}.
+\newblock
+\begin{APACrefDOI} \doi{10.1080/03610920601126589} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Eicker}{1967}{Eicker1967limit}
-Eicker, F.  \harvardyearleft 1967\harvardyearright , {Limit theorems for
-  regressions with unequal and dependent errors}, {\em in} `Proceedings of the
-  Fifth Berkeley symposium on Mathematical Statistics and Probability',
-  University of California Press, Berkeley, CA, pp.~59--82.
+\bibitem [\protect \citeauthoryear {%
+Davidson%
+\ \BBA {} Flachaire%
+}{%
+Davidson%
+\ \BBA {} Flachaire%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+Davidson2008wild}
+\APACinsertmetastar {%
+Davidson2008wild}%
+\begin{APACrefauthors}%
+Davidson, R.%
+\BCBT {}\ \BBA {} Flachaire, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{The wild bootstrap, tamed at last}} {{The wild
+  bootstrap, tamed at last}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Econometrics}{146}{1}{162--169}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.jeconom.2008.08.003} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Flachaire}{2005}{Flachaire2005boostrapping}
-Flachaire, E.  \harvardyearleft 2005\harvardyearright , `{Bootstrapping
-  heteroskedastic regression models: Wild bootstrap vs. pairs bootstrap}', {\em
-  Computational Statistics and Data Analysis} {\bf 49}(2),~361--376.
+\bibitem [\protect \citeauthoryear {%
+Davidson%
+\ \BBA {} MacKinnon%
+}{%
+Davidson%
+\ \BBA {} MacKinnon%
+}{%
+{\protect \APACyear {1993}}%
+}]{%
+Davidson1993estimation}
+\APACinsertmetastar {%
+Davidson1993estimation}%
+\begin{APACrefauthors}%
+Davidson, R.%
+\BCBT {}\ \BBA {} MacKinnon, J\BPBI G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1993}.
+\newblock
+\APACrefbtitle {{Estimation and Inference in Econometrics}} {{Estimation and
+  Inference in Econometrics}}.
+\newblock
+\APACaddressPublisher{New York, NY}{Oxford University Press}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Fuller}{1975}{Fuller1975regression}
-Fuller, W.~A.  \harvardyearleft 1975\harvardyearright , `Regression analysis
-  for sample survey', {\em Sankhya Series C} {\bf 37},~117--132.
+\bibitem [\protect \citeauthoryear {%
+Eicker%
+}{%
+Eicker%
+}{%
+{\protect \APACyear {1967}}%
+}]{%
+Eicker1967limit}
+\APACinsertmetastar {%
+Eicker1967limit}%
+\begin{APACrefauthors}%
+Eicker, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1967}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Limit theorems for regressions with unequal and
+  dependent errors}} {{Limit theorems for regressions with unequal and
+  dependent errors}}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of the Fifth Berkeley symposium on
+  Mathematical Statistics and Probability} {Proceedings of the fifth berkeley
+  symposium on mathematical statistics and probability}\ (\BPGS\ 59--82).
+\newblock
+\APACaddressPublisher{Berkeley, CA}{University of California Press}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Goutis \harvardand\ Casella}{1999}{Goutis1999explaining}
-Goutis, C. \harvardand\ Casella, G.  \harvardyearleft 1999\harvardyearright ,
-  `{Explaining the saddlepoint approximation}', {\em The American Statistician}
-  {\bf 53}(3),~216--224.
+\bibitem [\protect \citeauthoryear {%
+Flachaire%
+}{%
+Flachaire%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+Flachaire2005boostrapping}
+\APACinsertmetastar {%
+Flachaire2005boostrapping}%
+\begin{APACrefauthors}%
+Flachaire, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Bootstrapping heteroskedastic regression models: Wild
+  bootstrap vs. pairs bootstrap}} {{Bootstrapping heteroskedastic regression
+  models: Wild bootstrap vs. pairs bootstrap}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Computational Statistics and Data
+  Analysis}{49}{2}{361--376}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.csda.2004.05.018} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Hartigan}{2016}{Hartigan2016alternative}
-Hartigan, L.  \harvardyearleft 2016\harvardyearright , {Alternative HAC
-  Covariance Matrix Estimators with Improved Finite Sample Properties}.
-\newline\harvardurl{http://ssrn.com/abstract=2783612}
+\bibitem [\protect \citeauthoryear {%
+Fuller%
+}{%
+Fuller%
+}{%
+{\protect \APACyear {1975}}%
+}]{%
+Fuller1975regression}
+\APACinsertmetastar {%
+Fuller1975regression}%
+\begin{APACrefauthors}%
+Fuller, W\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1975}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Regression analysis for sample survey} {Regression
+  analysis for sample survey}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Sankhya Series C}{37}{}{117--132}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Huber}{1967}{Huber1967behavior}
-Huber, P.~J.  \harvardyearleft 1967\harvardyearright , {The behavior of maximum
-  likelihood estimates under nonstandard conditions}, {\em in} `Proceedings of
-  the Fifth Berkeley symposium on Mathematical Statistics and Probability',
-  University of California Press, Berkeley, CA, pp.~221--233.
+\bibitem [\protect \citeauthoryear {%
+Goutis%
+\ \BBA {} Casella%
+}{%
+Goutis%
+\ \BBA {} Casella%
+}{%
+{\protect \APACyear {1999}}%
+}]{%
+Goutis1999explaining}
+\APACinsertmetastar {%
+Goutis1999explaining}%
+\begin{APACrefauthors}%
+Goutis, C.%
+\BCBT {}\ \BBA {} Casella, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Explaining the saddlepoint approximation}} {{Explaining
+  the saddlepoint approximation}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{The American Statistician}{53}{3}{216--224}.
+\newblock
+\begin{APACrefDOI} \doi{10.1080/00031305.1999.10474463} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Huzurbazar}{1999}{Huzurbazar1999practical}
-Huzurbazar, S.  \harvardyearleft 1999\harvardyearright , `{Practical
-  saddlepoint approximations}', {\em The American Statistician} {\bf
-  53}(3),~225--232.
+\bibitem [\protect \citeauthoryear {%
+Hartigan%
+}{%
+Hartigan%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+Hartigan2016alternative}
+\APACinsertmetastar {%
+Hartigan2016alternative}%
+\begin{APACrefauthors}%
+Hartigan, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+\APACrefbtitle {{Alternative HAC Covariance Matrix Estimators with Improved
+  Finite Sample Properties}.} {{Alternative HAC Covariance Matrix Estimators
+  with Improved Finite Sample Properties}.}
+\newblock
+\begin{APACrefURL} \url{http://ssrn.com/abstract=2783612} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Imbens \harvardand\ Kolesar}{2015}{Imbens2015robust}
-Imbens, G.~W. \harvardand\ Kolesar, M.  \harvardyearleft 2015\harvardyearright
-  , {Robust standard errors in small samples: Some practical advice}.
-\newline\harvardurl{https://www.princeton.edu/{~}mkolesar/papers/small-robust.pdf}
+\bibitem [\protect \citeauthoryear {%
+Huber%
+}{%
+Huber%
+}{%
+{\protect \APACyear {1967}}%
+}]{%
+Huber1967behavior}
+\APACinsertmetastar {%
+Huber1967behavior}%
+\begin{APACrefauthors}%
+Huber, P\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1967}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{The behavior of maximum likelihood estimates under
+  nonstandard conditions}} {{The behavior of maximum likelihood estimates under
+  nonstandard conditions}}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Proceedings of the Fifth Berkeley symposium on
+  Mathematical Statistics and Probability} {Proceedings of the fifth berkeley
+  symposium on mathematical statistics and probability}\ (\BPGS\ 221--233).
+\newblock
+\APACaddressPublisher{Berkeley, CA}{University of California Press}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Kauermann \harvardand\ Carroll}{2001}{Kauermann2001note}
-Kauermann, G. \harvardand\ Carroll, R.~J.  \harvardyearleft
-  2001\harvardyearright , `{A note on the efficiency of sandwich covariance
-  matrix estimation}', {\em Journal of the American Statistical Association}
-  {\bf 96}(456),~1387--1396.
+\bibitem [\protect \citeauthoryear {%
+Huzurbazar%
+}{%
+Huzurbazar%
+}{%
+{\protect \APACyear {1999}}%
+}]{%
+Huzurbazar1999practical}
+\APACinsertmetastar {%
+Huzurbazar1999practical}%
+\begin{APACrefauthors}%
+Huzurbazar, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Practical saddlepoint approximations}} {{Practical
+  saddlepoint approximations}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{The American Statistician}{53}{3}{225--232}.
+\newblock
+\begin{APACrefDOI} \doi{10.1080/00031305.1999.10474464} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem[Li et~al.]{Li, Zhang, Zhang \harvardand\ Wang}{2016}{Li2016new}
-Li, S., Zhang, N., Zhang, X. \harvardand\ Wang, G.  \harvardyearleft
-  2016\harvardyearright , `{A new heteroskedasticity-consistent covariance
-  matrix estimator and inference under heteroskedasticity}', {\em Journal of
-  Statistical Computation and Simulation} {\bf 87}(1),~198--210.
+\bibitem [\protect \citeauthoryear {%
+Imbens%
+\ \BBA {} Kolesar%
+}{%
+Imbens%
+\ \BBA {} Kolesar%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+Imbens2015robust}
+\APACinsertmetastar {%
+Imbens2015robust}%
+\begin{APACrefauthors}%
+Imbens, G\BPBI W.%
+\BCBT {}\ \BBA {} Kolesar, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+\APACrefbtitle {{Robust standard errors in small samples: Some practical
+  advice}.} {{Robust standard errors in small samples: Some practical advice}.}
+\newblock
+\begin{APACrefURL}
+  \url{https://www.princeton.edu/{~}mkolesar/papers/small-robust.pdf}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Liang \harvardand\ Zeger}{1986}{Liang1986longitudinal}
-Liang, K.-Y. \harvardand\ Zeger, S.~L.  \harvardyearleft 1986\harvardyearright
-  , `{Longitudinal data analysis using generalized linear models}', {\em
-  Biometrika} {\bf 73}(1),~13--22.
+\bibitem [\protect \citeauthoryear {%
+Kauermann%
+\ \BBA {} Carroll%
+}{%
+Kauermann%
+\ \BBA {} Carroll%
+}{%
+{\protect \APACyear {2001}}%
+}]{%
+Kauermann2001note}
+\APACinsertmetastar {%
+Kauermann2001note}%
+\begin{APACrefauthors}%
+Kauermann, G.%
+\BCBT {}\ \BBA {} Carroll, R\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2001}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{A note on the efficiency of sandwich covariance matrix
+  estimation}} {{A note on the efficiency of sandwich covariance matrix
+  estimation}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of the American Statistical
+  Association}{96}{456}{1387--1396}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem[Lipsitz et~al.]{Lipsitz, Ibrahim \harvardand\
-  Parzen}{1999}{Lipsitz1999degrees}
-Lipsitz, S.~R., Ibrahim, J.~G. \harvardand\ Parzen, M.  \harvardyearleft
-  1999\harvardyearright , `{A degrees-of-freedom approximation for a
-  t-statistic with heterogeneous variance}', {\em Journal of the Royal
-  Statistical Society: Series D (The Statistician)} {\bf 48}(4),~495--506.
+\bibitem [\protect \citeauthoryear {%
+Li%
+, Zhang%
+, Zhang%
+\BCBL {}\ \BBA {} Wang%
+}{%
+Li%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+Li2016new}
+\APACinsertmetastar {%
+Li2016new}%
+\begin{APACrefauthors}%
+Li, S.%
+, Zhang, N.%
+, Zhang, X.%
+\BCBL {}\ \BBA {} Wang, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{A new heteroskedasticity-consistent covariance matrix
+  estimator and inference under heteroskedasticity}} {{A new
+  heteroskedasticity-consistent covariance matrix estimator and inference under
+  heteroskedasticity}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Statistical Computation and
+  Simulation}{87}{1}{198--210}.
+\newblock
+\begin{APACrefDOI} \doi{10.1080/00949655.2016.1198906} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Liu}{1988}{Liu1988bootstrap}
-Liu, R.~Y.  \harvardyearleft 1988\harvardyearright , `{Bootstrap procedures
-  under some non-i.i.d. models}', {\em The Annals of Statistics} {\bf
-  16}(4),~1696--1708.
+\bibitem [\protect \citeauthoryear {%
+Liang%
+\ \BBA {} Zeger%
+}{%
+Liang%
+\ \BBA {} Zeger%
+}{%
+{\protect \APACyear {1986}}%
+}]{%
+Liang1986longitudinal}
+\APACinsertmetastar {%
+Liang1986longitudinal}%
+\begin{APACrefauthors}%
+Liang, K\BHBI Y.%
+\BCBT {}\ \BBA {} Zeger, S\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1986}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Longitudinal data analysis using generalized linear
+  models}} {{Longitudinal data analysis using generalized linear
+  models}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Biometrika}{73}{1}{13--22}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Long \harvardand\ Ervin}{2000}{Long2000using}
-Long, J.~S. \harvardand\ Ervin, L.~H.  \harvardyearleft 2000\harvardyearright ,
-  `{Using heteroscedasticity consistent standard errors in the linear
-  regression model}', {\em The American Statistician} {\bf 54}(3),~217--224.
+\bibitem [\protect \citeauthoryear {%
+Lipsitz%
+, Ibrahim%
+\BCBL {}\ \BBA {} Parzen%
+}{%
+Lipsitz%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1999}}%
+}]{%
+Lipsitz1999degrees}
+\APACinsertmetastar {%
+Lipsitz1999degrees}%
+\begin{APACrefauthors}%
+Lipsitz, S\BPBI R.%
+, Ibrahim, J\BPBI G.%
+\BCBL {}\ \BBA {} Parzen, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{A degrees-of-freedom approximation for a t-statistic
+  with heterogeneous variance}} {{A degrees-of-freedom approximation for a
+  t-statistic with heterogeneous variance}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of the Royal Statistical Society: Series D (The
+  Statistician)}{48}{4}{495--506}.
+\newblock
+\begin{APACrefDOI} \doi{10.1111/1467-9884.00207} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Lugannani \harvardand\ Rice}{1980}{Lugannani1980saddlepoint}
-Lugannani, R. \harvardand\ Rice, S.  \harvardyearleft 1980\harvardyearright ,
-  `{Saddle point approximation for the distribution of the sum of independent
-  random variables}', {\em Advances in Applied Probability} {\bf 12}(2),~475.
+\bibitem [\protect \citeauthoryear {%
+Liu%
+}{%
+Liu%
+}{%
+{\protect \APACyear {1988}}%
+}]{%
+Liu1988bootstrap}
+\APACinsertmetastar {%
+Liu1988bootstrap}%
+\begin{APACrefauthors}%
+Liu, R\BPBI Y.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1988}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Bootstrap procedures under some non-i.i.d. models}}
+  {{Bootstrap procedures under some non-i.i.d. models}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{The Annals of Statistics}{16}{4}{1696--1708}.
+\newblock
+\begin{APACrefDOI} \doi{10.1214/aos/1176351062} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{MacKinnon}{2013}{MacKinnon2013thirty}
-MacKinnon, J.~G.  \harvardyearleft 2013\harvardyearright , {Thirty years of
-  heteroskedasticity-robust inference}, {\em in} X.~Chen \harvardand\ N.~R.
-  Swanson, eds, `Recent Advances and Future Directions in Causality,
-  Prediction, and Specification Analysis', Springer New York, New York, NY.
+\bibitem [\protect \citeauthoryear {%
+Long%
+\ \BBA {} Ervin%
+}{%
+Long%
+\ \BBA {} Ervin%
+}{%
+{\protect \APACyear {2000}}%
+}]{%
+Long2000using}
+\APACinsertmetastar {%
+Long2000using}%
+\begin{APACrefauthors}%
+Long, J\BPBI S.%
+\BCBT {}\ \BBA {} Ervin, L\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2000}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Using heteroscedasticity consistent standard errors in
+  the linear regression model}} {{Using heteroscedasticity consistent standard
+  errors in the linear regression model}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{The American Statistician}{54}{3}{217--224}.
+\newblock
+\begin{APACrefDOI} \doi{10.1080/00031305.2000.10474549} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{MacKinnon \harvardand\ White}{1985}{MacKinnon1985some}
-MacKinnon, J.~G. \harvardand\ White, H.  \harvardyearleft 1985\harvardyearright
-  , `{Some heteroskedasticity-consistent covariance matrix estimators with
-  improved finite sample properties}', {\em Journal of Econometrics} {\bf
-  29},~305--325.
+\bibitem [\protect \citeauthoryear {%
+Lugannani%
+\ \BBA {} Rice%
+}{%
+Lugannani%
+\ \BBA {} Rice%
+}{%
+{\protect \APACyear {1980}}%
+}]{%
+Lugannani1980saddlepoint}
+\APACinsertmetastar {%
+Lugannani1980saddlepoint}%
+\begin{APACrefauthors}%
+Lugannani, R.%
+\BCBT {}\ \BBA {} Rice, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1980}{jun}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Saddle point approximation for the distribution of the
+  sum of independent random variables}} {{Saddle point approximation for the
+  distribution of the sum of independent random variables}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Advances in Applied Probability}{12}{2}{475}.
+\newblock
+\begin{APACrefDOI} \doi{10.2307/1426607} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Mathai \harvardand\ Provost}{1992}{mathai1992quadratic}
-Mathai, A.~M. \harvardand\ Provost, S.~B.  \harvardyearleft
-  1992\harvardyearright , {\em {Quadratic forms in random variables: theory and
-  applications}}, M. Dekker, New York.
+\bibitem [\protect \citeauthoryear {%
+MacKinnon%
+}{%
+MacKinnon%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+MacKinnon2013thirty}
+\APACinsertmetastar {%
+MacKinnon2013thirty}%
+\begin{APACrefauthors}%
+MacKinnon, J\BPBI G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Thirty years of heteroskedasticity-robust inference}}
+  {{Thirty years of heteroskedasticity-robust inference}}.{\BBCQ}
+\newblock
+\BIn{} X.~Chen\ \BBA {} N\BPBI R.~Swanson\ (\BEDS), \APACrefbtitle {Recent
+  Advances and Future Directions in Causality, Prediction, and Specification
+  Analysis.} {Recent advances and future directions in causality, prediction,
+  and specification analysis.}
+\newblock
+\APACaddressPublisher{New York, NY}{Springer New York}.
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-1-4614-1653-1} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{McCaffrey \harvardand\ Bell}{2006}{McCaffrey2006improved}
-McCaffrey, D.~F. \harvardand\ Bell, R.~M.  \harvardyearleft
-  2006\harvardyearright , `{Improved hypothesis testing for coefficients in
-  generalized estimating equations with small samples of clusters.}', {\em
-  Statistics in medicine} {\bf 25}(23),~4081--98.
+\bibitem [\protect \citeauthoryear {%
+MacKinnon%
+\ \BBA {} White%
+}{%
+MacKinnon%
+\ \BBA {} White%
+}{%
+{\protect \APACyear {1985}}%
+}]{%
+MacKinnon1985some}
+\APACinsertmetastar {%
+MacKinnon1985some}%
+\begin{APACrefauthors}%
+MacKinnon, J\BPBI G.%
+\BCBT {}\ \BBA {} White, H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1985}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Some heteroskedasticity-consistent covariance matrix
+  estimators with improved finite sample properties}} {{Some
+  heteroskedasticity-consistent covariance matrix estimators with improved
+  finite sample properties}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Econometrics}{29}{}{305--325}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Richard}{2016}{Richard2016hetero}
-Richard, P.  \harvardyearleft 2016\harvardyearright ,
-  `{Heteroskedasticity–robust tests with minimum size distortion}', {\em
-  Communications in Statistics - Theory and Methods} {\bf 0926},~1--15.
+\bibitem [\protect \citeauthoryear {%
+Mathai%
+\ \BBA {} Provost%
+}{%
+Mathai%
+\ \BBA {} Provost%
+}{%
+{\protect \APACyear {1992}}%
+}]{%
+mathai1992quadratic}
+\APACinsertmetastar {%
+mathai1992quadratic}%
+\begin{APACrefauthors}%
+Mathai, A\BPBI M.%
+\BCBT {}\ \BBA {} Provost, S\BPBI B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1992}.
+\newblock
+\APACrefbtitle {{Quadratic forms in random variables: theory and applications}}
+  {{Quadratic forms in random variables: theory and applications}}.
+\newblock
+\APACaddressPublisher{}{M. Dekker, New York}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Rothenberg}{1988}{Rothenberg1988approximate}
-Rothenberg, T.  \harvardyearleft 1988\harvardyearright , `{Approximate power
-  functions for some robust tests of regression coefficients}', {\em
-  Econometrica} {\bf 56}(5),~997--1019.
+\bibitem [\protect \citeauthoryear {%
+McCaffrey%
+\ \BBA {} Bell%
+}{%
+McCaffrey%
+\ \BBA {} Bell%
+}{%
+{\protect \APACyear {2006}}%
+}]{%
+McCaffrey2006improved}
+\APACinsertmetastar {%
+McCaffrey2006improved}%
+\begin{APACrefauthors}%
+McCaffrey, D\BPBI F.%
+\BCBT {}\ \BBA {} Bell, R\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Improved hypothesis testing for coefficients in
+  generalized estimating equations with small samples of clusters.}} {{Improved
+  hypothesis testing for coefficients in generalized estimating equations with
+  small samples of clusters.}}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Statistics in medicine}{25}{23}{4081--98}.
+\newblock
+\begin{APACrefDOI} \doi{10.1002/sim.2502} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Satterthwaite}{1946}{Satterthwaite1946approximate}
-Satterthwaite, F.~E.  \harvardyearleft 1946\harvardyearright , `{An approximate
-  distribution of estimates of variance components}', {\em Biometrics bulletin}
-  {\bf 2}(6),~110--114.
+\bibitem [\protect \citeauthoryear {%
+Richard%
+}{%
+Richard%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+Richard2016hetero}
+\APACinsertmetastar {%
+Richard2016hetero}%
+\begin{APACrefauthors}%
+Richard, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Heteroskedasticity-robust tests with minimum size
+  distortion}} {{Heteroskedasticity-robust tests with minimum size
+  distortion}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Communications in Statistics - Theory and
+  Methods}{0926}{}{1--15}.
+\newblock
+\begin{APACrefDOI} \doi{10.1080/03610926.2015.1125497} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Skinner}{1989}{Skinner1989domain}
-Skinner, C.~J.  \harvardyearleft 1989\harvardyearright , {Domain means,
-  regression and multivariate analyses}, {\em in} C.~J. Skinner, D.~Holt
-  \harvardand\ T.~F. Smith, eds, `Analysis of complex surveys', John Wiley \&
-  Sons, New York, NY, pp.~59--88.
+\bibitem [\protect \citeauthoryear {%
+Rothenberg%
+}{%
+Rothenberg%
+}{%
+{\protect \APACyear {1988}}%
+}]{%
+Rothenberg1988approximate}
+\APACinsertmetastar {%
+Rothenberg1988approximate}%
+\begin{APACrefauthors}%
+Rothenberg, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1988}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Approximate power functions for some robust tests of
+  regression coefficients}} {{Approximate power functions for some robust tests
+  of regression coefficients}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Econometrica}{56}{5}{997--1019}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Tipton \harvardand\ Pustejovsky}{2015}{Tipton2015small-F}
-Tipton, E. \harvardand\ Pustejovsky, J.~E.  \harvardyearleft
-  2015\harvardyearright , `{Small-sample adjustments for tests of moderators
-  and model fit using robust variance estimation in meta-regression}', {\em
-  Journal of Educational and Behavioral Statistics} {\bf 40}(6),~604--634.
+\bibitem [\protect \citeauthoryear {%
+Satterthwaite%
+}{%
+Satterthwaite%
+}{%
+{\protect \APACyear {1946}}%
+}]{%
+Satterthwaite1946approximate}
+\APACinsertmetastar {%
+Satterthwaite1946approximate}%
+\begin{APACrefauthors}%
+Satterthwaite, F\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1946}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{An approximate distribution of estimates of variance
+  components}} {{An approximate distribution of estimates of variance
+  components}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Biometrics bulletin}{2}{6}{110--114}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Welch}{1947}{Welch1947generalization}
-Welch, B.  \harvardyearleft 1947\harvardyearright , `{The generalization of
+\bibitem [\protect \citeauthoryear {%
+Skinner%
+}{%
+Skinner%
+}{%
+{\protect \APACyear {1989}}%
+}]{%
+Skinner1989domain}
+\APACinsertmetastar {%
+Skinner1989domain}%
+\begin{APACrefauthors}%
+Skinner, C\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1989}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Domain means, regression and multivariate analyses}}
+  {{Domain means, regression and multivariate analyses}}.{\BBCQ}
+\newblock
+\BIn{} C\BPBI J.~Skinner, D.~Holt\BCBL {}\ \BBA {} T\BPBI F.~Smith\ (\BEDS),
+  \APACrefbtitle {Analysis of complex surveys} {Analysis of complex surveys}\
+  (\BPGS\ 59--88).
+\newblock
+\APACaddressPublisher{New York, NY}{John Wiley \& Sons}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Tipton%
+\ \BBA {} Pustejovsky%
+}{%
+Tipton%
+\ \BBA {} Pustejovsky%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+Tipton2015small-F}
+\APACinsertmetastar {%
+Tipton2015small-F}%
+\begin{APACrefauthors}%
+Tipton, E.%
+\BCBT {}\ \BBA {} Pustejovsky, J\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Small-sample adjustments for tests of moderators and
+  model fit using robust variance estimation in meta-regression}}
+  {{Small-sample adjustments for tests of moderators and model fit using robust
+  variance estimation in meta-regression}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Educational and Behavioral
+  Statistics}{40}{6}{604--634}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Welch%
+}{%
+Welch%
+}{%
+{\protect \APACyear {1947}}%
+}]{%
+Welch1947generalization}
+\APACinsertmetastar {%
+Welch1947generalization}%
+\begin{APACrefauthors}%
+Welch, B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1947}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{The generalization of Student's' problem when several
+  different population variances are involved}} {{The generalization of
   Student's' problem when several different population variances are
-  involved}', {\em Biometrika} {\bf 34}(1/2),~28--35.
+  involved}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Biometrika}{34}{1/2}{28--35}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{White}{1980}{White1980heteroskedasticity}
-White, H.  \harvardyearleft 1980\harvardyearright , `{A
+\bibitem [\protect \citeauthoryear {%
+White%
+}{%
+White%
+}{%
+{\protect \APACyear {1980}}%
+}]{%
+White1980heteroskedasticity}
+\APACinsertmetastar {%
+White1980heteroskedasticity}%
+\begin{APACrefauthors}%
+White, H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1980}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{A heteroskedasticity-consistent covariance matrix
+  estimator and a direct test for heteroskedasticity}} {{A
   heteroskedasticity-consistent covariance matrix estimator and a direct test
-  for heteroskedasticity}', {\em Econometrica} {\bf 48}(4),~817--838.
+  for heteroskedasticity}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Econometrica}{48}{4}{817--838}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{White}{1984}{white1984asymptotic}
-White, H.  \harvardyearleft 1984\harvardyearright , {\em Asymptotic theory for
-  econometricians}, Academic Press, Inc., Orlando, FL.
+\bibitem [\protect \citeauthoryear {%
+White%
+}{%
+White%
+}{%
+{\protect \APACyear {1984}}%
+}]{%
+white1984asymptotic}
+\APACinsertmetastar {%
+white1984asymptotic}%
+\begin{APACrefauthors}%
+White, H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{1984}.
+\newblock
+\APACrefbtitle {Asymptotic theory for econometricians} {Asymptotic theory for
+  econometricians}.
+\newblock
+\APACaddressPublisher{Orlando, FL}{Academic Press, Inc.}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Zeileis}{2004}{Zeileis2004econometric}
-Zeileis, A.  \harvardyearleft 2004\harvardyearright , `{Econometric computing
-  with HC and HAC covariance matrix estimators}', {\em Journal of Statistical
-  Software} {\bf 11}(10),~1--17.
+\bibitem [\protect \citeauthoryear {%
+Zeileis%
+}{%
+Zeileis%
+}{%
+{\protect \APACyear {2004}}%
+}]{%
+Zeileis2004econometric}
+\APACinsertmetastar {%
+Zeileis2004econometric}%
+\begin{APACrefauthors}%
+Zeileis, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2004}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Econometric computing with HC and HAC covariance matrix
+  estimators}} {{Econometric computing with HC and HAC covariance matrix
+  estimators}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Statistical Software}{11}{10}{1--17}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Zhang}{2012{\em a}}{Zhang2012twowayANOVA}
-Zhang, J.-T.  \harvardyearleft 2012{\em a}\harvardyearright , `{An approximate
-  degrees of freedom test for heteroscedastic two-way ANOVA}', {\em Journal of
-  Statistical Planning and Inference} {\bf 142}(1),~336--346.
+\bibitem [\protect \citeauthoryear {%
+Zhang%
+}{%
+Zhang%
+}{%
+{\protect \APACyear {2012}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+Zhang2012twowayANOVA}
+\APACinsertmetastar {%
+Zhang2012twowayANOVA}%
+\begin{APACrefauthors}%
+Zhang, J\BHBI T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012{\protect \BCnt {1}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{An approximate degrees of freedom test for
+  heteroscedastic two-way ANOVA}} {{An approximate degrees of freedom test for
+  heteroscedastic two-way ANOVA}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Statistical Planning and
+  Inference}{142}{1}{336--346}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.jspi.2011.07.023} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Zhang}{2012{\em b}}{Zhang2012MANOVA}
-Zhang, J.-T.  \harvardyearleft 2012{\em b}\harvardyearright , `{An approximate
-  Hotelling T2 -test for heteroscedastic one-way MANOVA}', {\em Open Journal of
-  Statistics} {\bf 2},~1--11.
+\bibitem [\protect \citeauthoryear {%
+Zhang%
+}{%
+Zhang%
+}{%
+{\protect \APACyear {2012}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+Zhang2012MANOVA}
+\APACinsertmetastar {%
+Zhang2012MANOVA}%
+\begin{APACrefauthors}%
+Zhang, J\BHBI T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012{\protect \BCnt {2}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{An approximate Hotelling T2 -test for heteroscedastic
+  one-way MANOVA}} {{An approximate Hotelling T2 -test for heteroscedastic
+  one-way MANOVA}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Open Journal of Statistics}{2}{}{1--11}.
+\PrintBackRefs{\CurrentBib}
 
-\harvarditem{Zhang}{2013}{Zhang2013tests}
-Zhang, J.-T.  \harvardyearleft 2013\harvardyearright , `{Tests of linear
-  hypotheses in the ANOVA under heteroscedasticity}', {\em International
-  Journal of Advanced Statistics and Probability} {\bf 1}(2),~9--24.
+\bibitem [\protect \citeauthoryear {%
+Zhang%
+}{%
+Zhang%
+}{%
+{\protect \APACyear {2013}}%
+}]{%
+Zhang2013tests}
+\APACinsertmetastar {%
+Zhang2013tests}%
+\begin{APACrefauthors}%
+Zhang, J\BHBI T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Tests of linear hypotheses in the ANOVA under
+  heteroscedasticity}} {{Tests of linear hypotheses in the ANOVA under
+  heteroscedasticity}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{International Journal of Advanced Statistics and
+  Probability}{1}{2}{9--24}.
+\PrintBackRefs{\CurrentBib}
 
 \end{thebibliography}
